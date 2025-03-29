@@ -6,7 +6,7 @@ package itson.sistemarestaurante;
 
 import itson.sistemarestaurantedominio.Cliente;
 import itson.sistemarestaurantedominio.Comanda;
-import itson.sistemarestaurantedominio.EstadoComanda;
+import itson.sistemarestaurantedominio.enumeradores.EstadoComanda;
 import itson.sistemarestaurantedominio.Mesa;
 import java.util.Calendar;
 import javax.persistence.EntityManager;
@@ -31,7 +31,6 @@ public class ComandaTest {
 
         em.getTransaction().begin();
 
-        //Cliente cliente = new Cliente("Checo", "Perez", "Mendoza");
         Mesa mesa = new Mesa(2);
         Calendar ahora = Calendar.getInstance();
         Cliente cliente = new Cliente("Checo", "Perez", "Mendoza", 1, "checo@gmail.com", "6441111111", ahora);

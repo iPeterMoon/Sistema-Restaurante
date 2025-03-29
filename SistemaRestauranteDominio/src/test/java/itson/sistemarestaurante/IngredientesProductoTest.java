@@ -7,6 +7,7 @@ package itson.sistemarestaurante;
 import itson.sistemarestaurantedominio.Ingrediente;
 import itson.sistemarestaurantedominio.IngredientesProducto;
 import itson.sistemarestaurantedominio.Producto;
+import itson.sistemarestaurantedominio.enumeradores.UnidadMedida;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -30,7 +31,7 @@ public class IngredientesProductoTest {
 
         em.getTransaction().begin();
 
-        Ingrediente ingrediente = new Ingrediente("Manzana");
+        Ingrediente ingrediente = new Ingrediente("Manzana", UnidadMedida.PIEZAS, 3);
         Producto producto = new Producto("Pie de Manzana", 100.00);
         IngredientesProducto ingredientesProducto = new IngredientesProducto(ingrediente, producto);
 

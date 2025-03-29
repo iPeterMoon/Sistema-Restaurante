@@ -7,7 +7,7 @@ package itson.sistemarestaurante;
 import itson.sistemarestaurantedominio.Cliente;
 import itson.sistemarestaurantedominio.Comanda;
 import itson.sistemarestaurantedominio.DetallesComanda;
-import itson.sistemarestaurantedominio.EstadoComanda;
+import itson.sistemarestaurantedominio.enumeradores.EstadoComanda;
 import itson.sistemarestaurantedominio.Mesa;
 import itson.sistemarestaurantedominio.Producto;
 import java.util.Calendar;
@@ -33,7 +33,6 @@ public class DetallesComandaTest {
 
         em.getTransaction().begin();
 
-        //Cliente cliente = new Cliente("Patricio", "O'ward", "Junco");
         Producto producto = new Producto("Rollo California", 100.00);
         Mesa mesa = new Mesa(3);
         Calendar ahora = Calendar.getInstance();

@@ -4,6 +4,7 @@
  */
 package itson.sistemarestaurantedominio;
 
+import itson.sistemarestaurantedominio.enumeradores.EstadoComanda;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;

@@ -2,7 +2,9 @@ C:\Users\PC\Desktop\Cosas\Git Repositories\Sistema-Restaurante\SistemaRestaurant
 C:\Users\PC\Desktop\Cosas\Git Repositories\Sistema-Restaurante\SistemaRestauranteDominio\src\main\java\itson\sistemarestaurantedominio\Comanda.java
 C:\Users\PC\Desktop\Cosas\Git Repositories\Sistema-Restaurante\SistemaRestauranteDominio\src\main\java\itson\sistemarestaurantedominio\IngredientesProducto.java
 C:\Users\PC\Desktop\Cosas\Git Repositories\Sistema-Restaurante\SistemaRestauranteDominio\src\main\java\itson\sistemarestaurantedominio\DetallesComanda.java
-C:\Users\PC\Desktop\Cosas\Git Repositories\Sistema-Restaurante\SistemaRestauranteDominio\src\main\java\itson\sistemarestaurantedominio\EstadoComanda.java
+C:\Users\PC\Desktop\Cosas\Git Repositories\Sistema-Restaurante\SistemaRestauranteDominio\src\main\java\itson\sistemarestaurantedominio\enumeradores\EstadoComanda.java
 C:\Users\PC\Desktop\Cosas\Git Repositories\Sistema-Restaurante\SistemaRestauranteDominio\src\main\java\itson\sistemarestaurantedominio\Mesa.java
 C:\Users\PC\Desktop\Cosas\Git Repositories\Sistema-Restaurante\SistemaRestauranteDominio\src\main\java\itson\sistemarestaurantedominio\Producto.java
+C:\Users\PC\Desktop\Cosas\Git Repositories\Sistema-Restaurante\SistemaRestauranteDominio\src\main\java\itson\sistemarestaurantedominio\enumeradores\TipoProducto.java
 C:\Users\PC\Desktop\Cosas\Git Repositories\Sistema-Restaurante\SistemaRestauranteDominio\src\main\java\itson\sistemarestaurantedominio\Ingrediente.java
+C:\Users\PC\Desktop\Cosas\Git Repositories\Sistema-Restaurante\SistemaRestauranteDominio\src\main\java\itson\sistemarestaurantedominio\enumeradores\UnidadMedida.java

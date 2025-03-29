@@ -4,11 +4,14 @@
  */
 package itson.sistemarestaurantedominio;
 
+import itson.sistemarestaurantedominio.enumeradores.UnidadMedida;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,14 +34,23 @@ public class Ingrediente implements Serializable {
     @Column(name = "nombre", length = 50, nullable = false)
     private String nombre;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "unidadMedida", nullable = false)
+    private UnidadMedida unidadMedida;
+
+    @Column(name = "stock", nullable = false)
+    private Integer stock;
+
     @OneToMany(mappedBy = "ingrediente", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<IngredientesProducto> productos;
 
     public Ingrediente() {
     }
 
-    public Ingrediente(String nombre) {
+    public Ingrediente(String nombre, UnidadMedida unidadMedida, Integer stock) {
         this.nombre = nombre;
+        this.unidadMedida = unidadMedida;
+        this.stock = stock;
     }
 
     public Long getId() {
@@ -55,6 +67,22 @@ public class Ingrediente implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public UnidadMedida getUnidadMedida() {
+        return unidadMedida;
+    }
+
+    public void setUnidadMedida(UnidadMedida unidadMedida) {
+        this.unidadMedida = unidadMedida;
+    }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
 
     public List<IngredientesProducto> getProductos() {

@@ -5,6 +5,7 @@
 package itson.sistemarestaurante;
 
 import itson.sistemarestaurantedominio.Ingrediente;
+import itson.sistemarestaurantedominio.enumeradores.UnidadMedida;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -27,7 +28,7 @@ public class IngredienteTest {
 
         em.getTransaction().begin();
 
-        Ingrediente ingrediente = new Ingrediente("Zanahoria");
+        Ingrediente ingrediente = new Ingrediente("Zanahoria", UnidadMedida.PIEZAS, 5);
 
         em.persist(ingrediente);
 
