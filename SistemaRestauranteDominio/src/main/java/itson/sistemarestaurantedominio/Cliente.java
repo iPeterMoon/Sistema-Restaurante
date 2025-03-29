@@ -5,6 +5,7 @@
 package itson.sistemarestaurantedominio;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,6 +15,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -37,16 +40,33 @@ public class Cliente implements Serializable {
     @Column(name = "apellidoMaterno", length = 50, nullable = false)
     private String apellidoMaterno;
 
+    @Column(name = "puntos", nullable = false)
+    private Integer puntos;
+
+    @Column(name = "correo", length = 100, nullable = false)
+    private String correo;
+
+    @Column(name = "telefono", length = 25, nullable = false)
+    private String telefono;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "fechaRegistro", nullable = false)
+    private Calendar fechaRegistro;
+
     @OneToMany(mappedBy = "cliente", cascade = {CascadeType.PERSIST})
     private List<Comanda> comandas;
 
     public Cliente() {
     }
 
-    public Cliente(String nombre, String apellidoPaterno, String apellidoMaterno) {
+    public Cliente(String nombre, String apellidoPaterno, String apellidoMaterno, Integer puntos, String correo, String telefono, Calendar fechaRegistro) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
+        this.puntos = puntos;
+        this.correo = correo;
+        this.telefono = telefono;
+        this.fechaRegistro = fechaRegistro;
     }
 
     public Long getId() {
@@ -79,6 +99,38 @@ public class Cliente implements Serializable {
 
     public void setApellidoMaterno(String apellidoMaterno) {
         this.apellidoMaterno = apellidoMaterno;
+    }
+
+    public Integer getPuntos() {
+        return puntos;
+    }
+
+    public void setPuntos(Integer puntos) {
+        this.puntos = puntos;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public Calendar getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(Calendar fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 
     public List<Comanda> getComandas() {

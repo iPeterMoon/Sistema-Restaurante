@@ -5,6 +5,7 @@
 package itson.sistemarestaurante;
 
 import itson.sistemarestaurantedominio.Cliente;
+import java.util.Calendar;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -28,7 +29,8 @@ public class ClienteTest {
 
         em.getTransaction().begin();
 
-        Cliente cliente = new Cliente("Juan", "Perez", "Martinez");
+        Calendar ahora = Calendar.getInstance();
+        Cliente cliente = new Cliente("Juan", "Perez", "Martinez", 1, "juan@gmail.com", "6441123456", ahora);
 
         em.persist(cliente);
 

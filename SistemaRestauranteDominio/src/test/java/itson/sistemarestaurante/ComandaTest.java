@@ -31,9 +31,10 @@ public class ComandaTest {
 
         em.getTransaction().begin();
 
-        Cliente cliente = new Cliente("Checo", "Perez", "Mendoza");
+        //Cliente cliente = new Cliente("Checo", "Perez", "Mendoza");
         Mesa mesa = new Mesa(2);
         Calendar ahora = Calendar.getInstance();
+        Cliente cliente = new Cliente("Checo", "Perez", "Mendoza", 1, "checo@gmail.com", "6441111111", ahora);
         Comanda comanda = new Comanda("OB-20250329-123", ahora, EstadoComanda.ENTREGADA, "Prueba", 123.00, cliente, mesa);
 
         em.persist(cliente);
