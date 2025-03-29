@@ -37,7 +37,7 @@ public class DetallesComandaTest {
         Mesa mesa = new Mesa(3);
         Calendar ahora = Calendar.getInstance();
         Cliente cliente = new Cliente("Patricio", "O'ward", "Junco", 1, "pato@gmail.com", "6441098765", ahora);
-        Comanda comanda = new Comanda("OB-20250329-111", ahora, EstadoComanda.CANCELADA, "Prueba", 300.00, cliente, mesa);
+        Comanda comanda = new Comanda("OB-20250329-111", ahora, EstadoComanda.CANCELADA, 300.00, cliente, mesa);
         DetallesComanda detalleComanda = new DetallesComanda(3, comanda, producto);
 
         em.persist(producto);

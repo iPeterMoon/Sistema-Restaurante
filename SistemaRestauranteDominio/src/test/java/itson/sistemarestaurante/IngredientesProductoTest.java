@@ -33,7 +33,7 @@ public class IngredientesProductoTest {
 
         Ingrediente ingrediente = new Ingrediente("Manzana", UnidadMedida.PIEZAS, 3);
         Producto producto = new Producto("Pie de Manzana", 100.00);
-        IngredientesProducto ingredientesProducto = new IngredientesProducto(ingrediente, producto);
+        IngredientesProducto ingredientesProducto = new IngredientesProducto(2, ingrediente, producto);
 
         em.persist(ingrediente);
         em.persist(producto);

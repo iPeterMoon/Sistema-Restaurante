@@ -27,6 +27,9 @@ public class IngredientesProducto implements Serializable {
     @Column(name = "idIngredientesProducto")
     private Long id;
 
+    @Column(name = "cantidad", nullable = false)
+    private Integer cantidad;
+
     @ManyToOne()
     @JoinColumn(name = "idIngrediente", nullable = false)
     private Ingrediente ingrediente;
@@ -38,7 +41,13 @@ public class IngredientesProducto implements Serializable {
     public IngredientesProducto() {
     }
 
-    public IngredientesProducto(Ingrediente ingrediente, Producto producto) {
+//    public IngredientesProducto(Ingrediente ingrediente, Producto producto) {
+//        this.ingrediente = ingrediente;
+//        this.producto = producto;
+//    }
+
+    public IngredientesProducto(Integer cantidad, Ingrediente ingrediente, Producto producto) {
+        this.cantidad = cantidad;
         this.ingrediente = ingrediente;
         this.producto = producto;
     }
@@ -49,6 +58,14 @@ public class IngredientesProducto implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
     }
 
     public Ingrediente getIngrediente() {

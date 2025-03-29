@@ -47,9 +47,6 @@ public class Comanda implements Serializable {
     @Column(name = "estado", nullable = false)
     private EstadoComanda estado;
 
-    @Column(name = "nota", nullable = true)
-    private String nota;
-
     @Column(name = "totalVenta", nullable = false)
     private Double totalVenta;
 
@@ -67,11 +64,10 @@ public class Comanda implements Serializable {
     public Comanda() {
     }
 
-    public Comanda(String folio, Calendar fechaHora, EstadoComanda estado, String nota, Double totalVenta, Cliente cliente, Mesa mesa) {
+    public Comanda(String folio, Calendar fechaHora, EstadoComanda estado, Double totalVenta, Cliente cliente, Mesa mesa) {
         this.folio = folio;
         this.fechaHora = fechaHora;
         this.estado = estado;
-        this.nota = nota;
         this.totalVenta = totalVenta;
         this.cliente = cliente;
         this.mesa = mesa;
@@ -107,14 +103,6 @@ public class Comanda implements Serializable {
 
     public void setEstado(EstadoComanda estado) {
         this.estado = estado;
-    }
-
-    public String getNota() {
-        return nota;
-    }
-
-    public void setNota(String nota) {
-        this.nota = nota;
     }
 
     public Double getTotalVenta() {
@@ -171,7 +159,7 @@ public class Comanda implements Serializable {
 
     @Override
     public String toString() {
-        return "Comanda{" + "id=" + id + ", folio=" + folio + ", fechaHora=" + fechaHora + ", estado=" + estado + ", nota=" + nota + ", totalVenta=" + totalVenta + ", cliente=" + cliente + ", mesa=" + mesa + '}';
+        return "Comanda{" + "id=" + id + ", folio=" + folio + ", fechaHora=" + fechaHora + ", estado=" + estado + ", totalVenta=" + totalVenta + ", cliente=" + cliente + ", mesa=" + mesa + ", productos=" + productos + '}';
     }
 
 }
