@@ -7,6 +7,7 @@ package itson.sistemarestaurante;
 import itson.sistemarestaurantedominio.Ingrediente;
 import itson.sistemarestaurantedominio.IngredientesProducto;
 import itson.sistemarestaurantedominio.Producto;
+import itson.sistemarestaurantedominio.enumeradores.TipoProducto;
 import itson.sistemarestaurantedominio.enumeradores.UnidadMedida;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -24,6 +25,9 @@ public class IngredientesProductoTest {
 
     @Test
     public void testCrearProductoConIngredientes() {
+        final int CANTIDAD_INGREDIENTE = 3;
+        final double PRECIO_PRODUCTO = 100.00;
+        final int CANTIDAD_INGREDIENTE_POR_PRODUCTO = 2;
 
         EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
                 "itson_SistemaRestauranteDominio_jar_1.0");
@@ -31,9 +35,10 @@ public class IngredientesProductoTest {
 
         em.getTransaction().begin();
 
-        Ingrediente ingrediente = new Ingrediente("Manzana", UnidadMedida.PIEZAS, 3);
-        Producto producto = new Producto("Pie de Manzana", 100.00);
-        IngredientesProducto ingredientesProducto = new IngredientesProducto(2, ingrediente, producto);
+        Ingrediente ingrediente = new Ingrediente("Manzana", UnidadMedida.PIEZAS, CANTIDAD_INGREDIENTE);
+        Producto producto = new Producto("Pie de Manzana", PRECIO_PRODUCTO, TipoProducto.POSTRE);
+        IngredientesProducto ingredientesProducto = new IngredientesProducto(
+                CANTIDAD_INGREDIENTE_POR_PRODUCTO, ingrediente, producto);
 
         em.persist(ingrediente);
         em.persist(producto);

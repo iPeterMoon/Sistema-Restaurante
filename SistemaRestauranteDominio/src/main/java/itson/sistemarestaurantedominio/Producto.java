@@ -4,11 +4,14 @@
  */
 package itson.sistemarestaurantedominio;
 
+import itson.sistemarestaurantedominio.enumeradores.TipoProducto;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,6 +37,10 @@ public class Producto implements Serializable {
     @Column(name = "precio", nullable = false)
     private Double precio;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipoProducto", nullable = false)
+    private TipoProducto tipoProducto;
+
     @OneToMany(mappedBy = "producto", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<IngredientesProducto> ingredientes;
 
@@ -43,9 +50,10 @@ public class Producto implements Serializable {
     public Producto() {
     }
 
-    public Producto(String nombre, Double precio) {
+    public Producto(String nombre, Double precio, TipoProducto tipoProducto) {
         this.nombre = nombre;
         this.precio = precio;
+        this.tipoProducto = tipoProducto;
     }
 
     public Long getId() {
@@ -70,6 +78,14 @@ public class Producto implements Serializable {
 
     public void setPrecio(Double precio) {
         this.precio = precio;
+    }
+
+    public TipoProducto getTipoProducto() {
+        return tipoProducto;
+    }
+
+    public void setTipoProducto(TipoProducto tipoProducto) {
+        this.tipoProducto = tipoProducto;
     }
 
     public List<IngredientesProducto> getIngredientes() {

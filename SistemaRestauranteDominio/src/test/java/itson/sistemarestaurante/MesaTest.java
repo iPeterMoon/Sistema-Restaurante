@@ -21,13 +21,15 @@ public class MesaTest {
 
     @Test
     public void testCrearMesa() {
+        final int NUMERO_MESA = 1;
+        
         EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
                 "itson_SistemaRestauranteDominio_jar_1.0");
         EntityManager em = emFactory.createEntityManager();
 
         em.getTransaction().begin();
 
-        Mesa mesa = new Mesa(1);
+        Mesa mesa = new Mesa(NUMERO_MESA);
 
         em.persist(mesa);
 

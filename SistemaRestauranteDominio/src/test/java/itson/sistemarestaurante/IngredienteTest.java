@@ -22,13 +22,15 @@ public class IngredienteTest {
 
     @Test
     public void testCrearIngrediente() {
+        final int CANTIDAD_INGREDIENTE = 5;
+
         EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
                 "itson_SistemaRestauranteDominio_jar_1.0");
         EntityManager em = emFactory.createEntityManager();
 
         em.getTransaction().begin();
 
-        Ingrediente ingrediente = new Ingrediente("Zanahoria", UnidadMedida.PIEZAS, 5);
+        Ingrediente ingrediente = new Ingrediente("Zanahoria", UnidadMedida.PIEZAS, CANTIDAD_INGREDIENTE);
 
         em.persist(ingrediente);
 

@@ -23,6 +23,8 @@ public class ClienteTest {
 
     @Test
     public void testCrearCliente() {
+        final int PUNTOS_USUARIO = 1;
+
         EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
                 "itson_SistemaRestauranteDominio_jar_1.0");
         EntityManager em = emFactory.createEntityManager();
@@ -30,7 +32,7 @@ public class ClienteTest {
         em.getTransaction().begin();
 
         Calendar ahora = Calendar.getInstance();
-        Cliente cliente = new Cliente("Juan", "Perez", "Martinez", 1, "juan@gmail.com", "6441123456", ahora);
+        Cliente cliente = new Cliente("Juan", "Perez", "Martinez", PUNTOS_USUARIO, "juan@gmail.com", "6441123456", ahora);
 
         em.persist(cliente);
 

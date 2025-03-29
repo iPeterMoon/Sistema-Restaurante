@@ -29,6 +29,15 @@ public class DetallesComanda implements Serializable {
 
     @Column(name = "cantidad", nullable = false)
     private Integer cantidad;
+    
+    @Column(name = "comentario", length = 100, nullable = true)
+    private String comentario;
+    
+    @Column(name = "precioUnitario", nullable = false)
+    private Double precioUnitario;
+    
+    @Column(name = "totalPorProducto", nullable = false)
+    private Double totalPorProducto;
 
     @ManyToOne()
     @JoinColumn(name = "idComanda", nullable = false)
@@ -41,11 +50,22 @@ public class DetallesComanda implements Serializable {
     public DetallesComanda() {
     }
 
-    public DetallesComanda(Integer cantidad, Comanda comanda, Producto producto) {
+//    public DetallesComanda(Integer cantidad, Comanda comanda, Producto producto) {
+//        this.cantidad = cantidad;
+//        this.comanda = comanda;
+//        this.producto = producto;
+//    }
+
+    public DetallesComanda(Integer cantidad, String comentario, Double precioUnitario, Double totalPorProducto, Comanda comanda, Producto producto) {
         this.cantidad = cantidad;
+        this.comentario = comentario;
+        this.precioUnitario = precioUnitario;
+        this.totalPorProducto = totalPorProducto;
         this.comanda = comanda;
         this.producto = producto;
     }
+    
+    
 
     public Long getId() {
         return id;
@@ -62,6 +82,32 @@ public class DetallesComanda implements Serializable {
     public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
     }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+    public Double getPrecioUnitario() {
+        return precioUnitario;
+    }
+
+    public void setPrecioUnitario(Double precioUnitario) {
+        this.precioUnitario = precioUnitario;
+    }
+
+    public Double getTotalPorProducto() {
+        return totalPorProducto;
+    }
+
+    public void setTotalPorProducto(Double totalPorProducto) {
+        this.totalPorProducto = totalPorProducto;
+    }
+    
+    
 
     public Comanda getComanda() {
         return comanda;

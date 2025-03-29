@@ -25,16 +25,20 @@ public class ComandaTest {
 
     @Test
     public void testCrearComandaConClienteYMesa() {
+        final int PUNTOS_CLIENTE = 1;
+        final double TOTAL_VENTA_COMANDA = 123.00;
+        final int NUMERO_MESA = 2;
+
         EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
                 "itson_SistemaRestauranteDominio_jar_1.0");
         EntityManager em = emFactory.createEntityManager();
 
         em.getTransaction().begin();
 
-        Mesa mesa = new Mesa(2);
+        Mesa mesa = new Mesa(NUMERO_MESA);
         Calendar ahora = Calendar.getInstance();
-        Cliente cliente = new Cliente("Checo", "Perez", "Mendoza", 1, "checo@gmail.com", "6441111111", ahora);
-        Comanda comanda = new Comanda("OB-20250329-123", ahora, EstadoComanda.ENTREGADA, 123.00, cliente, mesa);
+        Cliente cliente = new Cliente("Checo", "Perez", "Mendoza", PUNTOS_CLIENTE, "checo@gmail.com", "6441111111", ahora);
+        Comanda comanda = new Comanda("OB-20250329-123", ahora, EstadoComanda.ENTREGADA, TOTAL_VENTA_COMANDA, cliente, mesa);
 
         em.persist(cliente);
         em.persist(mesa);
