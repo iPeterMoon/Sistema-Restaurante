@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
- */
 package itson.sistemarestaurante;
 
 import itson.sistemarestaurantedominio.Cliente;
@@ -28,7 +24,7 @@ public class ClienteTest {
     public void limpiarBase() {
         if (clienteCreado != null) {
             EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
-                    "itson_PruebasSistemaRestauranteDominio_jar_1.0");
+                    "itson_PruebasSistemaRestaurante_jar_1.0PU");
             EntityManager em = emFactory.createEntityManager();
             em.getTransaction().begin();
             Cliente cliente = em.find(Cliente.class, clienteCreado.getId());
@@ -46,7 +42,7 @@ public class ClienteTest {
         final int PUNTOS_USUARIO = 0;
 
         EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
-                "itson_PruebasSistemaRestauranteDominio_jar_1.0");
+                "itson_PruebasSistemaRestaurante_jar_1.0PU");
         EntityManager em = emFactory.createEntityManager();
 
         em.getTransaction().begin();

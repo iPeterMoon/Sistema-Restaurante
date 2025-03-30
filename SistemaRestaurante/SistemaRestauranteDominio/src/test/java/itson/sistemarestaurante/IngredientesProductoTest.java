@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
- */
 package itson.sistemarestaurante;
 
 import itson.sistemarestaurantedominio.Ingrediente;
@@ -31,7 +27,7 @@ public class IngredientesProductoTest {
     @AfterEach
     public void limpiar(){
         EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
-                "itson_PruebasSistemaRestauranteDominio_jar_1.0");
+                "itson_PruebasSistemaRestaurante_jar_1.0PU");
         EntityManager em = emFactory.createEntityManager();
         em.getTransaction().begin();
         
@@ -56,7 +52,7 @@ public class IngredientesProductoTest {
         final int CANTIDAD_INGREDIENTE_POR_PRODUCTO = 2;
 
         EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
-                "itson_PruebasSistemaRestauranteDominio_jar_1.0");
+                "itson_PruebasSistemaRestaurante_jar_1.0PU");
         EntityManager em = emFactory.createEntityManager();
 
         em.getTransaction().begin();

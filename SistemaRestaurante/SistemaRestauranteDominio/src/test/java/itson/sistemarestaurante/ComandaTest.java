@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
- */
 package itson.sistemarestaurante;
 
 import itson.sistemarestaurantedominio.Cliente;
@@ -33,7 +29,7 @@ public class ComandaTest {
 
         if (comandaCreada != null) {
             EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
-                    "itson_PruebasSistemaRestauranteDominio_jar_1.0");
+                    "itson_PruebasSistemaRestaurante_jar_1.0PU");
             EntityManager em = emFactory.createEntityManager();
             em.getTransaction().begin();
             Comanda comanda = em.find(Comanda.class, comandaCreada.getId());
@@ -45,7 +41,7 @@ public class ComandaTest {
         }
         if (clienteCreado != null) {
             EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
-                    "itson_PruebasSistemaRestauranteDominio_jar_1.0");
+                    "itson_PruebasSistemaRestaurante_jar_1.0PU");
             EntityManager em = emFactory.createEntityManager();
             em.getTransaction().begin();
             Cliente cliente = em.find(Cliente.class, clienteCreado.getId());
@@ -57,7 +53,7 @@ public class ComandaTest {
         }
         if (mesaCreada != null) {
             EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
-                    "itson_PruebasSistemaRestauranteDominio_jar_1.0");
+                    "itson_PruebasSistemaRestaurante_jar_1.0PU");
             EntityManager em = emFactory.createEntityManager();
             em.getTransaction().begin();
             Mesa mesa = em.find(Mesa.class, mesaCreada.getId());
@@ -78,7 +74,7 @@ public class ComandaTest {
         final int NUMERO_MESA = 2;
 
         EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
-                "itson_PruebasSistemaRestauranteDominio_jar_1.0");
+                "itson_PruebasSistemaRestaurante_jar_1.0PU");
         EntityManager em = emFactory.createEntityManager();
 
         em.getTransaction().begin();
