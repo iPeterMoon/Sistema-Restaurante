@@ -14,11 +14,22 @@ import javax.persistence.Persistence;
  */
 public class ManejadorConexiones {
 
+    private static boolean isTestMode = false;
+    private String testPersistenceUnit = "itson_PruebasSistemaRestauranteDominio_jar_1.0";
+    
     public static EntityManager getEntityManager() {
-        EntityManagerFactory emFactory;
-        emFactory = Persistence.createEntityManagerFactory("itson_SistemaRestauranteDominio_jar_1.0");
+        if(isTestMode){
+            
+        }
+    }
+    
+    private static EntityManager createEntityManager(String persistenceUnit){
+        EntityManagerFactory emFactory =
+                Persistence.createEntityManagerFactory(persistenceUnit);
         EntityManager entityManager = emFactory.createEntityManager();
         return entityManager;
     }
+    
+    public static 
 
 }

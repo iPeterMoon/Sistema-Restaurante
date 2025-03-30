@@ -26,7 +26,7 @@ public class ProductoTest {
     @AfterEach
     public void limpiar(){
         EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
-                "itson_SistemaRestauranteDominio_jar_1.0");
+                "itson_PruebasSistemaRestauranteDominio_jar_1.0");
         EntityManager em = emFactory.createEntityManager();
         em.getTransaction().begin();
         Producto producto = em.find(Producto.class, productoCreado.getId());
@@ -41,7 +41,7 @@ public class ProductoTest {
         final double PRECIO_PRODUCTO = 120.00;
 
         EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
-                "itson_SistemaRestauranteDominio_jar_1.0");
+                "itson_PruebasSistemaRestauranteDominio_jar_1.0");
         EntityManager em = emFactory.createEntityManager();
 
         em.getTransaction().begin();

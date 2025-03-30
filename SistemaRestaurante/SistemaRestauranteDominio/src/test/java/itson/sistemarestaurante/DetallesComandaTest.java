@@ -36,7 +36,7 @@ public class DetallesComandaTest {
     @AfterEach
     public void limpiar(){
         EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
-                "itson_SistemaRestauranteDominio_jar_1.0");
+                "itson_PruebasSistemaRestauranteDominio_jar_1.0");
         EntityManager em = emFactory.createEntityManager();
         em.getTransaction().begin();
         DetallesComanda detallesComanda = em.find(DetallesComanda.class, detallesComandaCreado.getId());
@@ -72,7 +72,7 @@ public class DetallesComandaTest {
         final int PUNTOS_CLIENTE = 1;
 
         EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
-                "itson_SistemaRestauranteDominio_jar_1.0");
+                "itson_PruebasSistemaRestauranteDominio_jar_1.0");
         EntityManager em = emFactory.createEntityManager();
 
         em.getTransaction().begin();

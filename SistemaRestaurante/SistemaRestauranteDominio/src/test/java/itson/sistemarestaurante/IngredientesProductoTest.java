@@ -31,7 +31,7 @@ public class IngredientesProductoTest {
     @AfterEach
     public void limpiar(){
         EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
-                "itson_SistemaRestauranteDominio_jar_1.0");
+                "itson_PruebasSistemaRestauranteDominio_jar_1.0");
         EntityManager em = emFactory.createEntityManager();
         em.getTransaction().begin();
         
@@ -56,7 +56,7 @@ public class IngredientesProductoTest {
         final int CANTIDAD_INGREDIENTE_POR_PRODUCTO = 2;
 
         EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
-                "itson_SistemaRestauranteDominio_jar_1.0");
+                "itson_PruebasSistemaRestauranteDominio_jar_1.0");
         EntityManager em = emFactory.createEntityManager();
 
         em.getTransaction().begin();

@@ -28,7 +28,7 @@ public class ClienteTest {
     public void limpiarBase() {
         if (clienteCreado != null) {
             EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
-                    "itson_SistemaRestauranteDominio_jar_1.0");
+                    "itson_PruebasSistemaRestauranteDominio_jar_1.0");
             EntityManager em = emFactory.createEntityManager();
             em.getTransaction().begin();
             Cliente cliente = em.find(Cliente.class, clienteCreado.getId());
@@ -46,7 +46,7 @@ public class ClienteTest {
         final int PUNTOS_USUARIO = 0;
 
         EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
-                "itson_SistemaRestauranteDominio_jar_1.0");
+                "itson_PruebasSistemaRestauranteDominio_jar_1.0");
         EntityManager em = emFactory.createEntityManager();
 
         em.getTransaction().begin();

@@ -25,7 +25,7 @@ public class MesaTest {
     @AfterEach
     public void limpiar(){
         EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
-                "itson_SistemaRestauranteDominio_jar_1.0");
+                "itson_PruebasSistemaRestauranteDominio_jar_1.0");
         EntityManager em = emFactory.createEntityManager();
         em.getTransaction().begin();
         Mesa mesa = em.find(Mesa.class, mesaCreada.getId());
@@ -40,7 +40,7 @@ public class MesaTest {
         final int NUMERO_MESA = 1;
         
         EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
-                "itson_SistemaRestauranteDominio_jar_1.0");
+                "itson_PruebasSistemaRestauranteDominio_jar_1.0");
         EntityManager em = emFactory.createEntityManager();
 
         em.getTransaction().begin();

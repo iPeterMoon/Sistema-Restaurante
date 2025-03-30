@@ -33,7 +33,7 @@ public class ComandaTest {
 
         if (comandaCreada != null) {
             EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
-                    "itson_SistemaRestauranteDominio_jar_1.0");
+                    "itson_PruebasSistemaRestauranteDominio_jar_1.0");
             EntityManager em = emFactory.createEntityManager();
             em.getTransaction().begin();
             Comanda comanda = em.find(Comanda.class, comandaCreada.getId());
@@ -45,7 +45,7 @@ public class ComandaTest {
         }
         if (clienteCreado != null) {
             EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
-                    "itson_SistemaRestauranteDominio_jar_1.0");
+                    "itson_PruebasSistemaRestauranteDominio_jar_1.0");
             EntityManager em = emFactory.createEntityManager();
             em.getTransaction().begin();
             Cliente cliente = em.find(Cliente.class, clienteCreado.getId());
@@ -57,7 +57,7 @@ public class ComandaTest {
         }
         if (mesaCreada != null) {
             EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
-                    "itson_SistemaRestauranteDominio_jar_1.0");
+                    "itson_PruebasSistemaRestauranteDominio_jar_1.0");
             EntityManager em = emFactory.createEntityManager();
             em.getTransaction().begin();
             Mesa mesa = em.find(Mesa.class, mesaCreada.getId());
@@ -78,7 +78,7 @@ public class ComandaTest {
         final int NUMERO_MESA = 2;
 
         EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
-                "itson_SistemaRestauranteDominio_jar_1.0");
+                "itson_PruebasSistemaRestauranteDominio_jar_1.0");
         EntityManager em = emFactory.createEntityManager();
 
         em.getTransaction().begin();
