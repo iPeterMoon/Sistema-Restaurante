@@ -39,7 +39,7 @@ public class DetallesComandaTest {
         if(detallesComanda != null){
             em.remove(detallesComanda);
         }
-        Producto producto = em.find(Producto.class, comandaCreada.getId());
+        Producto producto = em.find(Producto.class, productoCreado.getId());
         if(producto != null){
             em.remove(producto);
         }

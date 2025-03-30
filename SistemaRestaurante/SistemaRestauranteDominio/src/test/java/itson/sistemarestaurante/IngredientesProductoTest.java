@@ -43,6 +43,7 @@ public class IngredientesProductoTest {
         if(producto != null){
             em.remove(producto);
         }
+        em.getTransaction().commit();
     }
     
     @Test
