@@ -8,6 +8,7 @@
     <modules>
         <module>SistemaRestaurantePresentacion</module>
         <module>SistemaRestauranteDominio</module>
+        <module>SistemaRestaurantePersistencia</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
