@@ -9,6 +9,7 @@ import java.util.Calendar;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -21,9 +22,28 @@ public class ClienteTest {
 
     }
 
+    private Cliente clienteCreado;
+
+    @AfterEach
+    public void limpiarBase() {
+        if (clienteCreado != null) {
+            EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
+                    "itson_SistemaRestauranteDominio_jar_1.0");
+            EntityManager em = emFactory.createEntityManager();
+            em.getTransaction().begin();
+            Cliente cliente = em.find(Cliente.class, clienteCreado.getId());
+            if(cliente != null){
+                em.remove(cliente);
+                
+            }
+            em.getTransaction().commit();
+        }
+
+    }
+
     @Test
     public void testCrearCliente() {
-        final int PUNTOS_USUARIO = 1;
+        final int PUNTOS_USUARIO = 0;
 
         EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
                 "itson_SistemaRestauranteDominio_jar_1.0");
@@ -32,9 +52,9 @@ public class ClienteTest {
         em.getTransaction().begin();
 
         Calendar ahora = Calendar.getInstance();
-        Cliente cliente = new Cliente("Juan", "Perez", "Martinez", PUNTOS_USUARIO, "juan@gmail.com", "6441123456", ahora);
+        clienteCreado = new Cliente("Juan", "Perez", "Martinez", PUNTOS_USUARIO, "juan@gmail.com", "6441123456", ahora);
 
-        em.persist(cliente);
+        em.persist(clienteCreado);
 
         em.getTransaction().commit();
     }

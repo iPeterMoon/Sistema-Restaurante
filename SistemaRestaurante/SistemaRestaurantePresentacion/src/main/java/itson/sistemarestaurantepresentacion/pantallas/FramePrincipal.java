@@ -478,7 +478,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         panelNavegacionLayout.setVerticalGroup(
             panelNavegacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelNavegacionLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(15, 15, 15)
                 .addComponent(pnlInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
                 .addComponent(pnlComandas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -492,7 +492,7 @@ public class FramePrincipal extends javax.swing.JFrame {
                 .addComponent(pnlMesas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
                 .addComponent(pnlReportes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         pnlPrincipal.setBackground(new java.awt.Color(37, 40, 54));
@@ -748,7 +748,6 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel btnComandas;
     private javax.swing.JLabel btnIngredientes;
     private javax.swing.JLabel btnInicio;
-    private javax.swing.JLabel btnInicio1;
     private javax.swing.JLabel btnMenu;
     private javax.swing.JLabel btnMesas;
     private javax.swing.JLabel btnReportes;
@@ -756,7 +755,6 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblComandas;
     private javax.swing.JLabel lblIngredientes;
     private javax.swing.JLabel lblInicio;
-    private javax.swing.JLabel lblInicio1;
     private javax.swing.JLabel lblMenu;
     private javax.swing.JLabel lblMesas;
     private javax.swing.JLabel lblReportes;
@@ -766,7 +764,6 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel pnlFrame;
     private itson.sistemarestaurantepresentacion.recursos.RoundedPanel pnlIngredientes;
     private itson.sistemarestaurantepresentacion.recursos.RoundedPanel pnlInicio;
-    private itson.sistemarestaurantepresentacion.recursos.RoundedPanel pnlInicio1;
     private itson.sistemarestaurantepresentacion.recursos.RoundedPanel pnlMenu;
     private itson.sistemarestaurantepresentacion.recursos.RoundedPanel pnlMesas;
     private javax.swing.JPanel pnlPrincipal;

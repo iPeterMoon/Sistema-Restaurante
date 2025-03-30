@@ -8,6 +8,7 @@ import itson.sistemarestaurantedominio.Mesa;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -19,6 +20,21 @@ public class MesaTest {
     public MesaTest() {
     }
 
+    private Mesa mesaCreada;
+    
+    @AfterEach
+    public void limpiar(){
+        EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
+                "itson_SistemaRestauranteDominio_jar_1.0");
+        EntityManager em = emFactory.createEntityManager();
+        em.getTransaction().begin();
+        Mesa mesa = em.find(Mesa.class, mesaCreada.getId());
+        if(mesa != null){
+            em.remove(mesa);
+        }
+        em.getTransaction().commit();
+    }
+    
     @Test
     public void testCrearMesa() {
         final int NUMERO_MESA = 1;
@@ -29,9 +45,9 @@ public class MesaTest {
 
         em.getTransaction().begin();
 
-        Mesa mesa = new Mesa(NUMERO_MESA);
+        mesaCreada = new Mesa(NUMERO_MESA);
 
-        em.persist(mesa);
+        em.persist(mesaCreada);
 
         em.getTransaction().commit();
     }

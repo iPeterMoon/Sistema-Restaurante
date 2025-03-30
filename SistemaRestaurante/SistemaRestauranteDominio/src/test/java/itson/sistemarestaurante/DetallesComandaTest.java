@@ -15,6 +15,7 @@ import java.util.Calendar;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -26,6 +27,42 @@ public class DetallesComandaTest {
     public DetallesComandaTest() {
     }
 
+    private Mesa mesaCreada;
+    private Cliente clienteCreado;
+    private Comanda comandaCreada;
+    private DetallesComanda detallesComandaCreado;
+    private Producto productoCreado;
+    
+    @AfterEach
+    public void limpiar(){
+        EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
+                "itson_SistemaRestauranteDominio_jar_1.0");
+        EntityManager em = emFactory.createEntityManager();
+        em.getTransaction().begin();
+        DetallesComanda detallesComanda = em.find(DetallesComanda.class, detallesComandaCreado.getId());
+        if(detallesComanda != null){
+            em.remove(detallesComanda);
+        }
+        Producto producto = em.find(Producto.class, comandaCreada.getId());
+        if(producto != null){
+            em.remove(producto);
+        }
+        Comanda comanda = em.find(Comanda.class, comandaCreada.getId());
+        if(comanda != null){
+            em.remove(comanda);
+        }
+        
+        Cliente cliente = em.find(Cliente.class, clienteCreado.getId());
+        if(cliente != null){
+            em.remove(cliente);
+        }
+        Mesa mesa = em.find(Mesa.class, mesaCreada.getId());
+        if(mesa != null){
+            em.remove(mesa);
+        }
+        em.getTransaction().commit();
+    }
+    
     @Test
     public void testCrearComandaConProductos() {
         final int CANTIDAD_DE_PRODUCTO = 3;
@@ -40,22 +77,22 @@ public class DetallesComandaTest {
 
         em.getTransaction().begin();
 
-        Producto producto = new Producto("Rollo California", PRECIO_PRODUCTO, TipoProducto.PLATILLO);
-        Mesa mesa = new Mesa(NUMERO_MESA);
+        productoCreado = new Producto("Rollo California", PRECIO_PRODUCTO, TipoProducto.PLATILLO);
+        mesaCreada = new Mesa(NUMERO_MESA);
         Calendar ahora = Calendar.getInstance();
-        Cliente cliente = new Cliente("Patricio", "O'ward", "Junco", PUNTOS_CLIENTE,
+        clienteCreado = new Cliente("Patricio", "O'ward", "Junco", PUNTOS_CLIENTE,
                 "pato@gmail.com", "6441098765", ahora);
-        Comanda comanda = new Comanda("OB-20250329-111", ahora,
-                EstadoComanda.CANCELADA, TOTAL_VENTA_COMANDA, cliente, mesa);
-        DetallesComanda detalleComanda = new DetallesComanda(CANTIDAD_DE_PRODUCTO,
-                "Comentario de PRUEBA", producto.getPrecio(),
-                producto.getPrecio() * CANTIDAD_DE_PRODUCTO, comanda, producto);
+        comandaCreada = new Comanda("OB-20250329-111", ahora,
+                EstadoComanda.CANCELADA, TOTAL_VENTA_COMANDA, clienteCreado, mesaCreada);
+        detallesComandaCreado = new DetallesComanda(CANTIDAD_DE_PRODUCTO,
+                "Comentario de PRUEBA", productoCreado.getPrecio(),
+                productoCreado.getPrecio() * CANTIDAD_DE_PRODUCTO, comandaCreada, productoCreado);
 
-        em.persist(producto);
-        em.persist(cliente);
-        em.persist(mesa);
-        em.persist(comanda);
-        em.persist(detalleComanda);
+        em.persist(productoCreado);
+        em.persist(clienteCreado);
+        em.persist(mesaCreada);
+        em.persist(comandaCreada);
+        em.persist(detallesComandaCreado);
 
         em.getTransaction().commit();
     }
