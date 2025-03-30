@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package itson.sistemarestaurantedominio;
 
 import java.io.Serializable;
@@ -29,16 +25,16 @@ public class Cliente implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idCliente")
+    @Column(name = "id_cliente")
     private Long id;
 
     @Column(name = "nombre", length = 50, nullable = false)
     private String nombre;
 
-    @Column(name = "apellidoPaterno", length = 50, nullable = false)
+    @Column(name = "apellido_paterno", length = 50, nullable = false)
     private String apellidoPaterno;
 
-    @Column(name = "apellidoMaterno", length = 50, nullable = false)
+    @Column(name = "apellido_materno", length = 50, nullable = false)
     private String apellidoMaterno;
 
     @Column(name = "puntos", nullable = false)
@@ -51,7 +47,7 @@ public class Cliente implements Serializable {
     private String telefono;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "fechaRegistro", nullable = false)
+    @Column(name = "fecha_registro", nullable = false)
     private Calendar fechaRegistro;
 
     @OneToMany(mappedBy = "cliente", cascade = {CascadeType.PERSIST})

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package itson.sistemarestaurantedominio;
 
 import java.io.Serializable;
@@ -25,7 +21,7 @@ public class DetallesComanda implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idDetallesComanda")
+    @Column(name = "id_detalles_comanda")
     private Long id;
 
     @Column(name = "cantidad", nullable = false)
@@ -34,18 +30,18 @@ public class DetallesComanda implements Serializable {
     @Column(name = "comentario", length = 100, nullable = true)
     private String comentario;
 
-    @Column(name = "precioUnitario", nullable = false)
+    @Column(name = "precio_unitario", nullable = false)
     private Double precioUnitario;
 
-    @Column(name = "totalPorProducto", nullable = false)
+    @Column(name = "total_por_producto", nullable = false)
     private Double totalPorProducto;
 
     @ManyToOne()
-    @JoinColumn(name = "idComanda", nullable = false)
+    @JoinColumn(name = "id_comanda", nullable = false)
     private Comanda comanda;
 
     @ManyToOne()
-    @JoinColumn(name = "idProducto", nullable = false)
+    @JoinColumn(name = "id_producto", nullable = false)
     private Producto producto;
 
     /**

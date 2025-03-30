@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package itson.sistemarestaurantedominio;
 
 import itson.sistemarestaurantedominio.enumeradores.EstadoComanda;
@@ -34,29 +30,29 @@ public class Comanda implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idComanda")
+    @Column(name = "id_comanda")
     private Long id;
 
     @Column(name = "folio", length = 15, nullable = false)
     private String folio;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "fechaHora", nullable = false)
+    @Column(name = "fecha_hora", nullable = false)
     private Calendar fechaHora;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "estado", nullable = false)
     private EstadoComanda estado;
 
-    @Column(name = "totalVenta", nullable = false)
+    @Column(name = "total_venta", nullable = false)
     private Double totalVenta;
 
     @ManyToOne()
-    @JoinColumn(name = "idCliente", nullable = true)
+    @JoinColumn(name = "id_cliente", nullable = true)
     private Cliente cliente;
 
     @ManyToOne()
-    @JoinColumn(name = "idMesa", nullable = false)
+    @JoinColumn(name = "id_mesa", nullable = false)
     private Mesa mesa;
 
     @OneToMany(mappedBy = "comanda", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})

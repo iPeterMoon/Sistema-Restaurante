@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package itson.sistemarestaurantedominio;
 
 import java.io.Serializable;
@@ -25,10 +21,10 @@ public class Mesa implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idMesa")
+    @Column(name = "id_mesa")
     private Long id;
 
-    @Column(name = "numeroMesa", nullable = false)
+    @Column(name = "numero_mesa", nullable = false)
     private Integer numeroMesa;
 
     @OneToMany(mappedBy = "mesa", cascade = {CascadeType.PERSIST})

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package itson.sistemarestaurantedominio;
 
 import itson.sistemarestaurantedominio.enumeradores.TipoProducto;
@@ -28,7 +24,7 @@ public class Producto implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idProducto")
+    @Column(name = "id_producto")
     private Long id;
 
     @Column(name = "nombre", nullable = false)
@@ -38,7 +34,7 @@ public class Producto implements Serializable {
     private Double precio;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "tipoProducto", nullable = false)
+    @Column(name = "tipo_producto", nullable = false)
     private TipoProducto tipoProducto;
 
     @OneToMany(mappedBy = "producto", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})

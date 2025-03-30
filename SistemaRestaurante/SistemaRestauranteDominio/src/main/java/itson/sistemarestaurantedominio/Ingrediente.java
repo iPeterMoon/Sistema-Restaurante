@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package itson.sistemarestaurantedominio;
 
 import itson.sistemarestaurantedominio.enumeradores.UnidadMedida;
@@ -28,14 +24,14 @@ public class Ingrediente implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idIngrediente")
+    @Column(name = "id_ingrediente")
     private Long id;
 
     @Column(name = "nombre", length = 50, nullable = false)
     private String nombre;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "unidadMedida", nullable = false)
+    @Column(name = "unidad_medida", nullable = false)
     private UnidadMedida unidadMedida;
 
     @Column(name = "stock", nullable = false)
