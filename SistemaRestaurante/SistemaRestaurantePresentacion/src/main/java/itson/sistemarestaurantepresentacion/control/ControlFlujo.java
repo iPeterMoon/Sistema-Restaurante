@@ -1,5 +1,6 @@
 package itson.sistemarestaurantepresentacion.control;
 
+import itson.sistemarestaurantenegocio.interfaces.IMesasBO;
 import itson.sistemarestaurantepresentacion.pantallas.FramePrincipal;
 import itson.sistemarestaurantepresentacion.pantallas.PnlInicio;
 import itson.sistemarestaurantepresentacion.pantallas.PnlMesas;
@@ -10,6 +11,7 @@ public class ControlFlujo {
     
     private FramePrincipal framePrincipal;
     private static ControlFlujo instanciaControl;
+    private IMesasBO mesasBO;
     
     private ControlFlujo(){
         framePrincipal = new FramePrincipal();
@@ -40,7 +42,7 @@ public class ControlFlujo {
     }
     
     public void mostrarPnlMesas(){
-        PnlMesas pnlMesas = new PnlMesas();
+        PnlMesas pnlMesas = new PnlMesas(mesasBO);
         mostrarPanel(pnlMesas);
     }
     
@@ -50,4 +52,14 @@ public class ControlFlujo {
         framePrincipal.getPnlPrincipal().repaint();
         framePrincipal.getPnlPrincipal().revalidate();
     }
+
+    public IMesasBO getMesasBO() {
+        return mesasBO;
+    }
+
+    public void setMesasBO(IMesasBO mesasBO) {
+        this.mesasBO = mesasBO;
+    }
+    
+    
 }

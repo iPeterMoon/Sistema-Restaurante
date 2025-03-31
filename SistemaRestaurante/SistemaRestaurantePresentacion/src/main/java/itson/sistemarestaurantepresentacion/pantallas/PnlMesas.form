@@ -95,18 +95,18 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="lblBienvenido1" min="-2" pref="481" max="-2" attributes="0"/>
+                                      <Component id="lblTituloPanel" min="-2" pref="481" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="lblBienvenido3" min="-2" pref="304" max="-2" attributes="0"/>
+                                      <Component id="lblNumeroMesas" min="-2" pref="304" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="lblBienvenido2" alignment="0" min="-2" pref="481" max="-2" attributes="0"/>
+                                  <Component id="lblCampoTexto" alignment="0" min="-2" pref="481" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="campoTextoNumMesas" min="-2" pref="380" max="-2" attributes="0"/>
                               <EmptySpace pref="120" max="32767" attributes="0"/>
-                              <Component id="jButton1" min="-2" pref="360" max="-2" attributes="0"/>
+                              <Component id="btnRegistrarMesas" min="-2" pref="360" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -118,15 +118,15 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblBienvenido1" alignment="3" min="-2" pref="54" max="-2" attributes="0"/>
-                          <Component id="lblBienvenido3" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                          <Component id="lblTituloPanel" alignment="3" min="-2" pref="54" max="-2" attributes="0"/>
+                          <Component id="lblNumeroMesas" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                      <Component id="lblBienvenido2" min="-2" pref="37" max="-2" attributes="0"/>
+                      <Component id="lblCampoTexto" min="-2" pref="37" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="campoTextoNumMesas" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
-                          <Component id="jButton1" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                          <Component id="btnRegistrarMesas" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="117" max="32767" attributes="0"/>
                   </Group>
@@ -134,7 +134,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="lblBienvenido1">
+            <Component class="javax.swing.JLabel" name="lblTituloPanel">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="new Font(&quot;Poppins&quot;, Font.BOLD, 36)" type="code"/>
@@ -145,7 +145,7 @@
                 <Property name="text" type="java.lang.String" value="Registro Masivo de Mesas"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblBienvenido2">
+            <Component class="javax.swing.JLabel" name="lblCampoTexto">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="new Font(&quot;Poppins&quot;, Font.BOLD, 24)" type="code"/>
@@ -172,7 +172,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campoTextoNumMesasActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="btnRegistrarMesas">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="89" green="cd" red="50" type="rgb"/>
@@ -188,8 +188,11 @@
                   <Color id="Hand Cursor"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegistrarMesasActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblBienvenido3">
+            <Component class="javax.swing.JLabel" name="lblNumeroMesas">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="new Font(&quot;Poppins&quot;, Font.BOLD, 24)" type="code"/>

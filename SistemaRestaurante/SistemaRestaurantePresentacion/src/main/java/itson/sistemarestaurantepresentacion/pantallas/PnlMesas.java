@@ -1,6 +1,10 @@
 package itson.sistemarestaurantepresentacion.pantallas;
 
+import itson.sistemarestaurantenegocio.excepciones.NegocioException;
+import itson.sistemarestaurantenegocio.implementaciones.MesasBO;
+import itson.sistemarestaurantenegocio.interfaces.IMesasBO;
 import java.awt.Font;
+import javax.swing.JOptionPane;
 
 /**
  * Panel que tiene el formulario para el registro masivo de las mesas
@@ -8,13 +12,20 @@ import java.awt.Font;
  */
 public class PnlMesas extends javax.swing.JPanel {
     
+    private IMesasBO mesasBO;
     /**
      * Creates new form PnlMesas
      */
-    public PnlMesas() {
+    public PnlMesas(IMesasBO mesasBO) {
+        this.mesasBO = mesasBO;
         initComponents();
+        cargarNumMesas();
     }
 
+    private void cargarNumMesas(){
+        Long numeroMesas = mesasBO.obtenerNumMesas();
+        this.lblNumeroMesas.setText("Numero de Mesas: "+numeroMesas);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,11 +38,11 @@ public class PnlMesas extends javax.swing.JPanel {
         pnlPrincipal = new javax.swing.JPanel();
         lblBienvenido = new javax.swing.JLabel();
         roundedPanel1 = new itson.sistemarestaurantepresentacion.recursos.RoundedPanel();
-        lblBienvenido1 = new javax.swing.JLabel();
-        lblBienvenido2 = new javax.swing.JLabel();
+        lblTituloPanel = new javax.swing.JLabel();
+        lblCampoTexto = new javax.swing.JLabel();
         campoTextoNumMesas = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        lblBienvenido3 = new javax.swing.JLabel();
+        btnRegistrarMesas = new javax.swing.JButton();
+        lblNumeroMesas = new javax.swing.JLabel();
 
         pnlPrincipal.setBackground(new java.awt.Color(37, 40, 54));
 
@@ -45,13 +56,13 @@ public class PnlMesas extends javax.swing.JPanel {
         roundedPanel1.setRoundTopLeft(50);
         roundedPanel1.setRoundTopRight(50);
 
-        lblBienvenido1.setFont(new Font("Poppins", Font.BOLD, 36));
-        lblBienvenido1.setForeground(new java.awt.Color(255, 255, 255));
-        lblBienvenido1.setText("Registro Masivo de Mesas");
+        lblTituloPanel.setFont(new Font("Poppins", Font.BOLD, 36));
+        lblTituloPanel.setForeground(new java.awt.Color(255, 255, 255));
+        lblTituloPanel.setText("Registro Masivo de Mesas");
 
-        lblBienvenido2.setFont(new Font("Poppins", Font.BOLD, 24));
-        lblBienvenido2.setForeground(new java.awt.Color(255, 255, 255));
-        lblBienvenido2.setText("Cantidad de Mesas a Registrar");
+        lblCampoTexto.setFont(new Font("Poppins", Font.BOLD, 24));
+        lblCampoTexto.setForeground(new java.awt.Color(255, 255, 255));
+        lblCampoTexto.setText("Cantidad de Mesas a Registrar");
 
         campoTextoNumMesas.setBackground(new java.awt.Color(255, 255, 255));
         campoTextoNumMesas.setFont(new Font("Poppins", Font.PLAIN, 20));
@@ -62,15 +73,20 @@ public class PnlMesas extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(80, 205, 137));
-        jButton1.setFont(new Font("Poppins", Font.BOLD, 24));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Registrar Mesas");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegistrarMesas.setBackground(new java.awt.Color(80, 205, 137));
+        btnRegistrarMesas.setFont(new Font("Poppins", Font.BOLD, 24));
+        btnRegistrarMesas.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrarMesas.setText("Registrar Mesas");
+        btnRegistrarMesas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegistrarMesas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarMesasActionPerformed(evt);
+            }
+        });
 
-        lblBienvenido3.setFont(new Font("Poppins", Font.BOLD, 24));
-        lblBienvenido3.setForeground(new java.awt.Color(255, 255, 255));
-        lblBienvenido3.setText("Numero de Mesas: ");
+        lblNumeroMesas.setFont(new Font("Poppins", Font.BOLD, 24));
+        lblNumeroMesas.setForeground(new java.awt.Color(255, 255, 255));
+        lblNumeroMesas.setText("Numero de Mesas: ");
 
         javax.swing.GroupLayout roundedPanel1Layout = new javax.swing.GroupLayout(roundedPanel1);
         roundedPanel1.setLayout(roundedPanel1Layout);
@@ -82,15 +98,15 @@ public class PnlMesas extends javax.swing.JPanel {
                     .addGroup(roundedPanel1Layout.createSequentialGroup()
                         .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(roundedPanel1Layout.createSequentialGroup()
-                                .addComponent(lblBienvenido1, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblTituloPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(lblBienvenido3, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblBienvenido2, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lblNumeroMesas, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblCampoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(roundedPanel1Layout.createSequentialGroup()
                         .addComponent(campoTextoNumMesas, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnRegistrarMesas, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(90, 90, 90))))
         );
         roundedPanel1Layout.setVerticalGroup(
@@ -98,14 +114,14 @@ public class PnlMesas extends javax.swing.JPanel {
             .addGroup(roundedPanel1Layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblBienvenido1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblBienvenido3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblTituloPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNumeroMesas, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
-                .addComponent(lblBienvenido2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblCampoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(campoTextoNumMesas, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnRegistrarMesas, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(117, Short.MAX_VALUE))
         );
 
@@ -150,14 +166,43 @@ public class PnlMesas extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_campoTextoNumMesasActionPerformed
 
-
+    private void btnRegistrarMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarMesasActionPerformed
+        registrarMesas();
+        cargarNumMesas();
+    }//GEN-LAST:event_btnRegistrarMesasActionPerformed
+    
+    private void registrarMesas(){
+        try{
+            int numeroMesas = Integer.parseInt(this.campoTextoNumMesas.getText());
+            mesasBO.registrarMesas(numeroMesas);
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Las "+numeroMesas+" mesas fueron registradas con éxito",
+                    "Registro exitoso",
+                    JOptionPane.INFORMATION_MESSAGE
+                    );
+        } catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Asegurese de ingresar un numero", 
+                    "Error", 
+                    JOptionPane.ERROR_MESSAGE);
+        } catch(NegocioException ex){
+            JOptionPane.showMessageDialog(
+                    this,
+                    ex.getMessage(), 
+                    "Error", 
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRegistrarMesas;
     private javax.swing.JTextField campoTextoNumMesas;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel lblBienvenido;
-    private javax.swing.JLabel lblBienvenido1;
-    private javax.swing.JLabel lblBienvenido2;
-    private javax.swing.JLabel lblBienvenido3;
+    private javax.swing.JLabel lblCampoTexto;
+    private javax.swing.JLabel lblNumeroMesas;
+    private javax.swing.JLabel lblTituloPanel;
     private javax.swing.JPanel pnlPrincipal;
     private itson.sistemarestaurantepresentacion.recursos.RoundedPanel roundedPanel1;
     // End of variables declaration//GEN-END:variables
