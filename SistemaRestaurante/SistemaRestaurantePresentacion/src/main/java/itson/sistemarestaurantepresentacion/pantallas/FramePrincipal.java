@@ -1,5 +1,6 @@
 package itson.sistemarestaurantepresentacion.pantallas;
 
+import itson.sistemarestaurantepresentacion.control.ControlFlujo;
 import itson.sistemarestaurantepresentacion.recursos.RoundedPanel;
 import java.awt.Color;
 import java.awt.Font;
@@ -10,7 +11,7 @@ import javax.swing.JPanel;
 
 public class FramePrincipal extends javax.swing.JFrame {
 
-    private int currentSection = 0;
+    private int currentSection;
     private final int SECCION_INICIO = 0;
     private final int SECCION_COMANDAS = 1;
     private final int SECCION_PRODUCTOS = 2;
@@ -23,6 +24,7 @@ public class FramePrincipal extends javax.swing.JFrame {
      * Creates new form FramePrincipal
      */
     public FramePrincipal() {
+        this.currentSection = 0;
         initComponents();
     }
 
@@ -76,6 +78,9 @@ public class FramePrincipal extends javax.swing.JFrame {
         btnInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/boton inicio.png"))); // NOI18N
         btnInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnInicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnInicioMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnInicioMouseEntered(evt);
             }
@@ -90,6 +95,9 @@ public class FramePrincipal extends javax.swing.JFrame {
         lblInicio.setText("Inicio");
         lblInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblInicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblInicioMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblInicioMouseEntered(evt);
             }
@@ -349,6 +357,9 @@ public class FramePrincipal extends javax.swing.JFrame {
         btnMesas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/boton mesas.png"))); // NOI18N
         btnMesas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnMesas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnMesasMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnMesasMouseEntered(evt);
             }
@@ -363,6 +374,9 @@ public class FramePrincipal extends javax.swing.JFrame {
         lblMesas.setText("Mesas");
         lblMesas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblMesas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblMesasMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblMesasMouseEntered(evt);
             }
@@ -404,6 +418,9 @@ public class FramePrincipal extends javax.swing.JFrame {
         btnReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/boton reportes.png"))); // NOI18N
         btnReportes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnReportes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnReportesMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnReportesMouseEntered(evt);
             }
@@ -697,6 +714,26 @@ public class FramePrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_lblReportesMouseExited
 
+    private void btnReportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportesMouseClicked
+        
+    }//GEN-LAST:event_btnReportesMouseClicked
+
+    private void btnMesasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMesasMouseClicked
+        mostrarSeccionMesas();
+    }//GEN-LAST:event_btnMesasMouseClicked
+
+    private void lblMesasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMesasMouseClicked
+        mostrarSeccionMesas();
+    }//GEN-LAST:event_lblMesasMouseClicked
+
+    private void btnInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseClicked
+        mostrarSeccionInicio();
+    }//GEN-LAST:event_btnInicioMouseClicked
+
+    private void lblInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInicioMouseClicked
+        mostrarSeccionInicio();
+    }//GEN-LAST:event_lblInicioMouseClicked
+
     /**
      * Metodo que cambia las propiedades de la fuente para que se muestre subrayada
      * @param label etiqueta a subrayar
@@ -737,10 +774,58 @@ public class FramePrincipal extends javax.swing.JFrame {
         panel.setBackground(new Color(31,29,43));
     }
 
+    /**
+     * Metodo para pintar el panel de una sección de color
+     * al momento de hacer click
+     * @param panel Panel a pintar
+     */
+    private void pintarPanelSeleccion(RoundedPanel panel){
+        panel.setBackground(new Color(80,205,137));
+    }
+    
+    /**
+     * Metodo para despintar todos los paneles / secciones
+     */
+    private void descolorearTodosLosPaneles(){
+        descolorearPanelHover(this.pnlInicio);
+        descolorearPanelHover(this.pnlComandas);
+        descolorearPanelHover(this.pnlMenu);
+        descolorearPanelHover(this.pnlIngredientes);
+        descolorearPanelHover(this.pnlClientes);
+        descolorearPanelHover(this.pnlMesas);
+        descolorearPanelHover(this.pnlReportes);
+    }
+    /**
+     * Metodo que devuelve el panel principal
+     * @return Panel principal
+     */
     public JPanel getPnlPrincipal() {
         return pnlPrincipal;
     }
+    
+    /**
+     * Metodo para mostrar la seccion del inicio
+     */
+    private void mostrarSeccionInicio(){
+        descolorearTodosLosPaneles();
+        pintarPanelSeleccion(pnlInicio);
+        currentSection = SECCION_INICIO;
+        ControlFlujo control = ControlFlujo.getInstance();
+        control.mostrarInicio();
+    }
+    
+    /**
+     * Metodo para mostrar la seccion de las mesas
+     */
+    private void mostrarSeccionMesas(){
+        descolorearTodosLosPaneles();
+        pintarPanelSeleccion(pnlMesas);
+        currentSection = SECCION_MESAS;
+        ControlFlujo control = ControlFlujo.getInstance();
+        control.mostrarPnlMesas();
+    }
 
+    
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

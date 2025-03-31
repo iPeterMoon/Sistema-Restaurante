@@ -1,12 +1,12 @@
 package itson.sistemarestaurantepresentacion.pantallas;
 import java.awt.Font;
 
-public class PantallaPrincipal extends javax.swing.JPanel {
+public class PnlInicio extends javax.swing.JPanel {
 
     /**
      * Creates new form PantallaPrincipal
      */
-    public PantallaPrincipal() {
+    public PnlInicio() {
         initComponents();
     }
 
