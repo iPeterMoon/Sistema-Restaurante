@@ -6,7 +6,7 @@
         <artifactId>SistemaRestaurante</artifactId>
         <version>1.0</version>
     </parent>
-    <artifactId>SistemaRestaurantePresentacion</artifactId>
+    <artifactId>SistemaRestauranteNegocio</artifactId>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
@@ -16,12 +16,13 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>SistemaRestauranteNegocio</artifactId>
+            <artifactId>SistemaRestaurantePersistencia</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
     <properties>
-        <maven.compiler.release>21</maven.compiler.release>
-        <exec.mainClass>itson.sistemarestaurantepresentacion.SistemaRestaurantePresentacion</exec.mainClass>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <exec.mainClass>itson.sistemarestaurantenegocio.SistemaRestauranteNegocio</exec.mainClass>
     </properties>
 </project>
