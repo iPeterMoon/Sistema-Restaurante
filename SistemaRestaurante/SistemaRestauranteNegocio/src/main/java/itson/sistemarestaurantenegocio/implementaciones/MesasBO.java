@@ -4,7 +4,6 @@ import itson.sistemarestaurantedominio.dtos.NuevaMesaDTO;
 import itson.sistemarestaurantenegocio.excepciones.NegocioException;
 import itson.sistemarestaurantenegocio.interfaces.IMesasBO;
 import itson.sistemarestaurantepersistencia.IMesasDAO;
-import itson.sistemarestaurantepersistencia.implementaciones.MesasDAO;
 
 /**
  *

@@ -37,7 +37,11 @@ public class Ingrediente implements Serializable {
     @Column(name = "stock", nullable = false)
     private Integer stock;
 
-    @OneToMany(mappedBy = "ingrediente", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(
+            mappedBy = "ingrediente",
+            //Al momento de eliminar ingrediente se elimina la relación con cualquier producto relacionado.
+            cascade = {CascadeType.REMOVE} 
+    )
     private List<IngredientesProducto> productos;
 
     public Ingrediente() {

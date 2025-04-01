@@ -1,7 +1,6 @@
 package itson.sistemarestaurantepresentacion.pantallas;
 
 import itson.sistemarestaurantenegocio.excepciones.NegocioException;
-import itson.sistemarestaurantenegocio.implementaciones.MesasBO;
 import itson.sistemarestaurantenegocio.interfaces.IMesasBO;
 import java.awt.Font;
 import javax.swing.JOptionPane;
