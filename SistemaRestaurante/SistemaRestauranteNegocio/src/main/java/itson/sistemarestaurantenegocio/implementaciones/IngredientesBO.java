@@ -4,7 +4,6 @@
  */
 package itson.sistemarestaurantenegocio.implementaciones;
 
-import itson.sistemarestaurantedominio.Ingrediente;
 import itson.sistemarestaurantedominio.dtos.NuevoIngredienteDTO;
 import itson.sistemarestaurantenegocio.excepciones.NegocioException;
 import itson.sistemarestaurantenegocio.interfaces.IIngredientesBO;

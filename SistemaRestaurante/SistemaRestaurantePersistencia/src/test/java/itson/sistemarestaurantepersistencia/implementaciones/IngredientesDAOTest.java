@@ -20,28 +20,28 @@ public class IngredientesDAOTest {
     }
 
     @BeforeAll
-    public static void activarModoPruebas(){
+    public static void activarModoPruebas() {
         ManejadorConexiones.activateTestMode();
     }
-    
+
     private Ingrediente ingredienteGuardado;
     private final IngredientesDAO ingredientesDAO = new IngredientesDAO();
-    
+
     @AfterEach
-    public void limpiarBD(){
-        if(ingredienteGuardado != null){
+    public void limpiarBD() {
+        if (ingredienteGuardado != null) {
             EntityManager entityManager = ManejadorConexiones.getEntityManager();
             entityManager.getTransaction().begin();
-            
+
             Ingrediente ingrediente = entityManager.find(Ingrediente.class, ingredienteGuardado.getId());
-            if(ingrediente != null){
+            if (ingrediente != null) {
                 entityManager.remove(ingrediente);
             }
-            
+
             entityManager.getTransaction().commit();
         }
     }
-    
+
     @Test
     public void testAgregarIngredienteOk() {
         final Integer CANTIDAD_PRODUCTO = 3;
@@ -53,16 +53,64 @@ public class IngredientesDAOTest {
         assertEquals(nuevoIngrediente.getUnidadMedida(), ingredienteGuardado.getUnidadMedida());
         assertEquals(nuevoIngrediente.getStock(), ingredienteGuardado.getStock());
     }
-    
+
     @Test
-    public void testObtenerProductosOk(){
+    public void testObtenerProductosOk() {
         final Integer CANTIDAD_PRODUCTO = 3;
+        final Integer CANTIDAD_INGREDIENTES_ESPERADOS = 1;
         NuevoIngredienteDTO nuevoIngrediente = new NuevoIngredienteDTO(
                 "Calabaza", UnidadMedida.PIEZAS, CANTIDAD_PRODUCTO);
         ingredienteGuardado = ingredientesDAO.agregarIngrediente(nuevoIngrediente);
         List<Ingrediente> ingredientes = ingredientesDAO.obtenerIngredientes();
         assertNotNull(ingredientes);
-        assertEquals(1, ingredientes.size());
+        assertEquals(CANTIDAD_INGREDIENTES_ESPERADOS, ingredientes.size());
+    }
+
+    @Test
+    public void testObtenerProductosFiltradoNombre() {
+        final Integer CANTIDAD_PRODUCTO = 3;
+        final String FILTRO_BUSCADO = "Calabaza";
+        final Integer CANTIDAD_INGREDIENTES_ESPERADOS = 1;
+        NuevoIngredienteDTO nuevoIngrediente = new NuevoIngredienteDTO(
+                "Calabaza", UnidadMedida.PIEZAS, CANTIDAD_PRODUCTO);
+        ingredienteGuardado = ingredientesDAO.agregarIngrediente(nuevoIngrediente);
+        List<Ingrediente> ingredientes = ingredientesDAO.obtenerIngrediente(FILTRO_BUSCADO);
+        assertNotNull(ingredientes);
+        assertEquals(CANTIDAD_INGREDIENTES_ESPERADOS, ingredientes.size());
+    }
+    
+    @Test
+    public void testObtenerProductosFiltradoUnidadMedida(){
+        final Integer CANTIDAD_PRODUCTO = 3;
+        final String FILTRO_BUSCADO = "Pieza";
+        final Integer CANTIDAD_INGREDIENTES_ESPERADOS = 1;
+        NuevoIngredienteDTO nuevoIngrediente = new NuevoIngredienteDTO(
+                "Calabaza", UnidadMedida.PIEZAS, CANTIDAD_PRODUCTO);
+        ingredienteGuardado = ingredientesDAO.agregarIngrediente(nuevoIngrediente);
+        List<Ingrediente> ingredientes = ingredientesDAO.obtenerIngrediente(FILTRO_BUSCADO);
+        assertNotNull(ingredientes);
+        assertEquals(CANTIDAD_INGREDIENTES_ESPERADOS, ingredientes.size());
+    }
+    
+    @Test
+    public void testIngredienteExistenteConMismoNombreYUnidadMedidaRegresaTrue(){
+        final Integer CANTIDAD_PRODUCTO = 3;
+        NuevoIngredienteDTO nuevoIngrediente = new NuevoIngredienteDTO(
+                "Calabaza", UnidadMedida.PIEZAS, CANTIDAD_PRODUCTO);
+        ingredienteGuardado = ingredientesDAO.agregarIngrediente(nuevoIngrediente);
+        assertTrue(ingredientesDAO.existeIngredienteYUnidad(nuevoIngrediente));
+    }
+    
+    @Test
+    public void testIngredienteExistenteConMismoNombreYUnidadMedidaRegresaFalse(){
+        final Integer CANTIDAD_PRODUCTO_1 = 3;
+        final Integer CANTIDAD_PRODUCTO_2 = 2;
+        NuevoIngredienteDTO nuevoIngrediente = new NuevoIngredienteDTO(
+                "Calabaza", UnidadMedida.PIEZAS, CANTIDAD_PRODUCTO_1);
+        ingredienteGuardado = ingredientesDAO.agregarIngrediente(nuevoIngrediente);
+        NuevoIngredienteDTO ingredienteBuscado = new NuevoIngredienteDTO(
+                "Arroz", UnidadMedida.GRAMOS, CANTIDAD_PRODUCTO_2);
+        assertFalse(ingredientesDAO.existeIngredienteYUnidad(ingredienteBuscado));
     }
 
 }

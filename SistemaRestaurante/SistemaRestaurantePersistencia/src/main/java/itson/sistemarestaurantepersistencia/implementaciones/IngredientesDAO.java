@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 /**
@@ -67,8 +68,13 @@ public class IngredientesDAO implements IIngredientesDAO {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Ingrediente> criteria = builder.createQuery(Ingrediente.class);
         Root<Ingrediente> entidadIngrediente = criteria.from(Ingrediente.class);
+
+        Predicate busquedaPorNombre = builder.like(entidadIngrediente.get("unidadMedida"), "%" + filtroBusqueda + "%");
+        Predicate busquedaPorUnidadMedida = builder.like(entidadIngrediente.get("nombre"), "%" + filtroBusqueda + "%");
+
         criteria.select(entidadIngrediente).where(
-                builder.like(entidadIngrediente.get("nombre"), "%" + filtroBusqueda + "%"));
+                builder.or(busquedaPorNombre, busquedaPorUnidadMedida)
+        );
         TypedQuery<Ingrediente> query = entityManager.createQuery(criteria);
         List<Ingrediente> ingredientes = query.getResultList();
         return ingredientes;
