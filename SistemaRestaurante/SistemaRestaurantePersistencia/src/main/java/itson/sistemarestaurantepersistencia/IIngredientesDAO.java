@@ -6,13 +6,28 @@ package itson.sistemarestaurantepersistencia;
 
 import itson.sistemarestaurantedominio.Ingrediente;
 import itson.sistemarestaurantedominio.dtos.NuevoIngredienteDTO;
+import java.util.List;
 
 /**
  *
  * @author PC
  */
 public interface IIngredientesDAO {
-    
-    public abstract Ingrediente agregar(NuevoIngredienteDTO nuevoIngrediente);
-    
+
+    /**
+     * Metodo para registrar un ingrediente en la base de datos
+     *
+     * @param nuevoIngrediente Nuevo ingrediente a agregar
+     * @return Ingrediente agregado en la base de datos
+     */
+    public abstract Ingrediente agregarIngrediente(NuevoIngredienteDTO nuevoIngrediente);
+
+    /**
+     * Metodo apra obtener una lista con todos los ingredientes de la base de
+     * datos
+     *
+     * @return Lista con todos los ingredientes
+     */
+    public abstract List<Ingrediente> obtenerIngredientes();
+
 }
