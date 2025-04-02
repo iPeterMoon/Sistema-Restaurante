@@ -23,11 +23,30 @@ public interface IIngredientesDAO {
     public abstract Ingrediente agregarIngrediente(NuevoIngredienteDTO nuevoIngrediente);
 
     /**
-     * Metodo apra obtener una lista con todos los ingredientes de la base de
+     * Metodo para obtener una lista con todos los ingredientes de la base de
      * datos
      *
      * @return Lista con todos los ingredientes
      */
     public abstract List<Ingrediente> obtenerIngredientes();
+
+    /**
+     * Metodo para obtener una lista con todos los ingredientes de la base de
+     * datos que coincidan con el filtro de buscqueda
+     *
+     * @param filtroBusqueda Filtro para buscar los ingredientes
+     * @return Lista con los ingredientes coincidentes con el filtro
+     */
+    public abstract List<Ingrediente> obtenerIngrediente(String filtroBusqueda);
+
+    /**
+     * Metodo que verifica si existe un ingrediente con el mismo nombre y unidad
+     * de medida
+     *
+     * @param nuevoIngrediente Ingrediente a verificar
+     * @return True o False dependiendo si existe un ingrediente con el mismo
+     * nombre y unidad de medida o no
+     */
+    public abstract boolean existeIngredienteYUnidad(NuevoIngredienteDTO nuevoIngrediente);
 
 }

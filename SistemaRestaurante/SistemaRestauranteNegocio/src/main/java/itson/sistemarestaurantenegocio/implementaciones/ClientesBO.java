@@ -19,7 +19,6 @@ public class ClientesBO implements IClientesBO{
      * @param nuevoCliente cliente a registrar
      * @throws NegocioException Si el cliente no se puede registrar
      * debido a un error en la base de datos o de formato
-     * @throws Exception si hay un error de cifrado.
      */
     @Override
     public void registrarCliente(NuevoClienteDTO nuevoCliente) throws NegocioException{
