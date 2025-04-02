@@ -3,19 +3,18 @@ package itson.sistemarestaurantepresentacion.pantallas;
 import java.awt.Font;
 
 import itson.sistemarestaurantenegocio.interfaces.IClientesBO;
+import itson.sistemarestaurantepresentacion.control.ControlFlujo;
 /**
  *
  * @author pc
  */
 public class PnlBuscarCliente extends javax.swing.JPanel {
 
-    private IClientesBO clientesBO;
     
     /**
      * Creates new form PnlBuscarCliente
      */
-    public PnlBuscarCliente(IClientesBO clientesBO) {
-        this.clientesBO = clientesBO;
+    public PnlBuscarCliente() {
         initComponents();
     }
 
@@ -93,7 +92,7 @@ public class PnlBuscarCliente extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarMesasActionPerformed
-
+        ControlFlujo.getInstance().mostrarPnlRegistrarCliente();
     }//GEN-LAST:event_btnRegistrarMesasActionPerformed
 
 

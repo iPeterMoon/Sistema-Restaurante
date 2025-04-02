@@ -2,6 +2,8 @@ package itson.sistemarestaurantepresentacion.pantallas;
 
 import itson.sistemarestaurantenegocio.excepciones.NegocioException;
 import itson.sistemarestaurantenegocio.interfaces.IMesasBO;
+import itson.sistemarestaurantepresentacion.control.ControlFlujo;
+
 import java.awt.Font;
 import javax.swing.JOptionPane;
 
@@ -11,17 +13,20 @@ import javax.swing.JOptionPane;
  */
 public class PnlMesas extends javax.swing.JPanel {
     
-    private IMesasBO mesasBO;
     /**
      * Creates new form PnlMesas
      */
-    public PnlMesas(IMesasBO mesasBO) {
-        this.mesasBO = mesasBO;
+    public PnlMesas() {
         initComponents();
         cargarNumMesas();
     }
 
+    /**
+     * Metodo que carga el numero de mesas en la base de datos
+     * y lo muestra en el label correspondiente
+     */
     private void cargarNumMesas(){
+        IMesasBO mesasBO = obtenerMesasBO();
         Long numeroMesas = mesasBO.obtenerNumMesas();
         this.lblNumeroMesas.setText("Numero de Mesas: "+numeroMesas);
     }
@@ -166,13 +171,28 @@ public class PnlMesas extends javax.swing.JPanel {
     }//GEN-LAST:event_campoTextoNumMesasActionPerformed
 
     private void btnRegistrarMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarMesasActionPerformed
-        registrarMesas();
-        cargarNumMesas();
+        try{
+            int numeroMesas = Integer.parseInt(campoTextoNumMesas.getText());
+            registrarMesas(numeroMesas);
+            cargarNumMesas();
+        } catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Asegurese de ingresar un numero", 
+                    "Error", 
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
     }//GEN-LAST:event_btnRegistrarMesasActionPerformed
     
-    private void registrarMesas(){
+    /**
+     * * Metodo que registra las mesas en la base de datos
+     * * @param numeroMesas el numero de mesas a registrar
+     */
+    private void registrarMesas(int numeroMesas){
         try{
-            int numeroMesas = Integer.parseInt(this.campoTextoNumMesas.getText());
+            IMesasBO mesasBO = obtenerMesasBO();
             mesasBO.registrarMesas(numeroMesas);
             JOptionPane.showMessageDialog(
                     this,
@@ -180,12 +200,6 @@ public class PnlMesas extends javax.swing.JPanel {
                     "Registro exitoso",
                     JOptionPane.INFORMATION_MESSAGE
                     );
-        } catch(NumberFormatException ex){
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Asegurese de ingresar un numero", 
-                    "Error", 
-                    JOptionPane.ERROR_MESSAGE);
         } catch(NegocioException ex){
             JOptionPane.showMessageDialog(
                     this,
@@ -193,6 +207,16 @@ public class PnlMesas extends javax.swing.JPanel {
                     "Error", 
                     JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    /**
+     * Metodo que obtiene la instancia de MesasBO que está en el control.
+     * @return
+     */
+    private IMesasBO obtenerMesasBO(){
+        ControlFlujo control = ControlFlujo.getInstance();
+        IMesasBO mesasBO = control.getMesasBO();
+        return mesasBO;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
