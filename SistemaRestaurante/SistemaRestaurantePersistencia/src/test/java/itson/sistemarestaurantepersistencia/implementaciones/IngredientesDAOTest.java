@@ -3,6 +3,7 @@ package itson.sistemarestaurantepersistencia.implementaciones;
 import itson.sistemarestaurantedominio.Ingrediente;
 import itson.sistemarestaurantedominio.dtos.NuevoIngredienteDTO;
 import itson.sistemarestaurantedominio.enumeradores.UnidadMedida;
+import java.util.List;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.*;
@@ -46,11 +47,22 @@ public class IngredientesDAOTest {
         final Integer CANTIDAD_PRODUCTO = 3;
         NuevoIngredienteDTO nuevoIngrediente = new NuevoIngredienteDTO(
                 "Calabaza", UnidadMedida.PIEZAS, CANTIDAD_PRODUCTO);
-        ingredienteGuardado = ingredientesDAO.agregar(nuevoIngrediente);
+        ingredienteGuardado = ingredientesDAO.agregarIngrediente(nuevoIngrediente);
         assertNotNull(ingredienteGuardado.getId());
         assertEquals(nuevoIngrediente.getNombre(), ingredienteGuardado.getNombre());
         assertEquals(nuevoIngrediente.getUnidadMedida(), ingredienteGuardado.getUnidadMedida());
         assertEquals(nuevoIngrediente.getStock(), ingredienteGuardado.getStock());
+    }
+    
+    @Test
+    public void testObtenerProductosOk(){
+        final Integer CANTIDAD_PRODUCTO = 3;
+        NuevoIngredienteDTO nuevoIngrediente = new NuevoIngredienteDTO(
+                "Calabaza", UnidadMedida.PIEZAS, CANTIDAD_PRODUCTO);
+        ingredienteGuardado = ingredientesDAO.agregarIngrediente(nuevoIngrediente);
+        List<Ingrediente> ingredientes = ingredientesDAO.obtenerIngredientes();
+        assertNotNull(ingredientes);
+        assertEquals(1, ingredientes.size());
     }
 
 }
