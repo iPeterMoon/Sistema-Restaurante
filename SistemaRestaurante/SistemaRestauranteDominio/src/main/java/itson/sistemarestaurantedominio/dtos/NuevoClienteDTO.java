@@ -63,4 +63,8 @@ public class NuevoClienteDTO {
         return correo;
     }
 
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
 }

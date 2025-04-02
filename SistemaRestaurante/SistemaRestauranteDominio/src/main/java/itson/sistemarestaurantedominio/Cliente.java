@@ -43,7 +43,7 @@ public class Cliente implements Serializable {
     @Column(name = "correo", length = 100, nullable = true)
     private String correo;
 
-    @Column(name = "telefono", length = 25, nullable = false)
+    @Column(name = "telefono", length = 50, nullable = false)
     private String telefono;
 
     @Temporal(TemporalType.DATE)
