@@ -1,7 +1,9 @@
 package itson.sistemarestaurantepresentacion.control;
 
+import itson.sistemarestaurantenegocio.interfaces.IClientesBO;
 import itson.sistemarestaurantenegocio.interfaces.IMesasBO;
 import itson.sistemarestaurantepresentacion.pantallas.FramePrincipal;
+import itson.sistemarestaurantepresentacion.pantallas.PnlBuscarCliente;
 import itson.sistemarestaurantepresentacion.pantallas.PnlInicio;
 import itson.sistemarestaurantepresentacion.pantallas.PnlMesas;
 import javax.swing.JFrame;
@@ -12,6 +14,7 @@ public class ControlFlujo {
     private FramePrincipal framePrincipal;
     private static ControlFlujo instanciaControl;
     private IMesasBO mesasBO;
+    private IClientesBO clientesBO;
     
     private ControlFlujo(){
         framePrincipal = new FramePrincipal();
@@ -46,6 +49,11 @@ public class ControlFlujo {
         mostrarPanel(pnlMesas);
     }
     
+    public void mostrarPnlClientes(){
+        PnlBuscarCliente pnlBuscarCliente = new PnlBuscarCliente(clientesBO);
+        mostrarPanel(pnlBuscarCliente);
+    }
+
     private void mostrarPanel(JPanel panel){
         framePrincipal.getPnlPrincipal().removeAll();
         framePrincipal.getPnlPrincipal().add(panel);
@@ -59,6 +67,14 @@ public class ControlFlujo {
 
     public void setMesasBO(IMesasBO mesasBO) {
         this.mesasBO = mesasBO;
+    }
+
+    public IClientesBO getClientesBO() {
+        return clientesBO;
+    }
+
+    public void setClientesBO(IClientesBO clientesBO) {
+        this.clientesBO = clientesBO;
     }
     
     

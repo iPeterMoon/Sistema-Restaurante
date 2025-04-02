@@ -302,6 +302,9 @@ public class FramePrincipal extends javax.swing.JFrame {
         btnClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/boton clientes.png"))); // NOI18N
         btnClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnClientesMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnClientesMouseEntered(evt);
             }
@@ -316,6 +319,9 @@ public class FramePrincipal extends javax.swing.JFrame {
         lblClientes.setText("Clientes");
         lblClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblClientesMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblClientesMouseEntered(evt);
             }
@@ -734,6 +740,14 @@ public class FramePrincipal extends javax.swing.JFrame {
         mostrarSeccionInicio();
     }//GEN-LAST:event_lblInicioMouseClicked
 
+    private void btnClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClientesMouseClicked
+        mostrarSeccionClientes();
+    }//GEN-LAST:event_btnClientesMouseClicked
+
+    private void lblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblClientesMouseClicked
+        mostrarSeccionClientes();
+    }//GEN-LAST:event_lblClientesMouseClicked
+
     /**
      * Metodo que cambia las propiedades de la fuente para que se muestre subrayada
      * @param label etiqueta a subrayar
@@ -824,6 +838,17 @@ public class FramePrincipal extends javax.swing.JFrame {
         ControlFlujo control = ControlFlujo.getInstance();
         control.mostrarPnlMesas();
     }
+    /**
+     * Metodo para mostrar la sección de los clientes
+     */
+    private void mostrarSeccionClientes(){
+        descolorearTodosLosPaneles();
+        pintarPanelSeleccion(pnlClientes);
+        currentSection = SECCION_CLIENTES;
+        ControlFlujo control = ControlFlujo.getInstance();
+        control.mostrarPnlClientes();
+    }
+   
 
     
     
