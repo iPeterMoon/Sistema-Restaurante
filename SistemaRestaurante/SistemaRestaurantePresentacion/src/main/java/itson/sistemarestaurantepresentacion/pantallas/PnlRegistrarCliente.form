@@ -25,7 +25,7 @@
               <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
               <Component id="lblBienvenido" min="-2" pref="429" max="-2" attributes="0"/>
               <EmptySpace pref="291" max="32767" attributes="0"/>
-              <Component id="btnRegistrarMesas" min="-2" pref="344" max="-2" attributes="0"/>
+              <Component id="btnCancelar" min="-2" pref="344" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
@@ -35,7 +35,7 @@
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="jButton1" min="-2" pref="500" max="-2" attributes="0"/>
+              <Component id="btnRegistrarCliente" min="-2" pref="500" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="368" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -46,12 +46,12 @@
               <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lblBienvenido" alignment="0" min="-2" pref="54" max="-2" attributes="0"/>
-                  <Component id="btnRegistrarMesas" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
+                  <Component id="btnCancelar" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
               <Component id="roundedPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" pref="50" max="-2" attributes="0"/>
+              <Component id="btnRegistrarCliente" min="-2" pref="50" max="-2" attributes="0"/>
               <EmptySpace pref="128" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -69,7 +69,7 @@
         <Property name="text" type="java.lang.String" value="Registrar Nuevo Cliente"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnRegistrarMesas">
+    <Component class="javax.swing.JButton" name="btnCancelar">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="5e" green="5e" red="5e" type="rgb"/>
@@ -86,7 +86,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegistrarMesasActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>
       </Events>
     </Component>
     <Container class="itson.sistemarestaurantepresentacion.recursos.RoundedPanel" name="roundedPanel1">
@@ -106,14 +106,13 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lblTelefono" min="-2" pref="100" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Component id="txtTelefono1" alignment="0" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="lblNombre" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                                      <Component id="txtNombre" alignment="0" min="-2" pref="400" max="-2" attributes="0"/>
+                                      <Component id="txtNombre" min="-2" pref="400" max="-2" attributes="0"/>
+                                      <Component id="lblNombre" min="-2" pref="163" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -132,6 +131,7 @@
                           <Component id="lblTelefono1" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtTelefono" alignment="0" pref="400" max="32767" attributes="0"/>
                       </Group>
+                      <Component id="lblTelefono" alignment="0" min="-2" pref="145" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="64" max="32767" attributes="0"/>
               </Group>
@@ -181,7 +181,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Nombre(s)"/>
+            <Property name="text" type="java.lang.String" value="Nombre(s) *"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNombre">
@@ -205,7 +205,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Telefono"/>
+            <Property name="text" type="java.lang.String" value="Telefono *"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblApellidoPaterno">
@@ -216,7 +216,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Apellido Paterno"/>
+            <Property name="text" type="java.lang.String" value="Apellido Paterno *"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtApellidoPaterno">
@@ -240,7 +240,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Apellido Materno"/>
+            <Property name="text" type="java.lang.String" value="Apellido Materno *"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtApellidoMaterno">
@@ -277,7 +277,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Correo Electr&#xf3;nico"/>
+            <Property name="text" type="java.lang.String" value="Correo Electr&#xf3;nico (opcional)"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtTelefono1">
@@ -295,7 +295,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btnRegistrarCliente">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="89" green="cd" red="50" type="rgb"/>
@@ -307,7 +307,13 @@
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Registrar Cliente"/>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Hand Cursor"/>
+        </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegistrarClienteActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -9,14 +9,14 @@ import java.awt.Font;
  *
  * @author pc
  */
-public class panelCliente extends javax.swing.JPanel {
+public class PnlCliente extends javax.swing.JPanel {
 
     private Cliente cliente;
     
     /**
      * Creates new form panelCliente
      */
-    public panelCliente(Cliente cliente) {
+    public PnlCliente(Cliente cliente) {
         this.cliente = cliente;
         initComponents();
         cargarDatos();

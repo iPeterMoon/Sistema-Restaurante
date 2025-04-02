@@ -1,8 +1,10 @@
 package itson.sistemarestaurantepersistencia.implementaciones;
 
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import itson.sistemarestaurantedominio.Cliente;
 import itson.sistemarestaurantedominio.dtos.NuevoClienteDTO;
@@ -36,6 +38,20 @@ public class ClientesDAO implements IClientesDAO {
         entityManager.getTransaction().commit();
 
         return cliente;
+    }
+
+    /**
+     * Metodo para obtener los clientes registrados en la bd
+     * @return lista de clientes registrados
+     */
+    @Override
+    public List<Cliente> obtenerClientesFrecuentes() {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        String jpqlQuery = "SELECT c FROM Cliente c";
+        TypedQuery<Cliente> query = entityManager.createQuery(jpqlQuery, Cliente.class);
+        List<Cliente> clientes = query.getResultList();
+        entityManager.close();
+        return clientes;
     }
     
 }

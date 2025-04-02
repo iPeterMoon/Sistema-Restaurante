@@ -1,5 +1,14 @@
 package paneles;
 import java.awt.Font;
+import java.util.List;
+
+import javax.swing.Box;
+import javax.swing.JOptionPane;
+
+import itson.sistemarestaurantedominio.Cliente;
+import itson.sistemarestaurantenegocio.excepciones.NegocioException;
+import itson.sistemarestaurantenegocio.interfaces.IClientesBO;
+import itson.sistemarestaurantepresentacion.control.ControlFlujo;
 /**
  *
  * @author pc
@@ -11,6 +20,28 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
      */
     public PnlBusquedaCliente() {
         initComponents();
+        cargarClientes();
+    }
+
+
+    /**
+     * Método para cargar los clientes en el panel pnlClientes.
+     * Este método debe ser llamado después de inicializar el componente.
+     */
+    private void cargarClientes(){
+        IClientesBO clientesBO = obtenerClientesBO();
+        try{
+            List<Cliente> clientes = clientesBO.obtenerClientesFrecuentes();
+            pnlClientes.removeAll();
+            for(Cliente cliente : clientes){
+                PnlCliente pnlCliente = new PnlCliente(cliente);
+                pnlClientes.add(pnlCliente);
+                pnlClientes.add(Box.createVerticalStrut(30));
+            }
+        } catch(NegocioException ex){
+            System.out.println(ex.getMessage());
+        }
+        
     }
 
     /**
@@ -120,6 +151,15 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_campoTextoTelefonoMouseClicked
 
+
+    /**
+     * Método para obtener el objeto IClientesBO.
+     * @return IClientesBO objeto de negocio de clientes.
+     */
+    private IClientesBO obtenerClientesBO(){
+        ControlFlujo controlFlujo = ControlFlujo.getInstance();
+        return controlFlujo.getClientesBO();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;

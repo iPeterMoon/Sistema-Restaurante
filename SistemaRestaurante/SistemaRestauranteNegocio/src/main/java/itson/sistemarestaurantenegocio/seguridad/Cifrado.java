@@ -8,7 +8,7 @@ import java.util.Base64;
 public class Cifrado {
 
     private static final String ALGORITHM = "AES";
-    private static final byte[] KEY = "j2iQWsDBD62Q3ipA213k2".getBytes(); // Clave de 16 bytes (128 bits)
+    private static final byte[] KEY = "f2c3e9a7d4b9c5e1f4d0a1b6c9e0a2f3".getBytes(); // Clave de 16 bytes (128 bits)
 
     /**
      * Cifra un texto usando el algoritmo AES.

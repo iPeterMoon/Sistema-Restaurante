@@ -1,7 +1,13 @@
 package itson.sistemarestaurantepresentacion.pantallas;
 
+import itson.sistemarestaurantedominio.Cliente;
+import itson.sistemarestaurantedominio.dtos.NuevoClienteDTO;
+import itson.sistemarestaurantenegocio.excepciones.NegocioException;
+import itson.sistemarestaurantenegocio.interfaces.IClientesBO;
 import itson.sistemarestaurantepresentacion.control.ControlFlujo;
 import java.awt.Font;
+
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -28,7 +34,7 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
     private void initComponents() {
 
         lblBienvenido = new javax.swing.JLabel();
-        btnRegistrarMesas = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         roundedPanel1 = new itson.sistemarestaurantepresentacion.recursos.RoundedPanel();
         lblNombre = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
@@ -40,7 +46,7 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
         txtTelefono = new javax.swing.JTextField();
         lblTelefono1 = new javax.swing.JLabel();
         txtTelefono1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnRegistrarCliente = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(37, 40, 54));
 
@@ -48,14 +54,14 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
         lblBienvenido.setForeground(new java.awt.Color(255, 255, 255));
         lblBienvenido.setText("Registrar Nuevo Cliente");
 
-        btnRegistrarMesas.setBackground(new java.awt.Color(94, 94, 94));
-        btnRegistrarMesas.setFont(new Font("Poppins", Font.PLAIN, 18));
-        btnRegistrarMesas.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegistrarMesas.setText("Cancelar");
-        btnRegistrarMesas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnRegistrarMesas.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setBackground(new java.awt.Color(94, 94, 94));
+        btnCancelar.setFont(new Font("Poppins", Font.PLAIN, 18));
+        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelar.setText("Cancelar");
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarMesasActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -67,7 +73,7 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
 
         lblNombre.setFont(new Font("Poppins", Font.PLAIN, 18));
         lblNombre.setForeground(new java.awt.Color(255, 255, 255));
-        lblNombre.setText("Nombre(s)");
+        lblNombre.setText("Nombre(s) *");
 
         txtNombre.setBackground(new java.awt.Color(255, 255, 255));
         txtNombre.setFont(new Font("Poppins", Font.PLAIN, 18));
@@ -75,11 +81,11 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
 
         lblTelefono.setFont(new Font("Poppins", Font.PLAIN, 18));
         lblTelefono.setForeground(new java.awt.Color(255, 255, 255));
-        lblTelefono.setText("Telefono");
+        lblTelefono.setText("Telefono *");
 
         lblApellidoPaterno.setFont(new Font("Poppins", Font.PLAIN, 18));
         lblApellidoPaterno.setForeground(new java.awt.Color(255, 255, 255));
-        lblApellidoPaterno.setText("Apellido Paterno");
+        lblApellidoPaterno.setText("Apellido Paterno *");
 
         txtApellidoPaterno.setBackground(new java.awt.Color(255, 255, 255));
         txtApellidoPaterno.setFont(new Font("Poppins", Font.PLAIN, 18));
@@ -87,7 +93,7 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
 
         lblApellidoMaterno.setFont(new Font("Poppins", Font.PLAIN, 18));
         lblApellidoMaterno.setForeground(new java.awt.Color(255, 255, 255));
-        lblApellidoMaterno.setText("Apellido Materno");
+        lblApellidoMaterno.setText("Apellido Materno *");
 
         txtApellidoMaterno.setBackground(new java.awt.Color(255, 255, 255));
         txtApellidoMaterno.setFont(new Font("Poppins", Font.PLAIN, 18));
@@ -99,7 +105,7 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
 
         lblTelefono1.setFont(new Font("Poppins", Font.PLAIN, 18));
         lblTelefono1.setForeground(new java.awt.Color(255, 255, 255));
-        lblTelefono1.setText("Correo Electrónico");
+        lblTelefono1.setText("Correo Electrónico (opcional)");
 
         txtTelefono1.setBackground(new java.awt.Color(255, 255, 255));
         txtTelefono1.setFont(new Font("Poppins", Font.PLAIN, 18));
@@ -112,14 +118,13 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
             .addGroup(roundedPanel1Layout.createSequentialGroup()
                 .addGap(60, 60, 60)
                 .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(roundedPanel1Layout.createSequentialGroup()
                         .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(txtTelefono1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, roundedPanel1Layout.createSequentialGroup()
                                 .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtApellidoPaterno)
@@ -130,7 +135,8 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
                             .addComponent(lblApellidoMaterno, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)))
                     .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(lblTelefono1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)))
+                        .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
+                    .addComponent(lblTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(64, Short.MAX_VALUE))
         );
         roundedPanel1Layout.setVerticalGroup(
@@ -161,10 +167,16 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
                 .addContainerGap(77, Short.MAX_VALUE))
         );
 
-        jButton1.setBackground(new java.awt.Color(80, 205, 137));
-        jButton1.setFont(new Font("Poppins", Font.PLAIN, 18));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Registrar Cliente");
+        btnRegistrarCliente.setBackground(new java.awt.Color(80, 205, 137));
+        btnRegistrarCliente.setFont(new Font("Poppins", Font.PLAIN, 18));
+        btnRegistrarCliente.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrarCliente.setText("Registrar Cliente");
+        btnRegistrarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegistrarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarClienteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -174,7 +186,7 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
                 .addGap(80, 80, 80)
                 .addComponent(lblBienvenido, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 291, Short.MAX_VALUE)
-                .addComponent(btnRegistrarMesas, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(96, 96, 96))
             .addGroup(layout.createSequentialGroup()
                 .addGap(120, 120, 120)
@@ -182,7 +194,7 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRegistrarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(368, 368, 368))
         );
         layout.setVerticalGroup(
@@ -191,24 +203,74 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
                 .addGap(58, 58, 58)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblBienvenido, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRegistrarMesas, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(122, 122, 122)
                 .addComponent(roundedPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(63, 63, 63)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRegistrarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(128, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRegistrarMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarMesasActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         ControlFlujo control = ControlFlujo.getInstance();
         control.mostrarPnlClientes();
-    }//GEN-LAST:event_btnRegistrarMesasActionPerformed
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void btnRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarClienteActionPerformed
+        Cliente cliente = registrarCliente();
+        if(cliente != null){
+            mostrarPnlClientes();
+        }
+    }//GEN-LAST:event_btnRegistrarClienteActionPerformed
+
+    /**
+     * Método para registrar un nuevo cliente.
+     * Obtiene los datos del cliente desde los campos de texto y llama al método
+     * registrarCliente del IClientesBO.
+     */
+    private Cliente registrarCliente(){
+        String nombre = txtNombre.getText();
+        String apellidoPaterno = txtApellidoPaterno.getText();
+        String apellidoMaterno = txtApellidoMaterno.getText();
+        String telefono = txtTelefono.getText();
+        String correo = txtTelefono1.getText();
+
+        IClientesBO clientesBO = obtenerClientesBO();
+
+        NuevoClienteDTO nuevoCliente = new NuevoClienteDTO(nombre, apellidoPaterno, apellidoMaterno, telefono, correo);
+        try {
+            Cliente cliente = clientesBO.registrarCliente(nuevoCliente);
+            // Mostrar mensaje de éxito
+            JOptionPane.showMessageDialog(this, "Cliente registrado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            return cliente;
+        } catch (NegocioException e) {
+            // Manejar la excepción y mostrar mensaje de error
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return null;
+    }
+
+    /**
+     * Método para mostrar el panel de clientes.
+     * Se obtiene la instancia de ControlFlujo y se llama al método mostrarPnlClientes.
+     */
+    private void mostrarPnlClientes() {
+        ControlFlujo control = ControlFlujo.getInstance();
+        control.mostrarPnlClientes();
+    }
+    /**
+     * Método para obtener el objeto IClientesBO.
+     * @return IClientesBO objeto de negocio de clientes.
+     */
+    private IClientesBO obtenerClientesBO(){
+        ControlFlujo controlFlujo = ControlFlujo.getInstance();
+        return controlFlujo.getClientesBO();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnRegistrarMesas;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnRegistrarCliente;
     private javax.swing.JLabel lblApellidoMaterno;
     private javax.swing.JLabel lblApellidoPaterno;
     private javax.swing.JLabel lblBienvenido;
