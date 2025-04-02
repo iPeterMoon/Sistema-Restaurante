@@ -12,6 +12,8 @@ import javax.persistence.Table;
 
 /**
  *
+ * Clase mapeadora de la relacion de ingredientes y productos
+ *
  * @author PC
  */
 @Entity
@@ -34,52 +36,103 @@ public class IngredientesProducto implements Serializable {
     @JoinColumn(name = "id_producto", nullable = false)
     private Producto producto;
 
+    /**
+     * Constructor por omision
+     */
     public IngredientesProducto() {
     }
 
-//    public IngredientesProducto(Ingrediente ingrediente, Producto producto) {
-//        this.ingrediente = ingrediente;
-//        this.producto = producto;
-//    }
-
+    /**
+     * Constructor que inicializa los atributos de la clase al valor de sus
+     * parametros
+     *
+     * @param cantidad Cantidad de el ingrediente
+     * @param ingrediente Ingrediente relacionado
+     * @param producto Producto relacionado
+     */
     public IngredientesProducto(Integer cantidad, Ingrediente ingrediente, Producto producto) {
         this.cantidad = cantidad;
         this.ingrediente = ingrediente;
         this.producto = producto;
     }
 
+    /**
+     * Obtiene el ID de la relacion de productos e ingredientes
+     *
+     * @return ID de la relacion de procductos e ingredientes
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Establece el ID de la relacion de productos e ingredientes
+     *
+     * @param id ID de la relacion de productos e ingredientes a establecer
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Obtiene la cantidad de el ingrediente
+     *
+     * @return Cantidad de el ingrediente
+     */
     public Integer getCantidad() {
         return cantidad;
     }
 
+    /**
+     * Establece la cantidad de el ingrediente
+     *
+     * @param cantidad Cantidad de el ingrediente a establecer
+     */
     public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
     }
 
+    /**
+     * Obtiene el ingrediente relacionado
+     *
+     * @return Ingrediente relacionado
+     */
     public Ingrediente getIngrediente() {
         return ingrediente;
     }
 
+    /**
+     * Establece el ingrediente relacionado
+     *
+     * @param ingrediente Ingrediente relacionado a establecer
+     */
     public void setIngrediente(Ingrediente ingrediente) {
         this.ingrediente = ingrediente;
     }
 
+    /**
+     * Obtiene el producto relacionado
+     *
+     * @return Producto relacionado
+     */
     public Producto getProducto() {
         return producto;
     }
 
+    /**
+     * Establece el producto relacionado
+     *
+     * @param producto Producto relacionado a establecer
+     */
     public void setProducto(Producto producto) {
         this.producto = producto;
     }
 
+    /**
+     * Obtiene el HashCode de la relacion de el producto y el ingrediente
+     *
+     * @return Codigo Hash de la relacion de el producto y el ingrediente
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -87,6 +140,12 @@ public class IngredientesProducto implements Serializable {
         return hash;
     }
 
+    /**
+     * Metodo que compara si la relacion es igual a otra relacion
+     *
+     * @param object Objeto que es una instancia de IngredienteProducto
+     * @return True or False dependiendo si la relacion es la misma o no
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -104,6 +163,17 @@ public class IngredientesProducto implements Serializable {
         this.id = id;
         this.ingrediente = ingrediente;
         this.producto = producto;
+    }
+
+    /**
+     * Metodo que convierte el valor de todos los atributos de la clase a una
+     * string
+     *
+     * @return String con el valor de todos los atributos de la clase
+     */
+    @Override
+    public String toString() {
+        return "IngredientesProducto{" + "id=" + id + ", cantidad=" + cantidad + ", ingrediente=" + ingrediente + ", producto=" + producto + '}';
     }
 
 }

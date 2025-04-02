@@ -4,6 +4,7 @@ import itson.sistemarestaurantedominio.Cliente;
 import itson.sistemarestaurantedominio.Comanda;
 import itson.sistemarestaurantedominio.enumeradores.EstadoComanda;
 import itson.sistemarestaurantedominio.Mesa;
+import java.math.BigDecimal;
 import java.util.Calendar;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -70,7 +71,7 @@ public class ComandaTest {
     @Test
     public void testCrearComandaConClienteYMesa() {
         final int PUNTOS_CLIENTE = 1;
-        final double TOTAL_VENTA_COMANDA = 123.00;
+        final BigDecimal TOTAL_VENTA_COMANDA = BigDecimal.valueOf(123.00);
         final int NUMERO_MESA = 2;
 
         EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(

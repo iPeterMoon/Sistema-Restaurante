@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 /**
@@ -53,6 +54,49 @@ public class IngredientesDAO implements IIngredientesDAO {
         TypedQuery<Ingrediente> query = entityManager.createQuery(criteria);
         List<Ingrediente> ingredientes = query.getResultList();
         return ingredientes;
+    }
+
+    /**
+     * Metodo para obtener una lista con todos los ingredientes de la base de
+     * datos
+     *
+     * @return Lista con todos los ingredientes
+     */
+    @Override
+    public List<Ingrediente> obtenerIngrediente(String filtroBusqueda) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Ingrediente> criteria = builder.createQuery(Ingrediente.class);
+        Root<Ingrediente> entidadIngrediente = criteria.from(Ingrediente.class);
+
+        Predicate busquedaPorNombre = builder.like(entidadIngrediente.get("unidadMedida"), "%" + filtroBusqueda + "%");
+        Predicate busquedaPorUnidadMedida = builder.like(entidadIngrediente.get("nombre"), "%" + filtroBusqueda + "%");
+
+        criteria.select(entidadIngrediente).where(
+                builder.or(busquedaPorNombre, busquedaPorUnidadMedida)
+        );
+        TypedQuery<Ingrediente> query = entityManager.createQuery(criteria);
+        List<Ingrediente> ingredientes = query.getResultList();
+        return ingredientes;
+    }
+
+    /**
+     * Metodo que verifica si existe un ingrediente con el mismo nombre y unidad
+     * de medida
+     *
+     * @param nuevoIngrediente Ingrediente a verificar
+     * @return True o False dependiendo si existe un ingrediente con el mismo
+     * nombre y unidad de medida o no
+     */
+    @Override
+    public boolean existeIngredienteYUnidad(NuevoIngredienteDTO nuevoIngrediente) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        boolean existeIngrediente = entityManager.createQuery(
+                "SELECT COUNT(i) FROM Ingrediente i WHERE i.nombre = :nombre AND i.unidadMedida = :unidadMedida", Long.class)
+                .setParameter("nombre", nuevoIngrediente.getNombre())
+                .setParameter("unidadMedida", nuevoIngrediente.getUnidadMedida())
+                .getSingleResult() > 0;
+        return existeIngrediente;
     }
 
 }

@@ -5,6 +5,7 @@ import itson.sistemarestaurantedominio.IngredientesProducto;
 import itson.sistemarestaurantedominio.Producto;
 import itson.sistemarestaurantedominio.enumeradores.TipoProducto;
 import itson.sistemarestaurantedominio.enumeradores.UnidadMedida;
+import java.math.BigDecimal;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -49,7 +50,7 @@ public class IngredientesProductoTest {
     @Test
     public void testCrearProductoConIngredientes() {
         final int CANTIDAD_INGREDIENTE = 3;
-        final double PRECIO_PRODUCTO = 100.00;
+        final BigDecimal PRECIO_PRODUCTO = BigDecimal.valueOf(100.00);
         final int CANTIDAD_INGREDIENTE_POR_PRODUCTO = 2;
 
         EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
