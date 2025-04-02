@@ -24,14 +24,9 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
               <Component id="lblBienvenido" min="-2" pref="429" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="265" max="32767" attributes="0"/>
               <Component id="btnRegistrarMesas" min="-2" pref="344" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-              <Component id="pnlBusquedaCliente2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -43,9 +38,7 @@
                   <Component id="lblBienvenido" alignment="0" min="-2" pref="54" max="-2" attributes="0"/>
                   <Component id="btnRegistrarMesas" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="pnlBusquedaCliente2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="783" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -81,8 +74,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegistrarMesasActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="paneles.PnlBusquedaCliente" name="pnlBusquedaCliente2">
     </Component>
   </SubComponents>
 </Form>

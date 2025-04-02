@@ -65,6 +65,7 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
         btnBuscar.setFont(new Font("Poppins", Font.PLAIN, 16));
         btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscar.setText("Buscar");
+        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jScrollPane1.setBorder(null);
 
