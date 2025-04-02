@@ -2,6 +2,7 @@ package itson.sistemarestaurantedominio;
 
 import itson.sistemarestaurantedominio.enumeradores.TipoProducto;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -30,8 +31,8 @@ public class Producto implements Serializable {
     @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    @Column(name = "precio", nullable = false)
-    private Double precio;
+    @Column(name = "precio", nullable = false, precision = 10, scale = 2)
+    private BigDecimal precio;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_producto", nullable = false)
@@ -46,7 +47,7 @@ public class Producto implements Serializable {
     public Producto() {
     }
 
-    public Producto(String nombre, Double precio, TipoProducto tipoProducto) {
+    public Producto(String nombre, BigDecimal precio, TipoProducto tipoProducto) {
         this.nombre = nombre;
         this.precio = precio;
         this.tipoProducto = tipoProducto;
@@ -68,11 +69,11 @@ public class Producto implements Serializable {
         this.nombre = nombre;
     }
 
-    public Double getPrecio() {
+    public BigDecimal getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Double precio) {
+    public void setPrecio(BigDecimal precio) {
         this.precio = precio;
     }
 

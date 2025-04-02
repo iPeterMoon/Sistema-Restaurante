@@ -7,6 +7,7 @@ import itson.sistemarestaurantedominio.enumeradores.EstadoComanda;
 import itson.sistemarestaurantedominio.Mesa;
 import itson.sistemarestaurantedominio.Producto;
 import itson.sistemarestaurantedominio.enumeradores.TipoProducto;
+import java.math.BigDecimal;
 import java.util.Calendar;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -63,8 +64,8 @@ public class DetallesComandaTest {
     public void testCrearComandaConProductos() {
         final int CANTIDAD_DE_PRODUCTO = 3;
         final int NUMERO_MESA = 3;
-        final double PRECIO_PRODUCTO = 100.00;
-        final double TOTAL_VENTA_COMANDA = 300;
+        final BigDecimal PRECIO_PRODUCTO = BigDecimal.valueOf(100.00);
+        final BigDecimal TOTAL_VENTA_COMANDA = BigDecimal.valueOf(300.00);
         final int PUNTOS_CLIENTE = 1;
 
         EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
@@ -82,7 +83,7 @@ public class DetallesComandaTest {
                 EstadoComanda.CANCELADA, TOTAL_VENTA_COMANDA, clienteCreado, mesaCreada);
         detallesComandaCreado = new DetallesComanda(CANTIDAD_DE_PRODUCTO,
                 "Comentario de PRUEBA", productoCreado.getPrecio(),
-                productoCreado.getPrecio() * CANTIDAD_DE_PRODUCTO, comandaCreada, productoCreado);
+                productoCreado.getPrecio().multiply(BigDecimal.valueOf(CANTIDAD_DE_PRODUCTO)), comandaCreada, productoCreado);
 
         em.persist(productoCreado);
         em.persist(clienteCreado);

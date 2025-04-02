@@ -6,6 +6,7 @@ package itson.sistemarestaurante;
 
 import itson.sistemarestaurantedominio.Producto;
 import itson.sistemarestaurantedominio.enumeradores.TipoProducto;
+import java.math.BigDecimal;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -38,7 +39,7 @@ public class ProductoTest {
     
     @Test
     public void testCrearProducto() {
-        final double PRECIO_PRODUCTO = 120.00;
+        final BigDecimal PRECIO_PRODUCTO = BigDecimal.valueOf(120.00);
 
         EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(
                 "itson_PruebasSistemaRestaurante_jar_1.0PU");

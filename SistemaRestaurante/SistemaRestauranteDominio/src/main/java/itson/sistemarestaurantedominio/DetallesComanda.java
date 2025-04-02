@@ -1,6 +1,7 @@
 package itson.sistemarestaurantedominio;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,11 +31,11 @@ public class DetallesComanda implements Serializable {
     @Column(name = "comentario", length = 100, nullable = true)
     private String comentario;
 
-    @Column(name = "precio_unitario", nullable = false)
-    private Double precioUnitario;
+    @Column(name = "precio_unitario", nullable = false, precision = 10, scale = 2)
+    private BigDecimal precioUnitario;
 
-    @Column(name = "total_por_producto", nullable = false)
-    private Double totalPorProducto;
+    @Column(name = "total_por_producto", nullable = false, precision = 10, scale = 2)
+    private BigDecimal totalPorProducto;
 
     @ManyToOne()
     @JoinColumn(name = "id_comanda", nullable = false)
@@ -61,7 +62,7 @@ public class DetallesComanda implements Serializable {
      * @param comanda Comanda a la que pertenecen los detalles
      * @param producto Producto requerido por la comanda
      */
-    public DetallesComanda(Integer cantidad, String comentario, Double precioUnitario, Double totalPorProducto, Comanda comanda, Producto producto) {
+    public DetallesComanda(Integer cantidad, String comentario, BigDecimal precioUnitario, BigDecimal totalPorProducto, Comanda comanda, Producto producto) {
         this.cantidad = cantidad;
         this.comentario = comentario;
         this.precioUnitario = precioUnitario;
@@ -129,7 +130,7 @@ public class DetallesComanda implements Serializable {
      *
      * @return Precio unitario del producto de la comanda
      */
-    public Double getPrecioUnitario() {
+    public BigDecimal getPrecioUnitario() {
         return precioUnitario;
     }
 
@@ -138,7 +139,7 @@ public class DetallesComanda implements Serializable {
      *
      * @param precioUnitario Precio unitario del producto a establecer
      */
-    public void setPrecioUnitario(Double precioUnitario) {
+    public void setPrecioUnitario(BigDecimal precioUnitario) {
         this.precioUnitario = precioUnitario;
     }
 
@@ -147,7 +148,7 @@ public class DetallesComanda implements Serializable {
      *
      * @return Total por producto de los detalles de la comanda
      */
-    public Double getTotalPorProducto() {
+    public BigDecimal getTotalPorProducto() {
         return totalPorProducto;
     }
 
@@ -156,7 +157,7 @@ public class DetallesComanda implements Serializable {
      *
      * @param totalPorProducto Total de producto a establecer
      */
-    public void setTotalPorProducto(Double totalPorProducto) {
+    public void setTotalPorProducto(BigDecimal totalPorProducto) {
         this.totalPorProducto = totalPorProducto;
     }
 

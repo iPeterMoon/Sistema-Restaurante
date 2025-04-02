@@ -2,6 +2,7 @@ package itson.sistemarestaurantedominio;
 
 import itson.sistemarestaurantedominio.enumeradores.EstadoComanda;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -44,8 +45,8 @@ public class Comanda implements Serializable {
     @Column(name = "estado", nullable = false)
     private EstadoComanda estado;
 
-    @Column(name = "total_venta", nullable = false)
-    private Double totalVenta;
+    @Column(name = "total_venta", nullable = false, precision = 10, scale = 2)
+    private BigDecimal totalVenta;
 
     @ManyToOne()
     @JoinColumn(name = "id_cliente", nullable = true)
@@ -75,7 +76,7 @@ public class Comanda implements Serializable {
      * @param cliente Cliente al que se le proporciona la comanda
      * @param mesa Mesa en la que se entrega la comanda
      */
-    public Comanda(String folio, Calendar fechaHora, EstadoComanda estado, Double totalVenta, Cliente cliente, Mesa mesa) {
+    public Comanda(String folio, Calendar fechaHora, EstadoComanda estado, BigDecimal totalVenta, Cliente cliente, Mesa mesa) {
         this.folio = folio;
         this.fechaHora = fechaHora;
         this.estado = estado;
@@ -162,7 +163,7 @@ public class Comanda implements Serializable {
      *
      * @return Total de venta de la comanda
      */
-    public Double getTotalVenta() {
+    public BigDecimal getTotalVenta() {
         return totalVenta;
     }
 
@@ -171,7 +172,7 @@ public class Comanda implements Serializable {
      *
      * @param totalVenta Total de venta de la comanda a establecer
      */
-    public void setTotalVenta(Double totalVenta) {
+    public void setTotalVenta(BigDecimal totalVenta) {
         this.totalVenta = totalVenta;
     }
 
