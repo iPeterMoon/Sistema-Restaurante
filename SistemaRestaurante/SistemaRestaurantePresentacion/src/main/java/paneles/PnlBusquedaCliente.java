@@ -7,8 +7,8 @@ import javax.swing.JOptionPane;
 
 import itson.sistemarestaurantedominio.Cliente;
 import itson.sistemarestaurantenegocio.excepciones.NegocioException;
+import itson.sistemarestaurantenegocio.factory.ObjetosNegocioFactory;
 import itson.sistemarestaurantenegocio.interfaces.IClientesBO;
-import itson.sistemarestaurantepresentacion.control.ControlFlujo;
 /**
  *
  * @author pc
@@ -29,7 +29,7 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
      * Este método debe ser llamado después de inicializar el componente.
      */
     private void cargarClientes(){
-        IClientesBO clientesBO = obtenerClientesBO();
+        IClientesBO clientesBO = ObjetosNegocioFactory.crearClientesBO();
         try{
             List<Cliente> clientes = clientesBO.obtenerClientesFrecuentes();
             cargarPanelesClientes(clientes);
@@ -229,21 +229,12 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
 
 
     /**
-     * Método para obtener el objeto IClientesBO.
-     * @return IClientesBO objeto de negocio de clientes.
-     */
-    private IClientesBO obtenerClientesBO(){
-        ControlFlujo controlFlujo = ControlFlujo.getInstance();
-        return controlFlujo.getClientesBO();
-    }
-
-    /**
      * Método para buscar clientes por teléfono.
      * @param telefono el número de teléfono a buscar.
      * @return lista de clientes encontrados.
      */
     private List<Cliente> buscarClientesPorTelefono(String telefono){
-        IClientesBO clientesBO = obtenerClientesBO();
+        IClientesBO clientesBO = ObjetosNegocioFactory.crearClientesBO();
         List<Cliente> clientes = null;
         try {
             clientes = clientesBO.buscarClientesPorTelefono(telefono);
@@ -259,7 +250,7 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
      * @return lista de clientes encontrados.
      */
     private List<Cliente> buscarClientesPorNombre(String nombre){
-        IClientesBO clientesBO = obtenerClientesBO();
+        IClientesBO clientesBO = ObjetosNegocioFactory.crearClientesBO();
         List<Cliente> clientes = null;
         try {
             clientes = clientesBO.buscarClientesPorNombre(nombre);
@@ -275,7 +266,7 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
      * @return lista de clientes encontrados.
      */
     private List<Cliente> buscarClientesPorCorreo(String correo){
-        IClientesBO clientesBO = obtenerClientesBO();
+        IClientesBO clientesBO = ObjetosNegocioFactory.crearClientesBO();
         List<Cliente> clientes = null;
         try {
             clientes = clientesBO.buscarClientesPorCorreo(correo);
@@ -292,7 +283,7 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
      * @return lista de clientes encontrados.
      */
     private List<Cliente> buscarClientesPorNombreYTelefono(String nombre, String telefono){
-        IClientesBO clientesBO = obtenerClientesBO();
+        IClientesBO clientesBO = ObjetosNegocioFactory.crearClientesBO();
         List<Cliente> clientes = null;
         try {
             clientes = clientesBO.buscarClientesPorNombreYTelefono(nombre, telefono);
@@ -309,7 +300,7 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
      * @return lista de clientes encontrados.
      */
     private List<Cliente> buscarClientesPorNombreYCorreo(String nombre, String correo){
-        IClientesBO clientesBO = obtenerClientesBO();
+        IClientesBO clientesBO = ObjetosNegocioFactory.crearClientesBO();
         List<Cliente> clientes = null;
         try {
             clientes = clientesBO.buscarClientesPorNombreYCorreo(nombre, correo);
@@ -326,7 +317,7 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
      * @return lista de clientes encontrados.
      */
     private List<Cliente> buscarClientesPorTelefonoYCorreo(String telefono, String correo){
-        IClientesBO clientesBO = obtenerClientesBO();
+        IClientesBO clientesBO = ObjetosNegocioFactory.crearClientesBO();
         List<Cliente> clientes = null;
         try {
             clientes = clientesBO.buscarClientesPorTelefonoYCorreo(telefono, correo);
@@ -344,7 +335,7 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
      * @return lista de clientes encontrados.
      */
     private List<Cliente> buscarClientesPorNombreTelefonoYCorreo(String nombre, String telefono, String correo){
-        IClientesBO clientesBO = obtenerClientesBO();
+        IClientesBO clientesBO = ObjetosNegocioFactory.crearClientesBO();
         List<Cliente> clientes = null;
         try {
             clientes = clientesBO.buscarClientesPorNombreTelefonoYCorreo(nombre, telefono, correo);

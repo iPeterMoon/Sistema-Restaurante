@@ -824,8 +824,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         descolorearTodosLosPaneles();
         pintarPanelSeleccion(pnlInicio);
         currentSection = SECCION_INICIO;
-        ControlFlujo control = ControlFlujo.getInstance();
-        control.mostrarInicio();
+        ControlFlujo.mostrarInicio();
     }
     
     /**
@@ -835,8 +834,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         descolorearTodosLosPaneles();
         pintarPanelSeleccion(pnlMesas);
         currentSection = SECCION_MESAS;
-        ControlFlujo control = ControlFlujo.getInstance();
-        control.mostrarPnlMesas();
+        ControlFlujo.mostrarPnlMesas();
     }
     /**
      * Metodo para mostrar la sección de los clientes
@@ -845,8 +843,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         descolorearTodosLosPaneles();
         pintarPanelSeleccion(pnlClientes);
         currentSection = SECCION_CLIENTES;
-        ControlFlujo control = ControlFlujo.getInstance();
-        control.mostrarPnlClientes();
+        ControlFlujo.mostrarPnlClientes();
     }
    
 

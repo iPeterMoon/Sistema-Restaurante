@@ -3,6 +3,7 @@ package itson.sistemarestaurantepresentacion.pantallas;
 import itson.sistemarestaurantedominio.Cliente;
 import itson.sistemarestaurantedominio.dtos.NuevoClienteDTO;
 import itson.sistemarestaurantenegocio.excepciones.NegocioException;
+import itson.sistemarestaurantenegocio.factory.ObjetosNegocioFactory;
 import itson.sistemarestaurantenegocio.interfaces.IClientesBO;
 import itson.sistemarestaurantepresentacion.control.ControlFlujo;
 import java.awt.Font;
@@ -213,21 +214,10 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        ControlFlujo control = ControlFlujo.getInstance();
-        control.mostrarPnlClientes();
+        ControlFlujo.mostrarPnlClientes();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarClienteActionPerformed
-        int confirmacion = JOptionPane.showConfirmDialog(
-            this,
-            "¿Está seguro de que desea registrar al cliente?",
-            "Confirmar Registro",
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE
-        );
-        if (confirmacion != JOptionPane.YES_OPTION) {
-            return; // El usuario canceló el registro
-        }
         Cliente cliente = registrarCliente();
         if(cliente != null){
             mostrarPnlClientes();
@@ -246,7 +236,7 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
         String telefono = txtTelefono.getText();
         String correo = txtTelefono1.getText();
 
-        IClientesBO clientesBO = obtenerClientesBO();
+        IClientesBO clientesBO = ObjetosNegocioFactory.crearClientesBO();
 
         NuevoClienteDTO nuevoCliente = new NuevoClienteDTO(nombre, apellidoPaterno, apellidoMaterno, telefono, correo);
         try {
@@ -266,17 +256,9 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
      * Se obtiene la instancia de ControlFlujo y se llama al método mostrarPnlClientes.
      */
     private void mostrarPnlClientes() {
-        ControlFlujo control = ControlFlujo.getInstance();
-        control.mostrarPnlClientes();
+        ControlFlujo.mostrarPnlClientes();
     }
-    /**
-     * Método para obtener el objeto IClientesBO.
-     * @return IClientesBO objeto de negocio de clientes.
-     */
-    private IClientesBO obtenerClientesBO(){
-        ControlFlujo controlFlujo = ControlFlujo.getInstance();
-        return controlFlujo.getClientesBO();
-    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;

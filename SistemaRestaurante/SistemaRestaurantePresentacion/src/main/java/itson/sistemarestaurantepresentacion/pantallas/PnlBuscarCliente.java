@@ -92,7 +92,7 @@ public class PnlBuscarCliente extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarMesasActionPerformed
-        ControlFlujo.getInstance().mostrarPnlRegistrarCliente();
+        ControlFlujo.mostrarPnlRegistrarCliente();
     }//GEN-LAST:event_btnRegistrarMesasActionPerformed
 
 

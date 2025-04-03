@@ -1,6 +1,7 @@
 package itson.sistemarestaurantepresentacion.pantallas;
 
 import itson.sistemarestaurantenegocio.excepciones.NegocioException;
+import itson.sistemarestaurantenegocio.factory.ObjetosNegocioFactory;
 import itson.sistemarestaurantenegocio.interfaces.IMesasBO;
 import itson.sistemarestaurantepresentacion.control.ControlFlujo;
 
@@ -26,7 +27,7 @@ public class PnlMesas extends javax.swing.JPanel {
      * y lo muestra en el label correspondiente
      */
     private void cargarNumMesas(){
-        IMesasBO mesasBO = obtenerMesasBO();
+        IMesasBO mesasBO = ObjetosNegocioFactory.crearMesasBO();
         Long numeroMesas = mesasBO.obtenerNumMesas();
         this.lblNumeroMesas.setText("Numero de Mesas: "+numeroMesas);
     }
@@ -192,7 +193,7 @@ public class PnlMesas extends javax.swing.JPanel {
      */
     private void registrarMesas(int numeroMesas){
         try{
-            IMesasBO mesasBO = obtenerMesasBO();
+            IMesasBO mesasBO = ObjetosNegocioFactory.crearMesasBO();
             mesasBO.registrarMesas(numeroMesas);
             JOptionPane.showMessageDialog(
                     this,
@@ -209,15 +210,6 @@ public class PnlMesas extends javax.swing.JPanel {
         }
     }
 
-    /**
-     * Metodo que obtiene la instancia de MesasBO que está en el control.
-     * @return
-     */
-    private IMesasBO obtenerMesasBO(){
-        ControlFlujo control = ControlFlujo.getInstance();
-        IMesasBO mesasBO = control.getMesasBO();
-        return mesasBO;
-    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegistrarMesas;
