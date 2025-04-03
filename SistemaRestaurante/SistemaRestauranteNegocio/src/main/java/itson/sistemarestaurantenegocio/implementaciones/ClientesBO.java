@@ -74,16 +74,19 @@ public class ClientesBO implements IClientesBO {
 
     private void validarCorreo(String correo) throws NegocioException {
         // Expresión regular para validar el formato del correo electrónico
-        String regexEmail = "\\b[A-Z0-9._%-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\\b";
-        if (correo.matches(regexEmail)) {
+        String regexEmail = "^[^@]+@[^@]+\\.[a-zA-Z]{2,}$";
+        if (!correo.matches(regexEmail)) {
             throw new NegocioException("El correo no es válido");
         }
     }
 
     @Override
     public List<Cliente> buscarClientesPorNombre(String nombre) throws NegocioException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscarClientesPorNombre'");
+        List<Cliente> clientes = clientesDAO.buscarClientesPorNombre(nombre);
+        if (clientes.isEmpty()) {
+            throw new NegocioException("No hay ningun cliente registrado con ese nombre");
+        }
+        return clientes;
     }
 
     /**
@@ -109,7 +112,64 @@ public class ClientesBO implements IClientesBO {
 
     @Override
     public List<Cliente> buscarClientesPorCorreo(String correo) throws NegocioException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscarClientesPorCorreo'");
+        List<Cliente> clientes = clientesDAO.buscarClientesPorCorreo(correo);
+        if (clientes.isEmpty()) {
+            throw new NegocioException("No hay ningun cliente registrado con ese correo");
+        }
+        return clientes;
+    }
+
+    @Override
+    public List<Cliente> buscarClientesPorNombreYTelefono(String nombre, String telefono) throws NegocioException {
+        String telefonoCifrado;
+        try{
+            telefonoCifrado = Cifrado.cifrar(telefono);
+        } catch (Exception e) {
+            throw new NegocioException("Error al buscar el telefono");
+        }
+        List<Cliente> clientes = clientesDAO.buscarClientesPorNombreYTelefono(nombre, telefonoCifrado);
+        if (clientes.isEmpty()) {
+            throw new NegocioException("No hay ningun cliente registrado con ese nombre y telefono");
+        }
+        return clientes;
+    }
+
+    @Override
+    public List<Cliente> buscarClientesPorNombreYCorreo(String nombre, String correo) throws NegocioException {
+        List<Cliente> clientes = clientesDAO.buscarClientesPorNombreYCorreo(nombre, correo);
+        if (clientes.isEmpty()) {
+            throw new NegocioException("No hay ningun cliente registrado con ese nombre y correo");
+        }
+        return clientes;
+    }
+
+    @Override
+    public List<Cliente> buscarClientesPorTelefonoYCorreo(String telefono, String correo) throws NegocioException {
+        String telefonoCifrado;
+        try{
+            telefonoCifrado = Cifrado.cifrar(telefono);
+        } catch (Exception e) {
+            throw new NegocioException("Error al buscar el telefono");
+        }
+        List<Cliente> clientes = clientesDAO.buscarClientesPorTelefonoYCorreo(telefonoCifrado, correo);
+        if (clientes.isEmpty()) {
+            throw new NegocioException("No hay ningun cliente registrado con ese telefono y correo");
+        }
+        return clientes;
+    }
+
+    @Override
+    public List<Cliente> buscarClientesPorNombreTelefonoYCorreo(String nombre, String telefono, String correo) throws NegocioException {
+        String telefonoCifrado;
+        try{
+            telefonoCifrado = Cifrado.cifrar(telefono);
+        } catch (Exception e) {
+            throw new NegocioException("Error al buscar el telefono");
+        }
+        List<Cliente> clientes = clientesDAO.buscarClientesPorNombreTelefonoYCorreo(nombre, telefonoCifrado, correo);
+        if (clientes.isEmpty()) {
+            throw new NegocioException("No hay ningun cliente registrado con ese nombre, telefono y correo");
+        }
+        return clientes;
     }
 }

@@ -63,8 +63,29 @@ public class ClientesDAO implements IClientesDAO {
      */
     @Override
     public List<Cliente> buscarClientesPorNombre(String nombre) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscarClientesPorNombre'");
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Cliente> criteriaQuery = criteriaBuilder.createQuery(Cliente.class);
+        Root<Cliente> root = criteriaQuery.from(Cliente.class);
+    
+        // Concatenar nombre, apellido paterno y apellido materno
+        criteriaQuery.select(root).where(
+            criteriaBuilder.like(
+                criteriaBuilder.concat(
+                    criteriaBuilder.concat(
+                        criteriaBuilder.concat(root.get("nombre"), " "),
+                        criteriaBuilder.concat(root.get("apellidoPaterno"), " ")
+                    ),
+                    root.get("apellidoMaterno")
+                ),
+                "%" + nombre + "%"
+            )
+        );
+    
+        TypedQuery<Cliente> clientes = entityManager.createQuery(criteriaQuery);
+        List<Cliente> listaClientes = clientes.getResultList();
+        entityManager.close();
+        return listaClientes;
     }
 
     /**
@@ -90,8 +111,143 @@ public class ClientesDAO implements IClientesDAO {
      */
     @Override
     public List<Cliente> buscarClientesPorCorreo(String correo) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscarClientesPorCorreo'");
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Cliente> criteriaQuery = criteriaBuilder.createQuery(Cliente.class);
+        Root<Cliente> root = criteriaQuery.from(Cliente.class);
+        criteriaQuery.select(root).where(criteriaBuilder.like(root.get("correo"), "%"+correo+"%"));
+        TypedQuery<Cliente> clientes = entityManager.createQuery(criteriaQuery);
+        List<Cliente> listaClientes = clientes.getResultList();
+        entityManager.close();
+        return listaClientes;
+    }
+
+    /**
+     * Metodo para buscar clientes por nombre y telefono
+     * @return lista de clientes encontrados
+     */
+    @Override
+    public List<Cliente> buscarClientesPorNombreYTelefono(String nombre, String telefono) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Cliente> criteriaQuery = criteriaBuilder.createQuery(Cliente.class);
+        Root<Cliente> root = criteriaQuery.from(Cliente.class);
+    
+        // Concatenar nombre, apellido paterno y apellido materno
+        criteriaQuery.select(root).where(
+            criteriaBuilder.and(
+                criteriaBuilder.like(
+                    criteriaBuilder.concat(
+                        criteriaBuilder.concat(
+                            criteriaBuilder.concat(root.get("nombre"), " "),
+                            criteriaBuilder.concat(root.get("apellidoPaterno"), " ")
+                        ),
+                        root.get("apellidoMaterno")
+                    ),
+                    "%" + nombre + "%"
+                ),
+                criteriaBuilder.equal(root.get("telefono"), telefono)
+            )
+        );
+    
+        TypedQuery<Cliente> clientes = entityManager.createQuery(criteriaQuery);
+        List<Cliente> listaClientes = clientes.getResultList();
+        entityManager.close();
+        return listaClientes;
+    }
+
+    /**
+     * Metodo para buscar clientes por nombre y correo
+     * @return lista de clientes encontrados
+     */
+    @Override
+    public List<Cliente> buscarClientesPorNombreYCorreo(String nombre, String correo) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Cliente> criteriaQuery = criteriaBuilder.createQuery(Cliente.class);
+        Root<Cliente> root = criteriaQuery.from(Cliente.class);
+    
+        // Concatenar nombre, apellido paterno y apellido materno
+        criteriaQuery.select(root).where(
+            criteriaBuilder.and(
+                criteriaBuilder.like(
+                    criteriaBuilder.concat(
+                        criteriaBuilder.concat(
+                            criteriaBuilder.concat(root.get("nombre"), " "),
+                            criteriaBuilder.concat(root.get("apellidoPaterno"), " ")
+                        ),
+                        root.get("apellidoMaterno")
+                    ),
+                    "%" + nombre + "%"
+                ),
+                criteriaBuilder.like(root.get("correo"), "%"+correo+"%")
+            )
+        );
+    
+        TypedQuery<Cliente> clientes = entityManager.createQuery(criteriaQuery);
+        List<Cliente> listaClientes = clientes.getResultList();
+        entityManager.close();
+        return listaClientes;
+    }
+
+    /**
+     * Metodo para buscar clientes por telefono y correo
+     * @return lista de clientes encontrados
+     */
+    @Override
+    public List<Cliente> buscarClientesPorTelefonoYCorreo(String telefono, String correo) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Cliente> criteriaQuery = criteriaBuilder.createQuery(Cliente.class);
+        Root<Cliente> root = criteriaQuery.from(Cliente.class);
+        criteriaQuery.select(root).where(
+            criteriaBuilder.and(
+                criteriaBuilder.equal(root.get("telefono"), telefono),
+                criteriaBuilder.like(root.get("correo"), "%"+correo+"%")
+            )
+        );
+    
+        TypedQuery<Cliente> clientes = entityManager.createQuery(criteriaQuery);
+        List<Cliente> listaClientes = clientes.getResultList();
+        entityManager.close();
+        return listaClientes;
+    }
+
+    /**
+     * Metodo para buscar clientes por nombre, telefono y correo
+     * @return lista de clientes encontrados
+     */
+    @Override
+    public List<Cliente> buscarClientesPorNombreTelefonoYCorreo(String nombre, String telefono, String correo) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Cliente> criteriaQuery = criteriaBuilder.createQuery(Cliente.class);
+        Root<Cliente> root = criteriaQuery.from(Cliente.class);
+    
+        // Concatenar nombre, apellido paterno y apellido materno
+        criteriaQuery.select(root).where(
+            criteriaBuilder.and(
+                criteriaBuilder.like(
+                    criteriaBuilder.concat(
+                        criteriaBuilder.concat(
+                            criteriaBuilder.concat(root.get("nombre"), " "),
+                            criteriaBuilder.concat(root.get("apellidoPaterno"), " ")
+                        ),
+                        root.get("apellidoMaterno")
+                    ),
+                    "%" + nombre + "%"
+                ),
+                criteriaBuilder.and(
+                    criteriaBuilder.equal(root.get("telefono"), telefono),
+                    criteriaBuilder.like(root.get("correo"), "%"+correo+"%")
+                )
+            )
+        );
+    
+        TypedQuery<Cliente> clientes = entityManager.createQuery(criteriaQuery);
+        List<Cliente> listaClientes = clientes.getResultList();
+        entityManager.close();
+        return listaClientes;
     }
     
 }

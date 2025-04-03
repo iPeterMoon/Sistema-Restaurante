@@ -171,9 +171,56 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
             cargarClientes();
             return;
         }
-        if(!campoTextoTelefono.getText().trim().isBlank() && !campoTextoTelefono.getText().equals("Buscar por Telefono")){
+        if(!isValidCampoNombre() && !isValidCampoCorreo() && isValidCampoTelefono()){
             String telefono = campoTextoTelefono.getText().trim();
             List<Cliente> clientes = buscarClientesPorTelefono(telefono);
+            if(clientes != null && !clientes.isEmpty()){
+                cargarPanelesClientes(clientes);
+            }
+        }
+        if(isValidCampoNombre() && !isValidCampoCorreo() && !isValidCampoTelefono()){
+            String nombre = campoTextoNombre.getText().trim();
+            List<Cliente> clientes = buscarClientesPorNombre(nombre);
+            if(clientes != null && !clientes.isEmpty()){
+                cargarPanelesClientes(clientes);
+            }
+        }
+        if(!isValidCampoNombre() && isValidCampoCorreo() && !isValidCampoTelefono()){
+            String correo = campoTextoCorreo.getText().trim();
+            List<Cliente> clientes = buscarClientesPorCorreo(correo);
+            if(clientes != null && !clientes.isEmpty()){
+                cargarPanelesClientes(clientes);
+            }
+        }
+        if(isValidCampoNombre() && isValidCampoCorreo() && !isValidCampoTelefono()){
+            String nombre = campoTextoNombre.getText().trim();
+            String correo = campoTextoCorreo.getText().trim();
+            List<Cliente> clientes = buscarClientesPorNombreYCorreo(nombre, correo);
+            if(clientes != null && !clientes.isEmpty()){
+                cargarPanelesClientes(clientes);
+            }
+        }
+        if(!isValidCampoNombre() && isValidCampoCorreo() && isValidCampoTelefono()){
+            String telefono = campoTextoTelefono.getText().trim();
+            String correo = campoTextoCorreo.getText().trim();
+            List<Cliente> clientes = buscarClientesPorTelefonoYCorreo(telefono, correo);
+            if(clientes != null && !clientes.isEmpty()){
+                cargarPanelesClientes(clientes);
+            }
+        }
+        if(isValidCampoNombre() && !isValidCampoCorreo() && isValidCampoTelefono()){
+            String nombre = campoTextoNombre.getText().trim();
+            String telefono = campoTextoTelefono.getText().trim();
+            List<Cliente> clientes = buscarClientesPorNombreYTelefono(nombre, telefono);
+            if(clientes != null && !clientes.isEmpty()){
+                cargarPanelesClientes(clientes);
+            }
+        }
+        if(isValidCampoNombre() && isValidCampoCorreo() && isValidCampoTelefono()){
+            String nombre = campoTextoNombre.getText().trim();
+            String telefono = campoTextoTelefono.getText().trim();
+            String correo = campoTextoCorreo.getText().trim();
+            List<Cliente> clientes = buscarClientesPorNombreTelefonoYCorreo(nombre, telefono, correo);
             if(clientes != null && !clientes.isEmpty()){
                 cargarPanelesClientes(clientes);
             }
@@ -200,6 +247,107 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
         List<Cliente> clientes = null;
         try {
             clientes = clientesBO.buscarClientesPorTelefono(telefono);
+        } catch (NegocioException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return clientes;
+    }
+
+    /**
+     * Método para buscar clientes por nombre.
+     * @param nombre el nombre a buscar.
+     * @return lista de clientes encontrados.
+     */
+    private List<Cliente> buscarClientesPorNombre(String nombre){
+        IClientesBO clientesBO = obtenerClientesBO();
+        List<Cliente> clientes = null;
+        try {
+            clientes = clientesBO.buscarClientesPorNombre(nombre);
+        } catch (NegocioException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return clientes;
+    }
+
+    /**
+     * Método para buscar clientes por correo.
+     * @param correo el correo a buscar.
+     * @return lista de clientes encontrados.
+     */
+    private List<Cliente> buscarClientesPorCorreo(String correo){
+        IClientesBO clientesBO = obtenerClientesBO();
+        List<Cliente> clientes = null;
+        try {
+            clientes = clientesBO.buscarClientesPorCorreo(correo);
+        } catch (NegocioException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return clientes;
+    }
+
+    /**
+     * Método para buscar clientes por nombre y teléfono.
+     * @param nombre el nombre a buscar.
+     * @param telefono el número de teléfono a buscar.
+     * @return lista de clientes encontrados.
+     */
+    private List<Cliente> buscarClientesPorNombreYTelefono(String nombre, String telefono){
+        IClientesBO clientesBO = obtenerClientesBO();
+        List<Cliente> clientes = null;
+        try {
+            clientes = clientesBO.buscarClientesPorNombreYTelefono(nombre, telefono);
+        } catch (NegocioException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return clientes;
+    }
+
+    /**
+     * Método para buscar clientes por nombre y correo.
+     * @param nombre el nombre a buscar.
+     * @param correo el correo a buscar.
+     * @return lista de clientes encontrados.
+     */
+    private List<Cliente> buscarClientesPorNombreYCorreo(String nombre, String correo){
+        IClientesBO clientesBO = obtenerClientesBO();
+        List<Cliente> clientes = null;
+        try {
+            clientes = clientesBO.buscarClientesPorNombreYCorreo(nombre, correo);
+        } catch (NegocioException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return clientes;
+
+    }
+    /**
+     * Método para buscar clientes por teléfono y correo.
+     * @param telefono el número de teléfono a buscar.
+     * @param correo el correo a buscar.
+     * @return lista de clientes encontrados.
+     */
+    private List<Cliente> buscarClientesPorTelefonoYCorreo(String telefono, String correo){
+        IClientesBO clientesBO = obtenerClientesBO();
+        List<Cliente> clientes = null;
+        try {
+            clientes = clientesBO.buscarClientesPorTelefonoYCorreo(telefono, correo);
+        } catch (NegocioException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return clientes;
+    }
+
+    /**
+     * Método para buscar clientes por nombre, teléfono y correo.
+     * @param nombre el nombre a buscar.
+     * @param telefono el número de teléfono a buscar.
+     * @param correo el correo a buscar.
+     * @return lista de clientes encontrados.
+     */
+    private List<Cliente> buscarClientesPorNombreTelefonoYCorreo(String nombre, String telefono, String correo){
+        IClientesBO clientesBO = obtenerClientesBO();
+        List<Cliente> clientes = null;
+        try {
+            clientes = clientesBO.buscarClientesPorNombreTelefonoYCorreo(nombre, telefono, correo);
         } catch (NegocioException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }

@@ -37,4 +37,29 @@ public interface IClientesBO {
      * @return lista de clientes encontrados
      */
     public List<Cliente> buscarClientesPorCorreo(String correo) throws NegocioException;
+
+    /**
+     * Metodo para buscar clientes por nombre y telefono
+     * @return lista de clientes encontrados
+     */
+    public List<Cliente> buscarClientesPorNombreYTelefono(String nombre, String telefono) throws NegocioException;
+
+    /**
+     * Metodo para buscar clientes por telefono y correo
+     * @return lista de clientes encontrados
+     */
+    public List<Cliente> buscarClientesPorNombreYCorreo(String nombre, String correo) throws NegocioException;
+
+    /**
+     * Metodo para buscar clientes por telefono y correo
+     * @return lista de clientes encontrados
+     */
+    public List<Cliente> buscarClientesPorTelefonoYCorreo(String telefono, String correo) throws NegocioException;
+    
+    /**
+     * Metodo para buscar clientes por nombre, telefono y correo
+     * @return lista de clientes encontrados
+     */
+    public List<Cliente> buscarClientesPorNombreTelefonoYCorreo(String nombre, String telefono, String correo) throws NegocioException;
+
 }

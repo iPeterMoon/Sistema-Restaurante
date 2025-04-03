@@ -36,5 +36,29 @@ public interface IClientesDAO{
          * @return lista de clientes encontrados
          */
         public List<Cliente> buscarClientesPorCorreo(String correo);
+        
+        /**
+         * Metodo para buscar clientes por nombre y telefono
+         * @return lista de clientes encontrados
+         */
+        public List<Cliente> buscarClientesPorNombreYTelefono(String nombre, String telefono);
+
+        /**
+         * Metodo para buscar clientes por telefono y correo
+         * @return lista de clientes encontrados
+         */
+        public List<Cliente> buscarClientesPorNombreYCorreo(String nombre, String correo);
+
+        /**
+         * Metodo para buscar clientes por telefono y correo
+         * @return lista de clientes encontrados
+         */
+        public List<Cliente> buscarClientesPorTelefonoYCorreo(String telefono, String correo);
+
+        /**
+         * Metodo para buscar clientes por nombre, telefono y correo
+         * @return lista de clientes encontrados
+         */
+        public List<Cliente> buscarClientesPorNombreTelefonoYCorreo(String nombre, String telefono, String correo);
 
 }

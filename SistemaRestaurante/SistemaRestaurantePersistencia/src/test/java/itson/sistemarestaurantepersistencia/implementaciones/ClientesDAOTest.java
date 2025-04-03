@@ -127,6 +127,148 @@ public class ClientesDAOTest {
         assertEquals(clienteGuardado.getApellidoMaterno(), clientes.get(0).getApellidoMaterno());
         assertEquals(clienteGuardado.getTelefono(), clientes.get(0).getTelefono());
         assertEquals(clienteGuardado.getCorreo(), clientes.get(0).getCorreo());
+    }
+
+    @Test
+    public void testBuscarClientesPorNombre(){
+        System.out.println("buscarClientesPorNombre");
+        NuevoClienteDTO nuevoCliente = new NuevoClienteDTO(
+            "Jefferson",
+            "Gutierritos",
+            "Gonzalez",
+            "6441231231");
+        clienteGuardado = clientesDAO.registrarCliente(nuevoCliente);
+        assertNotNull(clienteGuardado);
+
+        List<Cliente> clientes = clientesDAO.buscarClientesPorNombre("Jefferson");
+        assertEqualsCliente(clienteGuardado, clientes);
         
+        clientes = clientesDAO.buscarClientesPorNombre("Jefferson Gutierritos Gonzalez");
+        assertEqualsCliente(clienteGuardado, clientes);
+
+        clientes = clientesDAO.buscarClientesPorNombre("Gutierritos G");
+        assertEqualsCliente(clienteGuardado, clientes);
+        
+    }
+    
+    @Test
+    public void testBuscarClientesPorCorreo(){
+        System.out.println("buscarClientesPorCorreo");
+        NuevoClienteDTO nuevoCliente = new NuevoClienteDTO(
+            "Jefferson",
+            "Gutierritos",
+            "Gonzalez",
+            "6441231231",
+            "jeff.gutierrez@gmail.com");
+        clienteGuardado = clientesDAO.registrarCliente(nuevoCliente);
+        assertNotNull(clienteGuardado);
+
+        List<Cliente> clientes = clientesDAO.buscarClientesPorCorreo("jeff.gutierrez@gmail.com");
+        assertEqualsCliente(clienteGuardado, clientes);
+
+        clientes = clientesDAO.buscarClientesPorCorreo("jeff");
+        assertEqualsCliente(clienteGuardado, clientes);
+        
+    }
+
+    @Test
+    public void testBuscarClientesPorNombreYCorreo(){
+        System.out.println("buscarClientesPorNombreYCorreo");
+        NuevoClienteDTO nuevoCliente = new NuevoClienteDTO(
+            "Jefferson",
+            "Gutierritos",
+            "Gonzalez",
+            "6441231231",
+            "jeff.gutierrez@gmail.com");
+        clienteGuardado = clientesDAO.registrarCliente(nuevoCliente);
+        assertNotNull(clienteGuardado);
+
+        List<Cliente> clientes = clientesDAO.buscarClientesPorNombreYCorreo("Jefferson","jeff.gutierrez@gmail.com");
+        assertEqualsCliente(clienteGuardado, clientes);
+        clientes = clientesDAO.buscarClientesPorNombreYCorreo("Pedro","jeff.gutierrez@gmail.com");
+        int TAMAÑO_ESPERADO = 0;
+        assertEquals(TAMAÑO_ESPERADO, clientes.size());
+    }
+
+    @Test
+    public void testBuscarClientesPorNombreYTelefono(){
+        System.out.println("buscarClientesPorNombreYTelefono");
+        NuevoClienteDTO nuevoCliente = new NuevoClienteDTO(
+            "Jefferson",
+            "Gutierritos",
+            "Gonzalez",
+            "6441231231",
+            "jeff.gutierrez@gmail.com");
+        clienteGuardado = clientesDAO.registrarCliente(nuevoCliente);
+        assertNotNull(clienteGuardado);
+
+        List<Cliente> clientes = clientesDAO.buscarClientesPorNombreYTelefono("Jefferson","6441231231");
+        assertEqualsCliente(clienteGuardado, clientes);
+        clientes = clientesDAO.buscarClientesPorNombreYCorreo("Jefferson","6441231232");
+        int TAMAÑO_ESPERADO = 0;
+        assertEquals(TAMAÑO_ESPERADO, clientes.size());
+        clientes = clientesDAO.buscarClientesPorNombreYTelefono("Pedro","6441231231");
+        TAMAÑO_ESPERADO = 0;
+        assertEquals(TAMAÑO_ESPERADO, clientes.size());
+    }
+
+    @Test
+    public void testBuscarClientesPorTelefonoYCorreo(){
+        System.out.println("BuscarClientesPorTelefonoYCorreo");
+        NuevoClienteDTO nuevoCliente = new NuevoClienteDTO(
+            "Jefferson",
+            "Gutierritos",
+            "Gonzalez",
+            "6441231231",
+            "jeff.gutierrez@gmail.com");
+        clienteGuardado = clientesDAO.registrarCliente(nuevoCliente);
+        assertNotNull(clienteGuardado);
+
+        List<Cliente> clientes = clientesDAO.buscarClientesPorTelefonoYCorreo("6441231231","jeff.gutierrez@gmail.com");
+        assertEqualsCliente(clienteGuardado, clientes);
+        clientes = clientesDAO.buscarClientesPorTelefonoYCorreo("6441231231", null);
+        int TAMAÑO_ESPERADO = 0;
+        assertEquals(TAMAÑO_ESPERADO, clientes.size());
+        clientes = clientesDAO.buscarClientesPorTelefonoYCorreo("2234","jeff");
+        TAMAÑO_ESPERADO = 0;
+        assertEquals(TAMAÑO_ESPERADO, clientes.size());
+    }
+
+    @Test
+    public void testBuscarClientesPorNombreTelefonoYCorreo(){
+        System.out.println("BuscarClientesPorNombreTelefonoYCorreo");
+        NuevoClienteDTO nuevoCliente = new NuevoClienteDTO(
+            "Jefferson",
+            "Gutierritos",
+            "Gonzalez",
+            "6441231231",
+            "jeff.gutierrez@gmail.com");
+        clienteGuardado = clientesDAO.registrarCliente(nuevoCliente);
+        assertNotNull(clienteGuardado);
+
+        List<Cliente> clientes = clientesDAO.buscarClientesPorNombreTelefonoYCorreo("Jeff","6441231231","jeff.gutierrez@gmail.com");
+        assertEqualsCliente(clienteGuardado, clientes);
+        clientes = clientesDAO.buscarClientesPorNombreTelefonoYCorreo("Jefferson","6441231232", "jeff");
+        int TAMAÑO_ESPERADO = 0;
+        assertEquals(TAMAÑO_ESPERADO, clientes.size());
+        clientes = clientesDAO.buscarClientesPorNombreTelefonoYCorreo("Peter","6441231231","jeff");
+        TAMAÑO_ESPERADO = 0;
+        assertEquals(TAMAÑO_ESPERADO, clientes.size());
+    }
+
+    /**
+     * Metodo para hacer todos los asserts para comparar un cliente con otro.
+     * @param cliente Cliente a comparar
+     * @param clientes Lista obtenida, con un cliente.
+     */
+    private void assertEqualsCliente(Cliente cliente, List<Cliente> clientes){
+        assertNotNull(clientes);
+        int TAMAÑO_ESPERADO = 1;
+        assertEquals(TAMAÑO_ESPERADO, clientes.size());
+        assertEquals(cliente.getNombre(), clientes.get(0).getNombre());
+        assertEquals(cliente.getApellidoPaterno(), clientes.get(0).getApellidoPaterno());
+        assertEquals(cliente.getApellidoMaterno(), clientes.get(0).getApellidoMaterno());
+        assertEquals(cliente.getTelefono(), clientes.get(0).getTelefono());
+        assertEquals(cliente.getCorreo(), clientes.get(0).getCorreo());
     }
 }
