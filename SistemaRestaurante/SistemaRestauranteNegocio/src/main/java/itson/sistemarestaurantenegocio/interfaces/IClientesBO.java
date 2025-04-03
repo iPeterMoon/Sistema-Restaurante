@@ -19,4 +19,22 @@ public interface IClientesBO {
      * @return lista de clientes registrados
      */
     public List<Cliente> obtenerClientesFrecuentes() throws NegocioException;
+
+    /**
+     * Metodo para buscar clientes por nombre
+     * @return lista de clientes encontrados
+     */
+    public List<Cliente> buscarClientesPorNombre(String nombre) throws NegocioException;
+
+    /**
+     * Metodo para buscar clientes por telefono
+     * @return lista de clientes encontrados
+     */
+    public List<Cliente> buscarClientesPorTelefono(String telefono) throws NegocioException;
+
+    /**
+     * Metodo para buscar clientes por correo
+     * @return lista de clientes encontrados
+     */
+    public List<Cliente> buscarClientesPorCorreo(String correo) throws NegocioException;
 }

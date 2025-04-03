@@ -65,41 +65,53 @@ public class PnlCliente extends javax.swing.JPanel {
         txtPuntos = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(31, 31, 31));
+        setMaximumSize(new java.awt.Dimension(1000, 150));
 
         roundedPanel1.setBackground(new java.awt.Color(94, 94, 94));
+        roundedPanel1.setMaximumSize(new java.awt.Dimension(1000, 150));
         roundedPanel1.setRoundBottomLeft(40);
         roundedPanel1.setRoundBottomRight(40);
         roundedPanel1.setRoundTopLeft(40);
         roundedPanel1.setRoundTopRight(40);
 
         lblCliente.setFont(new Font("Poppins", Font.BOLD, 18));
+        lblCliente.setForeground(new java.awt.Color(255, 255, 255));
         lblCliente.setText("Cliente: ");
 
         lblCorreo.setFont(new Font("Poppins", Font.BOLD, 18));
-        lblCorreo.setText("Correo electrónico");
+        lblCorreo.setForeground(new java.awt.Color(255, 255, 255));
+        lblCorreo.setText("Correo electrónico:");
 
         lblFecha.setFont(new Font("Poppins", Font.BOLD, 18));
+        lblFecha.setForeground(new java.awt.Color(255, 255, 255));
         lblFecha.setText("Fecha de registro: ");
 
         txtCliente.setFont(new Font("Poppins", Font.PLAIN, 18));
+        txtCliente.setForeground(new java.awt.Color(255, 255, 255));
         txtCliente.setText("Cliente");
 
         lblTelefono.setFont(new Font("Poppins", Font.BOLD, 18));
+        lblTelefono.setForeground(new java.awt.Color(255, 255, 255));
         lblTelefono.setText("Telefono:");
 
         lblPuntos.setFont(new Font("Poppins", Font.BOLD, 18));
+        lblPuntos.setForeground(new java.awt.Color(255, 255, 255));
         lblPuntos.setText("Puntos: ");
 
         txtCorreo.setFont(new Font("Poppins", Font.PLAIN, 18));
+        txtCorreo.setForeground(new java.awt.Color(255, 255, 255));
         txtCorreo.setText("Correo");
 
         txtFecha.setFont(new Font("Poppins", Font.PLAIN, 18));
+        txtFecha.setForeground(new java.awt.Color(255, 255, 255));
         txtFecha.setText("Fecha de Registro");
 
         txtTelefono.setFont(new Font("Poppins", Font.PLAIN, 18));
+        txtTelefono.setForeground(new java.awt.Color(255, 255, 255));
         txtTelefono.setText("Telefono");
 
         txtPuntos.setFont(new Font("Poppins", Font.BOLD, 24));
+        txtPuntos.setForeground(new java.awt.Color(255, 255, 255));
         txtPuntos.setText("00");
 
         javax.swing.GroupLayout roundedPanel1Layout = new javax.swing.GroupLayout(roundedPanel1);

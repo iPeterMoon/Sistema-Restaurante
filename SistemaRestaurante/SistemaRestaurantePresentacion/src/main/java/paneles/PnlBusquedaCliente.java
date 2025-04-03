@@ -32,16 +32,21 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
         IClientesBO clientesBO = obtenerClientesBO();
         try{
             List<Cliente> clientes = clientesBO.obtenerClientesFrecuentes();
-            pnlClientes.removeAll();
-            for(Cliente cliente : clientes){
-                PnlCliente pnlCliente = new PnlCliente(cliente);
-                pnlClientes.add(pnlCliente);
-                pnlClientes.add(Box.createVerticalStrut(30));
-            }
+            cargarPanelesClientes(clientes);
         } catch(NegocioException ex){
             System.out.println(ex.getMessage());
         }
         
+    }
+    private void cargarPanelesClientes(List<Cliente> clientes){
+        pnlClientes.removeAll();
+        for(Cliente cliente : clientes){
+            PnlCliente pnlCliente = new PnlCliente(cliente);
+            pnlClientes.add(pnlCliente);
+            pnlClientes.add(Box.createVerticalStrut(30));
+        }
+        pnlClientes.repaint();
+        pnlClientes.revalidate();
     }
 
     /**
@@ -97,6 +102,11 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
         btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscar.setText("Buscar");
         btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         jScrollPane1.setBorder(null);
 
@@ -109,19 +119,17 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1030, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
                         .addComponent(campoTextoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(campoTextoCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(campoTextoTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(67, 67, 67)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1001, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(75, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -140,16 +148,37 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void campoTextoNombreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_campoTextoNombreMouseClicked
-        this.campoTextoNombre.setText("");
+        if(this.campoTextoNombre.getText().equals("Buscar por Nombre")){
+            this.campoTextoNombre.setText("");
+        }
     }//GEN-LAST:event_campoTextoNombreMouseClicked
 
     private void campoTextoCorreoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_campoTextoCorreoMouseClicked
-        // TODO add your handling code here:
+        if(this.campoTextoCorreo.getText().equals("Buscar por Correo")){
+            this.campoTextoCorreo.setText("");
+        }
     }//GEN-LAST:event_campoTextoCorreoMouseClicked
 
     private void campoTextoTelefonoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_campoTextoTelefonoMouseClicked
-        // TODO add your handling code here:
+        if(this.campoTextoTelefono.getText().equals("Buscar por Telefono")){
+            this.campoTextoTelefono.setText("");
+        }
     }//GEN-LAST:event_campoTextoTelefonoMouseClicked
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        if(!isValidCampoNombre() && !isValidCampoCorreo() && !isValidCampoTelefono()){
+            JOptionPane.showMessageDialog(this, "Por favor ingrese un criterio de búsqueda", "Error", JOptionPane.ERROR_MESSAGE);
+            cargarClientes();
+            return;
+        }
+        if(!campoTextoTelefono.getText().trim().isBlank() && !campoTextoTelefono.getText().equals("Buscar por Telefono")){
+            String telefono = campoTextoTelefono.getText().trim();
+            List<Cliente> clientes = buscarClientesPorTelefono(telefono);
+            if(clientes != null && !clientes.isEmpty()){
+                cargarPanelesClientes(clientes);
+            }
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
 
     /**
@@ -159,6 +188,54 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
     private IClientesBO obtenerClientesBO(){
         ControlFlujo controlFlujo = ControlFlujo.getInstance();
         return controlFlujo.getClientesBO();
+    }
+
+    /**
+     * Método para buscar clientes por teléfono.
+     * @param telefono el número de teléfono a buscar.
+     * @return lista de clientes encontrados.
+     */
+    private List<Cliente> buscarClientesPorTelefono(String telefono){
+        IClientesBO clientesBO = obtenerClientesBO();
+        List<Cliente> clientes = null;
+        try {
+            clientes = clientesBO.buscarClientesPorTelefono(telefono);
+        } catch (NegocioException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return clientes;
+    }
+
+    /**
+     * Método para validar el campo de texto de nombre.
+     * @return true si el campo es válido, false en caso contrario.
+     */
+    private boolean isValidCampoNombre(){
+        if(campoTextoNombre.getText().isEmpty() || campoTextoNombre.getText().equals("Buscar por Nombre")){
+            return false;
+        }
+        return true;   
+    }
+
+    /**
+     * Método para validar el campo de texto de correo.
+     * @return true si el campo es válido, false en caso contrario.
+     */
+    private boolean isValidCampoCorreo(){
+        if(campoTextoCorreo.getText().isEmpty() || campoTextoCorreo.getText().equals("Buscar por Correo")){
+            return false;
+        }
+        return true;   
+    }
+    /**
+     * Método para validar el campo de texto de teléfono.
+     * @return true si el campo es válido, false en caso contrario.
+     */
+    private boolean isValidCampoTelefono(){
+        if(campoTextoTelefono.getText().isEmpty() || campoTextoTelefono.getText().equals("Buscar por Telefono")){
+            return false;
+        }
+        return true;   
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -218,6 +218,16 @@ public class PnlRegistrarCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarClienteActionPerformed
+        int confirmacion = JOptionPane.showConfirmDialog(
+            this,
+            "¿Está seguro de que desea registrar al cliente?",
+            "Confirmar Registro",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE
+        );
+        if (confirmacion != JOptionPane.YES_OPTION) {
+            return; // El usuario canceló el registro
+        }
         Cliente cliente = registrarCliente();
         if(cliente != null){
             mostrarPnlClientes();

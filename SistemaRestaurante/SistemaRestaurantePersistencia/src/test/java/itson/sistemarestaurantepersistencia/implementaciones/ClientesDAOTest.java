@@ -7,6 +7,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 /**
@@ -103,5 +105,28 @@ public class ClientesDAOTest {
             "Gonzalez",
             null);
         assertThrows(Exception.class, ()-> clientesDAO.registrarCliente(nuevoCliente));
+    }
+
+    @Test
+    public void testBuscarClientesPorTelefono(){
+        System.out.println("buscarClientesPorTelefono");
+        NuevoClienteDTO nuevoCliente = new NuevoClienteDTO(
+            "Jefferson",
+            "Gutierritos",
+            "Gonzalez",
+            "6441231231");
+        clienteGuardado = clientesDAO.registrarCliente(nuevoCliente);
+        assertNotNull(clienteGuardado);
+
+        List<Cliente> clientes = clientesDAO.buscarClientesPorTelefono("6441231231");
+        assertNotNull(clientes);
+        int TAMAÑO_ESPERADO = 1;
+        assertEquals(TAMAÑO_ESPERADO, clientes.size());
+        assertEquals(clienteGuardado.getNombre(), clientes.get(0).getNombre());
+        assertEquals(clienteGuardado.getApellidoPaterno(), clientes.get(0).getApellidoPaterno());
+        assertEquals(clienteGuardado.getApellidoMaterno(), clientes.get(0).getApellidoMaterno());
+        assertEquals(clienteGuardado.getTelefono(), clientes.get(0).getTelefono());
+        assertEquals(clienteGuardado.getCorreo(), clientes.get(0).getCorreo());
+        
     }
 }

@@ -35,10 +35,11 @@ public class ClientesBO implements IClientesBO {
             throw new NegocioException("El telefono debe tener 10 digitos");
         }
         String correo = nuevoCliente.getCorreo();
-        if(correo != null && !correo.isBlank()) {
+        if(correo == null || correo.isBlank()) {
+            nuevoCliente.setCorreo(null);
+        } else {
             validarCorreo(correo);
         }
-        validarCorreo(nuevoCliente.getCorreo());
         try {
             String telefonoCifrado = Cifrado.cifrar(nuevoCliente.getTelefono());
             nuevoCliente.setTelefono(telefonoCifrado);
@@ -77,5 +78,38 @@ public class ClientesBO implements IClientesBO {
         if (correo.matches(regexEmail)) {
             throw new NegocioException("El correo no es válido");
         }
+    }
+
+    @Override
+    public List<Cliente> buscarClientesPorNombre(String nombre) throws NegocioException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'buscarClientesPorNombre'");
+    }
+
+    /**
+     * Metodo para buscar clientes por telefono
+     * 
+     * @return lista de clientes encontrados
+     * @throws NegocioException Si no se pueden obtener los clientes
+     */
+    @Override
+    public List<Cliente> buscarClientesPorTelefono(String telefono) throws NegocioException {
+        String telefonoCifrado;
+        try{
+            telefonoCifrado = Cifrado.cifrar(telefono);
+        } catch (Exception e) {
+            throw new NegocioException("Error al buscar el telefono");
+        }
+        List<Cliente> clientes = clientesDAO.buscarClientesPorTelefono(telefonoCifrado);
+        if (clientes.isEmpty()) {
+            throw new NegocioException("No hay ningun cliente registrado con ese telefono");
+        }
+        return clientes;
+    }
+
+    @Override
+    public List<Cliente> buscarClientesPorCorreo(String correo) throws NegocioException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'buscarClientesPorCorreo'");
     }
 }

@@ -18,4 +18,23 @@ public interface IClientesDAO{
          * @return lista de clientes registrados
          */
         public List<Cliente> obtenerClientesFrecuentes();
+
+        /**
+         * Metodo para buscar clientes por nombre
+         * @return lista de clientes encontrados
+         */
+        public List<Cliente> buscarClientesPorNombre(String nombre);
+
+        /**
+         * Metodo para buscar clientes por telefono
+         * @return lista de clientes encontrados
+         */
+        public List<Cliente> buscarClientesPorTelefono(String telefono);
+
+        /**
+         * Metodo para buscar clientes por correo
+         * @return lista de clientes encontrados
+         */
+        public List<Cliente> buscarClientesPorCorreo(String correo);
+
 }
