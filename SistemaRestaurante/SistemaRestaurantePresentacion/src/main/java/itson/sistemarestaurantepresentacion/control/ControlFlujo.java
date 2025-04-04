@@ -4,9 +4,11 @@ import itson.sistemarestaurantenegocio.interfaces.IClientesBO;
 import itson.sistemarestaurantenegocio.interfaces.IMesasBO;
 import itson.sistemarestaurantepresentacion.pantallas.FramePrincipal;
 import itson.sistemarestaurantepresentacion.pantallas.PnlBuscarCliente;
+import itson.sistemarestaurantepresentacion.pantallas.PnlComandas;
 import itson.sistemarestaurantepresentacion.pantallas.PnlInicio;
 import itson.sistemarestaurantepresentacion.pantallas.PnlMesas;
 import itson.sistemarestaurantepresentacion.pantallas.PnlRegistrarCliente;
+import itson.sistemarestaurantepresentacion.pantallas.PnlRegistrarComanda;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -44,6 +46,20 @@ public class ControlFlujo {
         mostrarPanel(pnlInicio);
     }
     
+    /**
+     * Método para mostrar el panel de comandas en el frame principal.
+     * Se crea una instancia del panel de comandas y se llama al método mostrarPanel.
+     */
+    public static void mostrarComandas(){
+        PnlComandas pnlComandas = new PnlComandas();
+        mostrarPanel(pnlComandas);
+    }
+
+    public static void mostrarPnlRegistroComanda(){
+        PnlRegistrarComanda pnlRegistrarComanda = new PnlRegistrarComanda();
+        mostrarPanel(pnlRegistrarComanda);
+    }
+
     /**
      * Método para mostrar el panel de mesas en el frame principal.
      * Se crea una instancia del panel de mesas y se llama al método mostrarPanel.

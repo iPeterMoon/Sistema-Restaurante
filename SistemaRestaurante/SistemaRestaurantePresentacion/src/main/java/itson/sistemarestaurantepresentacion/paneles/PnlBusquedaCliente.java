@@ -1,4 +1,5 @@
-package paneles;
+package itson.sistemarestaurantepresentacion.paneles;
+
 import java.awt.Font;
 import java.util.List;
 
@@ -9,41 +10,61 @@ import itson.sistemarestaurantedominio.Cliente;
 import itson.sistemarestaurantenegocio.excepciones.NegocioException;
 import itson.sistemarestaurantenegocio.factory.ObjetosNegocioFactory;
 import itson.sistemarestaurantenegocio.interfaces.IClientesBO;
+import itson.sistemarestaurantepresentacion.modales.ModalClientes;
+
 /**
  *
  * @author pc
  */
 public class PnlBusquedaCliente extends javax.swing.JPanel {
 
+    private Cliente clienteSeleccionado = null;
+    private boolean selectionMode = false;
+    private ModalClientes modalClientes;
     /**
      * Creates new form PnlBusquedaCliente
      */
     public PnlBusquedaCliente() {
         initComponents();
-        cargarClientes();
+        if (!java.beans.Beans.isDesignTime()) {
+            cargarClientes();
+        }
     }
-
 
     /**
-     * Método para cargar los clientes en el panel pnlClientes.
-     * Este método debe ser llamado después de inicializar el componente.
+     * Método para cargar los clientes en el panel pnlClientes. Este método debe
+     * ser llamado después de inicializar el componente.
      */
-    private void cargarClientes(){
+    private void cargarClientes() {
         IClientesBO clientesBO = ObjetosNegocioFactory.crearClientesBO();
-        try{
+        try {
             List<Cliente> clientes = clientesBO.obtenerClientesFrecuentes();
             cargarPanelesClientes(clientes);
-        } catch(NegocioException ex){
+        } catch (NegocioException ex) {
             System.out.println(ex.getMessage());
         }
-        
     }
-    private void cargarPanelesClientes(List<Cliente> clientes){
+
+    /**
+     * Metodo para cargar los paneles de cada cliente dados por una lista
+     *
+     * @param clientes lista de clientes a cargar
+     */
+    private void cargarPanelesClientes(List<Cliente> clientes) {
         pnlClientes.removeAll();
-        for(Cliente cliente : clientes){
-            PnlCliente pnlCliente = new PnlCliente(cliente);
-            pnlClientes.add(pnlCliente);
-            pnlClientes.add(Box.createVerticalStrut(30));
+        if (selectionMode) {
+            for (Cliente cliente : clientes) {
+                PnlCliente pnlCliente = new PnlCliente(this, cliente);
+                pnlClientes.add(pnlCliente);
+                pnlClientes.add(Box.createVerticalStrut(30));
+            }
+        } else {
+
+            for (Cliente cliente : clientes) {
+                PnlCliente pnlCliente = new PnlCliente(cliente);
+                pnlClientes.add(pnlCliente);
+                pnlClientes.add(Box.createVerticalStrut(30));
+            }
         }
         pnlClientes.repaint();
         pnlClientes.revalidate();
@@ -148,92 +169,92 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void campoTextoNombreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_campoTextoNombreMouseClicked
-        if(this.campoTextoNombre.getText().equals("Buscar por Nombre")){
+        if (this.campoTextoNombre.getText().equals("Buscar por Nombre")) {
             this.campoTextoNombre.setText("");
         }
     }//GEN-LAST:event_campoTextoNombreMouseClicked
 
     private void campoTextoCorreoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_campoTextoCorreoMouseClicked
-        if(this.campoTextoCorreo.getText().equals("Buscar por Correo")){
+        if (this.campoTextoCorreo.getText().equals("Buscar por Correo")) {
             this.campoTextoCorreo.setText("");
         }
     }//GEN-LAST:event_campoTextoCorreoMouseClicked
 
     private void campoTextoTelefonoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_campoTextoTelefonoMouseClicked
-        if(this.campoTextoTelefono.getText().equals("Buscar por Telefono")){
+        if (this.campoTextoTelefono.getText().equals("Buscar por Telefono")) {
             this.campoTextoTelefono.setText("");
         }
     }//GEN-LAST:event_campoTextoTelefonoMouseClicked
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        if(!isValidCampoNombre() && !isValidCampoCorreo() && !isValidCampoTelefono()){
+        if (!isValidCampoNombre() && !isValidCampoCorreo() && !isValidCampoTelefono()) {
             JOptionPane.showMessageDialog(this, "Por favor ingrese un criterio de búsqueda", "Error", JOptionPane.ERROR_MESSAGE);
             cargarClientes();
             return;
         }
-        if(!isValidCampoNombre() && !isValidCampoCorreo() && isValidCampoTelefono()){
+        if (!isValidCampoNombre() && !isValidCampoCorreo() && isValidCampoTelefono()) {
             String telefono = campoTextoTelefono.getText().trim();
             List<Cliente> clientes = buscarClientesPorTelefono(telefono);
-            if(clientes != null && !clientes.isEmpty()){
+            if (clientes != null && !clientes.isEmpty()) {
                 cargarPanelesClientes(clientes);
             }
         }
-        if(isValidCampoNombre() && !isValidCampoCorreo() && !isValidCampoTelefono()){
+        if (isValidCampoNombre() && !isValidCampoCorreo() && !isValidCampoTelefono()) {
             String nombre = campoTextoNombre.getText().trim();
             List<Cliente> clientes = buscarClientesPorNombre(nombre);
-            if(clientes != null && !clientes.isEmpty()){
+            if (clientes != null && !clientes.isEmpty()) {
                 cargarPanelesClientes(clientes);
             }
         }
-        if(!isValidCampoNombre() && isValidCampoCorreo() && !isValidCampoTelefono()){
+        if (!isValidCampoNombre() && isValidCampoCorreo() && !isValidCampoTelefono()) {
             String correo = campoTextoCorreo.getText().trim();
             List<Cliente> clientes = buscarClientesPorCorreo(correo);
-            if(clientes != null && !clientes.isEmpty()){
+            if (clientes != null && !clientes.isEmpty()) {
                 cargarPanelesClientes(clientes);
             }
         }
-        if(isValidCampoNombre() && isValidCampoCorreo() && !isValidCampoTelefono()){
+        if (isValidCampoNombre() && isValidCampoCorreo() && !isValidCampoTelefono()) {
             String nombre = campoTextoNombre.getText().trim();
             String correo = campoTextoCorreo.getText().trim();
             List<Cliente> clientes = buscarClientesPorNombreYCorreo(nombre, correo);
-            if(clientes != null && !clientes.isEmpty()){
+            if (clientes != null && !clientes.isEmpty()) {
                 cargarPanelesClientes(clientes);
             }
         }
-        if(!isValidCampoNombre() && isValidCampoCorreo() && isValidCampoTelefono()){
+        if (!isValidCampoNombre() && isValidCampoCorreo() && isValidCampoTelefono()) {
             String telefono = campoTextoTelefono.getText().trim();
             String correo = campoTextoCorreo.getText().trim();
             List<Cliente> clientes = buscarClientesPorTelefonoYCorreo(telefono, correo);
-            if(clientes != null && !clientes.isEmpty()){
+            if (clientes != null && !clientes.isEmpty()) {
                 cargarPanelesClientes(clientes);
             }
         }
-        if(isValidCampoNombre() && !isValidCampoCorreo() && isValidCampoTelefono()){
+        if (isValidCampoNombre() && !isValidCampoCorreo() && isValidCampoTelefono()) {
             String nombre = campoTextoNombre.getText().trim();
             String telefono = campoTextoTelefono.getText().trim();
             List<Cliente> clientes = buscarClientesPorNombreYTelefono(nombre, telefono);
-            if(clientes != null && !clientes.isEmpty()){
+            if (clientes != null && !clientes.isEmpty()) {
                 cargarPanelesClientes(clientes);
             }
         }
-        if(isValidCampoNombre() && isValidCampoCorreo() && isValidCampoTelefono()){
+        if (isValidCampoNombre() && isValidCampoCorreo() && isValidCampoTelefono()) {
             String nombre = campoTextoNombre.getText().trim();
             String telefono = campoTextoTelefono.getText().trim();
             String correo = campoTextoCorreo.getText().trim();
             List<Cliente> clientes = buscarClientesPorNombreTelefonoYCorreo(nombre, telefono, correo);
-            if(clientes != null && !clientes.isEmpty()){
+            if (clientes != null && !clientes.isEmpty()) {
                 cargarPanelesClientes(clientes);
             }
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-
     /**
      * Método para buscar clientes por teléfono.
+     *
      * @param telefono el número de teléfono a buscar.
      * @return lista de clientes encontrados.
      */
-    private List<Cliente> buscarClientesPorTelefono(String telefono){
+    private List<Cliente> buscarClientesPorTelefono(String telefono) {
         IClientesBO clientesBO = ObjetosNegocioFactory.crearClientesBO();
         List<Cliente> clientes = null;
         try {
@@ -246,10 +267,11 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
 
     /**
      * Método para buscar clientes por nombre.
+     *
      * @param nombre el nombre a buscar.
      * @return lista de clientes encontrados.
      */
-    private List<Cliente> buscarClientesPorNombre(String nombre){
+    private List<Cliente> buscarClientesPorNombre(String nombre) {
         IClientesBO clientesBO = ObjetosNegocioFactory.crearClientesBO();
         List<Cliente> clientes = null;
         try {
@@ -262,10 +284,11 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
 
     /**
      * Método para buscar clientes por correo.
+     *
      * @param correo el correo a buscar.
      * @return lista de clientes encontrados.
      */
-    private List<Cliente> buscarClientesPorCorreo(String correo){
+    private List<Cliente> buscarClientesPorCorreo(String correo) {
         IClientesBO clientesBO = ObjetosNegocioFactory.crearClientesBO();
         List<Cliente> clientes = null;
         try {
@@ -278,11 +301,12 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
 
     /**
      * Método para buscar clientes por nombre y teléfono.
+     *
      * @param nombre el nombre a buscar.
      * @param telefono el número de teléfono a buscar.
      * @return lista de clientes encontrados.
      */
-    private List<Cliente> buscarClientesPorNombreYTelefono(String nombre, String telefono){
+    private List<Cliente> buscarClientesPorNombreYTelefono(String nombre, String telefono) {
         IClientesBO clientesBO = ObjetosNegocioFactory.crearClientesBO();
         List<Cliente> clientes = null;
         try {
@@ -295,11 +319,12 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
 
     /**
      * Método para buscar clientes por nombre y correo.
+     *
      * @param nombre el nombre a buscar.
      * @param correo el correo a buscar.
      * @return lista de clientes encontrados.
      */
-    private List<Cliente> buscarClientesPorNombreYCorreo(String nombre, String correo){
+    private List<Cliente> buscarClientesPorNombreYCorreo(String nombre, String correo) {
         IClientesBO clientesBO = ObjetosNegocioFactory.crearClientesBO();
         List<Cliente> clientes = null;
         try {
@@ -310,13 +335,15 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
         return clientes;
 
     }
+
     /**
      * Método para buscar clientes por teléfono y correo.
+     *
      * @param telefono el número de teléfono a buscar.
      * @param correo el correo a buscar.
      * @return lista de clientes encontrados.
      */
-    private List<Cliente> buscarClientesPorTelefonoYCorreo(String telefono, String correo){
+    private List<Cliente> buscarClientesPorTelefonoYCorreo(String telefono, String correo) {
         IClientesBO clientesBO = ObjetosNegocioFactory.crearClientesBO();
         List<Cliente> clientes = null;
         try {
@@ -329,12 +356,13 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
 
     /**
      * Método para buscar clientes por nombre, teléfono y correo.
+     *
      * @param nombre el nombre a buscar.
      * @param telefono el número de teléfono a buscar.
      * @param correo el correo a buscar.
      * @return lista de clientes encontrados.
      */
-    private List<Cliente> buscarClientesPorNombreTelefonoYCorreo(String nombre, String telefono, String correo){
+    private List<Cliente> buscarClientesPorNombreTelefonoYCorreo(String nombre, String telefono, String correo) {
         IClientesBO clientesBO = ObjetosNegocioFactory.crearClientesBO();
         List<Cliente> clientes = null;
         try {
@@ -347,35 +375,63 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
 
     /**
      * Método para validar el campo de texto de nombre.
+     *
      * @return true si el campo es válido, false en caso contrario.
      */
-    private boolean isValidCampoNombre(){
-        if(campoTextoNombre.getText().isEmpty() || campoTextoNombre.getText().equals("Buscar por Nombre")){
+    private boolean isValidCampoNombre() {
+        if (campoTextoNombre.getText().isEmpty() || campoTextoNombre.getText().equals("Buscar por Nombre")) {
             return false;
         }
-        return true;   
+        return true;
     }
 
     /**
      * Método para validar el campo de texto de correo.
+     *
      * @return true si el campo es válido, false en caso contrario.
      */
-    private boolean isValidCampoCorreo(){
-        if(campoTextoCorreo.getText().isEmpty() || campoTextoCorreo.getText().equals("Buscar por Correo")){
+    private boolean isValidCampoCorreo() {
+        if (campoTextoCorreo.getText().isEmpty() || campoTextoCorreo.getText().equals("Buscar por Correo")) {
             return false;
         }
-        return true;   
+        return true;
     }
+
     /**
      * Método para validar el campo de texto de teléfono.
+     *
      * @return true si el campo es válido, false en caso contrario.
      */
-    private boolean isValidCampoTelefono(){
-        if(campoTextoTelefono.getText().isEmpty() || campoTextoTelefono.getText().equals("Buscar por Telefono")){
-            return false;
-        }
-        return true;   
+    private boolean isValidCampoTelefono() {
+        return !(campoTextoTelefono.getText().isEmpty() || campoTextoTelefono.getText().equals("Buscar por Telefono"));
     }
+
+    public boolean isSelectionMode() {
+        return selectionMode;
+    }
+
+    public void setSelectionMode(boolean selectionMode) {
+        this.selectionMode = selectionMode;
+        cargarClientes();
+    }
+
+    public Cliente getClienteSeleccionado() {
+        return clienteSeleccionado;
+    }
+
+    public void setClienteSeleccionado(Cliente clienteSeleccionado) {
+        this.clienteSeleccionado = clienteSeleccionado;
+    }
+    
+    public void setModalClientes(ModalClientes modalClientes) {
+        this.modalClientes = modalClientes;
+    }
+
+    public ModalClientes getModalClientes(){
+        return modalClientes;
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;

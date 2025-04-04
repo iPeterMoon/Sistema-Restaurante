@@ -1,8 +1,10 @@
-package paneles;
+package itson.sistemarestaurantepresentacion.paneles;
 
 import itson.sistemarestaurantedominio.Cliente;
 import itson.sistemarestaurantenegocio.seguridad.Cifrado;
+import itson.sistemarestaurantepresentacion.modales.ModalClientes;
 import itson.sistemarestaurantepresentacion.recursos.Formatos;
+import java.awt.Cursor;
 import javax.swing.JOptionPane;
 import java.awt.Font;
 /**
@@ -11,16 +13,26 @@ import java.awt.Font;
  */
 public class PnlCliente extends javax.swing.JPanel {
 
+    private PnlBusquedaCliente parent;
     private Cliente cliente;
     
     /**
      * Creates new form panelCliente
      */
-    public PnlCliente(Cliente cliente) {
+    public PnlCliente(PnlBusquedaCliente parent, Cliente cliente) {
+        this.parent = parent;
         this.cliente = cliente;
         initComponents();
         cargarDatos();
     }
+    
+    public PnlCliente(Cliente cliente){
+        this.cliente = cliente;
+        initComponents();
+        cargarDatos();
+    }
+    
+    
     
     private void cargarDatos(){
         String nombreCompleto = cliente.getNombre()+ " "+ cliente.getApellidoPaterno()+ " " + cliente.getApellidoMaterno();
@@ -40,7 +52,11 @@ public class PnlCliente extends javax.swing.JPanel {
         this.txtTelefono.setText(telefono);
         this.txtFecha.setText(Formatos.cargarFecha(cliente.getFechaRegistro()));
         this.txtPuntos.setText(String.valueOf(cliente.getPuntos()));
-        
+        if(parent != null){
+            if(parent.isSelectionMode()){
+                this.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+        }
     }
 
     /**
@@ -73,6 +89,11 @@ public class PnlCliente extends javax.swing.JPanel {
         roundedPanel1.setRoundBottomRight(40);
         roundedPanel1.setRoundTopLeft(40);
         roundedPanel1.setRoundTopRight(40);
+        roundedPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                roundedPanel1MouseClicked(evt);
+            }
+        });
 
         lblCliente.setFont(new Font("Poppins", Font.BOLD, 18));
         lblCliente.setForeground(new java.awt.Color(255, 255, 255));
@@ -183,6 +204,20 @@ public class PnlCliente extends javax.swing.JPanel {
             .addComponent(roundedPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void roundedPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_roundedPanel1MouseClicked
+        if(parent != null){
+            if(parent.isSelectionMode()){
+                parent.setClienteSeleccionado(this.cliente);
+
+                //Cerrar el modal
+                ModalClientes modal = parent.getModalClientes();
+                if(modal != null){
+                    modal.dispose();
+                }
+            }
+        }
+    }//GEN-LAST:event_roundedPanel1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

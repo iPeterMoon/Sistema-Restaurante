@@ -1,4 +1,4 @@
-package paneles;
+package itson.sistemarestaurantepresentacion.paneles;
 
 import java.awt.Font;
 
@@ -98,6 +98,14 @@ public class PnlComanda extends javax.swing.JPanel {
         lblHora1.setForeground(new java.awt.Color(0, 0, 0));
         lblHora1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblHora1.setText("Ver Comanda");
+        lblHora1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblHora1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblHora1MouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout btnVerComandaLayout = new javax.swing.GroupLayout(btnVerComanda);
         btnVerComanda.setLayout(btnVerComandaLayout);
@@ -168,6 +176,14 @@ public class PnlComanda extends javax.swing.JPanel {
             .addComponent(roundedPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void lblHora1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHora1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblHora1MouseEntered
+
+    private void lblHora1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHora1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblHora1MouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

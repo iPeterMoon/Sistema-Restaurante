@@ -47,6 +47,9 @@
         <Property name="roundTopLeft" type="int" value="40"/>
         <Property name="roundTopRight" type="int" value="40"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="roundedPanel1MouseClicked"/>
+      </Events>
 
       <Layout>
         <DimensionLayout dim="0">

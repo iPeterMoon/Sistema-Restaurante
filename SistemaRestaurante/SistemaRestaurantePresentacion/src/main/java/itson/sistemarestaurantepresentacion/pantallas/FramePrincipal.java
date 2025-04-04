@@ -138,6 +138,9 @@ public class FramePrincipal extends javax.swing.JFrame {
         btnComandas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/boton comandas.png"))); // NOI18N
         btnComandas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnComandas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnComandasMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnComandasMouseEntered(evt);
             }
@@ -152,6 +155,9 @@ public class FramePrincipal extends javax.swing.JFrame {
         lblComandas.setText("Comandas");
         lblComandas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblComandas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblComandasMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblComandasMouseEntered(evt);
             }
@@ -748,6 +754,14 @@ public class FramePrincipal extends javax.swing.JFrame {
         mostrarSeccionClientes();
     }//GEN-LAST:event_lblClientesMouseClicked
 
+    private void btnComandasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnComandasMouseClicked
+        mostrarSeccionComandas();
+    }//GEN-LAST:event_btnComandasMouseClicked
+
+    private void lblComandasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblComandasMouseClicked
+        mostrarSeccionComandas();
+    }//GEN-LAST:event_lblComandasMouseClicked
+
     /**
      * Metodo que cambia las propiedades de la fuente para que se muestre subrayada
      * @param label etiqueta a subrayar
@@ -844,6 +858,16 @@ public class FramePrincipal extends javax.swing.JFrame {
         pintarPanelSeleccion(pnlClientes);
         currentSection = SECCION_CLIENTES;
         ControlFlujo.mostrarPnlClientes();
+    }
+    
+    /**
+     * Metodo para mostrar la seccion de las comandas
+     */
+    private void mostrarSeccionComandas(){
+        descolorearTodosLosPaneles();
+        pintarPanelSeleccion(pnlComandas);
+        currentSection = SECCION_COMANDAS;
+        ControlFlujo.mostrarComandas();
     }
    
 
