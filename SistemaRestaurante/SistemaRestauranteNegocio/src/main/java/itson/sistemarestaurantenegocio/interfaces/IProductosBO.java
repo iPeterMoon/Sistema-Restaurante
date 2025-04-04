@@ -4,10 +4,15 @@
  */
 package itson.sistemarestaurantenegocio.interfaces;
 
+import itson.sistemarestaurantedominio.dtos.NuevoProductoDTO;
+import itson.sistemarestaurantenegocio.excepciones.NegocioException;
+
 /**
  *
  * @author PC
  */
 public interface IProductosBO {
+    
+    public abstract void agregarProducto(NuevoProductoDTO nuevoProducto) throws NegocioException;
     
 }

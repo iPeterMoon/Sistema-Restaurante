@@ -58,9 +58,10 @@ public class IngredientesDAO implements IIngredientesDAO {
 
     /**
      * Metodo para obtener una lista con todos los ingredientes de la base de
-     * datos
+     * datos que coincidan con el filtro de buscqueda
      *
-     * @return Lista con todos los ingredientes
+     * @param filtroBusqueda Filtro para buscar los ingredientes
+     * @return Lista con los ingredientes coincidentes con el filtro
      */
     @Override
     public List<Ingrediente> obtenerIngrediente(String filtroBusqueda) {
@@ -69,8 +70,8 @@ public class IngredientesDAO implements IIngredientesDAO {
         CriteriaQuery<Ingrediente> criteria = builder.createQuery(Ingrediente.class);
         Root<Ingrediente> entidadIngrediente = criteria.from(Ingrediente.class);
 
-        Predicate busquedaPorNombre = builder.like(entidadIngrediente.get("unidadMedida"), "%" + filtroBusqueda + "%");
-        Predicate busquedaPorUnidadMedida = builder.like(entidadIngrediente.get("nombre"), "%" + filtroBusqueda + "%");
+        Predicate busquedaPorUnidadMedida = builder.like(entidadIngrediente.get("unidadMedida"), "%" + filtroBusqueda + "%");
+        Predicate busquedaPorNombre = builder.like(entidadIngrediente.get("nombre"), "%" + filtroBusqueda + "%");
 
         criteria.select(entidadIngrediente).where(
                 builder.or(busquedaPorNombre, busquedaPorUnidadMedida)

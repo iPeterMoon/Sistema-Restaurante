@@ -16,6 +16,14 @@ public class NuevoIngredienteDTO {
     private UnidadMedida unidadMedida;
     private Integer stock;
 
+    /**
+     * Constructor que inicializa los atributos de la clase al valor de sus
+     * parametros
+     *
+     * @param nombre Nombre del ingrediente
+     * @param unidadMedida Unidad de medida del ingrediente
+     * @param stock Stock del ingrediente
+     */
     public NuevoIngredienteDTO(String nombre, UnidadMedida unidadMedida, Integer stock) {
         this.nombre = nombre;
         this.unidadMedida = unidadMedida;
