@@ -5,7 +5,6 @@
 package itson.sistemarestaurantepersistencia.implementaciones;
 
 import itson.sistemarestaurantedominio.Ingrediente;
-import itson.sistemarestaurantedominio.IngredientesProducto;
 import itson.sistemarestaurantedominio.Producto;
 import itson.sistemarestaurantedominio.dtos.NuevoProductoDTO;
 import itson.sistemarestaurantedominio.enumeradores.TipoProducto;
@@ -18,7 +17,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.Disabled;
 
 /**
  *
@@ -55,6 +53,22 @@ public class ProductosDAOTest {
     @Test
     public void testAgregarProductoOk() {
         final BigDecimal PRECIO_PRODUCTO = BigDecimal.valueOf(200.00);
+        NuevoProductoDTO nuevoProducto = new NuevoProductoDTO(
+                "Rollo Sushi", PRECIO_PRODUCTO, TipoProducto.PLATILLO);
+        productoGuardado = productosDAO.agregarProducto(nuevoProducto);
+        assertNotNull(productoGuardado.getId());
+        assertEquals(nuevoProducto.getNombre(), productoGuardado.getNombre());
+        assertEquals(nuevoProducto.getPrecio(), productoGuardado.getPrecio());
+        assertEquals(nuevoProducto.getTipoProducto(), productoGuardado.getTipoProducto());
+    }
+    
+    @Test
+    public void testAgregarProductoConIngredientesOk() {
+        final BigDecimal PRECIO_PRODUCTO = BigDecimal.valueOf(200.00);
+        List<Ingrediente> ingredientes = Arrays.asList(new Ingrediente[]{
+            new Ingrediente("Arroz", UnidadMedida.GRAMOS, 200),
+            new Ingrediente("Queso philadelphia", UnidadMedida.GRAMOS, 100)
+        });
         NuevoProductoDTO nuevoProducto = new NuevoProductoDTO(
                 "Rollo Sushi", PRECIO_PRODUCTO, TipoProducto.PLATILLO);
         productoGuardado = productosDAO.agregarProducto(nuevoProducto);

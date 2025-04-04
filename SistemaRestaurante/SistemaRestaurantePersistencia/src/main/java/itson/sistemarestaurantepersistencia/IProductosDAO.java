@@ -30,6 +30,13 @@ public interface IProductosDAO {
      */
     public abstract List<Producto> obtenerProductos();
 
+    /**
+     * Metodo para obtener una lista con todos los productos de la base de datos
+     * que coincidan con el filtro de busqueda
+     *
+     * @param filtroBusqueda Filtro para buscar los productos
+     * @return Lista con los productos coincidentes con el filtro
+     */
     public abstract List<Producto> obtenerProductos(String filtroBusqueda);
 
 }
