@@ -1,8 +1,12 @@
 package itson.sistemarestaurantepersistencia.implementaciones;
 
 import itson.sistemarestaurantedominio.Mesa;
+import itson.sistemarestaurantedominio.dtos.MesaDTO;
 import itson.sistemarestaurantedominio.dtos.NuevaMesaDTO;
 import itson.sistemarestaurantepersistencia.IMesasDAO;
+
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -47,6 +51,18 @@ public class MesasDAO implements IMesasDAO{
         
         entityManager.getTransaction().commit();
         return numeroMesas;
+    }
+
+    @Override
+    public List<MesaDTO> obtenerMesasDisponibles() {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        entityManager.getTransaction().begin();
+        String jpql = "SELECT new itson.sistemarestaurantedominio.dtos.MesaDTO(m.id, m.numeroMesa) FROM Mesa m";
+        Query query = entityManager.createQuery(jpql, MesaDTO.class);
+        List<MesaDTO> mesas = query.getResultList();
+        entityManager.getTransaction().commit();
+        return mesas;
+        
     }
     
 }

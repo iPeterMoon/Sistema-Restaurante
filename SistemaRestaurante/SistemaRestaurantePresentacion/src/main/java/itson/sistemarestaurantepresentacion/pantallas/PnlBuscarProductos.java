@@ -2,18 +2,16 @@ package itson.sistemarestaurantepresentacion.pantallas;
 
 import java.awt.Font;
 
-import itson.sistemarestaurantepresentacion.control.ControlFlujo;
 /**
  *
  * @author pc
  */
-public class PnlBuscarCliente extends javax.swing.JPanel {
+public class PnlBuscarProductos extends javax.swing.JPanel {
 
-    
     /**
-     * Creates new form PnlBuscarCliente
+     * Creates new form PnlBuscarProductos
      */
-    public PnlBuscarCliente() {
+    public PnlBuscarProductos() {
         initComponents();
     }
 
@@ -27,23 +25,23 @@ public class PnlBuscarCliente extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
-        btnRegistrarCliente = new javax.swing.JButton();
-        pnlBusquedaCliente1 = new itson.sistemarestaurantepresentacion.paneles.PnlBusquedaCliente();
+        btnRegistrarProducto = new javax.swing.JButton();
+        pnlBusquedaProducto1 = new itson.sistemarestaurantepresentacion.paneles.PnlBusquedaProducto();
 
         jPanel1.setBackground(new java.awt.Color(37, 40, 54));
 
         lblTitulo.setFont(new Font("Poppins", Font.BOLD, 36));
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
-        lblTitulo.setText("Clientes Frecuentes");
+        lblTitulo.setText("Productos");
 
-        btnRegistrarCliente.setBackground(new java.awt.Color(80, 205, 137));
-        btnRegistrarCliente.setFont(new Font("Poppins", Font.PLAIN, 18));
-        btnRegistrarCliente.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegistrarCliente.setText("Registrar Nuevo Cliente");
-        btnRegistrarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnRegistrarCliente.addActionListener(new java.awt.event.ActionListener() {
+        btnRegistrarProducto.setBackground(new java.awt.Color(80, 205, 137));
+        btnRegistrarProducto.setFont(new Font("Poppins", Font.PLAIN, 18));
+        btnRegistrarProducto.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrarProducto.setText("Agregar Nuevo Producto");
+        btnRegistrarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegistrarProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarClienteActionPerformed(evt);
+                btnRegistrarProductoActionPerformed(evt);
             }
         });
 
@@ -54,12 +52,12 @@ public class PnlBuscarCliente extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(58, 58, 58)
                 .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 250, Short.MAX_VALUE)
-                .addComponent(btnRegistrarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 226, Short.MAX_VALUE)
+                .addComponent(btnRegistrarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(83, 83, 83))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(pnlBusquedaCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addComponent(pnlBusquedaProducto1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -68,10 +66,10 @@ public class PnlBuscarCliente extends javax.swing.JPanel {
                 .addGap(46, 46, 46)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRegistrarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(pnlBusquedaCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
+                    .addComponent(btnRegistrarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlBusquedaProducto1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -86,15 +84,15 @@ public class PnlBuscarCliente extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarClienteActionPerformed
-        ControlFlujo.mostrarPnlRegistrarCliente();
-    }//GEN-LAST:event_btnRegistrarClienteActionPerformed
+    private void btnRegistrarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarProductoActionPerformed
+
+    }//GEN-LAST:event_btnRegistrarProductoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnRegistrarCliente;
+    private javax.swing.JButton btnRegistrarProducto;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblTitulo;
-    private itson.sistemarestaurantepresentacion.paneles.PnlBusquedaCliente pnlBusquedaCliente1;
+    private itson.sistemarestaurantepresentacion.paneles.PnlBusquedaProducto pnlBusquedaProducto1;
     // End of variables declaration//GEN-END:variables
 }

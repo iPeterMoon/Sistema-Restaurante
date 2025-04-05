@@ -2,7 +2,7 @@ package itson.sistemarestaurantedominio.dtos;
 
 /**
  *
- * @author Peter
+ * @author pc
  */
 public class NuevoClienteDTO {
     

@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import org.junit.jupiter.api.Disabled;
 
 /**
  *

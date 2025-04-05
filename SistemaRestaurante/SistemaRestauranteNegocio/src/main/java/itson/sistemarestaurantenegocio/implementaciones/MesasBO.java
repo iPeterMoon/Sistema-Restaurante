@@ -1,5 +1,8 @@
 package itson.sistemarestaurantenegocio.implementaciones;
 
+import java.util.List;
+
+import itson.sistemarestaurantedominio.dtos.MesaDTO;
 import itson.sistemarestaurantedominio.dtos.NuevaMesaDTO;
 import itson.sistemarestaurantenegocio.excepciones.NegocioException;
 import itson.sistemarestaurantenegocio.interfaces.IMesasBO;
@@ -49,6 +52,15 @@ public class MesasBO implements IMesasBO {
     @Override
     public Long obtenerNumMesas() {
         return mesasDAO.obtenerNumMesas();
+    }
+
+    @Override
+    public List<MesaDTO> obtenerMesasDisponibles() throws NegocioException {
+        Long numeroMesas = this.obtenerNumMesas();
+        if(numeroMesas == 0){
+            throw new NegocioException("No hay mesas disponibles");
+        }
+        return mesasDAO.obtenerMesasDisponibles();
     }
     
     

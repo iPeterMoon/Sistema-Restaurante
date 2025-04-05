@@ -1,9 +1,8 @@
 package itson.sistemarestaurantepresentacion.control;
 
-import itson.sistemarestaurantenegocio.interfaces.IClientesBO;
-import itson.sistemarestaurantenegocio.interfaces.IMesasBO;
 import itson.sistemarestaurantepresentacion.pantallas.FramePrincipal;
 import itson.sistemarestaurantepresentacion.pantallas.PnlBuscarCliente;
+import itson.sistemarestaurantepresentacion.pantallas.PnlBuscarProductos;
 import itson.sistemarestaurantepresentacion.pantallas.PnlComandas;
 import itson.sistemarestaurantepresentacion.pantallas.PnlInicio;
 import itson.sistemarestaurantepresentacion.pantallas.PnlMesas;
@@ -60,6 +59,11 @@ public class ControlFlujo {
         mostrarPanel(pnlRegistrarComanda);
     }
 
+    public static void mostrarPnlProductos(){
+        PnlBuscarProductos pnlBuscarProductos = new PnlBuscarProductos();
+        mostrarPanel(pnlBuscarProductos);
+    }
+
     /**
      * Método para mostrar el panel de mesas en el frame principal.
      * Se crea una instancia del panel de mesas y se llama al método mostrarPanel.
@@ -86,6 +90,7 @@ public class ControlFlujo {
         PnlRegistrarCliente pnlRegistrarCliente = new PnlRegistrarCliente();
         mostrarPanel(pnlRegistrarCliente);
     }
+
 
     /**
      * Método privado para mostrar un panel específico en el frame principal.

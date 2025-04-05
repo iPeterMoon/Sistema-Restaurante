@@ -64,4 +64,22 @@ public class MesasDAOTest {
         assertEquals(expected, result);
     }
     
+    @Test
+    public void testObtenerMesasDisponibles(){
+        System.out.println("obtenerMesasDisponibles");
+        Long expected = 0L;
+        Long result = mesasDAO.obtenerNumMesas();
+        assertEquals(expected, result);
+        NuevaMesaDTO nuevaMesa = new NuevaMesaDTO(1);
+        mesaCreada = mesasDAO.registrarMesa(nuevaMesa);
+        expected = 1L;
+        result = mesasDAO.obtenerNumMesas();
+        assertEquals(expected, result);
+        mesasDAO.obtenerMesasDisponibles().forEach(mesa -> {
+            assertNotNull(mesa.getId());
+            assertNotNull(mesa.getNumeroMesa());
+        });
+        assertEquals(mesaCreada.getId(), mesasDAO.obtenerMesasDisponibles().get(0).getId());
+        assertEquals(mesaCreada.getNumeroMesa(), mesasDAO.obtenerMesasDisponibles().get(0).getNumeroMesa());
+    }
 }

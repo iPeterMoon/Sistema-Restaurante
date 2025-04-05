@@ -7,6 +7,8 @@ package itson.sistemarestaurantepersistencia.implementaciones;
 import itson.sistemarestaurantedominio.Producto;
 import itson.sistemarestaurantedominio.dtos.NuevoProductoDTO;
 import itson.sistemarestaurantepersistencia.IProductosDAO;
+import itson.sistemarestaurantedominio.dtos.ProductoDTO;
+
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -57,6 +59,8 @@ public class ProductosDAO implements IProductosDAO {
         return productos;
     }
 
+    
+
     /**
      * Metodo para obtener una lista con todos los productos de la base de datos
      * que coincidan con el filtro de busqueda
@@ -80,6 +84,29 @@ public class ProductosDAO implements IProductosDAO {
         TypedQuery<Producto> query = entityManager.createQuery(criteria);
         List<Producto> productos = query.getResultList();
         return productos;
+    }
+
+    @Override
+    public List<ProductoDTO> obtenerProductosDTO() {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        entityManager.getTransaction().begin();
+        String jpql = "SELECT new itson.sistemarestaurantedominio.dtos.ProductoDTO(p.id, p.nombre, p.precio, p.tipoProducto) FROM Producto p";
+        TypedQuery<ProductoDTO> query = entityManager.createQuery(jpql, ProductoDTO.class);
+        List<ProductoDTO> productosDTO = query.getResultList();
+        entityManager.getTransaction().commit();
+        return productosDTO;
+    }
+
+    @Override
+    public List<ProductoDTO> obtenerProductosDTO(String filtroBusqueda) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        entityManager.getTransaction().begin();
+        String jpql = "SELECT new itson.sistemarestaurantedominio.dtos.ProductoDTO(p.id, p.nombre, p.precio, p.tipoProducto) FROM Producto p WHERE p.nombre LIKE :filtroBusqueda OR p.tipoProducto LIKE :filtroBusqueda";
+        TypedQuery<ProductoDTO> query = entityManager.createQuery(jpql, ProductoDTO.class);
+        query.setParameter("filtroBusqueda", "%" + filtroBusqueda + "%");
+        List<ProductoDTO> productosDTO = query.getResultList();
+        entityManager.getTransaction().commit();
+        return productosDTO;
     }
 
 }

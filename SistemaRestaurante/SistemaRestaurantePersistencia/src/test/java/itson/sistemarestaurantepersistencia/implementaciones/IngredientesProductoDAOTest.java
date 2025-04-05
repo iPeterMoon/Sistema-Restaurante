@@ -19,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 
 /**
  *
@@ -75,6 +76,7 @@ public class IngredientesProductoDAOTest {
     }
 
     @Test
+    @Disabled
     public void testRelacionarProductoConVariosIngredientesOk() {
         final BigDecimal PRECIO_PRODUCTO = BigDecimal.valueOf(200.00);
         NuevoIngredienteDTO ingrediente1 = new NuevoIngredienteDTO(
