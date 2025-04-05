@@ -80,6 +80,32 @@ public class IngredientesDAO implements IIngredientesDAO {
         List<Ingrediente> ingredientes = query.getResultList();
         return ingredientes;
     }
+    
+    /**
+     * Metodo para obtener una lista con todos los ingredientes de la base de
+     * datos que coinciden con ambos filtros de busqueda
+     *
+     * @param filtroNombre Filtro que busca el ingrediente por nombre
+     * @param filtroUnidad Filtro que busca el ingrediente por unidad de medida
+     * @return Lista con los ingredientes que coinciden con ambos filtros
+     */
+    @Override
+    public List<Ingrediente> obtenerIngrediente(String filtroNombre, String filtroUnidad) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Ingrediente> criteria = builder.createQuery(Ingrediente.class);
+        Root<Ingrediente> entidadIngrediente = criteria.from(Ingrediente.class);
+
+        Predicate busquedaPorUnidadMedida = builder.like(entidadIngrediente.get("unidadMedida"), "%" + filtroUnidad + "%");
+        Predicate busquedaPorNombre = builder.like(entidadIngrediente.get("nombre"), "%" + filtroNombre + "%");
+
+        criteria.select(entidadIngrediente).where(
+                builder.or(busquedaPorNombre, busquedaPorUnidadMedida)
+        );
+        TypedQuery<Ingrediente> query = entityManager.createQuery(criteria);
+        List<Ingrediente> ingredientes = query.getResultList();
+        return ingredientes;
+    }
 
     /**
      * Metodo que verifica si existe un ingrediente con el mismo nombre y unidad

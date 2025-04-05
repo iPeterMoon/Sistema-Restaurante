@@ -59,8 +59,6 @@ public class ProductosDAO implements IProductosDAO {
         return productos;
     }
 
-    
-
     /**
      * Metodo para obtener una lista con todos los productos de la base de datos
      * que coincidan con el filtro de busqueda
@@ -86,6 +84,38 @@ public class ProductosDAO implements IProductosDAO {
         return productos;
     }
 
+    /**
+     * Metodo para obtener una lista con todos los productos de la base de da
+     * tos que coincidan con ambos filtros de busqueda
+     *
+     * @param nombreProducto Filtro que busca un producto por nombre
+     * @param tipoProducto Filtro que busca un producto por su categoria
+     * @return Lista con los productos coincidentes con el filtro
+     */
+    @Override
+    public List<Producto> obtenerProductos(String nombreProducto, String tipoProducto) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Producto> criteria = builder.createQuery(Producto.class);
+        Root<Producto> entidadProducto = criteria.from(Producto.class);
+
+        Predicate busquedaPorTipoProducto = builder.like(entidadProducto.get("tipoProducto"), "%" + tipoProducto + "%");
+        Predicate busquedaPorNombre = builder.like(entidadProducto.get("nombre"), "%" + nombreProducto + "%");
+
+        criteria.select(entidadProducto).where(
+                builder.or(busquedaPorNombre, busquedaPorTipoProducto)
+        );
+        TypedQuery<Producto> query = entityManager.createQuery(criteria);
+        List<Producto> productos = query.getResultList();
+        return productos;
+    }
+
+    /**
+     * Metodo para obtener una lista con todos los productos de la base de datos
+     * y convertirlos a DTO
+     *
+     * @return Lista con todos los productos en formato DTO
+     */
     @Override
     public List<ProductoDTO> obtenerProductosDTO() {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
@@ -97,6 +127,13 @@ public class ProductosDAO implements IProductosDAO {
         return productosDTO;
     }
 
+    /**
+     * Metodo para obtener una lista con todos los productos de la base de datos
+     * que coincidan con el filtro de busqueda y convertirlos a DTO
+     *
+     * @param filtroBusqueda Filtro para buscar los productos
+     * @return Lista con los productos coincidentes con el filtro en formato DTO
+     */
     @Override
     public List<ProductoDTO> obtenerProductosDTO(String filtroBusqueda) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();

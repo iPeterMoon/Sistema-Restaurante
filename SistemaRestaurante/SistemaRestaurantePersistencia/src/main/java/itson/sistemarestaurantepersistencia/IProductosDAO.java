@@ -42,6 +42,16 @@ public interface IProductosDAO {
 
     /**
      * Metodo para obtener una lista con todos los productos de la base de datos
+     * que coincidan con ambos filtros de busqueda
+     *
+     * @param nombreProducto Filtro que busca el producto por su nombre
+     * @param tipoProducto Filtro que busca el producto por su categoria
+     * @return Lista con los productos coincidientes con el filtro
+     */
+    public List<Producto> obtenerProductos(String nombreProducto, String tipoProducto);
+
+    /**
+     * Metodo para obtener una lista con todos los productos de la base de datos
      * y convertirlos a DTO
      *
      * @return Lista con todos los productos en formato DTO

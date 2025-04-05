@@ -40,6 +40,16 @@ public interface IIngredientesDAO {
     public abstract List<Ingrediente> obtenerIngrediente(String filtroBusqueda);
 
     /**
+     * Metodo para obtener una lista con todos los ingredientes de la base de
+     * datos que coinciden con ambos filtros de busqueda
+     *
+     * @param filtroNombre Filtro que busca el ingrediente por nombre
+     * @param filtroUnidad Filtro que busca el ingrediente por unidad de medida
+     * @return Lista con los ingredientes que coinciden con ambos filtros
+     */
+    public abstract List<Ingrediente> obtenerIngrediente(String filtroNombre, String filtroUnidad);
+
+    /**
      * Metodo que verifica si existe un ingrediente con el mismo nombre y unidad
      * de medida
      *
