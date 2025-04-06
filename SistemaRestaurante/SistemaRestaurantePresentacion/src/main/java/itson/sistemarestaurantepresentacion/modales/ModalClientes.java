@@ -2,6 +2,7 @@ package itson.sistemarestaurantepresentacion.modales;
 
 import itson.sistemarestaurantedominio.Cliente;
 import itson.sistemarestaurantedominio.dtos.ClienteComandaDTO;
+import itson.sistemarestaurantedominio.dtos.ClienteDTO;
 
 /**
  * Clase para representar una ventana modal de clientes, 
@@ -92,7 +93,7 @@ public class ModalClientes extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
         this.setVisible(true);
         
-        Cliente cliente = pnlBusquedaCliente1.getClienteSeleccionado();
+        ClienteDTO cliente = pnlBusquedaCliente1.getClienteSeleccionado();
         if(cliente != null){
             Long id = cliente.getId();
             String nombre = cliente.getNombre();

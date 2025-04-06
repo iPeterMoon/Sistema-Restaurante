@@ -3,6 +3,7 @@ package itson.sistemarestaurantenegocio.implementaciones;
 import java.util.List;
 
 import itson.sistemarestaurantedominio.Cliente;
+import itson.sistemarestaurantedominio.dtos.ClienteDTO;
 import itson.sistemarestaurantedominio.dtos.NuevoClienteDTO;
 import itson.sistemarestaurantenegocio.excepciones.NegocioException;
 import itson.sistemarestaurantenegocio.interfaces.IClientesBO;
@@ -57,9 +58,9 @@ public class ClientesBO implements IClientesBO {
      * @throws NegocioException Si no se pueden obtener los clientes
      */
     @Override
-    public List<Cliente> obtenerClientesFrecuentes() throws NegocioException {
+    public List<ClienteDTO> obtenerClientesFrecuentes() throws NegocioException {
 
-        List<Cliente> clientes = clientesDAO.obtenerClientesFrecuentes();
+        List<ClienteDTO> clientes = clientesDAO.obtenerClientesFrecuentes();
         if (clientes.isEmpty()) {
             throw new NegocioException("No hay clientes registrados");
         }
@@ -81,8 +82,8 @@ public class ClientesBO implements IClientesBO {
     }
 
     @Override
-    public List<Cliente> buscarClientesPorNombre(String nombre) throws NegocioException {
-        List<Cliente> clientes = clientesDAO.buscarClientesPorNombre(nombre);
+    public List<ClienteDTO> buscarClientesPorNombre(String nombre) throws NegocioException {
+        List<ClienteDTO> clientes = clientesDAO.buscarClientesPorNombre(nombre);
         if (clientes.isEmpty()) {
             throw new NegocioException("No hay ningun cliente registrado con ese nombre");
         }
@@ -96,14 +97,14 @@ public class ClientesBO implements IClientesBO {
      * @throws NegocioException Si no se pueden obtener los clientes
      */
     @Override
-    public List<Cliente> buscarClientesPorTelefono(String telefono) throws NegocioException {
+    public List<ClienteDTO> buscarClientesPorTelefono(String telefono) throws NegocioException {
         String telefonoCifrado;
         try{
             telefonoCifrado = Cifrado.cifrar(telefono);
         } catch (Exception e) {
             throw new NegocioException("Error al buscar el telefono");
         }
-        List<Cliente> clientes = clientesDAO.buscarClientesPorTelefono(telefonoCifrado);
+        List<ClienteDTO> clientes = clientesDAO.buscarClientesPorTelefono(telefonoCifrado);
         if (clientes.isEmpty()) {
             throw new NegocioException("No hay ningun cliente registrado con ese telefono");
         }
@@ -111,8 +112,8 @@ public class ClientesBO implements IClientesBO {
     }
 
     @Override
-    public List<Cliente> buscarClientesPorCorreo(String correo) throws NegocioException {
-        List<Cliente> clientes = clientesDAO.buscarClientesPorCorreo(correo);
+    public List<ClienteDTO> buscarClientesPorCorreo(String correo) throws NegocioException {
+        List<ClienteDTO> clientes = clientesDAO.buscarClientesPorCorreo(correo);
         if (clientes.isEmpty()) {
             throw new NegocioException("No hay ningun cliente registrado con ese correo");
         }
@@ -120,14 +121,14 @@ public class ClientesBO implements IClientesBO {
     }
 
     @Override
-    public List<Cliente> buscarClientesPorNombreYTelefono(String nombre, String telefono) throws NegocioException {
+    public List<ClienteDTO> buscarClientesPorNombreYTelefono(String nombre, String telefono) throws NegocioException {
         String telefonoCifrado;
         try{
             telefonoCifrado = Cifrado.cifrar(telefono);
         } catch (Exception e) {
             throw new NegocioException("Error al buscar el telefono");
         }
-        List<Cliente> clientes = clientesDAO.buscarClientesPorNombreYTelefono(nombre, telefonoCifrado);
+        List<ClienteDTO> clientes = clientesDAO.buscarClientesPorNombreYTelefono(nombre, telefonoCifrado);
         if (clientes.isEmpty()) {
             throw new NegocioException("No hay ningun cliente registrado con ese nombre y telefono");
         }
@@ -135,8 +136,8 @@ public class ClientesBO implements IClientesBO {
     }
 
     @Override
-    public List<Cliente> buscarClientesPorNombreYCorreo(String nombre, String correo) throws NegocioException {
-        List<Cliente> clientes = clientesDAO.buscarClientesPorNombreYCorreo(nombre, correo);
+    public List<ClienteDTO> buscarClientesPorNombreYCorreo(String nombre, String correo) throws NegocioException {
+        List<ClienteDTO> clientes = clientesDAO.buscarClientesPorNombreYCorreo(nombre, correo);
         if (clientes.isEmpty()) {
             throw new NegocioException("No hay ningun cliente registrado con ese nombre y correo");
         }
@@ -144,14 +145,14 @@ public class ClientesBO implements IClientesBO {
     }
 
     @Override
-    public List<Cliente> buscarClientesPorTelefonoYCorreo(String telefono, String correo) throws NegocioException {
+    public List<ClienteDTO> buscarClientesPorTelefonoYCorreo(String telefono, String correo) throws NegocioException {
         String telefonoCifrado;
         try{
             telefonoCifrado = Cifrado.cifrar(telefono);
         } catch (Exception e) {
             throw new NegocioException("Error al buscar el telefono");
         }
-        List<Cliente> clientes = clientesDAO.buscarClientesPorTelefonoYCorreo(telefonoCifrado, correo);
+        List<ClienteDTO> clientes = clientesDAO.buscarClientesPorTelefonoYCorreo(telefonoCifrado, correo);
         if (clientes.isEmpty()) {
             throw new NegocioException("No hay ningun cliente registrado con ese telefono y correo");
         }
@@ -159,14 +160,14 @@ public class ClientesBO implements IClientesBO {
     }
 
     @Override
-    public List<Cliente> buscarClientesPorNombreTelefonoYCorreo(String nombre, String telefono, String correo) throws NegocioException {
+    public List<ClienteDTO> buscarClientesPorNombreTelefonoYCorreo(String nombre, String telefono, String correo) throws NegocioException {
         String telefonoCifrado;
         try{
             telefonoCifrado = Cifrado.cifrar(telefono);
         } catch (Exception e) {
             throw new NegocioException("Error al buscar el telefono");
         }
-        List<Cliente> clientes = clientesDAO.buscarClientesPorNombreTelefonoYCorreo(nombre, telefonoCifrado, correo);
+        List<ClienteDTO> clientes = clientesDAO.buscarClientesPorNombreTelefonoYCorreo(nombre, telefonoCifrado, correo);
         if (clientes.isEmpty()) {
             throw new NegocioException("No hay ningun cliente registrado con ese nombre, telefono y correo");
         }

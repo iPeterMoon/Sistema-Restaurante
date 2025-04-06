@@ -4,7 +4,6 @@
  */
 package itson.sistemarestaurantepresentacion.paneles;
 
-import itson.sistemarestaurantedominio.Ingrediente;
 import itson.sistemarestaurantedominio.dtos.IngredienteDTO;
 import java.awt.Font;
 

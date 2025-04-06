@@ -5,11 +5,13 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CompoundSelection;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import itson.sistemarestaurantedominio.Cliente;
+import itson.sistemarestaurantedominio.dtos.ClienteDTO;
 import itson.sistemarestaurantedominio.dtos.NuevoClienteDTO;
 import itson.sistemarestaurantepersistencia.IClientesDAO;
 
@@ -48,11 +50,16 @@ public class ClientesDAO implements IClientesDAO {
      * @return lista de clientes registrados
      */
     @Override
-    public List<Cliente> obtenerClientesFrecuentes() {
+    public List<ClienteDTO> obtenerClientesFrecuentes() {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        String jpqlQuery = "SELECT c FROM Cliente c";
-        TypedQuery<Cliente> query = entityManager.createQuery(jpqlQuery, Cliente.class);
-        List<Cliente> clientes = query.getResultList();
+        String jpqlQuery = """
+            SELECT new 
+            itson.sistemarestaurantedominio.dtos.ClienteDTO
+            (c.id, c.nombre, c.apellidoPaterno, c.apellidoMaterno, c.correo, c.telefono, c.puntos, c.fechaRegistro)
+             FROM Cliente c
+        """;
+        TypedQuery<ClienteDTO> query = entityManager.createQuery(jpqlQuery, ClienteDTO.class);
+        List<ClienteDTO> clientes = query.getResultList();
         entityManager.close();
         return clientes;
     }
@@ -62,14 +69,16 @@ public class ClientesDAO implements IClientesDAO {
      * @return lista de clientes encontrados
      */
     @Override
-    public List<Cliente> buscarClientesPorNombre(String nombre) {
+    public List<ClienteDTO> buscarClientesPorNombre(String nombre) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Cliente> criteriaQuery = criteriaBuilder.createQuery(Cliente.class);
+        CriteriaQuery<ClienteDTO> criteriaQuery = criteriaBuilder.createQuery(ClienteDTO.class);
         Root<Cliente> root = criteriaQuery.from(Cliente.class);
     
         // Concatenar nombre, apellido paterno y apellido materno
-        criteriaQuery.select(root).where(
+        criteriaQuery.select(
+            getClienteDTOSelection(root, criteriaBuilder)
+        ).where(
             criteriaBuilder.like(
                 criteriaBuilder.concat(
                     criteriaBuilder.concat(
@@ -82,8 +91,8 @@ public class ClientesDAO implements IClientesDAO {
             )
         );
     
-        TypedQuery<Cliente> clientes = entityManager.createQuery(criteriaQuery);
-        List<Cliente> listaClientes = clientes.getResultList();
+        TypedQuery<ClienteDTO> clientes = entityManager.createQuery(criteriaQuery);
+        List<ClienteDTO> listaClientes = clientes.getResultList();
         entityManager.close();
         return listaClientes;
     }
@@ -93,14 +102,16 @@ public class ClientesDAO implements IClientesDAO {
      * @return lista de clientes encontrados
      */
     @Override
-    public List<Cliente> buscarClientesPorTelefono(String telefono) {
+    public List<ClienteDTO> buscarClientesPorTelefono(String telefono) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Cliente> criteriaQuery = criteriaBuilder.createQuery(Cliente.class);
+        CriteriaQuery<ClienteDTO> criteriaQuery = criteriaBuilder.createQuery(ClienteDTO.class);
         Root<Cliente> root = criteriaQuery.from(Cliente.class);
-        criteriaQuery.select(root).where(criteriaBuilder.like(root.get("telefono"), "%"+telefono+"%"));
-        TypedQuery<Cliente> clientes = entityManager.createQuery(criteriaQuery);
-        List<Cliente> listaClientes = clientes.getResultList();
+        criteriaQuery.select(
+            getClienteDTOSelection(root, criteriaBuilder)
+        ).where(criteriaBuilder.like(root.get("telefono"), "%"+telefono+"%"));
+        TypedQuery<ClienteDTO> clientes = entityManager.createQuery(criteriaQuery);
+        List<ClienteDTO> listaClientes = clientes.getResultList();
         entityManager.close();
         return listaClientes;
     }
@@ -110,14 +121,16 @@ public class ClientesDAO implements IClientesDAO {
      * @return lista de clientes encontrados
      */
     @Override
-    public List<Cliente> buscarClientesPorCorreo(String correo) {
+    public List<ClienteDTO> buscarClientesPorCorreo(String correo) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Cliente> criteriaQuery = criteriaBuilder.createQuery(Cliente.class);
+        CriteriaQuery<ClienteDTO> criteriaQuery = criteriaBuilder.createQuery(ClienteDTO.class);
         Root<Cliente> root = criteriaQuery.from(Cliente.class);
-        criteriaQuery.select(root).where(criteriaBuilder.like(root.get("correo"), "%"+correo+"%"));
-        TypedQuery<Cliente> clientes = entityManager.createQuery(criteriaQuery);
-        List<Cliente> listaClientes = clientes.getResultList();
+        criteriaQuery.select(
+            getClienteDTOSelection(root, criteriaBuilder)
+        ).where(criteriaBuilder.like(root.get("correo"), "%"+correo+"%"));
+        TypedQuery<ClienteDTO> clientes = entityManager.createQuery(criteriaQuery);
+        List<ClienteDTO> listaClientes = clientes.getResultList();
         entityManager.close();
         return listaClientes;
     }
@@ -127,14 +140,16 @@ public class ClientesDAO implements IClientesDAO {
      * @return lista de clientes encontrados
      */
     @Override
-    public List<Cliente> buscarClientesPorNombreYTelefono(String nombre, String telefono) {
+    public List<ClienteDTO> buscarClientesPorNombreYTelefono(String nombre, String telefono) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Cliente> criteriaQuery = criteriaBuilder.createQuery(Cliente.class);
+        CriteriaQuery<ClienteDTO> criteriaQuery = criteriaBuilder.createQuery(ClienteDTO.class);
         Root<Cliente> root = criteriaQuery.from(Cliente.class);
     
         // Concatenar nombre, apellido paterno y apellido materno
-        criteriaQuery.select(root).where(
+        criteriaQuery.select(
+            getClienteDTOSelection(root, criteriaBuilder)
+        ).where(
             criteriaBuilder.and(
                 criteriaBuilder.like(
                     criteriaBuilder.concat(
@@ -150,8 +165,8 @@ public class ClientesDAO implements IClientesDAO {
             )
         );
     
-        TypedQuery<Cliente> clientes = entityManager.createQuery(criteriaQuery);
-        List<Cliente> listaClientes = clientes.getResultList();
+        TypedQuery<ClienteDTO> clientes = entityManager.createQuery(criteriaQuery);
+        List<ClienteDTO> listaClientes = clientes.getResultList();
         entityManager.close();
         return listaClientes;
     }
@@ -161,14 +176,16 @@ public class ClientesDAO implements IClientesDAO {
      * @return lista de clientes encontrados
      */
     @Override
-    public List<Cliente> buscarClientesPorNombreYCorreo(String nombre, String correo) {
+    public List<ClienteDTO> buscarClientesPorNombreYCorreo(String nombre, String correo) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Cliente> criteriaQuery = criteriaBuilder.createQuery(Cliente.class);
+        CriteriaQuery<ClienteDTO> criteriaQuery = criteriaBuilder.createQuery(ClienteDTO.class);
         Root<Cliente> root = criteriaQuery.from(Cliente.class);
     
         // Concatenar nombre, apellido paterno y apellido materno
-        criteriaQuery.select(root).where(
+        criteriaQuery.select(
+            getClienteDTOSelection(root, criteriaBuilder)
+        ).where(
             criteriaBuilder.and(
                 criteriaBuilder.like(
                     criteriaBuilder.concat(
@@ -184,8 +201,8 @@ public class ClientesDAO implements IClientesDAO {
             )
         );
     
-        TypedQuery<Cliente> clientes = entityManager.createQuery(criteriaQuery);
-        List<Cliente> listaClientes = clientes.getResultList();
+        TypedQuery<ClienteDTO> clientes = entityManager.createQuery(criteriaQuery);
+        List<ClienteDTO> listaClientes = clientes.getResultList();
         entityManager.close();
         return listaClientes;
     }
@@ -195,20 +212,22 @@ public class ClientesDAO implements IClientesDAO {
      * @return lista de clientes encontrados
      */
     @Override
-    public List<Cliente> buscarClientesPorTelefonoYCorreo(String telefono, String correo) {
+    public List<ClienteDTO> buscarClientesPorTelefonoYCorreo(String telefono, String correo) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Cliente> criteriaQuery = criteriaBuilder.createQuery(Cliente.class);
+        CriteriaQuery<ClienteDTO> criteriaQuery = criteriaBuilder.createQuery(ClienteDTO.class);
         Root<Cliente> root = criteriaQuery.from(Cliente.class);
-        criteriaQuery.select(root).where(
+        criteriaQuery.select(
+            getClienteDTOSelection(root, criteriaBuilder)
+        ).where(
             criteriaBuilder.and(
                 criteriaBuilder.equal(root.get("telefono"), telefono),
                 criteriaBuilder.like(root.get("correo"), "%"+correo+"%")
             )
         );
     
-        TypedQuery<Cliente> clientes = entityManager.createQuery(criteriaQuery);
-        List<Cliente> listaClientes = clientes.getResultList();
+        TypedQuery<ClienteDTO> clientes = entityManager.createQuery(criteriaQuery);
+        List<ClienteDTO> listaClientes = clientes.getResultList();
         entityManager.close();
         return listaClientes;
     }
@@ -218,14 +237,16 @@ public class ClientesDAO implements IClientesDAO {
      * @return lista de clientes encontrados
      */
     @Override
-    public List<Cliente> buscarClientesPorNombreTelefonoYCorreo(String nombre, String telefono, String correo) {
+    public List<ClienteDTO> buscarClientesPorNombreTelefonoYCorreo(String nombre, String telefono, String correo) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Cliente> criteriaQuery = criteriaBuilder.createQuery(Cliente.class);
+        CriteriaQuery<ClienteDTO> criteriaQuery = criteriaBuilder.createQuery(ClienteDTO.class);
         Root<Cliente> root = criteriaQuery.from(Cliente.class);
     
         // Concatenar nombre, apellido paterno y apellido materno
-        criteriaQuery.select(root).where(
+        criteriaQuery.select(
+            getClienteDTOSelection(root, criteriaBuilder)
+        ).where(
             criteriaBuilder.and(
                 criteriaBuilder.like(
                     criteriaBuilder.concat(
@@ -244,10 +265,23 @@ public class ClientesDAO implements IClientesDAO {
             )
         );
     
-        TypedQuery<Cliente> clientes = entityManager.createQuery(criteriaQuery);
-        List<Cliente> listaClientes = clientes.getResultList();
+        TypedQuery<ClienteDTO> clientes = entityManager.createQuery(criteriaQuery);
+        List<ClienteDTO> listaClientes = clientes.getResultList();
         entityManager.close();
         return listaClientes;
     }
     
+    private CompoundSelection<ClienteDTO> getClienteDTOSelection(Root<Cliente> root, CriteriaBuilder criteriaBuilder) {
+        return criteriaBuilder.construct(
+                ClienteDTO.class,
+                root.get("id"),
+                root.get("nombre"),
+                root.get("apellidoPaterno"),
+                root.get("apellidoMaterno"),
+                root.get("correo"),
+                root.get("telefono"),
+                root.get("puntos"),
+                root.get("fechaRegistro")
+            );  
+    }
 }

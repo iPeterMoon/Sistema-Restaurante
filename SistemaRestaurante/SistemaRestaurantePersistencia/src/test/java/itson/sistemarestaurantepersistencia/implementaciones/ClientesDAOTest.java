@@ -1,6 +1,7 @@
 package itson.sistemarestaurantepersistencia.implementaciones;
 
 import itson.sistemarestaurantedominio.Cliente;
+import itson.sistemarestaurantedominio.dtos.ClienteDTO;
 import itson.sistemarestaurantedominio.dtos.NuevoClienteDTO;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -118,7 +119,7 @@ public class ClientesDAOTest {
         clienteGuardado = clientesDAO.registrarCliente(nuevoCliente);
         assertNotNull(clienteGuardado);
 
-        List<Cliente> clientes = clientesDAO.buscarClientesPorTelefono("6441231231");
+        List<ClienteDTO> clientes = clientesDAO.buscarClientesPorTelefono("6441231231");
         assertNotNull(clientes);
         int TAMAÑO_ESPERADO = 1;
         assertEquals(TAMAÑO_ESPERADO, clientes.size());
@@ -140,7 +141,7 @@ public class ClientesDAOTest {
         clienteGuardado = clientesDAO.registrarCliente(nuevoCliente);
         assertNotNull(clienteGuardado);
 
-        List<Cliente> clientes = clientesDAO.buscarClientesPorNombre("Jefferson");
+        List<ClienteDTO> clientes = clientesDAO.buscarClientesPorNombre("Jefferson");
         assertEqualsCliente(clienteGuardado, clientes);
         
         clientes = clientesDAO.buscarClientesPorNombre("Jefferson Gutierritos Gonzalez");
@@ -163,7 +164,7 @@ public class ClientesDAOTest {
         clienteGuardado = clientesDAO.registrarCliente(nuevoCliente);
         assertNotNull(clienteGuardado);
 
-        List<Cliente> clientes = clientesDAO.buscarClientesPorCorreo("jeff.gutierrez@gmail.com");
+        List<ClienteDTO> clientes = clientesDAO.buscarClientesPorCorreo("jeff.gutierrez@gmail.com");
         assertEqualsCliente(clienteGuardado, clientes);
 
         clientes = clientesDAO.buscarClientesPorCorreo("jeff");
@@ -183,7 +184,7 @@ public class ClientesDAOTest {
         clienteGuardado = clientesDAO.registrarCliente(nuevoCliente);
         assertNotNull(clienteGuardado);
 
-        List<Cliente> clientes = clientesDAO.buscarClientesPorNombreYCorreo("Jefferson","jeff.gutierrez@gmail.com");
+        List<ClienteDTO> clientes = clientesDAO.buscarClientesPorNombreYCorreo("Jefferson","jeff.gutierrez@gmail.com");
         assertEqualsCliente(clienteGuardado, clientes);
         clientes = clientesDAO.buscarClientesPorNombreYCorreo("Pedro","jeff.gutierrez@gmail.com");
         int TAMAÑO_ESPERADO = 0;
@@ -202,7 +203,7 @@ public class ClientesDAOTest {
         clienteGuardado = clientesDAO.registrarCliente(nuevoCliente);
         assertNotNull(clienteGuardado);
 
-        List<Cliente> clientes = clientesDAO.buscarClientesPorNombreYTelefono("Jefferson","6441231231");
+        List<ClienteDTO> clientes = clientesDAO.buscarClientesPorNombreYTelefono("Jefferson","6441231231");
         assertEqualsCliente(clienteGuardado, clientes);
         clientes = clientesDAO.buscarClientesPorNombreYCorreo("Jefferson","6441231232");
         int TAMAÑO_ESPERADO = 0;
@@ -224,7 +225,7 @@ public class ClientesDAOTest {
         clienteGuardado = clientesDAO.registrarCliente(nuevoCliente);
         assertNotNull(clienteGuardado);
 
-        List<Cliente> clientes = clientesDAO.buscarClientesPorTelefonoYCorreo("6441231231","jeff.gutierrez@gmail.com");
+        List<ClienteDTO> clientes = clientesDAO.buscarClientesPorTelefonoYCorreo("6441231231","jeff.gutierrez@gmail.com");
         assertEqualsCliente(clienteGuardado, clientes);
         clientes = clientesDAO.buscarClientesPorTelefonoYCorreo("6441231231", null);
         int TAMAÑO_ESPERADO = 0;
@@ -246,7 +247,7 @@ public class ClientesDAOTest {
         clienteGuardado = clientesDAO.registrarCliente(nuevoCliente);
         assertNotNull(clienteGuardado);
 
-        List<Cliente> clientes = clientesDAO.buscarClientesPorNombreTelefonoYCorreo("Jeff","6441231231","jeff.gutierrez@gmail.com");
+        List<ClienteDTO> clientes = clientesDAO.buscarClientesPorNombreTelefonoYCorreo("Jeff","6441231231","jeff.gutierrez@gmail.com");
         assertEqualsCliente(clienteGuardado, clientes);
         clientes = clientesDAO.buscarClientesPorNombreTelefonoYCorreo("Jefferson","6441231232", "jeff");
         int TAMAÑO_ESPERADO = 0;
@@ -261,7 +262,7 @@ public class ClientesDAOTest {
      * @param cliente Cliente a comparar
      * @param clientes Lista obtenida, con un cliente.
      */
-    private void assertEqualsCliente(Cliente cliente, List<Cliente> clientes){
+    private void assertEqualsCliente(Cliente cliente, List<ClienteDTO> clientes){
         assertNotNull(clientes);
         int TAMAÑO_ESPERADO = 1;
         assertEquals(TAMAÑO_ESPERADO, clientes.size());
@@ -270,5 +271,6 @@ public class ClientesDAOTest {
         assertEquals(cliente.getApellidoMaterno(), clientes.get(0).getApellidoMaterno());
         assertEquals(cliente.getTelefono(), clientes.get(0).getTelefono());
         assertEquals(cliente.getCorreo(), clientes.get(0).getCorreo());
+        assertEquals(cliente.getPuntos(), clientes.get(0).getPuntos()); 
     }
 }
