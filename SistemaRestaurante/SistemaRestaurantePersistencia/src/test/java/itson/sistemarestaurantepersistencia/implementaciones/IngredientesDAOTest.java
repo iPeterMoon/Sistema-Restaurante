@@ -78,9 +78,9 @@ public class IngredientesDAOTest {
         assertNotNull(ingredientes);
         assertEquals(CANTIDAD_INGREDIENTES_ESPERADOS, ingredientes.size());
     }
-    
+
     @Test
-    public void testObtenerProductosFiltradoUnidadMedida(){
+    public void testObtenerProductosFiltradoUnidadMedida() {
         final Integer CANTIDAD_PRODUCTO = 3;
         final String FILTRO_BUSCADO = "Pieza";
         final Integer CANTIDAD_INGREDIENTES_ESPERADOS = 1;
@@ -91,18 +91,18 @@ public class IngredientesDAOTest {
         assertNotNull(ingredientes);
         assertEquals(CANTIDAD_INGREDIENTES_ESPERADOS, ingredientes.size());
     }
-    
+
     @Test
-    public void testIngredienteExistenteConMismoNombreYUnidadMedidaRegresaTrue(){
+    public void testIngredienteExistenteConMismoNombreYUnidadMedidaRegresaTrue() {
         final Integer CANTIDAD_PRODUCTO = 3;
         NuevoIngredienteDTO nuevoIngrediente = new NuevoIngredienteDTO(
                 "Calabaza", UnidadMedida.PIEZAS, CANTIDAD_PRODUCTO);
         ingredienteGuardado = ingredientesDAO.agregarIngrediente(nuevoIngrediente);
         assertTrue(ingredientesDAO.existeIngredienteYUnidad(nuevoIngrediente));
     }
-    
+
     @Test
-    public void testIngredienteExistenteConMismoNombreYUnidadMedidaRegresaFalse(){
+    public void testIngredienteExistenteConMismoNombreYUnidadMedidaRegresaFalse() {
         final Integer CANTIDAD_PRODUCTO_1 = 3;
         final Integer CANTIDAD_PRODUCTO_2 = 2;
         NuevoIngredienteDTO nuevoIngrediente = new NuevoIngredienteDTO(

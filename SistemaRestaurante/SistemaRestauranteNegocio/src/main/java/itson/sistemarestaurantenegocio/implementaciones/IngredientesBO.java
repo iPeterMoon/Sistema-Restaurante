@@ -4,10 +4,12 @@
  */
 package itson.sistemarestaurantenegocio.implementaciones;
 
+import itson.sistemarestaurantedominio.dtos.IngredienteDTO;
 import itson.sistemarestaurantedominio.dtos.NuevoIngredienteDTO;
 import itson.sistemarestaurantenegocio.excepciones.NegocioException;
 import itson.sistemarestaurantenegocio.interfaces.IIngredientesBO;
 import itson.sistemarestaurantepersistencia.IIngredientesDAO;
+import java.util.List;
 
 /**
  *
@@ -37,6 +39,24 @@ public class IngredientesBO implements IIngredientesBO {
         } catch (Exception e) {
             throw new NegocioException("No se ha podido agregar el usuario" + e);
         }
+    }
+
+    @Override
+    public List<IngredienteDTO> obtenerIngredientes() throws NegocioException {
+        List<IngredienteDTO> ingredientes = ingredientesDAO.obtenerIngredientesDTO();
+        if (ingredientes == null || ingredientes.isEmpty()) {
+            throw new NegocioException("No se encontraron productos en la base de datos");
+        }
+        return ingredientes;
+    }
+
+    @Override
+    public List<IngredienteDTO> obtenerIngredientes(String filtroBusqueda) throws NegocioException {
+        List<IngredienteDTO> ingredientes = ingredientesDAO.obtenerIngredientesDTO(filtroBusqueda);
+        if (ingredientes == null || ingredientes.isEmpty()) {
+            throw new NegocioException("No se encontraron productos con el filtro de busqueda: " + filtroBusqueda);
+        }
+        return ingredientes;
     }
 
     /**

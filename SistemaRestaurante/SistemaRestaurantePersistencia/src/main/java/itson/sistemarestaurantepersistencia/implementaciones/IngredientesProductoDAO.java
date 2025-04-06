@@ -7,8 +7,6 @@ package itson.sistemarestaurantepersistencia.implementaciones;
 import itson.sistemarestaurantedominio.Ingrediente;
 import itson.sistemarestaurantedominio.IngredientesProducto;
 import itson.sistemarestaurantedominio.Producto;
-import itson.sistemarestaurantedominio.dtos.NuevoIngredienteDTO;
-import itson.sistemarestaurantedominio.enumeradores.UnidadMedida;
 import itson.sistemarestaurantepersistencia.IIngredientesProductoDAO;
 import java.util.ArrayList;
 import java.util.List;

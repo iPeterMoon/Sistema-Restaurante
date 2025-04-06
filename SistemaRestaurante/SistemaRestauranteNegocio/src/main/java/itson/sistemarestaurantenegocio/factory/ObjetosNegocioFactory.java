@@ -1,15 +1,19 @@
 package itson.sistemarestaurantenegocio.factory;
 
 import itson.sistemarestaurantenegocio.implementaciones.ClientesBO;
+import itson.sistemarestaurantenegocio.implementaciones.IngredientesBO;
 import itson.sistemarestaurantenegocio.implementaciones.MesasBO;
 import itson.sistemarestaurantenegocio.implementaciones.ProductosBO;
 import itson.sistemarestaurantenegocio.interfaces.IClientesBO;
+import itson.sistemarestaurantenegocio.interfaces.IIngredientesBO;
 import itson.sistemarestaurantenegocio.interfaces.IMesasBO;
 import itson.sistemarestaurantenegocio.interfaces.IProductosBO;
 import itson.sistemarestaurantepersistencia.IClientesDAO;
+import itson.sistemarestaurantepersistencia.IIngredientesDAO;
 import itson.sistemarestaurantepersistencia.IMesasDAO;
 import itson.sistemarestaurantepersistencia.IProductosDAO;
 import itson.sistemarestaurantepersistencia.implementaciones.ClientesDAO;
+import itson.sistemarestaurantepersistencia.implementaciones.IngredientesDAO;
 import itson.sistemarestaurantepersistencia.implementaciones.MesasDAO;
 import itson.sistemarestaurantepersistencia.implementaciones.ProductosDAO;
 
@@ -34,5 +38,11 @@ public class ObjetosNegocioFactory {
         IProductosDAO productosDAO = new ProductosDAO();
         IProductosBO productosBO = new ProductosBO(productosDAO);
         return productosBO;
+    }
+    
+    public static IIngredientesBO crearIngredientesBO(){
+        IIngredientesDAO ingredientesDAO = new IngredientesDAO();
+        IIngredientesBO ingredientesBO = new IngredientesBO(ingredientesDAO);
+        return ingredientesBO;
     }
 }

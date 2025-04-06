@@ -4,6 +4,8 @@
  */
 package itson.sistemarestaurantepresentacion.paneles;
 
+import itson.sistemarestaurantedominio.Ingrediente;
+import itson.sistemarestaurantedominio.dtos.IngredienteDTO;
 import java.awt.Font;
 
 /**
@@ -11,12 +13,46 @@ import java.awt.Font;
  * @author PC
  */
 public class PnlIngrediente extends javax.swing.JPanel {
+    
+    private PnlBusquedaIngrediente parent;
+    private IngredienteDTO ingrediente;
 
     /**
-     * Creates new form PnlIngrediente
+     * Constructor que inicializa sus atributos al valor de sus parametros
+     *
+     * @param parent Clase padre
+     * @param ingrediente Ingrediente a mostrar
      */
-    public PnlIngrediente() {
+    public PnlIngrediente(PnlBusquedaIngrediente parent, IngredienteDTO ingrediente) {
+        this.parent = parent;
+        this.ingrediente = ingrediente;
+        btnModificarStock.setVisible(true);
         initComponents();
+        cargarIngredientes();
+    }
+
+    /**
+     * Constructor que inicializa el ingrediente a mostrar al valor de sus
+     * parametros
+     *
+     * @param ingrediente Ingrediente a mostrar
+     */
+    public PnlIngrediente(IngredienteDTO ingrediente) {
+        this.ingrediente = ingrediente;
+        btnModificarStock.setVisible(false);
+        initComponents();
+        cargarIngredientes();
+    }
+
+    /**
+     * Metodo que llena la informacion del ingrediente
+     */
+    private void cargarIngredientes() {
+        String nombreProducto = ingrediente.getNombre();
+        this.txtIngrediente.setText(nombreProducto);
+        this.txtUnidadMedida.setText(ingrediente.getUnidadMedida());
+        this.txtStock.setText(ingrediente.getStock().toString());
+        
     }
 
     /**
@@ -32,6 +68,10 @@ public class PnlIngrediente extends javax.swing.JPanel {
         lblIngrediente = new javax.swing.JLabel();
         lblUnidadMedida = new javax.swing.JLabel();
         lblStock = new javax.swing.JLabel();
+        btnModificarStock = new javax.swing.JButton();
+        txtIngrediente = new javax.swing.JLabel();
+        txtUnidadMedida = new javax.swing.JLabel();
+        txtStock = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1000, 150));
 
@@ -41,11 +81,6 @@ public class PnlIngrediente extends javax.swing.JPanel {
         roundedPanel1.setRoundBottomRight(40);
         roundedPanel1.setRoundTopLeft(40);
         roundedPanel1.setRoundTopRight(40);
-        roundedPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                roundedPanel1MouseClicked(evt);
-            }
-        });
 
         lblIngrediente.setFont(new Font("Poppins", Font.BOLD, 18));
         lblIngrediente.setForeground(new java.awt.Color(255, 255, 255));
@@ -59,17 +94,49 @@ public class PnlIngrediente extends javax.swing.JPanel {
         lblStock.setForeground(new java.awt.Color(255, 255, 255));
         lblStock.setText("Cantidad en Stock:");
 
+        btnModificarStock.setBackground(new java.awt.Color(217, 217, 217));
+        btnModificarStock.setFont(new Font("Poppins", Font.PLAIN, 16));
+        btnModificarStock.setForeground(new java.awt.Color(0, 0, 0));
+        btnModificarStock.setText("Modificar Stock");
+        btnModificarStock.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModificarStock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarStockActionPerformed(evt);
+            }
+        });
+
+        txtIngrediente.setFont(new Font("Poppins", Font.BOLD, 18));
+        txtIngrediente.setForeground(new java.awt.Color(255, 255, 255));
+        txtIngrediente.setText("Ingrediente");
+
+        txtUnidadMedida.setFont(new Font("Poppins", Font.PLAIN, 18));
+        txtUnidadMedida.setForeground(new java.awt.Color(255, 255, 255));
+        txtUnidadMedida.setText("Unidad de medida");
+
+        txtStock.setFont(new Font("Poppins", Font.PLAIN, 18));
+        txtStock.setForeground(new java.awt.Color(255, 255, 255));
+        txtStock.setText("Cantidad Stock");
+
         javax.swing.GroupLayout roundedPanel1Layout = new javax.swing.GroupLayout(roundedPanel1);
         roundedPanel1.setLayout(roundedPanel1Layout);
         roundedPanel1Layout.setHorizontalGroup(
             roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(roundedPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundedPanel1Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
-                .addComponent(lblIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblIngrediente)
+                .addGap(15, 15, 15)
+                .addComponent(txtIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(100, 100, 100)
-                .addComponent(lblUnidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
-                .addComponent(lblStock, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblUnidadMedida)
+                .addGap(15, 15, 15)
+                .addComponent(txtUnidadMedida)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+                .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnModificarStock, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(roundedPanel1Layout.createSequentialGroup()
+                        .addComponent(lblStock)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtStock)))
                 .addGap(50, 50, 50))
         );
         roundedPanel1Layout.setVerticalGroup(
@@ -79,8 +146,13 @@ public class PnlIngrediente extends javax.swing.JPanel {
                 .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblUnidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblStock, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(100, Short.MAX_VALUE))
+                    .addComponent(lblStock, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUnidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(btnModificarStock, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -95,25 +167,19 @@ public class PnlIngrediente extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void roundedPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_roundedPanel1MouseClicked
-//        if(parent != null){
-//            if(parent.isSelectionMode()){
-//                parent.setClienteSeleccionado(this.cliente);
-//
-//                //Cerrar el modal
-//                ModalClientes modal = parent.getModalClientes();
-//                if(modal != null){
-//                    modal.dispose();
-//                }
-//            }
-//        }
-    }//GEN-LAST:event_roundedPanel1MouseClicked
+    private void btnModificarStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarStockActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnModificarStockActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnModificarStock;
     private javax.swing.JLabel lblIngrediente;
     private javax.swing.JLabel lblStock;
     private javax.swing.JLabel lblUnidadMedida;
     private itson.sistemarestaurantepresentacion.recursos.RoundedPanel roundedPanel1;
+    private javax.swing.JLabel txtIngrediente;
+    private javax.swing.JLabel txtStock;
+    private javax.swing.JLabel txtUnidadMedida;
     // End of variables declaration//GEN-END:variables
 }

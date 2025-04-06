@@ -5,6 +5,7 @@
 package itson.sistemarestaurantepersistencia.implementaciones;
 
 import itson.sistemarestaurantedominio.Ingrediente;
+import itson.sistemarestaurantedominio.dtos.IngredienteDTO;
 import itson.sistemarestaurantedominio.dtos.NuevoIngredienteDTO;
 import itson.sistemarestaurantepersistencia.IIngredientesDAO;
 import java.util.List;
@@ -80,7 +81,7 @@ public class IngredientesDAO implements IIngredientesDAO {
         List<Ingrediente> ingredientes = query.getResultList();
         return ingredientes;
     }
-    
+
     /**
      * Metodo para obtener una lista con todos los ingredientes de la base de
      * datos que coinciden con ambos filtros de busqueda
@@ -105,6 +106,83 @@ public class IngredientesDAO implements IIngredientesDAO {
         TypedQuery<Ingrediente> query = entityManager.createQuery(criteria);
         List<Ingrediente> ingredientes = query.getResultList();
         return ingredientes;
+    }
+
+    /**
+     * Metodo para obtener una lista con todos los ingredientes de la base de
+     * datos y convertirlos a DTO
+     *
+     * @return Lista con todos los ingredientes en formato DTO
+     */
+    @Override
+    public List<IngredienteDTO> obtenerIngredientesDTO() {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        entityManager.getTransaction().begin();
+        String jpql = """
+                      SELECT new itson.sistemarestaurantedominio.dtos.IngredienteDTO(
+                        i.id, i.nombre, i.unidadMedida, i.stock)
+                      FROM Ingrediente i
+                      """;
+        TypedQuery<IngredienteDTO> query = entityManager.createQuery(jpql, IngredienteDTO.class);
+        List<IngredienteDTO> ingredientesDTO = query.getResultList();
+        entityManager.getTransaction().commit();
+        return ingredientesDTO;
+    }
+
+    /**
+     * Metodo para obtener una lista con todos los ingredientes de la base de
+     * datos que coincidan con el filtro de busqueda y convertirlos a DTO
+     *
+     * @param filtroBusqueda Filtro para buscar los ingredientes
+     * @return Lista con los ingredientes coincidentes con el filtro en formato
+     * DTO
+     */
+    @Override
+    public List<IngredienteDTO> obtenerIngredientesDTO(String filtroBusqueda) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        entityManager.getTransaction().begin();
+        String jpql = """
+                      SELECT new itson.sistemarestaurantedominio.dtos.IngredienteDTO(
+                        i.id, i.nombre, i.unidadMedida, i.stock)
+                      FROM Ingrediente i
+                      WHERE
+                        i.nombre LIKE :filtroBusqueda OR
+                        i.unidadMedida LIKE :filtroBusqueda
+                      """;
+        TypedQuery<IngredienteDTO> query = entityManager.createQuery(jpql, IngredienteDTO.class);
+        query.setParameter("filtroBusqueda", "%" + filtroBusqueda + "%");
+        List<IngredienteDTO> ingredientesDTO = query.getResultList();
+        entityManager.getTransaction().commit();
+        return ingredientesDTO;
+    }
+
+    /**
+     * Metodo para obtener una lista con todos los ingredientes de la base de
+     * datos que coincidan con ambos filtros de busqueda y convertirlos a DTO
+     *
+     * @param filtroNombre Filtro que busca el ingrediente por nombre
+     * @param filtroUnidad Filtro que busca el ingrediente por unidad de medida
+     * @return Lista con todos los ingredientes coincidentes con ambos filtros
+     * en formato DTO
+     */
+    @Override
+    public List<IngredienteDTO> obtenerIngredientesDTO(String filtroNombre, String filtroUnidad) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        entityManager.getTransaction().begin();
+        String jpql = """
+                      SELECT new itson.sistemarestaurantedominio.dtos.IngredienteDTO(
+                        i.id, i.nombre, i.unidadMedida, i.stock)
+                      FROM Ingrediente i
+                      WHERE
+                        i.nombre LIKE :filtroNombre OR
+                        i.unidadMedida LIKE :filtroUnidad
+                      """;
+        TypedQuery<IngredienteDTO> query = entityManager.createQuery(jpql, IngredienteDTO.class);
+        query.setParameter("filtroNombre", "%" + filtroNombre + "%");
+        query.setParameter("filtroUnidad", "%" + filtroUnidad + "%");
+        List<IngredienteDTO> ingredientesDTO = query.getResultList();
+        entityManager.getTransaction().commit();
+        return ingredientesDTO;
     }
 
     /**

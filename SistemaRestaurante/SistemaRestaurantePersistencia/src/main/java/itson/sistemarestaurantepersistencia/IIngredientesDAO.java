@@ -5,6 +5,7 @@
 package itson.sistemarestaurantepersistencia;
 
 import itson.sistemarestaurantedominio.Ingrediente;
+import itson.sistemarestaurantedominio.dtos.IngredienteDTO;
 import itson.sistemarestaurantedominio.dtos.NuevoIngredienteDTO;
 import java.util.List;
 
@@ -48,6 +49,35 @@ public interface IIngredientesDAO {
      * @return Lista con los ingredientes que coinciden con ambos filtros
      */
     public abstract List<Ingrediente> obtenerIngrediente(String filtroNombre, String filtroUnidad);
+
+    /**
+     * Metodo para obtener una lista con todos los ingredientes de la base de
+     * datos y convertirlos a DTO
+     *
+     * @return Lista con todos los ingredientes en formato DTO
+     */
+    public abstract List<IngredienteDTO> obtenerIngredientesDTO();
+
+    /**
+     * Metodo para obtener una lista con todos los ingredientes de la base de
+     * datos que coincidan con el filtro de busqueda y convertirlos a DTO
+     *
+     * @param filtroBusqueda Filtro para buscar los ingredientes
+     * @return Lista con los ingredientes coincidentes con el filtro en formato
+     * DTO
+     */
+    public abstract List<IngredienteDTO> obtenerIngredientesDTO(String filtroBusqueda);
+
+    /**
+     * Metodo para obtener una lista con todos los ingredientes de la base de
+     * datos que coincidan con ambos filtros de busqueda y convertirlos a DTO
+     *
+     * @param filtroNombre Filtro que busca el ingrediente por nombre
+     * @param filtroUnidad Filtro que busca el ingrediente por unidad de medida
+     * @return Lista con todos los ingredientes coincidentes con ambos filtros
+     * en formato DTO
+     */
+    public List<IngredienteDTO> obtenerIngredientesDTO(String filtroNombre, String filtroUnidad);
 
     /**
      * Metodo que verifica si existe un ingrediente con el mismo nombre y unidad

@@ -4,8 +4,10 @@
  */
 package itson.sistemarestaurantenegocio.interfaces;
 
+import itson.sistemarestaurantedominio.dtos.IngredienteDTO;
 import itson.sistemarestaurantedominio.dtos.NuevoIngredienteDTO;
 import itson.sistemarestaurantenegocio.excepciones.NegocioException;
+import java.util.List;
 
 /**
  *
@@ -13,6 +15,32 @@ import itson.sistemarestaurantenegocio.excepciones.NegocioException;
  */
 public interface IIngredientesBO {
 
+    /**
+     * Metodo para agregar un ingrediente en la base de datos
+     *
+     * @param nuevoIngrediente Ingrediente a agregar
+     * @throws NegocioException Si el ingrediente no se puede agregar debido a
+     * un error en la base de datos o de formato
+     */
     public abstract void agregarIngrediente(NuevoIngredienteDTO nuevoIngrediente) throws NegocioException;
+
+    /**
+     * Metodo para obtener ingredientes de la base de datos
+     *
+     * @return Lista de todos los ingredientes de la base de datos
+     * @throws NegocioException Si todos los ingredientes no se puede obtener
+     * debido a un error de la base de datos
+     */
+    public abstract List<IngredienteDTO> obtenerIngredientes() throws NegocioException;
+
+    /**
+     * Metodo para obtener ingredientes filtrados de la base de datos
+     *
+     * @param filtroBusqueda Filtro de busqueda de ingredientes
+     * @return Lista con todos los ingredientes filtrados de la base de datos
+     * @throws NegocioException Si los ingredientes no se pueden obtener debido
+     * a un error de la base de datos
+     */
+    public abstract List<IngredienteDTO> obtenerIngredientes(String filtroBusqueda) throws NegocioException;
 
 }

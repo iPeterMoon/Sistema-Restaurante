@@ -19,7 +19,7 @@ public class FramePrincipal extends javax.swing.JFrame {
     private final int SECCION_CLIENTES = 4;
     private final int SECCION_MESAS = 5;
     private final int SECCION_REPORTES = 6;
-    
+
     /**
      * Creates new form FramePrincipal
      */
@@ -258,6 +258,9 @@ public class FramePrincipal extends javax.swing.JFrame {
         btnIngredientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/boton ingredientes.png"))); // NOI18N
         btnIngredientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnIngredientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnIngredientesMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnIngredientesMouseEntered(evt);
             }
@@ -564,175 +567,175 @@ public class FramePrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblInicioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInicioMouseEntered
-        if(currentSection != SECCION_INICIO){
+        if (currentSection != SECCION_INICIO) {
             subrayar(lblInicio);
         }
     }//GEN-LAST:event_lblInicioMouseEntered
 
     private void lblInicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInicioMouseExited
-        if(currentSection != SECCION_INICIO){
+        if (currentSection != SECCION_INICIO) {
             dessubrayar(lblInicio);
         }
     }//GEN-LAST:event_lblInicioMouseExited
 
     private void btnComandasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnComandasMouseEntered
-        if(currentSection != SECCION_COMANDAS){
+        if (currentSection != SECCION_COMANDAS) {
             colorearPanelHover(pnlComandas);
         }
     }//GEN-LAST:event_btnComandasMouseEntered
 
     private void btnComandasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnComandasMouseExited
-        if(currentSection!= SECCION_COMANDAS){
+        if (currentSection != SECCION_COMANDAS) {
             descolorearPanelHover(pnlComandas);
         }
     }//GEN-LAST:event_btnComandasMouseExited
 
     private void lblComandasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblComandasMouseEntered
-        if(currentSection != SECCION_COMANDAS){
+        if (currentSection != SECCION_COMANDAS) {
             subrayar(lblComandas);
         }
     }//GEN-LAST:event_lblComandasMouseEntered
 
     private void lblComandasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblComandasMouseExited
-        if(currentSection != SECCION_COMANDAS){
+        if (currentSection != SECCION_COMANDAS) {
             dessubrayar(lblComandas);
         }
     }//GEN-LAST:event_lblComandasMouseExited
 
     private void btnInicioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseEntered
-        if(currentSection != SECCION_INICIO){
+        if (currentSection != SECCION_INICIO) {
             colorearPanelHover(pnlInicio);
         }
     }//GEN-LAST:event_btnInicioMouseEntered
 
     private void btnInicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseExited
-        if(currentSection != SECCION_INICIO){
+        if (currentSection != SECCION_INICIO) {
             descolorearPanelHover(pnlInicio);
         }
     }//GEN-LAST:event_btnInicioMouseExited
 
     private void btnMenuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMenuMouseEntered
-        if(currentSection != SECCION_PRODUCTOS){
+        if (currentSection != SECCION_PRODUCTOS) {
             colorearPanelHover(pnlMenu);
         }
     }//GEN-LAST:event_btnMenuMouseEntered
 
     private void btnMenuMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMenuMouseExited
-        if(currentSection != SECCION_PRODUCTOS){
+        if (currentSection != SECCION_PRODUCTOS) {
             descolorearPanelHover(pnlMenu);
         }
     }//GEN-LAST:event_btnMenuMouseExited
 
     private void lblMenuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMenuMouseEntered
-        if(currentSection != SECCION_PRODUCTOS){
+        if (currentSection != SECCION_PRODUCTOS) {
             subrayar(lblMenu);
         }
     }//GEN-LAST:event_lblMenuMouseEntered
 
     private void lblMenuMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMenuMouseExited
-        if(currentSection != SECCION_PRODUCTOS){
+        if (currentSection != SECCION_PRODUCTOS) {
             dessubrayar(lblMenu);
         }
     }//GEN-LAST:event_lblMenuMouseExited
 
     private void btnIngredientesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngredientesMouseEntered
-        if(currentSection != SECCION_INGREDIENTES){
+        if (currentSection != SECCION_INGREDIENTES) {
             colorearPanelHover(pnlIngredientes);
         }
     }//GEN-LAST:event_btnIngredientesMouseEntered
 
     private void btnIngredientesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngredientesMouseExited
-        if(currentSection != SECCION_INGREDIENTES){
+        if (currentSection != SECCION_INGREDIENTES) {
             descolorearPanelHover(pnlIngredientes);
         }
     }//GEN-LAST:event_btnIngredientesMouseExited
 
     private void lblIngredientesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIngredientesMouseEntered
-        if(currentSection != SECCION_INGREDIENTES){
+        if (currentSection != SECCION_INGREDIENTES) {
             subrayar(lblIngredientes);
         }
     }//GEN-LAST:event_lblIngredientesMouseEntered
 
     private void lblIngredientesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIngredientesMouseExited
-        if(currentSection != SECCION_INGREDIENTES){
+        if (currentSection != SECCION_INGREDIENTES) {
             dessubrayar(lblIngredientes);
         }
     }//GEN-LAST:event_lblIngredientesMouseExited
 
     private void btnClientesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClientesMouseEntered
-        if(currentSection != SECCION_CLIENTES){
+        if (currentSection != SECCION_CLIENTES) {
             colorearPanelHover(pnlClientes);
         }
     }//GEN-LAST:event_btnClientesMouseEntered
 
     private void btnClientesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClientesMouseExited
-        if(currentSection != SECCION_CLIENTES){
+        if (currentSection != SECCION_CLIENTES) {
             descolorearPanelHover(pnlClientes);
         }
     }//GEN-LAST:event_btnClientesMouseExited
 
     private void lblClientesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblClientesMouseEntered
-        if(currentSection != SECCION_CLIENTES){
+        if (currentSection != SECCION_CLIENTES) {
             subrayar(lblClientes);
         }
     }//GEN-LAST:event_lblClientesMouseEntered
 
     private void lblClientesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblClientesMouseExited
-        if(currentSection != SECCION_CLIENTES){
+        if (currentSection != SECCION_CLIENTES) {
             dessubrayar(lblClientes);
         }
     }//GEN-LAST:event_lblClientesMouseExited
 
     private void btnMesasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMesasMouseEntered
-        if(currentSection != SECCION_MESAS){
+        if (currentSection != SECCION_MESAS) {
             colorearPanelHover(pnlMesas);
         }
     }//GEN-LAST:event_btnMesasMouseEntered
 
     private void btnMesasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMesasMouseExited
-        if(currentSection != SECCION_MESAS){
+        if (currentSection != SECCION_MESAS) {
             descolorearPanelHover(pnlMesas);
         }
     }//GEN-LAST:event_btnMesasMouseExited
 
     private void lblMesasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMesasMouseEntered
-        if(currentSection != SECCION_MESAS){
+        if (currentSection != SECCION_MESAS) {
             subrayar(lblMesas);
         }
     }//GEN-LAST:event_lblMesasMouseEntered
 
     private void lblMesasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMesasMouseExited
-        if(currentSection != SECCION_MESAS){
+        if (currentSection != SECCION_MESAS) {
             dessubrayar(lblMesas);
         }
     }//GEN-LAST:event_lblMesasMouseExited
 
     private void btnReportesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportesMouseEntered
-        if(currentSection != SECCION_REPORTES){
+        if (currentSection != SECCION_REPORTES) {
             colorearPanelHover(pnlReportes);
         }
     }//GEN-LAST:event_btnReportesMouseEntered
 
     private void btnReportesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportesMouseExited
-        if(currentSection != SECCION_REPORTES){
+        if (currentSection != SECCION_REPORTES) {
             descolorearPanelHover(pnlReportes);
         }
     }//GEN-LAST:event_btnReportesMouseExited
 
     private void lblReportesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReportesMouseEntered
-        if(currentSection != SECCION_REPORTES){
+        if (currentSection != SECCION_REPORTES) {
             subrayar(lblReportes);
         }
     }//GEN-LAST:event_lblReportesMouseEntered
 
     private void lblReportesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblReportesMouseExited
-        if(currentSection != SECCION_REPORTES){
+        if (currentSection != SECCION_REPORTES) {
             dessubrayar(lblReportes);
         }
     }//GEN-LAST:event_lblReportesMouseExited
 
     private void btnReportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportesMouseClicked
-        
+
     }//GEN-LAST:event_btnReportesMouseClicked
 
     private void btnMesasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMesasMouseClicked
@@ -775,22 +778,29 @@ public class FramePrincipal extends javax.swing.JFrame {
         mostrarSeccionProductos();
     }//GEN-LAST:event_lblMenuMouseClicked
 
+    private void btnIngredientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngredientesMouseClicked
+        mostrarSeccionIngredientes();
+    }//GEN-LAST:event_btnIngredientesMouseClicked
+
     /**
-     * Metodo que cambia las propiedades de la fuente para que se muestre subrayada
+     * Metodo que cambia las propiedades de la fuente para que se muestre
+     * subrayada
+     *
      * @param label etiqueta a subrayar
      */
-    private void subrayar(JLabel label){
+    private void subrayar(JLabel label) {
         Font font = label.getFont();
         Map subrayado = font.getAttributes();
         subrayado.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
         label.setFont(font.deriveFont(subrayado));
     }
-    
+
     /**
      * Metodo que devuelve a su estado original una fuente
+     *
      * @param label etiqueta a devolver.
      */
-    private void dessubrayar(JLabel label){
+    private void dessubrayar(JLabel label) {
         Font font = label.getFont();
         String name = font.getName();
         int style = font.getStyle();
@@ -798,36 +808,41 @@ public class FramePrincipal extends javax.swing.JFrame {
         Font nuevaFont = new Font(name, style, size);
         label.setFont(nuevaFont);
     }
-    
+
     /**
-     * Metodo que colorea el fondo de un panel al momento de pasar el mouse sobre un boton
+     * Metodo que colorea el fondo de un panel al momento de pasar el mouse
+     * sobre un boton
+     *
      * @param panel Panel a colorear
      */
-    private void colorearPanelHover(RoundedPanel panel){
-        panel.setBackground(new Color(51,51,51));
-    }
-    
-    /**
-     * Metodo que devuelve el fondo de un panel al momento de quitar el mouse sobre un boton
-     * @param panel Panel a descolorear
-     */
-    private void descolorearPanelHover(RoundedPanel panel){
-        panel.setBackground(new Color(31,29,43));
+    private void colorearPanelHover(RoundedPanel panel) {
+        panel.setBackground(new Color(51, 51, 51));
     }
 
     /**
-     * Metodo para pintar el panel de una sección de color
-     * al momento de hacer click
+     * Metodo que devuelve el fondo de un panel al momento de quitar el mouse
+     * sobre un boton
+     *
+     * @param panel Panel a descolorear
+     */
+    private void descolorearPanelHover(RoundedPanel panel) {
+        panel.setBackground(new Color(31, 29, 43));
+    }
+
+    /**
+     * Metodo para pintar el panel de una sección de color al momento de hacer
+     * click
+     *
      * @param panel Panel a pintar
      */
-    private void pintarPanelSeleccion(RoundedPanel panel){
-        panel.setBackground(new Color(80,205,137));
+    private void pintarPanelSeleccion(RoundedPanel panel) {
+        panel.setBackground(new Color(80, 205, 137));
     }
-    
+
     /**
      * Metodo para despintar todos los paneles / secciones
      */
-    private void descolorearTodosLosPaneles(){
+    private void descolorearTodosLosPaneles() {
         descolorearPanelHover(this.pnlInicio);
         descolorearPanelHover(this.pnlComandas);
         descolorearPanelHover(this.pnlMenu);
@@ -836,65 +851,77 @@ public class FramePrincipal extends javax.swing.JFrame {
         descolorearPanelHover(this.pnlMesas);
         descolorearPanelHover(this.pnlReportes);
     }
+
     /**
      * Metodo que devuelve el panel principal
+     *
      * @return Panel principal
      */
     public JPanel getPnlPrincipal() {
         return pnlPrincipal;
     }
-    
+
     /**
      * Metodo para mostrar la seccion del inicio
      */
-    private void mostrarSeccionInicio(){
+    private void mostrarSeccionInicio() {
         descolorearTodosLosPaneles();
         pintarPanelSeleccion(pnlInicio);
         currentSection = SECCION_INICIO;
         ControlFlujo.mostrarInicio();
     }
-    
-    private void mostrarSeccionProductos(){
+
+    /**
+     * Metodo para mostrar la seccion de productos
+     */
+    private void mostrarSeccionProductos() {
         descolorearTodosLosPaneles();
         pintarPanelSeleccion(pnlMenu);
         currentSection = SECCION_PRODUCTOS;
         ControlFlujo.mostrarPnlProductos();
     }
-    
+
+    /**
+     * Metodo para mostrar la seccion de ingredientes
+     */
+    private void mostrarSeccionIngredientes() {
+        descolorearTodosLosPaneles();
+        pintarPanelSeleccion(pnlIngredientes);
+        currentSection = SECCION_INGREDIENTES;
+        ControlFlujo.mostrarPnlIngredientes();
+    }
+
     /**
      * Metodo para mostrar la seccion de las mesas
      */
-    private void mostrarSeccionMesas(){
+    private void mostrarSeccionMesas() {
         descolorearTodosLosPaneles();
         pintarPanelSeleccion(pnlMesas);
         currentSection = SECCION_MESAS;
         ControlFlujo.mostrarPnlMesas();
     }
+
     /**
      * Metodo para mostrar la sección de los clientes
      */
-    private void mostrarSeccionClientes(){
+    private void mostrarSeccionClientes() {
         descolorearTodosLosPaneles();
         pintarPanelSeleccion(pnlClientes);
         currentSection = SECCION_CLIENTES;
         ControlFlujo.mostrarPnlClientes();
     }
-    
+
     /**
      * Metodo para mostrar la seccion de las comandas
      */
-    private void mostrarSeccionComandas(){
+    private void mostrarSeccionComandas() {
         descolorearTodosLosPaneles();
         pintarPanelSeleccion(pnlComandas);
         currentSection = SECCION_COMANDAS;
         ControlFlujo.mostrarComandas();
     }
-   
 
-    
-    
-    
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnClientes;
     private javax.swing.JLabel btnComandas;
