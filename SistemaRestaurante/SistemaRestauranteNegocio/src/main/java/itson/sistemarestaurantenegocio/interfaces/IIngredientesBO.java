@@ -4,6 +4,7 @@
  */
 package itson.sistemarestaurantenegocio.interfaces;
 
+import itson.sistemarestaurantedominio.Ingrediente;
 import itson.sistemarestaurantedominio.dtos.IngredienteDTO;
 import itson.sistemarestaurantedominio.dtos.NuevoIngredienteDTO;
 import itson.sistemarestaurantenegocio.excepciones.NegocioException;
@@ -19,10 +20,11 @@ public interface IIngredientesBO {
      * Metodo para agregar un ingrediente en la base de datos
      *
      * @param nuevoIngrediente Ingrediente a agregar
+     * @return Ingrediente que se ha agregado a la base de datos
      * @throws NegocioException Si el ingrediente no se puede agregar debido a
-     * un error en la base de datos o de formato
+     * un error en la base de datos
      */
-    public abstract void agregarIngrediente(NuevoIngredienteDTO nuevoIngrediente) throws NegocioException;
+    public abstract Ingrediente agregarIngrediente(NuevoIngredienteDTO nuevoIngrediente) throws NegocioException;
 
     /**
      * Metodo para obtener ingredientes de la base de datos

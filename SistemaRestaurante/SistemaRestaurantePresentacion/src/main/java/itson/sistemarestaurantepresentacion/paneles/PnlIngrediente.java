@@ -25,8 +25,8 @@ public class PnlIngrediente extends javax.swing.JPanel {
     public PnlIngrediente(PnlBusquedaIngrediente parent, IngredienteDTO ingrediente) {
         this.parent = parent;
         this.ingrediente = ingrediente;
-        btnModificarStock.setVisible(true);
         initComponents();
+        btnModificarStock.setVisible(true);
         cargarIngredientes();
     }
 
@@ -38,8 +38,8 @@ public class PnlIngrediente extends javax.swing.JPanel {
      */
     public PnlIngrediente(IngredienteDTO ingrediente) {
         this.ingrediente = ingrediente;
-        btnModificarStock.setVisible(false);
         initComponents();
+        btnModificarStock.setVisible(false);
         cargarIngredientes();
     }
 
@@ -72,6 +72,8 @@ public class PnlIngrediente extends javax.swing.JPanel {
         txtUnidadMedida = new javax.swing.JLabel();
         txtStock = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(31, 31, 31));
+        setMaximumSize(new java.awt.Dimension(1000, 150));
         setPreferredSize(new java.awt.Dimension(1000, 150));
 
         roundedPanel1.setBackground(new java.awt.Color(94, 94, 94));

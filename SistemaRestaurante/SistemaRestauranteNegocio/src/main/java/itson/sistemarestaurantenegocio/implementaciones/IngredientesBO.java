@@ -4,6 +4,7 @@
  */
 package itson.sistemarestaurantenegocio.implementaciones;
 
+import itson.sistemarestaurantedominio.Ingrediente;
 import itson.sistemarestaurantedominio.dtos.IngredienteDTO;
 import itson.sistemarestaurantedominio.dtos.NuevoIngredienteDTO;
 import itson.sistemarestaurantenegocio.excepciones.NegocioException;
@@ -27,15 +28,17 @@ public class IngredientesBO implements IIngredientesBO {
      * Metodo para agregar un ingrediente en la base de datos
      *
      * @param nuevoIngrediente Ingrediente a agregar
+     * @return Ingrediente que se ha agregado a la base de datos
      * @throws NegocioException Si el ingrediente no se puede agregar debido a
-     * un error en la base de datos o de formato
+     * un error en la base de datos
      */
     @Override
-    public void agregarIngrediente(NuevoIngredienteDTO nuevoIngrediente)
+    public Ingrediente agregarIngrediente(NuevoIngredienteDTO nuevoIngrediente)
             throws NegocioException {
         validarNombreYUnidadMedidaExistente(nuevoIngrediente);
         try {
-            ingredientesDAO.agregarIngrediente(nuevoIngrediente);
+            Ingrediente ingrediente = ingredientesDAO.agregarIngrediente(nuevoIngrediente);
+            return ingrediente;
         } catch (Exception e) {
             throw new NegocioException("No se ha podido agregar el usuario" + e);
         }

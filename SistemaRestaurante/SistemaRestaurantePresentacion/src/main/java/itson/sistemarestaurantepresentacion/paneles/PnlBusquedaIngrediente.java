@@ -188,7 +188,7 @@ public class PnlBusquedaIngrediente extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar1ActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnBuscar1ActionPerformed
 
     private void campoTextoBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_campoTextoBuscarMouseClicked

@@ -1,6 +1,7 @@
 package itson.sistemarestaurantepresentacion.control;
 
 import itson.sistemarestaurantepresentacion.pantallas.FramePrincipal;
+import itson.sistemarestaurantepresentacion.pantallas.PnlAgregarIngrediente;
 import itson.sistemarestaurantepresentacion.pantallas.PnlBuscarCliente;
 import itson.sistemarestaurantepresentacion.pantallas.PnlBuscarIngredientes;
 import itson.sistemarestaurantepresentacion.pantallas.PnlBuscarProductos;
@@ -77,6 +78,16 @@ public class ControlFlujo {
     public static void mostrarPnlIngredientes() {
         PnlBuscarIngredientes pnlBuscarIngredientes = new PnlBuscarIngredientes();
         mostrarPanel(pnlBuscarIngredientes);
+    }
+
+    /**
+     * Metodo para mostrar el panel con el que se agregan los clientes en el
+     * frame principal. Se crea una instancia del panel de busqueda de clientes
+     * y se llama al metodo mostrarPanel.
+     */
+    public static void mostrarPnlAgregarIngrediente() {
+        PnlAgregarIngrediente pnlAgregarIngrediente = new PnlAgregarIngrediente();
+        mostrarPanel(pnlAgregarIngrediente);
     }
 
     /**
