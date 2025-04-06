@@ -6,7 +6,6 @@ import java.util.List;
 import javax.swing.Box;
 import javax.swing.JOptionPane;
 
-import itson.sistemarestaurantedominio.Cliente;
 import itson.sistemarestaurantedominio.dtos.ClienteDTO;
 import itson.sistemarestaurantenegocio.excepciones.NegocioException;
 import itson.sistemarestaurantenegocio.factory.ObjetosNegocioFactory;

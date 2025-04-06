@@ -3,6 +3,7 @@ package itson.sistemarestaurantepresentacion.paneles;
 import java.awt.Font;
 
 import itson.sistemarestaurantedominio.dtos.ProductoDTO;
+import itson.sistemarestaurantepresentacion.modales.ModalProductos;
 
 /**
  *
@@ -11,11 +12,13 @@ import itson.sistemarestaurantedominio.dtos.ProductoDTO;
 public class PnlProducto extends javax.swing.JPanel {
 
     private ProductoDTO producto;
-
+    private PnlBusquedaProducto parent;
     /**
      * Creates new form PnlProducto
      */
-    public PnlProducto(ProductoDTO producto) {
+    public PnlProducto(PnlBusquedaProducto parent, ProductoDTO producto) {
+        this.parent = parent;
+        this.producto = producto;
         initComponents();
         cargarProducto();
     }
@@ -48,6 +51,11 @@ public class PnlProducto extends javax.swing.JPanel {
         roundedPanel1.setRoundBottomRight(45);
         roundedPanel1.setRoundTopLeft(45);
         roundedPanel1.setRoundTopRight(45);
+        roundedPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                roundedPanel1MouseClicked(evt);
+            }
+        });
 
         lblNombre.setFont(new Font("Poppins", Font.BOLD, 20));
         lblNombre.setText("Nombre Producto");
@@ -100,7 +108,28 @@ public class PnlProducto extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void roundedPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_roundedPanel1MouseClicked
+        setProducto();
+        cerrarModal();
+    }//GEN-LAST:event_roundedPanel1MouseClicked
 
+    /**
+     * Metodo para setear el producto seleccionado al panel de busqueda el producto seleccionado
+     */
+    private void setProducto(){
+        if(parent.isSelectionMode()){
+            parent.setProductoSeleccionado(producto);
+        } 
+    }
+
+    private void cerrarModal(){
+        if(parent.isSelectionMode()){
+            ModalProductos modalProductos = parent.getModal();
+            modalProductos.cerrarModal();
+        }
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel lblCategoria;

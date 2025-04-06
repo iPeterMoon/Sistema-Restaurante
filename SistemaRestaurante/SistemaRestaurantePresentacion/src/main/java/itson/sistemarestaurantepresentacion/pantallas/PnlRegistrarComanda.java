@@ -2,10 +2,12 @@ package itson.sistemarestaurantepresentacion.pantallas;
 
 import itson.sistemarestaurantedominio.dtos.ClienteComandaDTO;
 import itson.sistemarestaurantedominio.dtos.MesaDTO;
+import itson.sistemarestaurantedominio.dtos.ProductoDTO;
 import itson.sistemarestaurantenegocio.factory.ObjetosNegocioFactory;
 import itson.sistemarestaurantenegocio.interfaces.IMesasBO;
 import itson.sistemarestaurantepresentacion.control.ControlFlujo;
 import itson.sistemarestaurantepresentacion.modales.ModalClientes;
+import itson.sistemarestaurantepresentacion.modales.ModalProductos;
 
 import java.awt.Font;
 import java.util.List;
@@ -94,6 +96,11 @@ public class PnlRegistrarComanda extends javax.swing.JPanel {
         btnBuscarProductos.setForeground(new java.awt.Color(0, 0, 0));
         btnBuscarProductos.setText("Buscar Productos");
         btnBuscarProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscarProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarProductosActionPerformed(evt);
+            }
+        });
 
         btnBuscarClientes.setBackground(new java.awt.Color(217, 217, 217));
         btnBuscarClientes.setFont(new Font("Poppins", Font.PLAIN, 16));
@@ -209,10 +216,21 @@ public class PnlRegistrarComanda extends javax.swing.JPanel {
 
     private void btnBuscarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClientesActionPerformed
         ModalClientes modalClientes = new ModalClientes(null, true);
-        clienteComanda = modalClientes.obtenerClienteComanda();
+        ClienteComandaDTO cliente = modalClientes.obtenerClienteComanda();
+        if (cliente == null) {
+            return;
+        }
+        clienteComanda = cliente;
         txtCliente.setText(cargarCliente(clienteComanda));
         
     }//GEN-LAST:event_btnBuscarClientesActionPerformed
+
+    private void btnBuscarProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProductosActionPerformed
+        ModalProductos modalProductos = new ModalProductos(null, true);
+        ProductoDTO producto = modalProductos.obtenerProductoSeleccionado();
+        //TODO: Crear el panel para los detalles de la comanda y agregarlo al scroll
+        //TODO: Crear el DetallesComandaDTO y agregarlo a la lista de detalles de la comanda
+    }//GEN-LAST:event_btnBuscarProductosActionPerformed
 
     private String cargarCliente(ClienteComandaDTO cliente){
         if (cliente != null) {

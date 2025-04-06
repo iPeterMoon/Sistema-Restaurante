@@ -7,12 +7,18 @@ import itson.sistemarestaurantedominio.dtos.ProductoDTO;
 import itson.sistemarestaurantedominio.enumeradores.TipoProducto;
 import itson.sistemarestaurantenegocio.factory.ObjetosNegocioFactory;
 import itson.sistemarestaurantenegocio.interfaces.IProductosBO;
+import itson.sistemarestaurantepresentacion.modales.ModalProductos;
 
 /**
  *
  * @author pc
  */
 public class PnlBusquedaProducto extends javax.swing.JPanel {
+
+    private boolean isSelectionMode = false;
+    private ProductoDTO productoSeleccionado;
+    private ModalProductos modal;
+    
 
     /**
      * Creates new form PnlBusquedaProducto
@@ -57,7 +63,7 @@ public class PnlBusquedaProducto extends javax.swing.JPanel {
 
         this.gridProductos.removeAll();
         for (ProductoDTO producto : productos) {
-            PnlProducto pnlProducto = new PnlProducto(producto);
+            PnlProducto pnlProducto = new PnlProducto(this, producto);
             this.gridProductos.add(pnlProducto);
         }
         this.gridProductos.revalidate();
@@ -174,6 +180,50 @@ public class PnlBusquedaProducto extends javax.swing.JPanel {
         //TODO: Implementar la busqueda de productos
     }// GEN-LAST:event_btnBuscarActionPerformed
 
+    
+    /**
+     * Metodo para obtener el producto seleccionado
+     * @return producto seleccionado
+     */
+    public ProductoDTO getProductoSeleccionado() {
+        return productoSeleccionado;
+    }
+
+    /**
+     * Metodo para establecer el producto seleccionado
+     * @param producto producto seleccionado
+     */
+    public void setProductoSeleccionado(ProductoDTO producto) {
+        this.productoSeleccionado = producto;
+    }
+
+
+    /**
+     * Metodo para establecer el modo de seleccion
+     * @param selectionMode modo de seleccion
+     */
+    public void setSelectionMode(boolean selectionMode) {
+        this.isSelectionMode = selectionMode;
+    }
+
+    /**
+     * Metodo para obtener el modo de seleccion
+     * @return modo de seleccion
+     */
+    public boolean isSelectionMode() {
+        return isSelectionMode;
+    }
+
+    public ModalProductos getModal() {
+        return modal;
+    }
+
+    public void setModal(ModalProductos modal) {
+        this.modal = modal;
+    }
+
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JTextField campoTextoBuscar;
