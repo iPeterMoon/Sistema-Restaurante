@@ -2,6 +2,7 @@ package itson.sistemarestaurantepresentacion.control;
 
 import itson.sistemarestaurantepresentacion.pantallas.FramePrincipal;
 import itson.sistemarestaurantepresentacion.pantallas.PnlAgregarIngrediente;
+import itson.sistemarestaurantepresentacion.pantallas.PnlAgregarProducto;
 import itson.sistemarestaurantepresentacion.pantallas.PnlBuscarCliente;
 import itson.sistemarestaurantepresentacion.pantallas.PnlBuscarIngredientes;
 import itson.sistemarestaurantepresentacion.pantallas.PnlBuscarProductos;
@@ -68,6 +69,11 @@ public class ControlFlujo {
     public static void mostrarPnlProductos() {
         PnlBuscarProductos pnlBuscarProductos = new PnlBuscarProductos();
         mostrarPanel(pnlBuscarProductos);
+    }
+
+    public static void mostrarPnlAgregarProducto(){
+        PnlAgregarProducto pnlAgregarProducto = new PnlAgregarProducto();
+        mostrarPanel(pnlAgregarProducto);
     }
 
     /**

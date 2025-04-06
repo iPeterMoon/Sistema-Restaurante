@@ -1,5 +1,6 @@
 package itson.sistemarestaurantepresentacion.pantallas;
 
+import itson.sistemarestaurantepresentacion.control.ControlFlujo;
 import java.awt.Font;
 
 /**
@@ -85,7 +86,7 @@ public class PnlBuscarProductos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarProductoActionPerformed
-
+        ControlFlujo.mostrarPnlAgregarProducto();
     }//GEN-LAST:event_btnRegistrarProductoActionPerformed
 
 
