@@ -203,16 +203,31 @@ public class PnlAgregarIngrediente extends javax.swing.JPanel {
      * ingrediente desde los campos de texto y llama al metodo
      * agregarIngrediente de IIngredienteBO
      *
-     * @return
+     * @return Ingrediente agregado en la base de datos.
      */
     private Ingrediente agregarIngrediente() {
         String nombre = txtNombre.getText();
 
+        // Validar nombre
+        if (!validarNombre(nombre)) {
+            return null;
+        }
+
         // Obtener el String seleccionado del JComboBox
         String selectedUnidad = (String) comboBoxUnidadMedida.getSelectedItem();
 
+        // Validar unidad de medida seleccionada
+        if (!validarUnidadMedida(selectedUnidad)) {
+            return null;
+        }
+
         // Convertir el String a UnidadMedida
         UnidadMedida unidadMedida = UnidadMedida.valueOf(selectedUnidad); // Conversión del String a UnidadMedida
+
+        // Validar stock
+        if (!validarStock(txtStock.getText())) {
+            return null;
+        }
 
         Integer stock = Integer.valueOf(txtStock.getText());
 
@@ -233,6 +248,105 @@ public class PnlAgregarIngrediente extends javax.swing.JPanel {
         }
         return null;
 
+    }
+
+    /**
+     * Metodo que valida el campo del nombre del ingrediente
+     *
+     * @param nombre Nombre del ingrediente a validar
+     * @return True si el formato del nombre es correcto, False en caso
+     * contrario
+     */
+    private boolean validarNombre(String nombre) {
+        // Validar si el nombre esta vacio
+        if (nombre == null || nombre.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El nombre no puede estar vacio.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        // Validar que no contenga numeros ni caracteres especiales
+        if (!nombre.matches("[a-zA-ZáéíóúÁÉÍÓÚÑñ ]+")) {
+            JOptionPane.showMessageDialog(this,
+                    "El nombre no puede contener numeros ni caracteres especiales.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        // Validar que el nombre no exceda los 50 caracteres
+        if (nombre.length() > 50) {
+            JOptionPane.showMessageDialog(this,
+                    "El nombre no puede tener mas de 50 caracteres.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Metodo que valida el campo del comboBox de la unidad de medida del
+     * ingrediente
+     *
+     * @param selectedUnidad Unidad de medida seleccionada en el comboBox
+     * @return True si el formato de la unidad de medida es correcta, False en
+     * caso contrario
+     */
+    private boolean validarUnidadMedida(String selectedUnidad) {
+        // Validar que la unidad de medida no este vacia
+        if (selectedUnidad == null || selectedUnidad.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Por favor, seleccione una unidad de medida.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        // Validar que la unidad de medda este en las opcones disponibles
+        if (!selectedUnidad.equals("PIEZAS") && !selectedUnidad.equals("GRAMOS")
+                && !selectedUnidad.equals("MILILITROS")) {
+            JOptionPane.showMessageDialog(this,
+                    "La unidad de medida seleccionada no es valida.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Metodo que valida el campo del stock del ingrediente
+     *
+     * @param stockStr Stock del ingrediente en string
+     * @return True si el formato de la unidad de medida es correcta, False en
+     * caso contrario
+     */
+    private boolean validarStock(String stockStr) {
+        // Validar que el stock no este vacio
+        if (stockStr == null || stockStr.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "El campo de stock no puede estar vacio.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        // Intentar convertir el stock a un numero entero
+        try {
+            Integer stock = Integer.valueOf(stockStr);
+            // Validar que el stock no sea negativo
+            if (stock < 0) {
+                JOptionPane.showMessageDialog(this,
+                        "El stock no puede ser negativo.", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this,
+                    "El stock debe ser un numero entero valido.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        return true;
     }
 
     /**
