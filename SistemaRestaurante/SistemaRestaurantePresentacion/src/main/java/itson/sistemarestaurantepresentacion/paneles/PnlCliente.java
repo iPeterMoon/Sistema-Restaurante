@@ -1,6 +1,5 @@
 package itson.sistemarestaurantepresentacion.paneles;
 
-import itson.sistemarestaurantedominio.Cliente;
 import itson.sistemarestaurantedominio.dtos.ClienteDTO;
 import itson.sistemarestaurantenegocio.seguridad.Cifrado;
 import itson.sistemarestaurantepresentacion.modales.ModalClientes;

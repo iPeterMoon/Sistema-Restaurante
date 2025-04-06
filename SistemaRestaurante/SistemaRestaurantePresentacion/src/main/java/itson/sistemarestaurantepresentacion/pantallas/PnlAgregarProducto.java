@@ -3,13 +3,21 @@ package itson.sistemarestaurantepresentacion.pantallas;
 
 import itson.sistemarestaurantedominio.enumeradores.TipoProducto;
 import itson.sistemarestaurantepresentacion.control.ControlFlujo;
+import itson.sistemarestaurantepresentacion.paneles.PnlIngredienteProducto;
+
 import java.awt.Font;
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.swing.Box;
 
 /**
  *
  * @author pc
  */
 public class PnlAgregarProducto extends javax.swing.JPanel {
+
+    List<PnlIngredienteProducto> ingredientes = new LinkedList<>();
 
     /**
      * Creates new form PnlAgregarProducto
@@ -19,6 +27,9 @@ public class PnlAgregarProducto extends javax.swing.JPanel {
         cargarTiposProducto();
     }
 
+    /**
+     * Metodo que carga los tipos de producto al comboBox
+     */
     private void cargarTiposProducto(){
         TipoProducto[] tipos = TipoProducto.values();
         comboBoxTipo.removeAllItems();
@@ -228,8 +239,28 @@ public class PnlAgregarProducto extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnBuscarIngredientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarIngredientesActionPerformed
-
+        //TODO: Implementar el modal para agregar ingredientes
+        //Llamar al metodo del modal que regresará un ingredienteDTO
+        //En base a ese ingrediente crear un nuevo panel de ingrediente
+        //Y agregarlo a la lista de la clase.
+        cargarPanelesIngredientes();
     }//GEN-LAST:event_btnBuscarIngredientesActionPerformed
+
+    /**
+     * Método para cargar los paneles de ingredientes en el panel
+     * pnlIngredientesProducto.
+     * Este método recorre la lista de ingredientes y agrega cada panel
+     * PnlIngredienteProducto al panel pnlIngredientesProducto.
+     */
+    private void cargarPanelesIngredientes() {
+        pnlIngredientesProducto.removeAll();
+        for (PnlIngredienteProducto ingrediente : ingredientes) {
+            pnlIngredientesProducto.add(ingrediente);
+            pnlIngredientesProducto.add(Box.createVerticalStrut(15));
+        }
+        pnlIngredientesProducto.revalidate();
+        pnlIngredientesProducto.repaint();
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
