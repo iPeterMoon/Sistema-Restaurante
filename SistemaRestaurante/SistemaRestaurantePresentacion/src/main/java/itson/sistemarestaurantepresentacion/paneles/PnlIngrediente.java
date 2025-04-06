@@ -50,7 +50,7 @@ public class PnlIngrediente extends javax.swing.JPanel {
     private void cargarIngredientes() {
         String nombreProducto = ingrediente.getNombre();
         this.txtIngrediente.setText(nombreProducto);
-        this.txtUnidadMedida.setText(ingrediente.getUnidadMedida());
+        this.txtUnidadMedida.setText(ingrediente.getUnidadMedida().toString());
         this.txtStock.setText(ingrediente.getStock().toString());
         
     }

@@ -22,7 +22,7 @@ public class PnlProducto extends javax.swing.JPanel {
 
     private void cargarProducto(){
         this.lblNombre.setText(producto.getNombre());
-        this.lblCategoria.setText("Categoría: " + producto.getTipoProducto());
+        this.lblCategoria.setText("Categoría: " + producto.getTipoProducto().toString());
         this.lblPrecio.setText("Precio: $" + producto.getPrecio().toString());
     }
 

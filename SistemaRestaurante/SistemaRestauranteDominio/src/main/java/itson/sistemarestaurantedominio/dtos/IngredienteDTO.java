@@ -4,6 +4,8 @@
  */
 package itson.sistemarestaurantedominio.dtos;
 
+import itson.sistemarestaurantedominio.enumeradores.UnidadMedida;
+
 /**
  *
  * @author PC
@@ -12,10 +14,10 @@ public class IngredienteDTO {
 
     private Long id;
     private String nombre;
-    private String unidadMedida; // Cambiado a String para simplificar el DTO
+    private UnidadMedida unidadMedida;
     private Integer stock;
 
-    public IngredienteDTO(Long id, String nombre, String unidadMedida, Integer stock) {
+    public IngredienteDTO(Long id, String nombre, UnidadMedida unidadMedida, Integer stock) {
         this.id = id;
         this.nombre = nombre;
         this.unidadMedida = unidadMedida;
@@ -30,7 +32,7 @@ public class IngredienteDTO {
         return nombre;
     }
 
-    public String getUnidadMedida() {
+    public UnidadMedida getUnidadMedida() {
         return unidadMedida;
     }
 

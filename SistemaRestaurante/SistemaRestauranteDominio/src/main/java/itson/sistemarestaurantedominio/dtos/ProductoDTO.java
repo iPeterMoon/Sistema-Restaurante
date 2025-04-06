@@ -1,14 +1,15 @@
 package itson.sistemarestaurantedominio.dtos;
         
+import itson.sistemarestaurantedominio.enumeradores.TipoProducto;
 import java.math.BigDecimal;
 
 public class ProductoDTO {
     private Long id;
     private String nombre;
     private BigDecimal precio;
-    private String tipoProducto; // Cambiado a String para simplificar el DTO
+    private TipoProducto tipoProducto;
 
-    public ProductoDTO(Long id, String nombre, BigDecimal precio, String tipoProducto) {
+    public ProductoDTO(Long id, String nombre, BigDecimal precio, TipoProducto tipoProducto) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
@@ -27,7 +28,7 @@ public class ProductoDTO {
         return precio;
     }
 
-    public String getTipoProducto() {
+    public TipoProducto getTipoProducto() {
         return tipoProducto;
     }
 }
