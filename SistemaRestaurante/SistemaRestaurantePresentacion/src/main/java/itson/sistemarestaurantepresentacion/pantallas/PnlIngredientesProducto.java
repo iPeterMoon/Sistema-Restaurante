@@ -14,7 +14,8 @@ import itson.sistemarestaurantepresentacion.control.ControlFlujo;
 import itson.sistemarestaurantepresentacion.paneles.PnlIngredienteProductoGuardado;
 
 /**
- *
+ * Clase que representa un panel de ingredientes de un producto en la interfaz de usuario.
+ * Este panel muestra la información de un producto y sus ingredientes.
  * @author pc
  */
 public class PnlIngredientesProducto extends javax.swing.JPanel {
@@ -37,6 +38,9 @@ public class PnlIngredientesProducto extends javax.swing.JPanel {
         this.lblTipo.setText("Tipo de Producto: " + producto.getTipoProducto().toString().substring(0,1).toUpperCase() + producto.getTipoProducto().toString().substring(1));        
     }
 
+    /**
+     * Metodo que carga los ingredientes del producto
+     */
     private void cargarIngredientes(){
         this.pnlIngredientesProducto.removeAll();
         IIngredientesProductoBO ingredientesProductosBO = ObjetosNegocioFactory.crearIngredientesProductoBO();

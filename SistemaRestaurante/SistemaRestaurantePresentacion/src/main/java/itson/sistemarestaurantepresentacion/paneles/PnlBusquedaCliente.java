@@ -13,7 +13,12 @@ import itson.sistemarestaurantenegocio.interfaces.IClientesBO;
 import itson.sistemarestaurantepresentacion.modales.ModalClientes;
 
 /**
- *
+ * Clase que representa el panel de busqueda de clientes. Este panel
+ * contiene un campo de texto para buscar clientes por nombre, un
+ * campo de texto para buscar por correo y otro para buscar por telefono,
+ * contiene un panel que muestra los clientes encontrados.
+ * Este panel es reutilizable y puede ser utilizado en diferentes modales o
+ * ventanas de la aplicacion.
  * @author pc
  */
 public class PnlBusquedaCliente extends javax.swing.JPanel {
@@ -408,27 +413,55 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
         return !(campoTextoTelefono.getText().isEmpty() || campoTextoTelefono.getText().equals("Buscar por Telefono"));
     }
 
+    /**
+     * Metodo para saber si el panel está en modo seleccion
+     * @return true si está en modo de selección, false en caso contrario
+     */
     public boolean isSelectionMode() {
         return selectionMode;
     }
 
+    /**
+     * Método para establecer el modo de selección del panel.
+     *
+     * @param selectionMode true para habilitar el modo de selección, false para
+     *                      deshabilitarlo.
+     */
     public void setSelectionMode(boolean selectionMode) {
         this.selectionMode = selectionMode;
         cargarClientes();
     }
 
+    /**
+     * Método para obtener el cliente seleccionado.
+     *
+     * @return el cliente seleccionado.
+     */
     public ClienteDTO getClienteSeleccionado() {
         return clienteSeleccionado;
     }
 
+    /**
+     * Método para establecer el cliente seleccionado.
+     * @param clienteSeleccionado el cliente seleccionado.
+     */
     public void setClienteSeleccionado(ClienteDTO clienteSeleccionado) {
         this.clienteSeleccionado = clienteSeleccionado;
     }
 
+    /**
+     * Método para establecer el modal de clientes.
+     *
+     * @param modalClientes el modal de clientes.
+     */
     public void setModalClientes(ModalClientes modalClientes) {
         this.modalClientes = modalClientes;
     }
 
+    /**
+     * Método para obtener el modal de clientes.
+     * @return el modal de clientes.
+     */
     public ModalClientes getModalClientes() {
         return modalClientes;
     }

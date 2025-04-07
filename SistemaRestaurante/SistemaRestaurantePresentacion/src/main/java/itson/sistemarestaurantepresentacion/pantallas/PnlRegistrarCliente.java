@@ -11,7 +11,8 @@ import java.awt.Font;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * Clase que representa un panel para registrar un nuevo cliente en la
+ * interfaz de usuario.
  * @author pc
  */
 public class PnlRegistrarCliente extends javax.swing.JPanel {

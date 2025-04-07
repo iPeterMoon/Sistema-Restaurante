@@ -8,7 +8,8 @@ import itson.sistemarestaurantepresentacion.control.ControlFlujo;
 import java.awt.Font;
 
 /**
- *
+ * Clase que representa el panel de búsqueda de ingredientes en la
+ * interfaz de usuario. Este panel permite buscar y registrar nuevos
  * @author PC
  */
 public class PnlBuscarIngredientes extends javax.swing.JPanel {

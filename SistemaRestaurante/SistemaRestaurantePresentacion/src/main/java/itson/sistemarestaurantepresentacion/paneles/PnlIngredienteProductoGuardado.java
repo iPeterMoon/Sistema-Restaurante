@@ -11,7 +11,8 @@ import itson.sistemarestaurantenegocio.factory.ObjetosNegocioFactory;
 import itson.sistemarestaurantenegocio.interfaces.IIngredientesBO;
 
 /**
- *
+ * Clase que representa un panel de ingrediente perteneciente a un producto en la interfaz de usuario.
+ * Este panel muestra la información de un ingrediente como su nombre,
  * @author pc
  */
 public class PnlIngredienteProductoGuardado extends javax.swing.JPanel {
@@ -27,6 +28,10 @@ public class PnlIngredienteProductoGuardado extends javax.swing.JPanel {
         cargarIngrediente();
     }
 
+    /**
+     * Metodo que llena la informacion del ingrediente
+     * Se obtiene el ingrediente de la base de datos y se muestra en el panel.
+     */
     private void cargarIngrediente() {
         IIngredientesBO ingredientesBO = ObjetosNegocioFactory.crearIngredientesBO();
         try {

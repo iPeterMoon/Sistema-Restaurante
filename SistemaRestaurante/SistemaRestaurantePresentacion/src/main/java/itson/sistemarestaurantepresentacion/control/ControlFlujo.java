@@ -17,6 +17,13 @@ import itson.sistemarestaurantepresentacion.pantallas.PnlRegistrarComanda;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+/**
+ * Clase ControlFlujo que maneja el flujo de la aplicación. Permite mostrar
+ * diferentes paneles en el frame principal y gestionar la navegación entre
+ * ellos.
+ *
+ * @author PC
+ */
 public class ControlFlujo {
 
     private static final FramePrincipal framePrincipal = new FramePrincipal();
@@ -59,6 +66,10 @@ public class ControlFlujo {
         mostrarPanel(pnlComandas);
     }
 
+    /**
+     * Método para mostrar el panel de registro de comandas en el frame
+     * principal. Se crea una instancia del panel de registro de comandas y se
+     */
     public static void mostrarPnlRegistroComanda() {
         PnlRegistrarComanda pnlRegistrarComanda = new PnlRegistrarComanda();
         mostrarPanel(pnlRegistrarComanda);

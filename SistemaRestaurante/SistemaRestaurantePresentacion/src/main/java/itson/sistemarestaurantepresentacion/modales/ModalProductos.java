@@ -3,7 +3,8 @@ package itson.sistemarestaurantepresentacion.modales;
 import itson.sistemarestaurantedominio.dtos.ProductoDTO;
 
 /**
- *
+ * Clase para representar una ventana modal de productos,
+ * reutiliza el panel de busqueda de productos
  * @author pc
  */
 public class ModalProductos extends javax.swing.JDialog {
@@ -67,7 +68,6 @@ public class ModalProductos extends javax.swing.JDialog {
     public void cerrarModal(){
         this.dispose();
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private itson.sistemarestaurantepresentacion.paneles.PnlBusquedaProducto pnlBusquedaProducto;
     // End of variables declaration//GEN-END:variables

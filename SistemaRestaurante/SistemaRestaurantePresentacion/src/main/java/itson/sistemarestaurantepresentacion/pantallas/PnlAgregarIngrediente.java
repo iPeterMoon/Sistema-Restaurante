@@ -11,7 +11,9 @@ import java.awt.Font;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * Clase que representa un panel para agregar un nuevo ingrediente en la
+ * interfaz de usuario. Este panel permite al usuario ingresar el nombre, la
+ * unidad de medida y la cantidad en stock inicial del ingrediente.
  * @author PC
  */
 public class PnlAgregarIngrediente extends javax.swing.JPanel {

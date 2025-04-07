@@ -12,12 +12,16 @@ import itson.sistemarestaurantenegocio.factory.ObjetosNegocioFactory;
 import itson.sistemarestaurantenegocio.interfaces.IProductosBO;
 import itson.sistemarestaurantepresentacion.modales.ModalProductos;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import javax.swing.Box;
 import javax.swing.JPanel;
 
 /**
- *
+ * PnlBusquedaProducto.java
+ * Clase que representa el panel de busqueda de productos
+ * Contiene los componentes necesarios para buscar productos
+ * y mostrarlos en un panel
  * @author pc
  */
 public class PnlBusquedaProducto extends javax.swing.JPanel {
@@ -36,7 +40,11 @@ public class PnlBusquedaProducto extends javax.swing.JPanel {
             cargarCategorias();
         }
     }
-
+    
+    /**
+     * Metodo para cargar las categorias en el comboBox
+     * Se obtienen las categorias de la enumeracion TipoProducto
+     */
     private void cargarCategorias() {
         TipoProducto[] categorias = TipoProducto.values();
         this.comboBoxCategoria.removeAllItems();
@@ -47,7 +55,7 @@ public class PnlBusquedaProducto extends javax.swing.JPanel {
     }
 
     /**
-     * Metodo para cargar todos los productos en paneles es llamado al iniciar
+     * Metodo para cargar todos los productos en paneles, es llamado al iniciar
      * el panel
      */
     public void cargarTodosProductos() {
@@ -65,28 +73,34 @@ public class PnlBusquedaProducto extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Metodo para cargar los productos en paneles
+     *
+     * @param productos lista de productos a cargar
+     */
     public void cargarPanelesProductos(List<ProductoDTO> productos) {
 
         this.pnlProductos.removeAll();
         int contador = 1;
         JPanel pnlGridProductos = new JPanel();
-
         for (ProductoDTO producto : productos) {
             if (contador == 1) {
-                pnlGridProductos.revalidate();
-                pnlGridProductos.repaint();
                 pnlGridProductos = new JPanel();
-                pnlGridProductos.setLayout(new GridLayout(0, 3, 25, 0));
-                pnlGridProductos.setSize(1100, 250);
-                pnlGridProductos.setBackground(new Color(31,31,31));
-                
+                pnlGridProductos.setLayout(new GridLayout(0, 3, 25, 10));
+                pnlGridProductos.setPreferredSize(new Dimension(1100, 250));
+                pnlGridProductos.setMaximumSize(pnlGridProductos.getPreferredSize());
+                pnlGridProductos.setBackground(new Color(31, 31, 31));
+
                 pnlProductos.add(pnlGridProductos);
                 pnlProductos.add(Box.createVerticalStrut(30));
+
             }
             PnlProducto pnlProducto = new PnlProducto(this, producto);
             pnlGridProductos.add(pnlProducto);
+            pnlGridProductos.repaint();
+            pnlGridProductos.revalidate();
             contador++;
-            if (contador > 3){
+            if (contador > 3) {
                 contador = 1;
             }
         }
@@ -293,10 +307,18 @@ public class PnlBusquedaProducto extends javax.swing.JPanel {
         return isSelectionMode;
     }
 
+    /**
+     * Metodo para obtener el modal de productos
+     * @return modal de productos
+     */ 
     public ModalProductos getModal() {
         return modal;
     }
 
+    /**
+     * Metodo para establecer el modal de productos
+     * @param modal modal de productos
+     */
     public void setModal(ModalProductos modal) {
         this.modal = modal;
     }

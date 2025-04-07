@@ -173,12 +173,11 @@ public class PnlMesas extends javax.swing.JPanel {
                     JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
     }//GEN-LAST:event_btnRegistrarMesasActionPerformed
     
     /**
-     * * Metodo que registra las mesas en la base de datos
-     * * @param numeroMesas el numero de mesas a registrar
+     * Metodo que registra las mesas en la base de datos
+     * @param numeroMesas el numero de mesas a registrar
      */
     private void registrarMesas(int numeroMesas){
         try{

@@ -21,7 +21,8 @@ import javax.swing.Box;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * Clase que representa un panel para agregar un nuevo producto en la
+ * interfaz de usuario. Este panel permite al usuario ingresar el nombre, precio y tipo de producto,
  * @author pc
  */
 public class PnlAgregarProducto extends javax.swing.JPanel {
@@ -298,7 +299,15 @@ public class PnlAgregarProducto extends javax.swing.JPanel {
                                 javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método que se ejecuta al hacer clic en el botón "Volver".
+     * @param evt Evento de acción del botón
+     */
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCancelarActionPerformed
+        if(ingredientes.isEmpty()) {
+            ControlFlujo.mostrarPnlProductos();
+            return;
+        }
         int confirmacion = JOptionPane.showConfirmDialog(this,
                 "¿Estás seguro de que deseas cancelar?", "Confirmar cancelación",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -307,6 +316,11 @@ public class PnlAgregarProducto extends javax.swing.JPanel {
         }
     }// GEN-LAST:event_btnCancelarActionPerformed
 
+        /**
+         * Método que se ejecuta al hacer clic en el botón "Agregar Producto".
+         * Valida los campos de entrada y agrega el nuevo producto a la base de datos.
+         * @param evt Evento de acción del botón
+         */
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAgregarActionPerformed
         try {
             String nombre = txtNombre.getText();
@@ -347,6 +361,11 @@ public class PnlAgregarProducto extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Método para cargar las relaciones de los ingredientes que pertenecen al producto
+     * @return List<IngredienteProductoDTO> lista de ingredientes
+     * @throws NumberFormatException si la cantidad no es un número válido1
+     */
     private List<IngredienteProductoDTO> cargarRelaciones() {
         List<IngredienteProductoDTO> ingredientesDTO = new LinkedList<>();
         try {

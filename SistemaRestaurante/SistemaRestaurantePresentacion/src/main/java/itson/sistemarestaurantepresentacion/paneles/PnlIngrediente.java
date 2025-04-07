@@ -7,7 +7,8 @@ import java.awt.Cursor;
 import java.awt.Font;
 
 /**
- *
+ * Clase que representa un panel de ingrediente en la interfaz de usuario.
+ * Este panel muestra la información de un ingrediente y permite modificar su stock.
  * @author PC
  */
 public class PnlIngrediente extends javax.swing.JPanel {

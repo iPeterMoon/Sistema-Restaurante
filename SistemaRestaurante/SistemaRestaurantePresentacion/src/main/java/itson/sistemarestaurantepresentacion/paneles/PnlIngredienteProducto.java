@@ -5,7 +5,9 @@ import java.awt.Font;
 import javax.swing.JTextField;
 
 /**
- *
+ * Clase que representa un panel de ingrediente perteneciente a un producto en la interfaz de usuario.
+ * Este panel muestra la información de un ingrediente como su nombre, 
+ * unidad de medida y cantidad necesaria para el producto.
  * @author pc
  */
 public class PnlIngredienteProducto extends javax.swing.JPanel {
@@ -21,6 +23,9 @@ public class PnlIngredienteProducto extends javax.swing.JPanel {
         cargarIngrediente();
     }
 
+    /**
+     * Metodo que llena la informacion del ingrediente
+     */
     private void cargarIngrediente(){
         String nombreProducto = ingrediente.getNombre();
         this.jLabel1.setText(nombreProducto);
@@ -109,18 +114,34 @@ public class PnlIngredienteProducto extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Metodo que obtiene el ingrediente
+     * @return IngredienteDTO
+     */
     public IngredienteDTO getIngrediente() {
         return ingrediente;
     }
 
+    /**
+     * Metodo que establece el ingrediente
+     * @param ingrediente IngredienteDTO
+     */
     public void setIngrediente(IngredienteDTO ingrediente) {
         this.ingrediente = ingrediente;
     }
 
+    /**
+     * Metodo que obtiene el campo de texto de cantidad
+     * @return JTextField
+     */
     public JTextField getTxtCantidad() {
         return txtCantidad;
     }
 
+    /**
+     * Metodo que establece el campo de texto de cantidad
+     * @param txtCantidad JTextField
+     */
     public void setTxtCantidad(JTextField txtCantidad) {
         this.txtCantidad = txtCantidad;
     }

@@ -9,11 +9,11 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 
 /**
- *
+ * Panel que lleva la información de un cliente
  * @author pc
  */
 public class PnlCliente extends javax.swing.JPanel {
-
+        
     private PnlBusquedaCliente parent;
     private ClienteDTO cliente;
 
@@ -27,6 +27,10 @@ public class PnlCliente extends javax.swing.JPanel {
         cargarDatos();
     }
 
+    /**
+     * Carga los datos del cliente en los campos correspondientes.
+     * Se encarga de descifrar el telefono del cliente y mostrarlo en el campo
+     */
     private void cargarDatos() {
         String nombreCompleto = cliente.getNombre() + " " + cliente.getApellidoPaterno() + " "
                 + cliente.getApellidoMaterno();

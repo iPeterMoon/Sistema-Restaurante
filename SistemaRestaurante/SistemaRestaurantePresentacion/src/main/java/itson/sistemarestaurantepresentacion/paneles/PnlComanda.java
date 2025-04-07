@@ -3,7 +3,8 @@ package itson.sistemarestaurantepresentacion.paneles;
 import java.awt.Font;
 
 /**
- *
+ *Cla se que representa el panel de una comanda en la interfaz gráfica.
+ * Contiene información sobre la mesa, estado, folio, fecha y hora de la comanda.
  * @author pc
  */
 public class PnlComanda extends javax.swing.JPanel {

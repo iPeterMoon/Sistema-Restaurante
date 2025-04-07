@@ -62,6 +62,10 @@ public class ModalClientes extends javax.swing.JDialog {
         return null;
     }
 
+    /**
+     * Cierra la ventana modal.
+     * Se utiliza para cerrar la ventana modal después de seleccionar un cliente.
+     */
     public void cerrarModal(){
         this.dispose();
     }

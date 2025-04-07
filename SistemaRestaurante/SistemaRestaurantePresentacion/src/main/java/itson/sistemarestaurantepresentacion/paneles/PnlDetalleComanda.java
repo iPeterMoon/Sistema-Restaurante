@@ -5,7 +5,10 @@ import java.awt.Font;
 import java.math.BigDecimal;
 
 /**
- *
+ * Clase que representa el panel de detalle de una comanda.
+ * Este panel muestra los detalles de un producto en una comanda, incluyendo
+ * su nombre, precio unitario, cantidad y comentarios adicionales.
+ * Permite al usuario seleccionar la cantidad del producto y muestra el importe total.
  * @author pc
  */
 public class PnlDetalleComanda extends javax.swing.JPanel {
@@ -22,14 +25,17 @@ public class PnlDetalleComanda extends javax.swing.JPanel {
         cargarDetallesProducto();
     }
     
+    /**
+     * Método para cargar los detalles del producto en el panel.
+     * Se establece el nombre del producto, precio unitario y se inicializa
+     * el importe total.
+     */
     private void cargarDetallesProducto(){
         String nombreProducto = producto.getNombre();
         this.lblProducto.setText("Producto: "+nombreProducto);
         this.llblPrecio.setText("Precio Unitario: $" + producto.getPrecio().toString());
         this.lblImporte.setText("Importe: $" + producto.getPrecio().toString());
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -157,6 +163,11 @@ public class PnlDetalleComanda extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método que se ejecuta cuando cambia el valor del spinner de cantidad.
+     * Actualiza el importe total en función de la cantidad seleccionada.
+     * @param evt el evento de cambio de estado del spinner
+     */
     private void spinnerCantidadStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerCantidadStateChanged
         // Obtener la cantidad seleccionada
         int cantidad = (int) spinnerCantidad.getValue();

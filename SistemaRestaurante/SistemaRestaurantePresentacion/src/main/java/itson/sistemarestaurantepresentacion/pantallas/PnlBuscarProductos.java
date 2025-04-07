@@ -4,7 +4,8 @@ import itson.sistemarestaurantepresentacion.control.ControlFlujo;
 import java.awt.Font;
 
 /**
- *
+ * Clase que representa el panel de búsqueda de productos en la
+ * interfaz de usuario. Este panel permite buscar y registrar nuevos
  * @author pc
  */
 public class PnlBuscarProductos extends javax.swing.JPanel {

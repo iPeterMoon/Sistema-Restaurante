@@ -17,7 +17,12 @@ import javax.swing.Box;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * Clase que representa el panel de busqueda de ingredientes. Este panel
+ * contiene un campo de texto para buscar ingredientes por nombre y un
+ * comboBox para filtrar por unidad de medida. Ademas, contiene un panel que muestra
+ * los ingredientes encontrados.
+ * Este panel es reutilizable y puede ser utilizado en diferentes modales o
+ * ventanas de la aplicacion.
  * @author PC
  */
 public class PnlBusquedaIngrediente extends javax.swing.JPanel {

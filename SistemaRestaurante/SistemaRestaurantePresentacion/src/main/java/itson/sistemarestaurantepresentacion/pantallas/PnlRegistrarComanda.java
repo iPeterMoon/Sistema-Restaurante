@@ -12,8 +12,10 @@ import itson.sistemarestaurantepresentacion.paneles.PnlDetalleComanda;
 
 import java.awt.Font;
 import java.util.List;
+
 /**
- *
+ * Clase que representa el panel de registro de comandas en la
+ * interfaz de usuario. Este panel permite registrar una nueva comanda
  * @author Peter
  */
 public class PnlRegistrarComanda extends javax.swing.JPanel {
@@ -239,7 +241,11 @@ public class PnlRegistrarComanda extends javax.swing.JPanel {
         pnlDetallesComanda.repaint();
         //TODO: Crear el DetallesComandaDTO y agregarlo a la lista de detalles de la comanda
     }//GEN-LAST:event_btnBuscarProductosActionPerformed
-
+    
+    /**
+     * Carga el nombre del cliente en el label correspondiente.
+     * @param cliente El cliente a cargar.
+     */
     private String cargarCliente(ClienteComandaDTO cliente){
         if (cliente != null) {
             return cliente.getNombre() + " " + cliente.getApellidoPaterno()+ " "+ cliente.getApellidoMaterno();

@@ -8,7 +8,8 @@ import itson.sistemarestaurantepresentacion.modales.ModalProductos;
 import java.awt.Cursor;
 
 /**
- *
+ * Clase que representa un panel de producto en la interfaz de usuario.
+ * Este panel muestra la información de un producto y permite ver sus ingredientes.
  * @author pc
  */
 public class PnlProducto extends javax.swing.JPanel {
@@ -28,6 +29,9 @@ public class PnlProducto extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Metodo que llena la informacion del producto
+     */
     private void cargarProducto(){
         this.lblNombre.setText(producto.getNombre());
         this.lblCategoria.setText("Categoría: " + producto.getTipoProducto().toString());
@@ -145,6 +149,9 @@ public class PnlProducto extends javax.swing.JPanel {
         } 
     }
 
+    /**
+     * Metodo para cerrar el modal de productos
+     */
     private void cerrarModal(){
         if(parent.isSelectionMode()){
             ModalProductos modalProductos = parent.getModal();

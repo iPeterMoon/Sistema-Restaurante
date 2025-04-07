@@ -9,6 +9,11 @@ import java.util.Map;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * Clase que representa la ventana principal del sistema de restaurante.
+ * Esta ventana contiene un panel de navegación y un panel principal donde se muestran diferentes secciones del sistema.
+ * @author pc
+ */
 public class FramePrincipal extends javax.swing.JFrame {
 
     private int currentSection;

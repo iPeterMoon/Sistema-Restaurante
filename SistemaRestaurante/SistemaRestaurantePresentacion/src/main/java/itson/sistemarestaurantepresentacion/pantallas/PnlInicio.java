@@ -1,6 +1,9 @@
 package itson.sistemarestaurantepresentacion.pantallas;
 import java.awt.Font;
 
+/**
+ * Clase que representa el panel de inicio del sistema de restaurante.
+ */
 public class PnlInicio extends javax.swing.JPanel {
 
     /**
