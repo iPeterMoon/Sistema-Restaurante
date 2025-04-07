@@ -24,33 +24,6 @@ public interface IProductosDAO {
     public abstract Producto agregarProducto(NuevoProductoDTO nuevoProducto);
 
     /**
-     * Metodo para obtener toda la lista de productos de la base de datos (Hecho
-     * con CriteriaQuery)
-     *
-     * @return Lista con todos los ingredientes de la base de datos
-     */
-    public abstract List<Producto> obtenerProductos();
-
-    /**
-     * Metodo para obtener una lista con todos los productos de la base de datos
-     * que coincidan con el filtro de busqueda
-     *
-     * @param filtroBusqueda Filtro para buscar los productos
-     * @return Lista con los productos coincidentes con el filtro
-     */
-    public abstract List<Producto> obtenerProductos(String filtroBusqueda);
-
-    /**
-     * Metodo para obtener una lista con todos los productos de la base de datos
-     * que coincidan con ambos filtros de busqueda
-     *
-     * @param nombreProducto Filtro que busca el producto por su nombre
-     * @param tipoProducto Filtro que busca el producto por su categoria
-     * @return Lista con los productos coincidientes con el filtro
-     */
-    public List<Producto> obtenerProductos(String nombreProducto, String tipoProducto);
-
-    /**
      * Metodo para obtener una lista con todos los productos de la base de datos
      * y convertirlos a DTO
      *
@@ -66,4 +39,15 @@ public interface IProductosDAO {
      * @return Lista con los productos coincidentes con el filtro en formato DTO
      */
     public abstract List<ProductoDTO> obtenerProductosDTO(String filtroBusqueda);
+
+    /**
+     * Metodo para obtener una lista con todos los productos de la base de datos
+     * que coincidan con el filtro de busqueda y el tipo de producto y
+     * convertirlos a DTO
+     *
+     * @param filtroBusqueda Filtro para buscar los productos
+     * @param tipoProducto Tipo de producto a filtrar
+     * @return Lista con los productos coincidentes con el filtro en formato DTO
+     */
+    public abstract List<ProductoDTO> obtenerProductosDTO(String filtroBusqueda, String tipoProducto);
 }

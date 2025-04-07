@@ -24,7 +24,7 @@ public class PnlIngredienteProducto extends javax.swing.JPanel {
         String nombreProducto = ingrediente.getNombre();
         this.jLabel1.setText(nombreProducto);
         this.jLabel2.setText(ingrediente.getUnidadMedida().toString().substring(0,1).toUpperCase() + ingrediente.getUnidadMedida().toString().substring(1));
-        this.jTextField1.setText(ingrediente.getStock().toString());
+        this.txtCantidad.setText("1");
     }
 
     /**
@@ -39,9 +39,10 @@ public class PnlIngredienteProducto extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtCantidad = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(31, 31, 31));
+        setMaximumSize(new java.awt.Dimension(1000, 100));
 
         roundedPanel1.setBackground(new java.awt.Color(94, 94, 94));
         roundedPanel1.setForeground(new java.awt.Color(0, 0, 0));
@@ -51,17 +52,20 @@ public class PnlIngredienteProducto extends javax.swing.JPanel {
         roundedPanel1.setRoundTopRight(40);
 
         jLabel1.setFont(new Font("Poppins", Font.PLAIN, 18));
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Ingrediente: ...");
 
         jLabel2.setFont(new Font("Poppins", Font.PLAIN, 18));
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Unidad de medida: ");
 
         jLabel3.setFont(new Font("Poppins", Font.PLAIN, 18));
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Cantidad:");
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField1.setFont(new Font("Poppins", Font.PLAIN, 18));
-        jTextField1.setForeground(new java.awt.Color(0, 0, 0));
+        txtCantidad.setBackground(new java.awt.Color(255, 255, 255));
+        txtCantidad.setFont(new Font("Poppins", Font.PLAIN, 18));
+        txtCantidad.setForeground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout roundedPanel1Layout = new javax.swing.GroupLayout(roundedPanel1);
         roundedPanel1.setLayout(roundedPanel1Layout);
@@ -75,7 +79,7 @@ public class PnlIngredienteProducto extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(61, Short.MAX_VALUE))
         );
         roundedPanel1Layout.setVerticalGroup(
@@ -86,7 +90,7 @@ public class PnlIngredienteProducto extends javax.swing.JPanel {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
 
@@ -109,7 +113,7 @@ public class PnlIngredienteProducto extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField1;
     private itson.sistemarestaurantepresentacion.recursos.RoundedPanel roundedPanel1;
+    private javax.swing.JTextField txtCantidad;
     // End of variables declaration//GEN-END:variables
 }

@@ -59,15 +59,19 @@ public class PnlDetalleComanda extends javax.swing.JPanel {
         roundedPanel1.setRoundTopRight(50);
 
         lblProducto.setFont(new Font("Poppins", Font.PLAIN, 18));
+        lblProducto.setForeground(new java.awt.Color(255, 255, 255));
         lblProducto.setText("Producto: ....");
 
         lblCantidad.setFont(new Font("Poppins", Font.PLAIN, 18));
+        lblCantidad.setForeground(new java.awt.Color(255, 255, 255));
         lblCantidad.setText("Cantidad: ");
 
         llblPrecio.setFont(new Font("Poppins", Font.PLAIN, 18));
+        llblPrecio.setForeground(new java.awt.Color(255, 255, 255));
         llblPrecio.setText("Precio Unitario: $...");
 
         lblComentarios.setFont(new Font("Poppins", Font.PLAIN, 18));
+        lblComentarios.setForeground(new java.awt.Color(255, 255, 255));
         lblComentarios.setText("Comentarios adicionales:");
 
         txtAreaComentarios.setBackground(new java.awt.Color(255, 255, 255));
@@ -78,6 +82,7 @@ public class PnlDetalleComanda extends javax.swing.JPanel {
         jScrollPane1.setViewportView(txtAreaComentarios);
 
         lblImporte.setFont(new Font("Poppins", Font.PLAIN, 18));
+        lblImporte.setForeground(new java.awt.Color(255, 255, 255));
         lblImporte.setText("Importe: $...");
 
         spinnerCantidad.setFont(new Font("Poppins", Font.PLAIN, 18));

@@ -1,16 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
- */
 package itson.sistemarestaurantepersistencia.implementaciones;
 
 import itson.sistemarestaurantedominio.Ingrediente;
+import itson.sistemarestaurantedominio.IngredientesProducto;
 import itson.sistemarestaurantedominio.Producto;
+import itson.sistemarestaurantedominio.dtos.NuevoIngredienteDTO;
+import itson.sistemarestaurantedominio.dtos.NuevoIngredienteProductoDTO;
 import itson.sistemarestaurantedominio.dtos.NuevoProductoDTO;
+import itson.sistemarestaurantedominio.dtos.ProductoDTO;
 import itson.sistemarestaurantedominio.enumeradores.TipoProducto;
 import itson.sistemarestaurantedominio.enumeradores.UnidadMedida;
 import java.math.BigDecimal;
-import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.AfterEach;
@@ -34,13 +34,31 @@ public class ProductosDAOTest {
 
     private Producto productoGuardado;
     private final ProductosDAO productosDAO = new ProductosDAO();
+    private Ingrediente ingredienteGuardado;
+    private final IngredientesDAO ingredientesDAO = new IngredientesDAO();
 
+    
+    /**
+     * Metodo que se ejecuta al final de cada prueba, para limpiar la base de
+     * datos y evitar conflictos entre pruebas
+     */
     @AfterEach
     public void limpiarBD() {
         if (productoGuardado != null) {
             EntityManager entityManager = ManejadorConexiones.getEntityManager();
             entityManager.getTransaction().begin();
 
+            //Eliminar la relacion entre el producto y el ingrediente
+            IngredientesProducto ingredientesProducto = entityManager.find(IngredientesProducto.class, 1L);
+            if (ingredientesProducto != null) {
+                entityManager.remove(ingredientesProducto);
+            }
+            //Eliminar el ingrediente guardado
+            Ingrediente ingrediente = entityManager.find(Ingrediente.class, ingredienteGuardado.getId());
+            if (ingrediente != null) {
+                entityManager.remove(ingrediente);
+            }
+            //Eliminar el producto guardado
             Producto producto = entityManager.find(Producto.class, productoGuardado.getId());
             if (producto != null) {
                 entityManager.remove(producto);
@@ -53,29 +71,138 @@ public class ProductosDAOTest {
     @Test
     public void testAgregarProductoOk() {
         final BigDecimal PRECIO_PRODUCTO = BigDecimal.valueOf(200.00);
+        NuevoIngredienteDTO ingrediente = new NuevoIngredienteDTO(
+                "Arroz", UnidadMedida.GRAMOS, 200);
+        ingredienteGuardado = ingredientesDAO.agregarIngrediente(ingrediente);
+        NuevoIngredienteProductoDTO nuevoIngredienteProducto = new NuevoIngredienteProductoDTO(
+                ingredienteGuardado.getId(), 100);
+        List<NuevoIngredienteProductoDTO> ingredientes = new LinkedList<>();
+        ingredientes.add(nuevoIngredienteProducto);
         NuevoProductoDTO nuevoProducto = new NuevoProductoDTO(
-                "Rollo Sushi", PRECIO_PRODUCTO, TipoProducto.PLATILLO);
+                "Rollo Sushi", PRECIO_PRODUCTO, TipoProducto.PLATILLO, ingredientes);
         productoGuardado = productosDAO.agregarProducto(nuevoProducto);
         assertNotNull(productoGuardado.getId());
         assertEquals(nuevoProducto.getNombre(), productoGuardado.getNombre());
         assertEquals(nuevoProducto.getPrecio(), productoGuardado.getPrecio());
         assertEquals(nuevoProducto.getTipoProducto(), productoGuardado.getTipoProducto());
     }
-    
+
     @Test
-    public void testAgregarProductoConIngredientesOk() {
+    public void testAgregarProductoSinIngredientesFail() {
         final BigDecimal PRECIO_PRODUCTO = BigDecimal.valueOf(200.00);
-        List<Ingrediente> ingredientes = Arrays.asList(new Ingrediente[]{
-            new Ingrediente("Arroz", UnidadMedida.GRAMOS, 200),
-            new Ingrediente("Queso philadelphia", UnidadMedida.GRAMOS, 100)
-        });
         NuevoProductoDTO nuevoProducto = new NuevoProductoDTO(
-                "Rollo Sushi", PRECIO_PRODUCTO, TipoProducto.PLATILLO);
-        productoGuardado = productosDAO.agregarProducto(nuevoProducto);
-        assertNotNull(productoGuardado.getId());
-        assertEquals(nuevoProducto.getNombre(), productoGuardado.getNombre());
-        assertEquals(nuevoProducto.getPrecio(), productoGuardado.getPrecio());
-        assertEquals(nuevoProducto.getTipoProducto(), productoGuardado.getTipoProducto());
+                "Rollo Sushi", PRECIO_PRODUCTO, TipoProducto.PLATILLO, null);
+        assertThrows(IllegalArgumentException.class, () -> {
+            productosDAO.agregarProducto(nuevoProducto);
+        });
     }
+
+    @Test
+    public void testObtenerProductos(){
+        final BigDecimal PRECIO_PRODUCTO = BigDecimal.valueOf(200.00);
+        NuevoIngredienteDTO ingrediente = new NuevoIngredienteDTO(
+                "Arroz", UnidadMedida.GRAMOS, 200);
+        ingredienteGuardado = ingredientesDAO.agregarIngrediente(ingrediente);
+        NuevoIngredienteProductoDTO nuevoIngredienteProducto = new NuevoIngredienteProductoDTO(
+                ingredienteGuardado.getId(), 100);
+        List<NuevoIngredienteProductoDTO> ingredientes = new LinkedList<>();
+        ingredientes.add(nuevoIngredienteProducto);
+        NuevoProductoDTO nuevoProducto = new NuevoProductoDTO(
+                "Rollo Sushi", PRECIO_PRODUCTO, TipoProducto.PLATILLO, ingredientes);
+        productoGuardado = productosDAO.agregarProducto(nuevoProducto);
+        
+        List<ProductoDTO> productos = productosDAO.obtenerProductosDTO();
+        
+        assertNotNull(productos);
+        assertFalse(productos.isEmpty());
+        assertEquals(productoGuardado.getNombre(), productos.get(0).getNombre());
+        assertEquals(productoGuardado.getTipoProducto(), productos.get(0).getTipoProducto());
+    }
+
+    @Test
+    public void testObtenerProductosConFiltro(){
+        final BigDecimal PRECIO_PRODUCTO = BigDecimal.valueOf(200.00);
+        NuevoIngredienteDTO ingrediente = new NuevoIngredienteDTO(
+                "Arroz", UnidadMedida.GRAMOS, 200);
+        ingredienteGuardado = ingredientesDAO.agregarIngrediente(ingrediente);
+        NuevoIngredienteProductoDTO nuevoIngredienteProducto = new NuevoIngredienteProductoDTO(
+                ingredienteGuardado.getId(), 100);
+        List<NuevoIngredienteProductoDTO> ingredientes = new LinkedList<>();
+        ingredientes.add(nuevoIngredienteProducto);
+        NuevoProductoDTO nuevoProducto = new NuevoProductoDTO(
+                "Rollo Sushi", PRECIO_PRODUCTO, TipoProducto.PLATILLO, ingredientes);
+        productoGuardado = productosDAO.agregarProducto(nuevoProducto);
+        
+        List<ProductoDTO> productos = productosDAO.obtenerProductosDTO("Sushi");
+        
+        assertNotNull(productos);
+        assertFalse(productos.isEmpty());
+        assertEquals(productoGuardado.getNombre(), productos.get(0).getNombre());
+        assertEquals(productoGuardado.getTipoProducto(), productos.get(0).getTipoProducto());
+    }
+
+    @Test
+    public void testObtenerProductosConFiltroFail(){
+        final BigDecimal PRECIO_PRODUCTO = BigDecimal.valueOf(200.00);
+        NuevoIngredienteDTO ingrediente = new NuevoIngredienteDTO(
+                "Arroz", UnidadMedida.GRAMOS, 200);
+        ingredienteGuardado = ingredientesDAO.agregarIngrediente(ingrediente);
+        NuevoIngredienteProductoDTO nuevoIngredienteProducto = new NuevoIngredienteProductoDTO(
+                ingredienteGuardado.getId(), 100);
+        List<NuevoIngredienteProductoDTO> ingredientes = new LinkedList<>();
+        ingredientes.add(nuevoIngredienteProducto);
+        NuevoProductoDTO nuevoProducto = new NuevoProductoDTO(
+                "Rollo Sushi", PRECIO_PRODUCTO, TipoProducto.PLATILLO, ingredientes);
+        productoGuardado = productosDAO.agregarProducto(nuevoProducto);
+        
+        List<ProductoDTO> productos = productosDAO.obtenerProductosDTO("Tacos");
+        
+        assertNotNull(productos);
+        assertTrue(productos.isEmpty());
+    }
+
+    @Test
+    public void testObtenerProductosConFiltroYTipo(){
+        final BigDecimal PRECIO_PRODUCTO = BigDecimal.valueOf(200.00);
+        NuevoIngredienteDTO ingrediente = new NuevoIngredienteDTO(
+                "Arroz", UnidadMedida.GRAMOS, 200);
+        ingredienteGuardado = ingredientesDAO.agregarIngrediente(ingrediente);
+        NuevoIngredienteProductoDTO nuevoIngredienteProducto = new NuevoIngredienteProductoDTO(
+                ingredienteGuardado.getId(), 100);
+        List<NuevoIngredienteProductoDTO> ingredientes = new LinkedList<>();
+        ingredientes.add(nuevoIngredienteProducto);
+        NuevoProductoDTO nuevoProducto = new NuevoProductoDTO(
+                "Rollo Sushi", PRECIO_PRODUCTO, TipoProducto.PLATILLO, ingredientes);
+        productoGuardado = productosDAO.agregarProducto(nuevoProducto);
+        
+        List<ProductoDTO> productos = productosDAO.obtenerProductosDTO("Sushi", "Platillo");
+        
+        assertNotNull(productos);
+        assertFalse(productos.isEmpty());
+        assertEquals(productoGuardado.getNombre(), productos.get(0).getNombre());
+        assertEquals(productoGuardado.getTipoProducto(), productos.get(0).getTipoProducto());
+    }
+
+    @Test
+    public void testObtenerObtenerProductosConFiltroYTipoFail(){
+        final BigDecimal PRECIO_PRODUCTO = BigDecimal.valueOf(200.00);
+        NuevoIngredienteDTO ingrediente = new NuevoIngredienteDTO(
+                "Arroz", UnidadMedida.GRAMOS, 200);
+        ingredienteGuardado = ingredientesDAO.agregarIngrediente(ingrediente);
+        NuevoIngredienteProductoDTO nuevoIngredienteProducto = new NuevoIngredienteProductoDTO(
+                ingredienteGuardado.getId(), 100);
+        List<NuevoIngredienteProductoDTO> ingredientes = new LinkedList<>();
+        ingredientes.add(nuevoIngredienteProducto);
+        NuevoProductoDTO nuevoProducto = new NuevoProductoDTO(
+                "Rollo Sushi", PRECIO_PRODUCTO, TipoProducto.PLATILLO, ingredientes);
+        productoGuardado = productosDAO.agregarProducto(nuevoProducto);
+        
+        List<ProductoDTO> productos = productosDAO.obtenerProductosDTO("Sushi", "Bebida");
+        
+        assertNotNull(productos);
+        assertTrue(productos.isEmpty());
+    }
+
+
 
 }
