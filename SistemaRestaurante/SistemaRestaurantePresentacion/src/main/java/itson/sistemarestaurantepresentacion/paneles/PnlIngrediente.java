@@ -165,7 +165,7 @@ public class PnlIngrediente extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnModificarStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarStockActionPerformed
-        // TODO add your handling code here:
+        // TODO: Implementar el Modal de modificar Stock
     }//GEN-LAST:event_btnModificarStockActionPerformed
 
     private void roundedPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_roundedPanel1MouseClicked

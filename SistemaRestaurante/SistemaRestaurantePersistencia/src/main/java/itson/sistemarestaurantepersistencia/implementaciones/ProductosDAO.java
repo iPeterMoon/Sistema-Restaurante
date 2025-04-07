@@ -81,11 +81,9 @@ public class ProductosDAO implements IProductosDAO {
     @Override
     public List<ProductoDTO> obtenerProductosDTO() {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        entityManager.getTransaction().begin();
         String jpql = "SELECT new itson.sistemarestaurantedominio.dtos.ProductoDTO(p.id, p.nombre, p.precio, p.tipoProducto) FROM Producto p";
         TypedQuery<ProductoDTO> query = entityManager.createQuery(jpql, ProductoDTO.class);
         List<ProductoDTO> productosDTO = query.getResultList();
-        entityManager.getTransaction().commit();
         return productosDTO;
     }
 
@@ -99,12 +97,10 @@ public class ProductosDAO implements IProductosDAO {
     @Override
     public List<ProductoDTO> obtenerProductosDTO(String filtroBusqueda) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        entityManager.getTransaction().begin();
         String jpql = "SELECT new itson.sistemarestaurantedominio.dtos.ProductoDTO(p.id, p.nombre, p.precio, p.tipoProducto) FROM Producto p WHERE p.nombre LIKE :filtroBusqueda OR p.tipoProducto LIKE :filtroBusqueda";
         TypedQuery<ProductoDTO> query = entityManager.createQuery(jpql, ProductoDTO.class);
         query.setParameter("filtroBusqueda", "%" + filtroBusqueda + "%");
         List<ProductoDTO> productosDTO = query.getResultList();
-        entityManager.getTransaction().commit();
         return productosDTO;
     }
 
@@ -115,7 +111,6 @@ public class ProductosDAO implements IProductosDAO {
     @Override
     public List<ProductoDTO> obtenerProductosDTO(String filtroBusqueda, String tipoProducto) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        entityManager.getTransaction().begin();
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<ProductoDTO> criteria = builder.createQuery(ProductoDTO.class);
         Root<Producto> entidadProducto = criteria.from(Producto.class);
@@ -129,11 +124,10 @@ public class ProductosDAO implements IProductosDAO {
             )
         ).where(builder.and(
             builder.like(entidadProducto.get("nombre"), "%" + filtroBusqueda + "%"),
-            builder.like(entidadProducto.get("tipoProducto"), tipoProducto)
+            builder.like(entidadProducto.get("tipoProducto"), "%"+tipoProducto+"%")
         ));
         TypedQuery<ProductoDTO> query = entityManager.createQuery(criteria);
         List<ProductoDTO> productosDTO = query.getResultList();
-        entityManager.getTransaction().commit();
         return productosDTO;
     }
 
@@ -141,12 +135,10 @@ public class ProductosDAO implements IProductosDAO {
     @Override
     public ProductoDTO obtenerProductoPorNombre(String nombre) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        entityManager.getTransaction().begin();
         String jpql = "SELECT new itson.sistemarestaurantedominio.dtos.ProductoDTO(p.id, p.nombre, p.precio, p.tipoProducto) FROM Producto p WHERE p.nombre = :nombre";
         TypedQuery<ProductoDTO> query = entityManager.createQuery(jpql, ProductoDTO.class);
         query.setParameter("nombre", nombre);
         List<ProductoDTO> productosDTO = query.getResultList();
-        entityManager.getTransaction().commit();
         return productosDTO.isEmpty() ? null : productosDTO.get(0);
     }
 

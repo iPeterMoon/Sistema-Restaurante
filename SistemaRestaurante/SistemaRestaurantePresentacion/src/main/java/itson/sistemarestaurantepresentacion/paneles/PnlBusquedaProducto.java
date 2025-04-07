@@ -3,11 +3,18 @@ package itson.sistemarestaurantepresentacion.paneles;
 import java.awt.Font;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import itson.sistemarestaurantedominio.dtos.ProductoDTO;
 import itson.sistemarestaurantedominio.enumeradores.TipoProducto;
+import itson.sistemarestaurantenegocio.excepciones.NegocioException;
 import itson.sistemarestaurantenegocio.factory.ObjetosNegocioFactory;
 import itson.sistemarestaurantenegocio.interfaces.IProductosBO;
 import itson.sistemarestaurantepresentacion.modales.ModalProductos;
+import java.awt.Color;
+import java.awt.GridLayout;
+import javax.swing.Box;
+import javax.swing.JPanel;
 
 /**
  *
@@ -18,7 +25,6 @@ public class PnlBusquedaProducto extends javax.swing.JPanel {
     private boolean isSelectionMode = false;
     private ProductoDTO productoSeleccionado;
     private ModalProductos modal;
-    
 
     /**
      * Creates new form PnlBusquedaProducto
@@ -28,21 +34,21 @@ public class PnlBusquedaProducto extends javax.swing.JPanel {
         if (!java.beans.Beans.isDesignTime()) {
             this.cargarTodosProductos();
             cargarCategorias();
-        }   
+        }
     }
 
-    private void cargarCategorias(){
+    private void cargarCategorias() {
         TipoProducto[] categorias = TipoProducto.values();
         this.comboBoxCategoria.removeAllItems();
         this.comboBoxCategoria.addItem("Seleccionar Categoría");
         for (TipoProducto categoria : categorias) {
-            this.comboBoxCategoria.addItem(categoria.toString());
+            this.comboBoxCategoria.addItem(categoria.toString().substring(0, 1).toUpperCase() + categoria.toString().substring(1).toLowerCase());
         }
     }
 
     /**
-     * Metodo para cargar todos los productos en paneles
-     * es llamado al iniciar el panel
+     * Metodo para cargar todos los productos en paneles es llamado al iniciar
+     * el panel
      */
     public void cargarTodosProductos() {
         IProductosBO productosBO = ObjetosNegocioFactory.crearProductosBO();
@@ -61,13 +67,31 @@ public class PnlBusquedaProducto extends javax.swing.JPanel {
 
     public void cargarPanelesProductos(List<ProductoDTO> productos) {
 
-        this.gridProductos.removeAll();
+        this.pnlProductos.removeAll();
+        int contador = 1;
+        JPanel pnlGridProductos = new JPanel();
+
         for (ProductoDTO producto : productos) {
+            if (contador == 1) {
+                pnlGridProductos.revalidate();
+                pnlGridProductos.repaint();
+                pnlGridProductos = new JPanel();
+                pnlGridProductos.setLayout(new GridLayout(0, 3, 25, 0));
+                pnlGridProductos.setSize(1100, 250);
+                pnlGridProductos.setBackground(new Color(31,31,31));
+                
+                pnlProductos.add(pnlGridProductos);
+                pnlProductos.add(Box.createVerticalStrut(30));
+            }
             PnlProducto pnlProducto = new PnlProducto(this, producto);
-            this.gridProductos.add(pnlProducto);
+            pnlGridProductos.add(pnlProducto);
+            contador++;
+            if (contador > 3){
+                contador = 1;
+            }
         }
-        this.gridProductos.revalidate();
-        this.gridProductos.repaint();
+        pnlProductos.revalidate();
+        pnlProductos.repaint();
 
     }
 
@@ -85,7 +109,7 @@ public class PnlBusquedaProducto extends javax.swing.JPanel {
         campoTextoBuscar = new javax.swing.JTextField();
         comboBoxCategoria = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        gridProductos = new javax.swing.JPanel();
+        pnlProductos = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(37, 40, 54));
 
@@ -124,11 +148,11 @@ public class PnlBusquedaProducto extends javax.swing.JPanel {
         jScrollPane1.setBackground(new java.awt.Color(31, 31, 31));
         jScrollPane1.setBorder(null);
         jScrollPane1.setMaximumSize(new java.awt.Dimension(1120, 580));
+        jScrollPane1.setMinimumSize(new java.awt.Dimension(1120, 580));
 
-        gridProductos.setBackground(new java.awt.Color(31, 31, 31));
-        gridProductos.setMaximumSize(new java.awt.Dimension(1120, 580));
-        gridProductos.setLayout(new java.awt.GridLayout(0, 3, 30, 40));
-        jScrollPane1.setViewportView(gridProductos);
+        pnlProductos.setBackground(new java.awt.Color(31, 31, 31));
+        pnlProductos.setLayout(new javax.swing.BoxLayout(pnlProductos, javax.swing.BoxLayout.Y_AXIS));
+        jScrollPane1.setViewportView(pnlProductos);
 
         javax.swing.GroupLayout pnlPrincipalLayout = new javax.swing.GroupLayout(pnlPrincipal);
         pnlPrincipal.setLayout(pnlPrincipalLayout);
@@ -155,8 +179,8 @@ public class PnlBusquedaProducto extends javax.swing.JPanel {
                     .addComponent(comboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(49, 49, 49)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -178,12 +202,64 @@ public class PnlBusquedaProducto extends javax.swing.JPanel {
     }// GEN-LAST:event_campoTextoBuscarMouseClicked
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnBuscarActionPerformed
-        //TODO: Implementar la busqueda de productos
+        if ((campoTextoBuscar.getText().isBlank() || campoTextoBuscar.getText().equals("Buscar"))
+                && comboBoxCategoria.getSelectedItem().equals("Seleccionar Categoría")) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese un nombre o seleccione una categoria", "Error", JOptionPane.ERROR_MESSAGE);
+            cargarTodosProductos();
+        } else if (!campoTextoBuscar.getText().isBlank() && !campoTextoBuscar.getText().equals("Buscar")
+                && comboBoxCategoria.getSelectedItem().equals("Seleccionar Categoría")) {
+            IProductosBO productosBO = ObjetosNegocioFactory.crearProductosBO();
+            try {
+                List<ProductoDTO> productos = productosBO.obtenerProductos(campoTextoBuscar.getText());
+                if (productos != null) {
+                    cargarPanelesProductos(productos);
+                }
+            } catch (NegocioException e) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        e.getMessage(),
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
+        } else if (!campoTextoBuscar.getText().isBlank() && !campoTextoBuscar.getText().equals("Buscar")
+                && !comboBoxCategoria.getSelectedItem().equals("Seleccionar Categoría")) {
+            IProductosBO productosBO = ObjetosNegocioFactory.crearProductosBO();
+            try {
+                List<ProductoDTO> productos = productosBO.obtenerProductos(campoTextoBuscar.getText(), comboBoxCategoria.getSelectedItem().toString());
+                if (productos != null) {
+                    cargarPanelesProductos(productos);
+                }
+            } catch (NegocioException e) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        e.getMessage(),
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
+        } else if (!comboBoxCategoria.getSelectedItem().equals("Seleccionar Categoría")
+                && (campoTextoBuscar.getText().isBlank() || campoTextoBuscar.getText().equals("Buscar"))) {
+            IProductosBO productosBO = ObjetosNegocioFactory.crearProductosBO();
+            try {
+                List<ProductoDTO> productos = productosBO.obtenerProductos(comboBoxCategoria.getSelectedItem().toString());
+                if (productos != null) {
+                    cargarPanelesProductos(productos);
+                }
+            } catch (NegocioException e) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        e.getMessage(),
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
+        };
     }// GEN-LAST:event_btnBuscarActionPerformed
 
-    
     /**
      * Metodo para obtener el producto seleccionado
+     *
      * @return producto seleccionado
      */
     public ProductoDTO getProductoSeleccionado() {
@@ -192,15 +268,16 @@ public class PnlBusquedaProducto extends javax.swing.JPanel {
 
     /**
      * Metodo para establecer el producto seleccionado
+     *
      * @param producto producto seleccionado
      */
     public void setProductoSeleccionado(ProductoDTO producto) {
         this.productoSeleccionado = producto;
     }
 
-
     /**
      * Metodo para establecer el modo de seleccion
+     *
      * @param selectionMode modo de seleccion
      */
     public void setSelectionMode(boolean selectionMode) {
@@ -209,6 +286,7 @@ public class PnlBusquedaProducto extends javax.swing.JPanel {
 
     /**
      * Metodo para obtener el modo de seleccion
+     *
      * @return modo de seleccion
      */
     public boolean isSelectionMode() {
@@ -223,14 +301,13 @@ public class PnlBusquedaProducto extends javax.swing.JPanel {
         this.modal = modal;
     }
 
-    
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JTextField campoTextoBuscar;
     private javax.swing.JComboBox<String> comboBoxCategoria;
-    private javax.swing.JPanel gridProductos;
     private javax.swing.JScrollPane jScrollPane1;
     private itson.sistemarestaurantepresentacion.recursos.RoundedPanel pnlPrincipal;
+    private javax.swing.JPanel pnlProductos;
     // End of variables declaration//GEN-END:variables
 }

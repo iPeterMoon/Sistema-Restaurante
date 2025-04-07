@@ -40,4 +40,14 @@ public interface IProductosBO {
      */
     public abstract List<ProductoDTO> obtenerProductos() throws NegocioException;
 
+    /**
+     * Metodo para obtener productos filtrados de la base de datos
+     *
+     * @param nombre Nombre del producto a buscar
+     * @param categoria Categoria del producto a buscar
+     * @return Lista con todos los productos filtrados de la base de datos
+     * @throws NegocioException Si los productos no se pueden obtener debido a
+     * un error de la base de datos
+     */
+    public abstract List<ProductoDTO> obtenerProductos(String nombre, String categoria) throws NegocioException;
 }

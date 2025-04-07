@@ -72,4 +72,13 @@ public class ProductosBO implements IProductosBO {
         return productos;
     }
 
+    @Override
+    public List<ProductoDTO> obtenerProductos(String nombre, String categoria) throws NegocioException {
+        List<ProductoDTO> productos = productosDAO.obtenerProductosDTO(nombre, categoria);
+        if (productos == null || productos.isEmpty()) {
+            throw new NegocioException("No se encontraron productos con el nombre: " + nombre + " y la categoria: " + categoria);
+        }
+        return productos;
+    }
+
 }
