@@ -8,6 +8,7 @@ import itson.sistemarestaurantenegocio.interfaces.IMesasBO;
 import itson.sistemarestaurantepresentacion.control.ControlFlujo;
 import itson.sistemarestaurantepresentacion.modales.ModalClientes;
 import itson.sistemarestaurantepresentacion.modales.ModalProductos;
+import itson.sistemarestaurantepresentacion.paneles.PnlDetalleComanda;
 
 import java.awt.Font;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.List;
 public class PnlRegistrarComanda extends javax.swing.JPanel {
 
     private ClienteComandaDTO clienteComanda;
+    private List<PnlDetalleComanda> detallesComanda;
 
     /**
      * Creates new form PnlRegistrarComanda
@@ -228,7 +230,13 @@ public class PnlRegistrarComanda extends javax.swing.JPanel {
     private void btnBuscarProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProductosActionPerformed
         ModalProductos modalProductos = new ModalProductos(null, true);
         ProductoDTO producto = modalProductos.obtenerProductoSeleccionado();
-        //TODO: Crear el panel para los detalles de la comanda y agregarlo al scroll
+        if (producto == null) {
+            return;
+        }
+        PnlDetalleComanda detalleComanda = new PnlDetalleComanda(producto);
+        pnlDetallesComanda.add(detalleComanda);
+        pnlDetallesComanda.revalidate();
+        pnlDetallesComanda.repaint();
         //TODO: Crear el DetallesComandaDTO y agregarlo a la lista de detalles de la comanda
     }//GEN-LAST:event_btnBuscarProductosActionPerformed
 
