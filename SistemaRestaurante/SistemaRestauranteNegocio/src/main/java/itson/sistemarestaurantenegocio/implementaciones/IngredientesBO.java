@@ -63,6 +63,26 @@ public class IngredientesBO implements IIngredientesBO {
     }
 
     /**
+     * Metodo para obtener todos los ingredientes de ambos filtros
+     *
+     * @param filtroNombre Filtro del ingrediente por nombre
+     * @param filtroUnidad Filtro del ingrediente por unidad de medida
+     * @return Lista con todos los ingredientes que coincidan con ambos filtros
+     * @throws NegocioException Si los ingredientes no se pueden obtener por un
+     * error en la base de datos
+     */
+    @Override
+    public List<IngredienteDTO> obtenerIngredientes(String filtroNombre, String filtroUnidad) throws NegocioException {
+        List<IngredienteDTO> ingredientes = ingredientesDAO.obtenerIngredientesDTO(filtroNombre, filtroUnidad);
+        if (ingredientes == null || ingredientes.isEmpty()) {
+            throw new NegocioException("No se encontraron productos con los filtros de busqueda: "
+                    + "\nFiltro Nombre: " + filtroNombre
+                    + "\nFiltro Unidad de Medida: " + filtroUnidad);
+        }
+        return ingredientes;
+    }
+
+    /**
      * Metodo que verifica si existe un ingrediente con el mismo nombre y unidad
      * de medida en la base de datos
      *

@@ -44,5 +44,16 @@ public interface IIngredientesBO {
      * a un error de la base de datos
      */
     public abstract List<IngredienteDTO> obtenerIngredientes(String filtroBusqueda) throws NegocioException;
+    
+    /**
+     * Metodo para obtener todos los ingredientes de ambos filtros
+     *
+     * @param filtroNombre Filtro del ingrediente por nombre
+     * @param filtroUnidad Filtro del ingrediente por unidad de medida
+     * @return Lista con todos los ingredientes que coincidan con ambos filtros
+     * @throws NegocioException Si los ingredientes no se pueden obtener por un
+     * error en la base de datos
+     */
+    public abstract List<IngredienteDTO> obtenerIngredientes(String filtroNombre, String filtroUnidad) throws NegocioException;
 
 }
