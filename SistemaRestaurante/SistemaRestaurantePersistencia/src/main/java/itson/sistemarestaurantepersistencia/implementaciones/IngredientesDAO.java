@@ -174,7 +174,7 @@ public class IngredientesDAO implements IIngredientesDAO {
                         i.id, i.nombre, i.unidadMedida, i.stock)
                       FROM Ingrediente i
                       WHERE
-                        i.nombre LIKE :filtroNombre OR
+                        i.nombre LIKE :filtroNombre AND
                         i.unidadMedida LIKE :filtroUnidad
                       """;
         TypedQuery<IngredienteDTO> query = entityManager.createQuery(jpql, IngredienteDTO.class);
