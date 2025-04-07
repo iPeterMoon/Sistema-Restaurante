@@ -106,7 +106,6 @@ public class PnlBusquedaProducto extends javax.swing.JPanel {
         }
         pnlProductos.revalidate();
         pnlProductos.repaint();
-
     }
 
     /**

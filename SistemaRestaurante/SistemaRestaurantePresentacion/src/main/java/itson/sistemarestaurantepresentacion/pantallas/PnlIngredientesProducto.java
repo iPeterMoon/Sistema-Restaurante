@@ -11,6 +11,7 @@ import itson.sistemarestaurantenegocio.excepciones.NegocioException;
 import itson.sistemarestaurantenegocio.factory.ObjetosNegocioFactory;
 import itson.sistemarestaurantenegocio.interfaces.IIngredientesProductoBO;
 import itson.sistemarestaurantepresentacion.control.ControlFlujo;
+import itson.sistemarestaurantepresentacion.modales.ModalVerIngredientes;
 import itson.sistemarestaurantepresentacion.paneles.PnlIngredienteProductoGuardado;
 
 /**
@@ -21,6 +22,8 @@ import itson.sistemarestaurantepresentacion.paneles.PnlIngredienteProductoGuarda
 public class PnlIngredientesProducto extends javax.swing.JPanel {
 
     private ProductoDTO producto;
+    private ModalVerIngredientes modal;
+    
     /**
      * Creates new form PnlIngredientesProducto
      */
@@ -29,6 +32,13 @@ public class PnlIngredientesProducto extends javax.swing.JPanel {
         initComponents();
         cargarProducto();
         cargarIngredientes();
+    }
+    
+    /**
+     * Crea un frm PnlIngredientesProducto, despues se setearía el producto
+     */
+    public PnlIngredientesProducto(){
+        initComponents();
     }
 
     private void cargarProducto(){
@@ -83,7 +93,7 @@ public class PnlIngredientesProducto extends javax.swing.JPanel {
 
         lblTitulo.setFont(new Font("Poppins", Font.BOLD, 36));
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
-        lblTitulo.setText("Agregar Nuevo Producto");
+        lblTitulo.setText("Ingredientes del Producto");
 
         btnVolver.setBackground(new java.awt.Color(94, 94, 94));
         btnVolver.setFont(new Font("Poppins", Font.PLAIN, 18));
@@ -166,12 +176,12 @@ public class PnlIngredientesProducto extends javax.swing.JPanel {
             pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPrincipalLayout.createSequentialGroup()
                 .addGap(80, 80, 80)
-                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 285, Short.MAX_VALUE)
+                .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(96, 96, 96))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPrincipalLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(64, Short.MAX_VALUE)
                 .addComponent(pnlComanda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(64, 64, 64))
         );
@@ -202,9 +212,30 @@ public class PnlIngredientesProducto extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        ControlFlujo.mostrarPnlProductos();
+        if(modal == null){
+            ControlFlujo.mostrarPnlProductos();
+        } else {
+            modal.dispose();
+        }
     }//GEN-LAST:event_btnVolverActionPerformed
 
+    public void setProducto(ProductoDTO producto){
+        this.producto = producto;
+        cargarProducto();
+        cargarIngredientes();
+    }
+    
+    public ProductoDTO getProducto(){
+        return producto;
+    }
+    
+    public void setModal(ModalVerIngredientes modal){
+        this.modal = modal;
+    }
+    
+    public ModalVerIngredientes isModal(){
+        return modal;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVolver;

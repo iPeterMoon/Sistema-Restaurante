@@ -21,7 +21,6 @@ import javax.swing.JPanel;
  * Clase ControlFlujo que maneja el flujo de la aplicación. Permite mostrar
  * diferentes paneles en el frame principal y gestionar la navegación entre
  * ellos.
- *
  * @author PC
  */
 public class ControlFlujo {

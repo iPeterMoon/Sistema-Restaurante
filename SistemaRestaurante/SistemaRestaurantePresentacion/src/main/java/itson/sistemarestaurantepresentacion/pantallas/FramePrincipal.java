@@ -280,6 +280,9 @@ public class FramePrincipal extends javax.swing.JFrame {
         lblIngredientes.setText("Ingredientes");
         lblIngredientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblIngredientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblIngredientesMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblIngredientesMouseEntered(evt);
             }
@@ -786,6 +789,10 @@ public class FramePrincipal extends javax.swing.JFrame {
     private void btnIngredientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngredientesMouseClicked
         mostrarSeccionIngredientes();
     }//GEN-LAST:event_btnIngredientesMouseClicked
+
+    private void lblIngredientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIngredientesMouseClicked
+        mostrarSeccionIngredientes();
+    }//GEN-LAST:event_lblIngredientesMouseClicked
 
     /**
      * Metodo que cambia las propiedades de la fuente para que se muestre

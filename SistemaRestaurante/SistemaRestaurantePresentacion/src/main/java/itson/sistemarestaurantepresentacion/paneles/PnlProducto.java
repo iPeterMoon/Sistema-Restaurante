@@ -5,17 +5,20 @@ import java.awt.Font;
 import itson.sistemarestaurantedominio.dtos.ProductoDTO;
 import itson.sistemarestaurantepresentacion.control.ControlFlujo;
 import itson.sistemarestaurantepresentacion.modales.ModalProductos;
+import itson.sistemarestaurantepresentacion.modales.ModalVerIngredientes;
 import java.awt.Cursor;
 
 /**
- * Clase que representa un panel de producto en la interfaz de usuario.
- * Este panel muestra la información de un producto y permite ver sus ingredientes.
+ * Clase que representa un panel de producto en la interfaz de usuario. Este
+ * panel muestra la información de un producto y permite ver sus ingredientes.
+ *
  * @author pc
  */
 public class PnlProducto extends javax.swing.JPanel {
 
     private ProductoDTO producto;
     private PnlBusquedaProducto parent;
+
     /**
      * Creates new form PnlProducto
      */
@@ -24,7 +27,7 @@ public class PnlProducto extends javax.swing.JPanel {
         this.producto = producto;
         initComponents();
         cargarProducto();
-        if(parent.isSelectionMode()){
+        if (parent.isSelectionMode()) {
             this.setCursor(new Cursor(Cursor.HAND_CURSOR));
         }
     }
@@ -32,7 +35,7 @@ public class PnlProducto extends javax.swing.JPanel {
     /**
      * Metodo que llena la informacion del producto
      */
-    private void cargarProducto(){
+    private void cargarProducto() {
         this.lblNombre.setText(producto.getNombre());
         this.lblCategoria.setText("Categoría: " + producto.getTipoProducto().toString());
         this.lblPrecio.setText("Precio: $" + producto.getPrecio().toString());
@@ -136,30 +139,37 @@ public class PnlProducto extends javax.swing.JPanel {
     }//GEN-LAST:event_roundedPanel1MouseClicked
 
     private void btnVerIngredientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerIngredientesActionPerformed
-        ControlFlujo.mostrarPnlIngredientesProducto(this.producto);
-        //TODO: Controlar que si es modal, no se muestre el boton de ver ingredientes, o que abrá otro frame.
+        if (parent.isSelectionMode()) {
+            ModalVerIngredientes modal = new ModalVerIngredientes(null, true);
+            modal.setProducto(this.producto);
+            modal.setLocationRelativeTo(null);
+            modal.setVisible(true);
+        } else {
+            ControlFlujo.mostrarPnlIngredientesProducto(this.producto);
+        }
     }//GEN-LAST:event_btnVerIngredientesActionPerformed
 
     /**
-     * Metodo para setear el producto seleccionado al panel de busqueda el producto seleccionado
+     * Metodo para setear el producto seleccionado al panel de busqueda el
+     * producto seleccionado
      */
-    private void setProducto(){
-        if(parent.isSelectionMode()){
+    private void setProducto() {
+        if (parent.isSelectionMode()) {
             parent.setProductoSeleccionado(producto);
-        } 
+        }
     }
 
     /**
      * Metodo para cerrar el modal de productos
      */
-    private void cerrarModal(){
-        if(parent.isSelectionMode()){
+    private void cerrarModal() {
+        if (parent.isSelectionMode()) {
             ModalProductos modalProductos = parent.getModal();
             modalProductos.cerrarModal();
         }
     }
-    
-    
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVerIngredientes;
     private javax.swing.JLabel lblCategoria;
