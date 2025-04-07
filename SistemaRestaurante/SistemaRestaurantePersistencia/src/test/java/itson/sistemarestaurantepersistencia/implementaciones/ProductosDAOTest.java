@@ -4,7 +4,7 @@ import itson.sistemarestaurantedominio.Ingrediente;
 import itson.sistemarestaurantedominio.IngredientesProducto;
 import itson.sistemarestaurantedominio.Producto;
 import itson.sistemarestaurantedominio.dtos.NuevoIngredienteDTO;
-import itson.sistemarestaurantedominio.dtos.NuevoIngredienteProductoDTO;
+import itson.sistemarestaurantedominio.dtos.IngredienteProductoDTO;
 import itson.sistemarestaurantedominio.dtos.NuevoProductoDTO;
 import itson.sistemarestaurantedominio.dtos.ProductoDTO;
 import itson.sistemarestaurantedominio.enumeradores.TipoProducto;
@@ -74,9 +74,9 @@ public class ProductosDAOTest {
         NuevoIngredienteDTO ingrediente = new NuevoIngredienteDTO(
                 "Arroz", UnidadMedida.GRAMOS, 200);
         ingredienteGuardado = ingredientesDAO.agregarIngrediente(ingrediente);
-        NuevoIngredienteProductoDTO nuevoIngredienteProducto = new NuevoIngredienteProductoDTO(
+        IngredienteProductoDTO nuevoIngredienteProducto = new IngredienteProductoDTO(
                 ingredienteGuardado.getId(), 100);
-        List<NuevoIngredienteProductoDTO> ingredientes = new LinkedList<>();
+        List<IngredienteProductoDTO> ingredientes = new LinkedList<>();
         ingredientes.add(nuevoIngredienteProducto);
         NuevoProductoDTO nuevoProducto = new NuevoProductoDTO(
                 "Rollo Sushi", PRECIO_PRODUCTO, TipoProducto.PLATILLO, ingredientes);
@@ -103,9 +103,9 @@ public class ProductosDAOTest {
         NuevoIngredienteDTO ingrediente = new NuevoIngredienteDTO(
                 "Arroz", UnidadMedida.GRAMOS, 200);
         ingredienteGuardado = ingredientesDAO.agregarIngrediente(ingrediente);
-        NuevoIngredienteProductoDTO nuevoIngredienteProducto = new NuevoIngredienteProductoDTO(
+        IngredienteProductoDTO nuevoIngredienteProducto = new IngredienteProductoDTO(
                 ingredienteGuardado.getId(), 100);
-        List<NuevoIngredienteProductoDTO> ingredientes = new LinkedList<>();
+        List<IngredienteProductoDTO> ingredientes = new LinkedList<>();
         ingredientes.add(nuevoIngredienteProducto);
         NuevoProductoDTO nuevoProducto = new NuevoProductoDTO(
                 "Rollo Sushi", PRECIO_PRODUCTO, TipoProducto.PLATILLO, ingredientes);
@@ -125,9 +125,9 @@ public class ProductosDAOTest {
         NuevoIngredienteDTO ingrediente = new NuevoIngredienteDTO(
                 "Arroz", UnidadMedida.GRAMOS, 200);
         ingredienteGuardado = ingredientesDAO.agregarIngrediente(ingrediente);
-        NuevoIngredienteProductoDTO nuevoIngredienteProducto = new NuevoIngredienteProductoDTO(
+        IngredienteProductoDTO nuevoIngredienteProducto = new IngredienteProductoDTO(
                 ingredienteGuardado.getId(), 100);
-        List<NuevoIngredienteProductoDTO> ingredientes = new LinkedList<>();
+        List<IngredienteProductoDTO> ingredientes = new LinkedList<>();
         ingredientes.add(nuevoIngredienteProducto);
         NuevoProductoDTO nuevoProducto = new NuevoProductoDTO(
                 "Rollo Sushi", PRECIO_PRODUCTO, TipoProducto.PLATILLO, ingredientes);
@@ -147,9 +147,9 @@ public class ProductosDAOTest {
         NuevoIngredienteDTO ingrediente = new NuevoIngredienteDTO(
                 "Arroz", UnidadMedida.GRAMOS, 200);
         ingredienteGuardado = ingredientesDAO.agregarIngrediente(ingrediente);
-        NuevoIngredienteProductoDTO nuevoIngredienteProducto = new NuevoIngredienteProductoDTO(
+        IngredienteProductoDTO nuevoIngredienteProducto = new IngredienteProductoDTO(
                 ingredienteGuardado.getId(), 100);
-        List<NuevoIngredienteProductoDTO> ingredientes = new LinkedList<>();
+        List<IngredienteProductoDTO> ingredientes = new LinkedList<>();
         ingredientes.add(nuevoIngredienteProducto);
         NuevoProductoDTO nuevoProducto = new NuevoProductoDTO(
                 "Rollo Sushi", PRECIO_PRODUCTO, TipoProducto.PLATILLO, ingredientes);
@@ -167,9 +167,9 @@ public class ProductosDAOTest {
         NuevoIngredienteDTO ingrediente = new NuevoIngredienteDTO(
                 "Arroz", UnidadMedida.GRAMOS, 200);
         ingredienteGuardado = ingredientesDAO.agregarIngrediente(ingrediente);
-        NuevoIngredienteProductoDTO nuevoIngredienteProducto = new NuevoIngredienteProductoDTO(
+        IngredienteProductoDTO nuevoIngredienteProducto = new IngredienteProductoDTO(
                 ingredienteGuardado.getId(), 100);
-        List<NuevoIngredienteProductoDTO> ingredientes = new LinkedList<>();
+        List<IngredienteProductoDTO> ingredientes = new LinkedList<>();
         ingredientes.add(nuevoIngredienteProducto);
         NuevoProductoDTO nuevoProducto = new NuevoProductoDTO(
                 "Rollo Sushi", PRECIO_PRODUCTO, TipoProducto.PLATILLO, ingredientes);
@@ -189,9 +189,9 @@ public class ProductosDAOTest {
         NuevoIngredienteDTO ingrediente = new NuevoIngredienteDTO(
                 "Arroz", UnidadMedida.GRAMOS, 200);
         ingredienteGuardado = ingredientesDAO.agregarIngrediente(ingrediente);
-        NuevoIngredienteProductoDTO nuevoIngredienteProducto = new NuevoIngredienteProductoDTO(
+        IngredienteProductoDTO nuevoIngredienteProducto = new IngredienteProductoDTO(
                 ingredienteGuardado.getId(), 100);
-        List<NuevoIngredienteProductoDTO> ingredientes = new LinkedList<>();
+        List<IngredienteProductoDTO> ingredientes = new LinkedList<>();
         ingredientes.add(nuevoIngredienteProducto);
         NuevoProductoDTO nuevoProducto = new NuevoProductoDTO(
                 "Rollo Sushi", PRECIO_PRODUCTO, TipoProducto.PLATILLO, ingredientes);

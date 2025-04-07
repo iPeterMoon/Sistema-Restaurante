@@ -7,7 +7,7 @@ import itson.sistemarestaurantedominio.dtos.NuevoProductoDTO;
 import itson.sistemarestaurantepersistencia.IProductosDAO;
 import itson.sistemarestaurantedominio.dtos.ProductoDTO;
 import itson.sistemarestaurantedominio.enumeradores.TipoProducto;
-import itson.sistemarestaurantedominio.dtos.NuevoIngredienteProductoDTO;
+import itson.sistemarestaurantedominio.dtos.IngredienteProductoDTO;
 
 import java.math.BigDecimal;
 import java.util.LinkedList;
@@ -43,11 +43,11 @@ public class ProductosDAO implements IProductosDAO {
         producto.setNombre(nombre);
         producto.setPrecio(precio);
         producto.setTipoProducto(tipoProducto);
-        List<NuevoIngredienteProductoDTO> ingredientes = nuevoProducto.getIngredientes();
+        List<IngredienteProductoDTO> ingredientes = nuevoProducto.getIngredientes();
         // Verifica si la lista de ingredientes no es nula y no está vacía antes de agregar los ingredientes
         if(ingredientes != null && !ingredientes.isEmpty()){
             List<IngredientesProducto> ingredientesGuardados = new LinkedList<>();
-            for (NuevoIngredienteProductoDTO ingrediente : ingredientes) {
+            for (IngredienteProductoDTO ingrediente : ingredientes) {
                 Ingrediente ingredienteGuardado = entityManager.find(Ingrediente.class, ingrediente.getIdIngrediente());
                 if (ingredienteGuardado != null) {
                     IngredientesProducto ingredientesProducto = new IngredientesProducto();
@@ -136,5 +136,20 @@ public class ProductosDAO implements IProductosDAO {
         entityManager.getTransaction().commit();
         return productosDTO;
     }
+
+
+    @Override
+    public ProductoDTO obtenerProductoPorNombre(String nombre) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        entityManager.getTransaction().begin();
+        String jpql = "SELECT new itson.sistemarestaurantedominio.dtos.ProductoDTO(p.id, p.nombre, p.precio, p.tipoProducto) FROM Producto p WHERE p.nombre = :nombre";
+        TypedQuery<ProductoDTO> query = entityManager.createQuery(jpql, ProductoDTO.class);
+        query.setParameter("nombre", nombre);
+        List<ProductoDTO> productosDTO = query.getResultList();
+        entityManager.getTransaction().commit();
+        return productosDTO.isEmpty() ? null : productosDTO.get(0);
+    }
+
+    
 
 }

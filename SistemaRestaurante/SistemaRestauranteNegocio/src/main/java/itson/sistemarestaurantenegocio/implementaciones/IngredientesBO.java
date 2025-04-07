@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package itson.sistemarestaurantenegocio.implementaciones;
 
 import itson.sistemarestaurantedominio.Ingrediente;
@@ -97,5 +93,15 @@ public class IngredientesBO implements IIngredientesBO {
                     + " mismo nombre y unidad de medida que uno existente.");
         }
     }
+
+    @Override
+    public IngredienteDTO obtenerIngredientePorId(Long idIngrediente) throws NegocioException {
+        IngredienteDTO ingrediente = ingredientesDAO.obtenerIngredientePorId(idIngrediente);
+        if (ingrediente == null) {
+            throw new NegocioException("No se encontro el ingrediente con id: " + idIngrediente);
+        }
+        return ingrediente;
+    }
+
 
 }

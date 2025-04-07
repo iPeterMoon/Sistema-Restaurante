@@ -3,6 +3,7 @@ package itson.sistemarestaurantepresentacion.paneles;
 import java.awt.Font;
 
 import itson.sistemarestaurantedominio.dtos.ProductoDTO;
+import itson.sistemarestaurantepresentacion.control.ControlFlujo;
 import itson.sistemarestaurantepresentacion.modales.ModalProductos;
 
 /**
@@ -42,11 +43,13 @@ public class PnlProducto extends javax.swing.JPanel {
         lblNombre = new javax.swing.JLabel();
         lblCategoria = new javax.swing.JLabel();
         lblPrecio = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnVerIngredientes = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(31, 31, 31));
+        setMaximumSize(new java.awt.Dimension(350, 238));
 
         roundedPanel1.setBackground(new java.awt.Color(40, 40, 40));
+        roundedPanel1.setMaximumSize(new java.awt.Dimension(350, 238));
         roundedPanel1.setRoundBottomLeft(45);
         roundedPanel1.setRoundBottomRight(45);
         roundedPanel1.setRoundTopLeft(45);
@@ -58,16 +61,28 @@ public class PnlProducto extends javax.swing.JPanel {
         });
 
         lblNombre.setFont(new Font("Poppins", Font.BOLD, 20));
+        lblNombre.setForeground(new java.awt.Color(255, 255, 255));
         lblNombre.setText("Nombre Producto");
 
         lblCategoria.setFont(new Font("Poppins", Font.PLAIN, 18));
+        lblCategoria.setForeground(new java.awt.Color(255, 255, 255));
         lblCategoria.setText("Categoría: ...");
 
         lblPrecio.setFont(new Font("Poppins", Font.PLAIN, 18));
+        lblPrecio.setForeground(new java.awt.Color(255, 255, 255));
         lblPrecio.setText("Precio: $...");
 
-        jButton1.setFont(new Font("Poppins", Font.PLAIN, 18));
-        jButton1.setText("Ver Ingredientes");
+        btnVerIngredientes.setBackground(new java.awt.Color(94, 94, 94));
+        btnVerIngredientes.setFont(new Font("Poppins", Font.PLAIN, 18));
+        btnVerIngredientes.setForeground(new java.awt.Color(255, 255, 255));
+        btnVerIngredientes.setText("Ver Ingredientes");
+        btnVerIngredientes.setBorder(null);
+        btnVerIngredientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVerIngredientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerIngredientesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout roundedPanel1Layout = new javax.swing.GroupLayout(roundedPanel1);
         roundedPanel1.setLayout(roundedPanel1Layout);
@@ -76,7 +91,7 @@ public class PnlProducto extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundedPanel1Layout.createSequentialGroup()
                 .addContainerGap(25, Short.MAX_VALUE)
                 .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addComponent(btnVerIngredientes, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
                     .addComponent(lblPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
                     .addComponent(lblCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
                     .addComponent(lblNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -92,7 +107,7 @@ public class PnlProducto extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnVerIngredientes, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
@@ -113,6 +128,10 @@ public class PnlProducto extends javax.swing.JPanel {
         cerrarModal();
     }//GEN-LAST:event_roundedPanel1MouseClicked
 
+    private void btnVerIngredientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerIngredientesActionPerformed
+        ControlFlujo.mostrarPnlIngredientesProducto(this.producto);
+    }//GEN-LAST:event_btnVerIngredientesActionPerformed
+
     /**
      * Metodo para setear el producto seleccionado al panel de busqueda el producto seleccionado
      */
@@ -131,7 +150,7 @@ public class PnlProducto extends javax.swing.JPanel {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnVerIngredientes;
     private javax.swing.JLabel lblCategoria;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblPrecio;

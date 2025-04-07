@@ -1,10 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package itson.sistemarestaurantepresentacion.pantallas;
 
-import itson.sistemarestaurantedominio.Cliente;
 import itson.sistemarestaurantedominio.Ingrediente;
 import itson.sistemarestaurantedominio.dtos.NuevoIngredienteDTO;
 import itson.sistemarestaurantedominio.enumeradores.UnidadMedida;
@@ -12,7 +7,6 @@ import itson.sistemarestaurantenegocio.excepciones.NegocioException;
 import itson.sistemarestaurantenegocio.factory.ObjetosNegocioFactory;
 import itson.sistemarestaurantenegocio.interfaces.IIngredientesBO;
 import itson.sistemarestaurantepresentacion.control.ControlFlujo;
-import static itson.sistemarestaurantepresentacion.control.ControlFlujo.mostrarPnlClientes;
 import java.awt.Font;
 import javax.swing.JOptionPane;
 

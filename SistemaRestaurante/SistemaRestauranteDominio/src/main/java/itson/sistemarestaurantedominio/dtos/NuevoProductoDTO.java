@@ -13,7 +13,7 @@ public class NuevoProductoDTO {
     private String nombre;
     private BigDecimal precio;
     private TipoProducto tipoProducto;
-    private List<NuevoIngredienteProductoDTO> ingredientes;
+    private List<IngredienteProductoDTO> ingredientes;
 
     /**
      * Constructor que inicializa los atributos de la clase al valor de sus
@@ -24,7 +24,7 @@ public class NuevoProductoDTO {
      * @param tipoProducto Tipo del producto
      * @param ingredientes Ingredientes del producto
      */
-    public NuevoProductoDTO(String nombre, BigDecimal precio, TipoProducto tipoProducto, List<NuevoIngredienteProductoDTO> ingredientes) {
+    public NuevoProductoDTO(String nombre, BigDecimal precio, TipoProducto tipoProducto, List<IngredienteProductoDTO> ingredientes) {
         this.nombre = nombre;
         this.precio = precio;
         this.tipoProducto = tipoProducto;
@@ -59,7 +59,7 @@ public class NuevoProductoDTO {
      * Metodo que obtiene la lista de ingredientes del producto
      * @return Ingredientes del producto
      */
-    public List<NuevoIngredienteProductoDTO> getIngredientes() {
+    public List<IngredienteProductoDTO> getIngredientes() {
         return ingredientes;
     }
 }

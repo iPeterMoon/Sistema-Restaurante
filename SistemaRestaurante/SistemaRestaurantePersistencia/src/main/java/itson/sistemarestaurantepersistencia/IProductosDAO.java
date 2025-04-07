@@ -50,4 +50,13 @@ public interface IProductosDAO {
      * @return Lista con los productos coincidentes con el filtro en formato DTO
      */
     public abstract List<ProductoDTO> obtenerProductosDTO(String filtroBusqueda, String tipoProducto);
+
+    /**
+     * Metodo para obtener un producto de la base de datos por su nombre y
+     * convertirlo a DTO
+     *
+     * @param nombre Nombre del producto a buscar
+     * @return ProductoDTO con el producto encontrado o null si no se encuentra
+     */
+    public abstract ProductoDTO obtenerProductoPorNombre(String nombre);
 }

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package itson.sistemarestaurantenegocio.interfaces;
 
 import itson.sistemarestaurantedominio.Ingrediente;
@@ -55,5 +51,13 @@ public interface IIngredientesBO {
      * error en la base de datos
      */
     public abstract List<IngredienteDTO> obtenerIngredientes(String filtroNombre, String filtroUnidad) throws NegocioException;
+
+    /**
+     * Metodo para obtener una lista con todos los ingredientes de la base de
+     * @param idIngrediente Id del ingrediente a buscar
+     * @return IngredienteDTO con el ingrediente encontrado o null si no se
+     * @throws NegocioException Si el ingrediente no se puede obtener
+     */
+    public abstract IngredienteDTO obtenerIngredientePorId(Long idIngrediente) throws NegocioException;
 
 }

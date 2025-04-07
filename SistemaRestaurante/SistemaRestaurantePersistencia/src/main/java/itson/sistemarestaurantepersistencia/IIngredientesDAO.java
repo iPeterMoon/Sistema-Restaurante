@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package itson.sistemarestaurantepersistencia;
 
 import itson.sistemarestaurantedominio.Ingrediente;
@@ -80,6 +76,16 @@ public interface IIngredientesDAO {
     public List<IngredienteDTO> obtenerIngredientesDTO(String filtroNombre, String filtroUnidad);
 
     /**
+     * Metodo para obtener un ingrediente de la base de datos por su id y
+     * convertirlo a DTO
+     *
+     * @param idIngrediente Id del ingrediente a buscar
+     * @return IngredienteDTO con el ingrediente encontrado o null si no se
+     * encuentra
+     */
+    public abstract IngredienteDTO obtenerIngredientePorId(Long idIngrediente);
+
+    /**
      * Metodo que verifica si existe un ingrediente con el mismo nombre y unidad
      * de medida
      *
@@ -88,5 +94,4 @@ public interface IIngredientesDAO {
      * nombre y unidad de medida o no
      */
     public abstract boolean existeIngredienteYUnidad(NuevoIngredienteDTO nuevoIngrediente);
-
 }

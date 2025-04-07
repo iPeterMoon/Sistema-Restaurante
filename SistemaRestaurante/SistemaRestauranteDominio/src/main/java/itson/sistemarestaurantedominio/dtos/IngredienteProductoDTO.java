@@ -4,7 +4,7 @@ package itson.sistemarestaurantedominio.dtos;
  * Clase que representa un Data Transfer Object (DTO) para un nuevo ingrediente de un producto.
  * Contiene el ID del ingrediente y la cantidad requerida para el producto.
  */
-public class NuevoIngredienteProductoDTO {
+public class IngredienteProductoDTO {
     private Long idIngrediente;
     private Integer cantidad;
 
@@ -13,7 +13,7 @@ public class NuevoIngredienteProductoDTO {
      * @param idIngrediente
      * @param cantidad
      */
-    public NuevoIngredienteProductoDTO(Long idIngrediente, Integer cantidad) {
+    public IngredienteProductoDTO(Long idIngrediente, Integer cantidad) {
         this.idIngrediente = idIngrediente;
         this.cantidad = cantidad;
     }

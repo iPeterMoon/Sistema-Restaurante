@@ -24,11 +24,18 @@ public class ProductosBO implements IProductosBO {
      * error en la base de datos o de formato
      */
     @Override
-    public void agregarProducto(NuevoProductoDTO nuevoProducto) throws NegocioException {
+    public void agregarProducto(NuevoProductoDTO nuevoProducto) throws NegocioException, IllegalArgumentException{
         try {
+            ProductoDTO productoGuardado = productosDAO.obtenerProductoPorNombre(nuevoProducto.getNombre());
+            if (productoGuardado != null) {
+                throw new NegocioException("Ya existe un producto con el nombre: " + nuevoProducto.getNombre());
+            }
+            if(nuevoProducto.getPrecio().intValue() <= 0){
+                throw new NegocioException("El precio no puede ser menor o igual a 0");
+            }
             productosDAO.agregarProducto(nuevoProducto);
         } catch (Exception e) {
-            throw new NegocioException("No se ha podido agregar al usuario: " + e);
+            throw new NegocioException("No se ha podido agregar al usuario: " + e.getMessage());
         }
     }
 

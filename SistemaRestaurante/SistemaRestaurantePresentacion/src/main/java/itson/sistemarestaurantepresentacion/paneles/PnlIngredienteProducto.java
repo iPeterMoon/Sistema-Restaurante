@@ -2,6 +2,7 @@ package itson.sistemarestaurantepresentacion.paneles;
 
 import itson.sistemarestaurantedominio.dtos.IngredienteDTO;
 import java.awt.Font;
+import javax.swing.JTextField;
 
 /**
  *
@@ -26,7 +27,7 @@ public class PnlIngredienteProducto extends javax.swing.JPanel {
         this.jLabel2.setText(ingrediente.getUnidadMedida().toString().substring(0,1).toUpperCase() + ingrediente.getUnidadMedida().toString().substring(1));
         this.txtCantidad.setText("1");
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -108,6 +109,22 @@ public class PnlIngredienteProducto extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public IngredienteDTO getIngrediente() {
+        return ingrediente;
+    }
+
+    public void setIngrediente(IngredienteDTO ingrediente) {
+        this.ingrediente = ingrediente;
+    }
+
+    public JTextField getTxtCantidad() {
+        return txtCantidad;
+    }
+
+    public void setTxtCantidad(JTextField txtCantidad) {
+        this.txtCantidad = txtCantidad;
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

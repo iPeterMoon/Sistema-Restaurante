@@ -1,5 +1,6 @@
 package itson.sistemarestaurantepresentacion.control;
 
+import itson.sistemarestaurantedominio.dtos.ProductoDTO;
 import itson.sistemarestaurantepresentacion.pantallas.FramePrincipal;
 import itson.sistemarestaurantepresentacion.pantallas.PnlAgregarIngrediente;
 import itson.sistemarestaurantepresentacion.pantallas.PnlAgregarProducto;
@@ -7,6 +8,7 @@ import itson.sistemarestaurantepresentacion.pantallas.PnlBuscarCliente;
 import itson.sistemarestaurantepresentacion.pantallas.PnlBuscarIngredientes;
 import itson.sistemarestaurantepresentacion.pantallas.PnlBuscarProductos;
 import itson.sistemarestaurantepresentacion.pantallas.PnlComandas;
+import itson.sistemarestaurantepresentacion.pantallas.PnlIngredientesProducto;
 import itson.sistemarestaurantepresentacion.pantallas.PnlInicio;
 import itson.sistemarestaurantepresentacion.pantallas.PnlMesas;
 import itson.sistemarestaurantepresentacion.pantallas.PnlRegistrarCliente;
@@ -71,9 +73,26 @@ public class ControlFlujo {
         mostrarPanel(pnlBuscarProductos);
     }
 
+    /**
+     * Metodo para mostrar el panel de agregar productos en el frame principal.
+     * Se crea una instancia del panel de agregar productos y se llama al metodo
+     * mostrarPanel.
+     */
     public static void mostrarPnlAgregarProducto(){
         PnlAgregarProducto pnlAgregarProducto = new PnlAgregarProducto();
         mostrarPanel(pnlAgregarProducto);
+    }
+
+    /**
+     * Metodo para mostrar el panel de ingredientes de un producto en el frame
+     * principal. Se crea una instancia del panel de ingredientes y se llama al
+     * metodo mostrarPanel.
+     *
+     * @param producto ProductoDTO que contiene la informacion del producto
+     */
+    public static void mostrarPnlIngredientesProducto(ProductoDTO producto){
+        PnlIngredientesProducto pnlIngredientesProducto = new PnlIngredientesProducto(producto);
+        mostrarPanel(pnlIngredientesProducto);
     }
 
     /**

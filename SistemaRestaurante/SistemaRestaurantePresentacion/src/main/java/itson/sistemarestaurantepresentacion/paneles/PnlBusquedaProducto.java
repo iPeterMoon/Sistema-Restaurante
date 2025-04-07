@@ -126,6 +126,7 @@ public class PnlBusquedaProducto extends javax.swing.JPanel {
         jScrollPane1.setMaximumSize(new java.awt.Dimension(1120, 580));
 
         gridProductos.setBackground(new java.awt.Color(31, 31, 31));
+        gridProductos.setMaximumSize(new java.awt.Dimension(1120, 580));
         gridProductos.setLayout(new java.awt.GridLayout(0, 3, 30, 40));
         jScrollPane1.setViewportView(gridProductos);
 
