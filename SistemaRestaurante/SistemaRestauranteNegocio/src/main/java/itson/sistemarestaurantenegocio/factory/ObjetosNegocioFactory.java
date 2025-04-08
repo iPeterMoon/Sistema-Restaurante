@@ -1,21 +1,25 @@
 package itson.sistemarestaurantenegocio.factory;
 
 import itson.sistemarestaurantenegocio.implementaciones.ClientesBO;
+import itson.sistemarestaurantenegocio.implementaciones.ComandasBO;
 import itson.sistemarestaurantenegocio.implementaciones.IngredientesBO;
 import itson.sistemarestaurantenegocio.implementaciones.IngredientesProductoBO;
 import itson.sistemarestaurantenegocio.implementaciones.MesasBO;
 import itson.sistemarestaurantenegocio.implementaciones.ProductosBO;
 import itson.sistemarestaurantenegocio.interfaces.IClientesBO;
+import itson.sistemarestaurantenegocio.interfaces.IComandasBO;
 import itson.sistemarestaurantenegocio.interfaces.IIngredientesBO;
 import itson.sistemarestaurantenegocio.interfaces.IIngredientesProductoBO;
 import itson.sistemarestaurantenegocio.interfaces.IMesasBO;
 import itson.sistemarestaurantenegocio.interfaces.IProductosBO;
 import itson.sistemarestaurantepersistencia.IClientesDAO;
+import itson.sistemarestaurantepersistencia.IComandasDAO;
 import itson.sistemarestaurantepersistencia.IIngredientesDAO;
 import itson.sistemarestaurantepersistencia.IIngredientesProductosDAO;
 import itson.sistemarestaurantepersistencia.IMesasDAO;
 import itson.sistemarestaurantepersistencia.IProductosDAO;
 import itson.sistemarestaurantepersistencia.implementaciones.ClientesDAO;
+import itson.sistemarestaurantepersistencia.implementaciones.ComandasDAO;
 import itson.sistemarestaurantepersistencia.implementaciones.IngredientesDAO;
 import itson.sistemarestaurantepersistencia.implementaciones.MesasDAO;
 import itson.sistemarestaurantepersistencia.implementaciones.ProductosDAO;
@@ -75,5 +79,15 @@ public class ObjetosNegocioFactory {
         IIngredientesProductosDAO ingredientesDAO = new IngredientesProductosDAO();
         IIngredientesProductoBO ingredientesProductoBO = new IngredientesProductoBO(ingredientesDAO);
         return ingredientesProductoBO;
+    }
+
+    /**
+     * Metodo para crear un objeto de negocio de comandas
+     * @return Objeto de negocio de comandas
+     */
+    public static IComandasBO crearComandasBO(){
+        IComandasDAO comandasDAO = new ComandasDAO();
+        IComandasBO comandasBO = new ComandasBO(comandasDAO);
+        return comandasBO;
     }
 }

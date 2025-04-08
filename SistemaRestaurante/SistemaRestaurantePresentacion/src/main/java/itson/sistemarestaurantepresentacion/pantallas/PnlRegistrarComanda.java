@@ -1,20 +1,30 @@
 package itson.sistemarestaurantepresentacion.pantallas;
 
 import itson.sistemarestaurantedominio.dtos.ClienteComandaDTO;
+import itson.sistemarestaurantedominio.dtos.IngredienteProductoDTO;
 import itson.sistemarestaurantedominio.dtos.MesaDTO;
+import itson.sistemarestaurantedominio.dtos.NuevaComandaDTO;
+import itson.sistemarestaurantedominio.dtos.NuevoDetalleComandaDTO;
+import itson.sistemarestaurantedominio.dtos.NuevoProductoDTO;
 import itson.sistemarestaurantedominio.dtos.ProductoDTO;
+import itson.sistemarestaurantedominio.enumeradores.TipoProducto;
+import itson.sistemarestaurantenegocio.excepciones.NegocioException;
 import itson.sistemarestaurantenegocio.factory.ObjetosNegocioFactory;
+import itson.sistemarestaurantenegocio.interfaces.IComandasBO;
 import itson.sistemarestaurantenegocio.interfaces.IMesasBO;
+import itson.sistemarestaurantenegocio.interfaces.IProductosBO;
 import itson.sistemarestaurantepresentacion.control.ControlFlujo;
 import itson.sistemarestaurantepresentacion.modales.ModalClientes;
 import itson.sistemarestaurantepresentacion.modales.ModalProductos;
 import itson.sistemarestaurantepresentacion.paneles.PnlDetalleComanda;
 
 import java.awt.Font;
+import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.Box;
+import javax.swing.JOptionPane;
 
 /**
  * Clase que representa el panel de registro de comandas en la
@@ -67,6 +77,7 @@ public class PnlRegistrarComanda extends javax.swing.JPanel {
         txtCliente = new javax.swing.JLabel();
         scrollPnlDetallesComanda = new javax.swing.JScrollPane();
         pnlDetallesComanda = new javax.swing.JPanel();
+        btnAgregar = new javax.swing.JButton();
 
         pnlPrincipal.setBackground(new java.awt.Color(37, 40, 54));
 
@@ -173,9 +184,19 @@ public class PnlRegistrarComanda extends javax.swing.JPanel {
                     .addComponent(btnBuscarProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscarClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(scrollPnlDetallesComanda, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addComponent(scrollPnlDetallesComanda, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
+
+        btnAgregar.setBackground(new java.awt.Color(80, 205, 137));
+        btnAgregar.setFont(new Font("Poppins", Font.PLAIN, 18));
+        btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
+        btnAgregar.setText("Agregar Comanda");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlPrincipalLayout = new javax.swing.GroupLayout(pnlPrincipal);
         pnlPrincipal.setLayout(pnlPrincipalLayout);
@@ -191,6 +212,10 @@ public class PnlRegistrarComanda extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(pnlComanda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(64, 64, 64))
+            .addGroup(pnlPrincipalLayout.createSequentialGroup()
+                .addGap(420, 420, 420)
+                .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlPrincipalLayout.setVerticalGroup(
             pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,7 +226,9 @@ public class PnlRegistrarComanda extends javax.swing.JPanel {
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46)
                 .addComponent(pnlComanda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(172, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -245,8 +272,70 @@ public class PnlRegistrarComanda extends javax.swing.JPanel {
         pnlDetallesComanda.revalidate();
         pnlDetallesComanda.repaint();
         detallesComanda.add(detalleComanda);
-        //TODO: Crear el DetallesComandaDTO y agregarlo a la lista de detalles de la comanda
     }//GEN-LAST:event_btnBuscarProductosActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        try {
+            IMesasBO mesasBO = ObjetosNegocioFactory.crearMesasBO();
+            String mesaSeleccionada = jComboBox1.getSelectedItem().toString();
+            int numeroMesa = Integer.parseInt(mesaSeleccionada.replace("Mesa ", ""));
+            MesaDTO mesa = mesasBO.obtenerMesaPorNumero(numeroMesa);
+            Long idMesa = mesa.getId();
+            Long idCliente = null;
+            if (clienteComanda != null){
+                idCliente = clienteComanda.getId();
+            }
+            List<NuevoDetalleComandaDTO> detallesComanda = cargarRelaciones();
+            if (detallesComanda == null) {
+                return;
+            }
+            IComandasBO comandasBO = ObjetosNegocioFactory.crearComandasBO();
+            NuevaComandaDTO nuevaComanda = new NuevaComandaDTO(idMesa, idCliente, detallesComanda);
+            comandasBO.guardarComanda(nuevaComanda);
+            JOptionPane.showMessageDialog(this, "La comanda se ha registrado con éxito.", "Éxito",
+                    JOptionPane.INFORMATION_MESSAGE);
+            ControlFlujo.mostrarPnlProductos();
+        } catch (NegocioException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El precio debe ser un número válido.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private List<NuevoDetalleComandaDTO> cargarRelaciones() {
+        List<NuevoDetalleComandaDTO> detallesComanda = new LinkedList<>();
+        for (PnlDetalleComanda detalle : this.detallesComanda) {
+            ProductoDTO producto = detalle.getProducto();
+            if (producto != null) {
+                Long idProducto = producto.getId();
+                BigDecimal precioUnitario = producto.getPrecio();
+                try{
+                    Integer cantidad = Integer.parseInt(detalle.getSpinnerCantidad().getValue().toString());
+                    if (cantidad <= 0) {
+                        JOptionPane.showMessageDialog(this, "La cantidad debe ser mayor a cero.", "Error",
+                                JOptionPane.ERROR_MESSAGE);
+                        return null;
+                    }
+                    BigDecimal totalPorProducto = precioUnitario.multiply(new BigDecimal(cantidad));
+                    String comentarios = detalle.getTxtAreaComentarios().getText();
+                    
+                    if(comentarios.isBlank() || comentarios.isEmpty()){
+                        NuevoDetalleComandaDTO detalleComanda = new NuevoDetalleComandaDTO(cantidad, precioUnitario, totalPorProducto, idProducto);    
+                        detallesComanda.add(detalleComanda);
+                    } else{
+                        NuevoDetalleComandaDTO detalleComanda = new NuevoDetalleComandaDTO(cantidad, comentarios, precioUnitario, totalPorProducto, idProducto);    
+                        detallesComanda.add(detalleComanda);
+                    }
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "La cantidad debe ser un número válido.", "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    return null;
+                }
+            }
+        }
+        return detallesComanda;
+    }
 
     /**
      * Carga el nombre del cliente en el label correspondiente.
@@ -260,6 +349,7 @@ public class PnlRegistrarComanda extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscarClientes;
     private javax.swing.JButton btnBuscarProductos;
     private javax.swing.JButton btnCancelar;

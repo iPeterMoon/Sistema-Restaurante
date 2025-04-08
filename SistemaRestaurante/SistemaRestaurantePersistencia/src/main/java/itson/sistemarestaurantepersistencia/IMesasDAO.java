@@ -34,4 +34,19 @@ public interface IMesasDAO {
      * @return Lista de objetos MesaDTO que representan las mesas.
      */
     public abstract List<MesaDTO> obtenerMesasDisponibles();
+
+    /**
+     * Metodo para obtener una mesa por su ID.
+     *
+     * @param idMesa ID de la mesa a buscar.
+     * @return MesaDTO que representa la mesa con el ID especificado.
+     */
+    public abstract MesaDTO obtenerMesaPorId(Long idMesa);
+
+    /**
+     * Método para obtener una mesa por su número.
+     * @param numeroMesa Número de la mesa a buscar.
+     * @return Mesa que representa la mesa con el número especificado.
+     */
+    public abstract MesaDTO obtenerMesaPorNumero(Integer numeroMesa);
 }

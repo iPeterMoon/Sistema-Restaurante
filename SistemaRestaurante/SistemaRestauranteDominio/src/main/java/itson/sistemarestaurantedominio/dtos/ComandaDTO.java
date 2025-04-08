@@ -16,6 +16,8 @@ public class ComandaDTO {
     private Calendar fechaHora;
     private EstadoComanda estado;
     private BigDecimal total;
+    private Long idMesa;
+    private Long idCliente;
 
     /**
      * Constructor que inicializa los atributos de la clase al valor de sus
@@ -27,12 +29,14 @@ public class ComandaDTO {
      * @param estado Estado de la comanda.
      * @param total Total de la comanda.
      */
-    public ComandaDTO(Long idComanda, String folio, Calendar fechaHora, EstadoComanda estado, BigDecimal total) {
+    public ComandaDTO(Long idComanda, String folio, Calendar fechaHora, EstadoComanda estado, BigDecimal total, Long idMesa, Long idCliente) {
         this.idComanda = idComanda;
         this.folio = folio;
         this.fechaHora = fechaHora;
         this.estado = estado;
         this.total = total;
+        this.idMesa = idMesa;
+        this.idCliente = idCliente;
     }
 
     /**
@@ -78,5 +82,23 @@ public class ComandaDTO {
      */
     public BigDecimal getTotal() {
         return total;
+    }
+
+    /**
+     * Obtiene el ID de la mesa asociada a la comanda.
+     *
+     * @return ID de la mesa.
+     */
+    public Long getIdMesa() {
+        return idMesa;
+    }
+
+    /**
+     * Obtiene el ID del cliente asociado a la comanda.
+     *
+     * @return ID del cliente.
+     */
+    public Long getIdCliente() {
+        return idCliente;
     }
 }

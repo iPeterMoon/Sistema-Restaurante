@@ -1,8 +1,23 @@
 
 package itson.sistemarestaurantepresentacion.pantallas;
 
+import itson.sistemarestaurantedominio.dtos.ComandaDTO;
+import itson.sistemarestaurantenegocio.excepciones.NegocioException;
+import itson.sistemarestaurantenegocio.factory.ObjetosNegocioFactory;
+import itson.sistemarestaurantenegocio.interfaces.IComandasBO;
 import itson.sistemarestaurantepresentacion.control.ControlFlujo;
+import itson.sistemarestaurantepresentacion.paneles.PnlComanda;
+
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridLayout;
+import java.util.List;
+
+import javax.swing.Box;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 
 /**
  * Clase que representa el panel de comandas en la
@@ -16,6 +31,56 @@ public class PnlComandas extends javax.swing.JPanel {
      */
     public PnlComandas() {
         initComponents();
+        cargarComandas();
+    }
+
+    private void cargarComandas(){
+        try{
+            IComandasBO comandasBO = ObjetosNegocioFactory.crearComandasBO();
+            List<ComandaDTO> comandas = comandasBO.obtenerComandas();
+            cargarPanelesComandas(comandas);
+        } catch(NegocioException e){
+            JOptionPane.showMessageDialog(
+                null, 
+                e.getMessage(), 
+                "No se encontraron comandas", 
+                JOptionPane.INFORMATION_MESSAGE
+            );
+        }
+    }
+        /**
+     * Metodo para cargar los productos en paneles
+     *
+     * @param productos lista de productos a cargar
+     */
+    private void cargarPanelesComandas(List<ComandaDTO> comandas) {
+
+        this.pnlComandas.removeAll();
+        int contador = 1;
+        JPanel pnlGridComandas = new JPanel();
+        for (ComandaDTO comanda : comandas) {
+            if (contador == 1) {
+                pnlGridComandas = new JPanel();
+                pnlGridComandas.setLayout(new GridLayout(0, 3, 25, 10));
+                pnlGridComandas.setPreferredSize(new Dimension(1100, 250));
+                pnlGridComandas.setMaximumSize(pnlGridComandas.getPreferredSize());
+                pnlGridComandas.setBackground(new Color(37,40,54));
+
+                pnlComandas.add(pnlGridComandas);
+                pnlComandas.add(Box.createVerticalStrut(30));
+
+            }
+            PnlComanda pnlComanda = new PnlComanda(comanda);
+            pnlGridComandas.add(pnlComanda);
+            pnlGridComandas.repaint();
+            pnlGridComandas.revalidate();
+            contador++;
+            if (contador > 3) {
+                contador = 1;
+            }
+        }
+        pnlComandas.revalidate();
+        pnlComandas.repaint();
     }
 
     /**
@@ -29,6 +94,8 @@ public class PnlComandas extends javax.swing.JPanel {
         pnlPrincipal = new javax.swing.JPanel();
         lblBienvenido = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
+        scrollPnlComandas = new javax.swing.JScrollPane();
+        pnlComandas = new javax.swing.JPanel();
 
         pnlPrincipal.setBackground(new java.awt.Color(37, 40, 54));
 
@@ -47,6 +114,13 @@ public class PnlComandas extends javax.swing.JPanel {
             }
         });
 
+        scrollPnlComandas.setBackground(new java.awt.Color(37, 40, 54));
+        scrollPnlComandas.setBorder(null);
+
+        pnlComandas.setBackground(new java.awt.Color(37, 40, 54));
+        pnlComandas.setLayout(new javax.swing.BoxLayout(pnlComandas, javax.swing.BoxLayout.Y_AXIS));
+        scrollPnlComandas.setViewportView(pnlComandas);
+
         javax.swing.GroupLayout pnlPrincipalLayout = new javax.swing.GroupLayout(pnlPrincipal);
         pnlPrincipal.setLayout(pnlPrincipalLayout);
         pnlPrincipalLayout.setHorizontalGroup(
@@ -57,6 +131,10 @@ public class PnlComandas extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 215, Short.MAX_VALUE)
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(96, 96, 96))
+            .addGroup(pnlPrincipalLayout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addComponent(scrollPnlComandas, javax.swing.GroupLayout.PREFERRED_SIZE, 1157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlPrincipalLayout.setVerticalGroup(
             pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -65,7 +143,9 @@ public class PnlComandas extends javax.swing.JPanel {
                 .addGroup(pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblBienvenido, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(818, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(scrollPnlComandas, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -88,6 +168,8 @@ public class PnlComandas extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JLabel lblBienvenido;
+    private javax.swing.JPanel pnlComandas;
     private javax.swing.JPanel pnlPrincipal;
+    private javax.swing.JScrollPane scrollPnlComandas;
     // End of variables declaration//GEN-END:variables
 }

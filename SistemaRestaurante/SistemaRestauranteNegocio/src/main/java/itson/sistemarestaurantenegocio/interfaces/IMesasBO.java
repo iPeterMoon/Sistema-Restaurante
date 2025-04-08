@@ -15,4 +15,8 @@ public interface IMesasBO {
     public abstract Long obtenerNumMesas();
 
     public abstract List<MesaDTO> obtenerMesasDisponibles() throws NegocioException;
+
+    public abstract MesaDTO obtenerMesaPorId(Long idMesa) throws NegocioException;
+
+    public abstract MesaDTO obtenerMesaPorNumero(Integer numeroMesa) throws NegocioException;
 }

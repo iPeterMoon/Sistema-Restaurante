@@ -189,7 +189,7 @@ public class PnlAgregarIngrediente extends javax.swing.JPanel {
         this.comboBoxUnidadMedida.removeAllItems();
         this.comboBoxUnidadMedida.addItem("Seleccionar Unidad de medida");
         for (UnidadMedida unidad : unidadesMedida) {
-            this.comboBoxUnidadMedida.addItem(unidad.toString());
+            this.comboBoxUnidadMedida.addItem(unidad.toString().substring(0,1).concat(unidad.toString().substring(1).toLowerCase()));
         }
     }
 
@@ -209,7 +209,7 @@ public class PnlAgregarIngrediente extends javax.swing.JPanel {
         }
 
         // Obtener el String seleccionado del JComboBox
-        String selectedUnidad = (String) comboBoxUnidadMedida.getSelectedItem();
+        String selectedUnidad = String.valueOf(comboBoxUnidadMedida.getSelectedItem()).toUpperCase();
 
         // Validar unidad de medida seleccionada
         if (!validarUnidadMedida(selectedUnidad)) {

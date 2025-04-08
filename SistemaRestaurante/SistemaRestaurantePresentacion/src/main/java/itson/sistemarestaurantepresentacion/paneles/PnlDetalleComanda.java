@@ -3,6 +3,8 @@ package itson.sistemarestaurantepresentacion.paneles;
 import itson.sistemarestaurantedominio.dtos.ProductoDTO;
 import java.awt.Font;
 import java.math.BigDecimal;
+import javax.swing.JSpinner;
+import javax.swing.JTextArea;
 
 /**
  * Clase que representa el panel de detalle de una comanda.
@@ -177,6 +179,31 @@ public class PnlDetalleComanda extends javax.swing.JPanel {
         // Actualizar el JLabel de importe
         lblImporte.setText("Importe: $" + String.format("%.2f", importeTotal));
     }//GEN-LAST:event_spinnerCantidadStateChanged
+
+    /**
+     * Método para obtener el spinner de cantidad.
+     * @return el spinner de cantidad
+     */
+    public JSpinner getSpinnerCantidad() {
+        return spinnerCantidad;
+    }
+
+    /**
+     * Método para obtener el JTextArea de comentarios.
+     * @return el JTextArea de comentarios
+     */
+    public JTextArea getTxtAreaComentarios() {
+        return txtAreaComentarios;
+    }
+
+    /**
+     * Método para obtener el importe total.
+     * @return el importe total como BigDecimal
+     */
+    public ProductoDTO getProducto() {
+        return producto;
+    }
+    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

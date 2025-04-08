@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  * Clase que implementa la interfaz IMesasDAO y proporciona
@@ -44,13 +45,11 @@ public class MesasDAO implements IMesasDAO{
     @Override
     public Long obtenerNumMesas() {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        entityManager.getTransaction().begin();
         
         String jpql = "Select COUNT(m.id) FROM Mesa m";
         Query query = entityManager.createQuery(jpql);
         Long numeroMesas = (Long) query.getSingleResult();
         
-        entityManager.getTransaction().commit();
         return numeroMesas;
     }
 
@@ -69,6 +68,45 @@ public class MesasDAO implements IMesasDAO{
         entityManager.getTransaction().commit();
         return mesas;
         
+    }
+
+    /**
+     * Metodo para obtener una mesa por su ID
+     * @param idMesa ID de la mesa a buscar
+     */
+    @Override
+    public MesaDTO obtenerMesaPorId(Long idMesa) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        
+        String jpql = "SELECT new itson.sistemarestaurantedominio.dtos.MesaDTO(m.id, m.numeroMesa) FROM Mesa m WHERE m.id = :idMesa";
+        Query query = entityManager.createQuery(jpql, MesaDTO.class);
+        query.setParameter("idMesa", idMesa);
+        
+        MesaDTO mesa = (MesaDTO) query.getSingleResult();
+        
+        
+        return mesa;
+    }
+
+    /**
+     * Metodo para obtener una mesa por su numero
+     * @param numeroMesa numero de la mesa a buscar
+     * @return la mesa que tiene el numero dado
+     */
+    @Override
+    public MesaDTO obtenerMesaPorNumero(Integer numeroMesa) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        
+        String jpql = "SELECT new itson.sistemarestaurantedominio.dtos.MesaDTO(m.id, m.numeroMesa) FROM Mesa m WHERE m.numeroMesa = :numeroMesa";
+        TypedQuery<MesaDTO> query = entityManager.createQuery(jpql, MesaDTO.class);
+        query.setParameter("numeroMesa", numeroMesa);
+        
+        MesaDTO mesa = query.getSingleResult();
+             
+        if(mesa == null){
+            return null;
+        }   
+        return mesa;
     }
     
 }

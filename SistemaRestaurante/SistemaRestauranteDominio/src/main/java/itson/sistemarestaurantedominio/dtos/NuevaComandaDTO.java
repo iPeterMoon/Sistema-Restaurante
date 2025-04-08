@@ -10,19 +10,19 @@ import java.util.List;
 public class NuevaComandaDTO {
 
     private Long idMesa;
-    private Long idUsuario;
+    private Long idCliente;
     private List<NuevoDetalleComandaDTO> detallesComanda;
 
     /**
      * Constructor para inicializar una nueva comanda.
      *
      * @param idMesa          Identificador de la mesa asociada a la comanda.
-     * @param idUsuario       Identificador del usuario que realiza la comanda.
+     * @param idCliente       Identificador del usuario que realiza la comanda.
      * @param detallesComanda Lista de detalles de la comanda.
      */
-    public NuevaComandaDTO(Long idMesa, Long idUsuario, List<NuevoDetalleComandaDTO> detallesComanda) {
+    public NuevaComandaDTO(Long idMesa, Long idCliente, List<NuevoDetalleComandaDTO> detallesComanda) {
         this.idMesa = idMesa;
-        this.idUsuario = idUsuario;
+        this.idCliente = idCliente;
         this.detallesComanda = detallesComanda;
     }
 
@@ -40,8 +40,8 @@ public class NuevaComandaDTO {
      *
      * @return Identificador del usuario.
      */
-    public Long getIdUsuario() {
-        return idUsuario;
+    public Long getIdCliente() {
+        return idCliente;
     }
 
     /**

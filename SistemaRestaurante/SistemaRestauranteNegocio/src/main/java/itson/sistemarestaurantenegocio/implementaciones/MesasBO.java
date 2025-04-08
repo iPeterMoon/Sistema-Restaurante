@@ -9,7 +9,8 @@ import itson.sistemarestaurantenegocio.interfaces.IMesasBO;
 import itson.sistemarestaurantepersistencia.IMesasDAO;
 
 /**
- *
+ * Clase que implementa la interfaz IMesasBO y proporciona
+ * implementaciones para los métodos de negocio relacionados con las mesas.
  * @author Peter
  */
 public class MesasBO implements IMesasBO {
@@ -62,6 +63,28 @@ public class MesasBO implements IMesasBO {
         }
         return mesasDAO.obtenerMesasDisponibles();
     }
-    
-    
+
+    @Override
+    public MesaDTO obtenerMesaPorId(Long idMesa) throws NegocioException {
+        if(idMesa == null){
+            throw new NegocioException("El id de la mesa no puede ser nulo");
+        }
+        MesaDTO mesa = mesasDAO.obtenerMesaPorId(idMesa);
+        if(mesa == null){
+            throw new NegocioException("No existe una mesa con ese id");
+        }
+        return mesa;
+    }
+
+    @Override
+    public MesaDTO obtenerMesaPorNumero(Integer numeroMesa) throws NegocioException {
+        if(numeroMesa == null){
+            throw new NegocioException("El numero de la mesa no puede ser nulo");
+        }
+        MesaDTO mesa = mesasDAO.obtenerMesaPorNumero(numeroMesa);
+        if(mesa == null){
+            throw new NegocioException("No existe una mesa con ese numero");
+        }
+        return mesa;
+    }
 }

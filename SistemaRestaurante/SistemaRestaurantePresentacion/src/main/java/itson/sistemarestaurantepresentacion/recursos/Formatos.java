@@ -18,6 +18,14 @@ public class Formatos {
         
         return strFecha;
     }
+
+    public static String cargarHora(Calendar fecha){
+        int hora = fecha.get(Calendar.HOUR_OF_DAY);
+        int minutos = fecha.get(Calendar.MINUTE);
+        String strHora = hora + ":" + minutos;
+        
+        return strHora;
+    }
     
     private static String obtenerMes(int mes){
         switch (mes) {
