@@ -173,4 +173,13 @@ public class ClientesBO implements IClientesBO {
         }
         return clientes;
     }
+
+    @Override
+    public ClienteDTO obtenerClientePorId(Long idCliente) throws NegocioException {
+        ClienteDTO cliente = clientesDAO.obtenerClientePorId(idCliente);
+        if(cliente == null){
+            throw new NegocioException("No se encontró el cliente con id: "+idCliente);
+        }
+        return cliente;
+    }
 }

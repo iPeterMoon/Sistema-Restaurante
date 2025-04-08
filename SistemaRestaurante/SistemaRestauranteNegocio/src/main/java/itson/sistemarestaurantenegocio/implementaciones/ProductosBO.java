@@ -72,6 +72,13 @@ public class ProductosBO implements IProductosBO {
         return productos;
     }
 
+    /**
+     * Metodo para obtener los productos por nombre y categoría
+     * @param nombre Nombre a buscar
+     * @param categoria Categoría a filtrar
+     * @return Lista de Productos coincidentes
+     * @throws NegocioException Si no se encuentra ninguno.
+     */
     @Override
     public List<ProductoDTO> obtenerProductos(String nombre, String categoria) throws NegocioException {
         List<ProductoDTO> productos = productosDAO.obtenerProductosDTO(nombre, categoria);
@@ -79,6 +86,21 @@ public class ProductosBO implements IProductosBO {
             throw new NegocioException("No se encontraron productos con el nombre: " + nombre + " y la categoria: " + categoria);
         }
         return productos;
+    }
+
+    /**
+     * Obtiene un producto por su id
+     * @param idProducto Id del producto a buscar
+     * @return ProductoDTO representando el producto
+     * @throws NegocioException Si no se encuentra el producto
+     */
+    @Override
+    public ProductoDTO obtenerProductoPorId(Long idProducto) throws NegocioException {
+        ProductoDTO producto = productosDAO.obtenerProductoPorId(idProducto);
+        if(producto == null){
+            throw new NegocioException("No se entoncró el producto");
+        }
+        return producto;
     }
 
 }

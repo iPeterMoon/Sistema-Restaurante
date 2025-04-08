@@ -34,7 +34,7 @@
     <Container class="itson.sistemarestaurantepresentacion.recursos.RoundedPanel" name="roundedPanel1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="35" green="2a" red="28" type="rgb"/>
+          <Color blue="2b" green="20" red="1e" type="rgb"/>
         </Property>
         <Property name="roundBottomLeft" type="int" value="50"/>
         <Property name="roundBottomRight" type="int" value="50"/>
@@ -192,6 +192,9 @@
             <Property name="roundTopLeft" type="int" value="20"/>
             <Property name="roundTopRight" type="int" value="20"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnVerComandaMouseClicked"/>
+          </Events>
 
           <Layout>
             <DimensionLayout dim="0">
@@ -230,8 +233,12 @@
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="Ver Comanda"/>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Hand Cursor"/>
+                </Property>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblHora1MouseClicked"/>
                 <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblHora1MouseEntered"/>
                 <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblHora1MouseExited"/>
               </Events>

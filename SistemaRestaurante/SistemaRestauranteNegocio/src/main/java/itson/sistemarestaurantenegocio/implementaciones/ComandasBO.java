@@ -57,7 +57,7 @@ public class ComandasBO implements IComandasBO {
 
     @Override
     public List<ComandaDTO> obtenerComandas() throws NegocioException {
-        List<ComandaDTO> comandas = comandasDAO.obtenerComandas();
+        List<ComandaDTO> comandas = comandasDAO.obtenerComandasAbiertas();
         if(comandas == null || comandas.isEmpty()) {
             throw new NegocioException("No se encontraron comandas abiertas en el sistema");
         }

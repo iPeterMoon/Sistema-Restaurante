@@ -295,4 +295,21 @@ public class ClientesDAO implements IClientesDAO {
                 root.get("fechaRegistro")
             );  
     }
+
+    /**
+     * Metodo que obtiene un cliente por su id
+     * @param idCliente Id del cliente a buscar
+     * @return ClienteDTO representando al cliente
+     */
+    @Override
+    public ClienteDTO obtenerClientePorId(Long idCliente) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<ClienteDTO> criteria = builder.createQuery(ClienteDTO.class);
+        Root<Cliente> root = criteria.from(Cliente.class);
+        criteria.select(getClienteDTOSelection(root, builder)).where(builder.equal(root.get("id"), idCliente));
+        TypedQuery<ClienteDTO> query = entityManager.createQuery(criteria);
+        ClienteDTO cliente = query.getSingleResult();
+        return cliente;
+    }
 }

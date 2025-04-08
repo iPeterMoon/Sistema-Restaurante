@@ -1,18 +1,14 @@
 package itson.sistemarestaurantepresentacion.pantallas;
 
 import itson.sistemarestaurantedominio.dtos.ClienteComandaDTO;
-import itson.sistemarestaurantedominio.dtos.IngredienteProductoDTO;
 import itson.sistemarestaurantedominio.dtos.MesaDTO;
 import itson.sistemarestaurantedominio.dtos.NuevaComandaDTO;
 import itson.sistemarestaurantedominio.dtos.NuevoDetalleComandaDTO;
-import itson.sistemarestaurantedominio.dtos.NuevoProductoDTO;
 import itson.sistemarestaurantedominio.dtos.ProductoDTO;
-import itson.sistemarestaurantedominio.enumeradores.TipoProducto;
 import itson.sistemarestaurantenegocio.excepciones.NegocioException;
 import itson.sistemarestaurantenegocio.factory.ObjetosNegocioFactory;
 import itson.sistemarestaurantenegocio.interfaces.IComandasBO;
 import itson.sistemarestaurantenegocio.interfaces.IMesasBO;
-import itson.sistemarestaurantenegocio.interfaces.IProductosBO;
 import itson.sistemarestaurantepresentacion.control.ControlFlujo;
 import itson.sistemarestaurantepresentacion.modales.ModalClientes;
 import itson.sistemarestaurantepresentacion.modales.ModalProductos;
@@ -294,7 +290,7 @@ public class PnlRegistrarComanda extends javax.swing.JPanel {
             comandasBO.guardarComanda(nuevaComanda);
             JOptionPane.showMessageDialog(this, "La comanda se ha registrado con éxito.", "Éxito",
                     JOptionPane.INFORMATION_MESSAGE);
-            ControlFlujo.mostrarPnlProductos();
+            ControlFlujo.mostrarComandas();
         } catch (NegocioException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } catch (NumberFormatException e) {

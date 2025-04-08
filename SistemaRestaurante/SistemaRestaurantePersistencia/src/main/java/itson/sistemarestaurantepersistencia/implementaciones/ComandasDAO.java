@@ -7,6 +7,9 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import itson.sistemarestaurantedominio.Cliente;
 import itson.sistemarestaurantedominio.Comanda;
@@ -53,7 +56,10 @@ public class ComandasDAO implements IComandasDAO {
                 } else {
                     DetallesComanda detalleComanda = new DetallesComanda();
                     detalleComanda.setCantidad(detalle.getCantidad());
-                    
+                    String comentario = detalle.getComentario();
+                    if(comentario!= null){
+                        detalleComanda.setComentario(comentario);
+                    } 
                     detalleComanda.setProducto(producto);
                     detalleComanda.setComanda(comanda);
                     detalleComanda.setPrecioUnitario(detalle.getPrecioUnitario());
@@ -87,22 +93,66 @@ public class ComandasDAO implements IComandasDAO {
     }
 
     @Override
-    public List<ComandaDTO> obtenerComandas() {
-        EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        entityManager.getTransaction().begin();
+    public List<ComandaDTO> obtenerComandasAbiertas() {
+            EntityManager entityManager = ManejadorConexiones.getEntityManager();
+    entityManager.getTransaction().begin();
 
-        String jpql = "SELECT new itson.sistemarestaurantedominio.dtos.ComandaDTO(c.id, c.folio, c.fechaHora, c.estado, c.totalVenta, c.mesa.id, c.cliente.id) FROM Comanda c";
-        TypedQuery<ComandaDTO> query = entityManager.createQuery(jpql, ComandaDTO.class);
-        List<ComandaDTO> comandasDTO = query.getResultList();
-        
-        entityManager.getTransaction().commit();
-        return comandasDTO;
+    String jpql = "SELECT c From Comanda c WHERE c.estado = :estado";
+    TypedQuery<Comanda> query = entityManager.createQuery(jpql, Comanda.class);
+    query.setParameter("estado", EstadoComanda.ABIERTA); 
+    List<Comanda> comandas = query.getResultList();
+    entityManager.getTransaction().commit();
+
+    List<ComandaDTO> comandasDTO = new LinkedList<>();
+    for(Comanda comanda : comandas){
+        Long idCliente;
+        if (comanda.getCliente() == null){
+            idCliente = null;
+        } else {
+            idCliente = comanda.getCliente().getId();
+        }
+        ComandaDTO comandaDTO = new ComandaDTO(
+            comanda.getId(),
+            comanda.getFolio(),
+            comanda.getFechaHora(),
+            comanda.getEstado(),
+            comanda.getTotalVenta(),
+            comanda.getMesa().getId(),
+            idCliente
+        );
+        comandasDTO.add(comandaDTO);
+    }
+
+    return comandasDTO;
     }
 
     @Override
     public ComandaDTO obtenerComandaPorId(Long idComanda) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'obtenerComandaPorId'");
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        entityManager.getTransaction().begin();
+
+        String jpql = "SELECT c FROM Comanda c WHERE c.id = :idComanda";
+        TypedQuery<Comanda> query = entityManager.createQuery(jpql, Comanda.class);
+        query.setParameter("idComanda", idComanda);
+        Comanda comanda = query.getSingleResult();
+        entityManager.getTransaction().commit();
+        
+        Long idCliente;
+        if (comanda.getCliente() == null){
+            idCliente = null;
+        } else {
+            idCliente = comanda.getCliente().getId();
+        }
+        ComandaDTO comandaDTO = new ComandaDTO(
+            comanda.getId(),
+            comanda.getFolio(),
+            comanda.getFechaHora(),
+            comanda.getEstado(),
+            comanda.getTotalVenta(),
+            comanda.getMesa().getId(),
+            idCliente
+        );
+        return comandaDTO;
     }
 
     /**

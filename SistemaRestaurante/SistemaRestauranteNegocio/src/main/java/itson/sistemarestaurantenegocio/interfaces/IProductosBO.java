@@ -50,4 +50,12 @@ public interface IProductosBO {
      * un error de la base de datos
      */
     public abstract List<ProductoDTO> obtenerProductos(String nombre, String categoria) throws NegocioException;
+
+    /**
+     * Metodo para obtener un producto por su id
+     * @param idProducto Id del producto
+     * @return ProductDTO representando el producto
+     * @throws NegocioException Si no lo encuentra
+     */
+    public abstract ProductoDTO obtenerProductoPorId(Long idProducto) throws NegocioException;
 }

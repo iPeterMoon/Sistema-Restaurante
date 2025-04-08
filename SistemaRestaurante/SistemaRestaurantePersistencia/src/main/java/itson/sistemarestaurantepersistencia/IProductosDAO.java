@@ -60,4 +60,12 @@ public interface IProductosDAO {
      * @return ProductoDTO con el producto encontrado o null si no se encuentra
      */
     public abstract ProductoDTO obtenerProductoPorNombre(String nombre);
+
+    /**
+     * Metodo para obtener un producto de la base de datos por su ID 
+     * y convertirlo a DTO
+     * @param idProducto Id del producto a buscar
+     * @return ProductoDTO con el producto encontrado o null si no se encuentra
+     */
+    public abstract ProductoDTO obtenerProductoPorId(Long idProducto);
 }

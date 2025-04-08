@@ -35,10 +35,10 @@ public class PnlComandas extends javax.swing.JPanel {
     }
 
     private void cargarComandas(){
+        IComandasBO comandasBO = ObjetosNegocioFactory.crearComandasBO();
+        List<ComandaDTO> comandas = null;
         try{
-            IComandasBO comandasBO = ObjetosNegocioFactory.crearComandasBO();
-            List<ComandaDTO> comandas = comandasBO.obtenerComandas();
-            cargarPanelesComandas(comandas);
+            comandas = comandasBO.obtenerComandas();
         } catch(NegocioException e){
             JOptionPane.showMessageDialog(
                 null, 
@@ -46,6 +46,9 @@ public class PnlComandas extends javax.swing.JPanel {
                 "No se encontraron comandas", 
                 JOptionPane.INFORMATION_MESSAGE
             );
+        }
+        if(comandas != null){
+            cargarPanelesComandas(comandas);
         }
     }
         /**

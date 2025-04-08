@@ -133,10 +133,10 @@ public class ProductosDAO implements IProductosDAO {
     }
 
     /**
-     * Metodo para obtener un producto de la base de datos por su id y
+     * Metodo para obtener un producto de la base de datos por su Nombre y
      * convertirlo a DTO
      *
-     * @param id Id del producto a buscar
+     * @param nombre Nombre del producto a buscar
      * @return Producto en formato DTO
      */
     @Override
@@ -147,6 +147,22 @@ public class ProductosDAO implements IProductosDAO {
         query.setParameter("nombre", nombre);
         List<ProductoDTO> productosDTO = query.getResultList();
         return productosDTO.isEmpty() ? null : productosDTO.get(0);
+    }
+
+
+    /**
+     * Metodo para obtener un producto de la base de datos por su id y convertirlo a DTO
+     * @param idProducto ID del producto a buscar
+     * @return Producto en formato DTO
+     */
+    @Override
+    public ProductoDTO obtenerProductoPorId(Long idProducto) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        String jpql = "SELECT new itson.sistemarestaurantedominio.dtos.ProductoDTO(p.id, p.nombre, p.precio, p.tipoProducto) FROM Producto p WHERE p.id = :idProducto";
+        TypedQuery<ProductoDTO> query = entityManager.createQuery(jpql, ProductoDTO.class);
+        query.setParameter("idProducto", idProducto);
+        ProductoDTO producto = query.getSingleResult();
+        return producto;
     }
 
     

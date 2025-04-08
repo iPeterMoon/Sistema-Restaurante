@@ -1,5 +1,6 @@
 package itson.sistemarestaurantepresentacion.control;
 
+import itson.sistemarestaurantedominio.dtos.ComandaDTO;
 import itson.sistemarestaurantedominio.dtos.ProductoDTO;
 import itson.sistemarestaurantepresentacion.pantallas.FramePrincipal;
 import itson.sistemarestaurantepresentacion.pantallas.PnlAgregarIngrediente;
@@ -8,6 +9,7 @@ import itson.sistemarestaurantepresentacion.pantallas.PnlBuscarCliente;
 import itson.sistemarestaurantepresentacion.pantallas.PnlBuscarIngredientes;
 import itson.sistemarestaurantepresentacion.pantallas.PnlBuscarProductos;
 import itson.sistemarestaurantepresentacion.pantallas.PnlComandas;
+import itson.sistemarestaurantepresentacion.pantallas.PnlEspecificacionesComanda;
 import itson.sistemarestaurantepresentacion.pantallas.PnlIngredientesProducto;
 import itson.sistemarestaurantepresentacion.pantallas.PnlInicio;
 import itson.sistemarestaurantepresentacion.pantallas.PnlMesas;
@@ -63,6 +65,15 @@ public class ControlFlujo {
     public static void mostrarComandas() {
         PnlComandas pnlComandas = new PnlComandas();
         mostrarPanel(pnlComandas);
+    }
+
+    /**
+     * Metodo para mostrar el panel con las especificaciones de una comanda
+     * @param comanda Comanda a mostrar.
+     */
+    public static void mostrarEspecificacionesComanda(ComandaDTO comanda){
+        PnlEspecificacionesComanda pnlEspecificacionesComanda = new PnlEspecificacionesComanda(comanda);
+        mostrarPanel(pnlEspecificacionesComanda);
     }
 
     /**

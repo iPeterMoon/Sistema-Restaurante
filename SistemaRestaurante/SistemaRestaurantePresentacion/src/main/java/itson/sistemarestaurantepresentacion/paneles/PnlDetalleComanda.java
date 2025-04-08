@@ -1,8 +1,16 @@
 package itson.sistemarestaurantepresentacion.paneles;
 
+import itson.sistemarestaurantedominio.dtos.DetallesComandaDTO;
 import itson.sistemarestaurantedominio.dtos.ProductoDTO;
+import itson.sistemarestaurantenegocio.excepciones.NegocioException;
+import itson.sistemarestaurantenegocio.factory.ObjetosNegocioFactory;
+import itson.sistemarestaurantenegocio.interfaces.IProductosBO;
+
 import java.awt.Font;
 import java.math.BigDecimal;
+
+import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 
@@ -26,6 +34,29 @@ public class PnlDetalleComanda extends javax.swing.JPanel {
         initComponents();
         cargarDetallesProducto();
         spinnerCantidad.setFocusable(false);
+    }
+
+    public PnlDetalleComanda(DetallesComandaDTO detallesComanda){
+        try{
+            IProductosBO productosBO = ObjetosNegocioFactory.crearProductosBO();
+            ProductoDTO producto = productosBO.obtenerProductoPorId(detallesComanda.getIdProducto());
+            this.producto = producto;
+            initComponents();
+            cargarDetallesProducto();
+            spinnerCantidad.setValue(detallesComanda.getCantidad());
+            JFormattedTextField spin = ((JSpinner.DefaultEditor)spinnerCantidad.getEditor()).getTextField();
+            spin.setEditable(false);
+            txtAreaComentarios.setText(detallesComanda.getComentario());
+            txtAreaComentarios.setEditable(false);
+        } catch (NegocioException e){
+            JOptionPane.showMessageDialog(
+                null,
+                "Error: "+e.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+        }
+
     }
     
     /**
@@ -203,7 +234,6 @@ public class PnlDetalleComanda extends javax.swing.JPanel {
     public ProductoDTO getProducto() {
         return producto;
     }
-    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

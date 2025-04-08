@@ -65,4 +65,11 @@ public interface IClientesDAO{
          */
         public List<ClienteDTO> buscarClientesPorNombreTelefonoYCorreo(String nombre, String telefono, String correo);
 
+        /**
+         * Metodo para obtener un cliente por su id
+         * @param idCliente Id del cliente a buscar
+         * @return ClienteDTO representando el cliente
+         */
+        public abstract ClienteDTO obtenerClientePorId(Long idCliente);
+
 }

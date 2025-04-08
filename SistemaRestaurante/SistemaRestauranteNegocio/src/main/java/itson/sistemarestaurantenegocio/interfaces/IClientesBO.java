@@ -63,4 +63,11 @@ public interface IClientesBO {
      */
     public List<ClienteDTO> buscarClientesPorNombreTelefonoYCorreo(String nombre, String telefono, String correo) throws NegocioException;
 
+    /**
+     * Metodo para obtener un cliente por su id
+     * @param idCliente Id del cliente a buscar
+     * @return ClienteDTO representando el cliente encontrado
+     */
+    public ClienteDTO obtenerClientePorId(Long idCliente) throws NegocioException;
+
 }

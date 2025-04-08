@@ -38,7 +38,7 @@ public interface IComandasDAO {
      *
      * @return Lista de objetos ComandaDTO que representan las comandas.
      */
-    public abstract List<ComandaDTO> obtenerComandas();
+    public abstract List<ComandaDTO> obtenerComandasAbiertas();
 
     /**
      * Obtiene una comanda específica por su identificador único.
