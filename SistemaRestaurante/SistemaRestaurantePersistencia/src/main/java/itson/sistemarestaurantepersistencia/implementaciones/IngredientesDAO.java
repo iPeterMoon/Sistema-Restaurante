@@ -13,7 +13,8 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 /**
- *
+ * Clase que implementa la interfaz IIngredientesDAO y proporciona
+ * implementaciones para los métodos de persistencia de ingredientes en el
  * @author PC
  */
 public class IngredientesDAO implements IIngredientesDAO {
@@ -199,6 +200,14 @@ public class IngredientesDAO implements IIngredientesDAO {
     return existeIngrediente;
   }
 
+  /**
+   * Metodo para obtener un ingrediente de la base de datos por su id y
+   * convertirlo a DTO
+   *
+   * @param idIngrediente Id del ingrediente a buscar
+   * @return IngredienteDTO con el ingrediente encontrado o null si no se
+   *         encuentra
+   */
   @Override
   public IngredienteDTO obtenerIngredientePorId(Long idIngrediente) {
     EntityManager entityManager = ManejadorConexiones.getEntityManager();

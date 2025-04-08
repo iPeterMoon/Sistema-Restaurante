@@ -11,7 +11,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 /**
- *
+ * Clase que implementa la interfaz IMesasDAO y proporciona
+ * implementaciones para los métodos de persistencia de mesas en el
  * @author pc
  */
 public class MesasDAO implements IMesasDAO{
@@ -53,6 +54,11 @@ public class MesasDAO implements IMesasDAO{
         return numeroMesas;
     }
 
+    /**
+     * Metodo para obtener una lista con todas las mesas de la base de datos
+     * y convertirlas a DTO
+     * @return Lista con todas las mesas en formato DTO
+     */
     @Override
     public List<MesaDTO> obtenerMesasDisponibles() {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();

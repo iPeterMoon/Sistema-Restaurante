@@ -6,7 +6,8 @@ import itson.sistemarestaurantedominio.dtos.NuevoIngredienteDTO;
 import java.util.List;
 
 /**
- *
+ * Interfaz que define los métodos para la persistencia de los ingredientes
+ * en el sistema de restaurante.
  * @author PC
  */
 public interface IIngredientesDAO {

@@ -10,7 +10,8 @@ import itson.sistemarestaurantedominio.dtos.ProductoDTO;
 import java.util.List;
 
 /**
- *
+ * Interfaz que define los métodos para la persistencia de los productos en el sistema de restaurante.
+ * Esta interfaz proporciona métodos para agregar productos, obtener productos
  * @author PC
  */
 public interface IProductosDAO {

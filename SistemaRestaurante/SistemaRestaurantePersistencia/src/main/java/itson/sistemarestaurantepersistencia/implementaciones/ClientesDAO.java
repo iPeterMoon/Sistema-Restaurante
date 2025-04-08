@@ -15,6 +15,11 @@ import itson.sistemarestaurantedominio.dtos.ClienteDTO;
 import itson.sistemarestaurantedominio.dtos.NuevoClienteDTO;
 import itson.sistemarestaurantepersistencia.IClientesDAO;
 
+/**
+ * Clase que implementa la interfaz IClientesDAO para la persistencia de los clientes en el sistema de restaurante.
+ * Esta clase proporciona métodos para registrar nuevos clientes y buscar clientes por diferentes criterios.
+ * @author Pc
+ */
 public class ClientesDAO implements IClientesDAO {
 
     /**
@@ -271,6 +276,12 @@ public class ClientesDAO implements IClientesDAO {
         return listaClientes;
     }
     
+    /**
+     * Metodo para obtener una seleccion de ClienteDTO
+     * @param root Raiz de la consulta
+     * @param criteriaBuilder Constructor de criterios
+     * @return Seleccion de ClienteDTO
+     */
     private CompoundSelection<ClienteDTO> getClienteDTOSelection(Root<Cliente> root, CriteriaBuilder criteriaBuilder) {
         return criteriaBuilder.construct(
                 ClienteDTO.class,

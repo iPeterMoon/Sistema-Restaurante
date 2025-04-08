@@ -19,7 +19,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 /**
- *
+ * Clase que implementa la interfaz IProductosDAO y proporciona
+ * implementaciones para los métodos de persistencia de productos en el
  * @author PC
  */
 public class ProductosDAO implements IProductosDAO {
@@ -131,7 +132,13 @@ public class ProductosDAO implements IProductosDAO {
         return productosDTO;
     }
 
-
+    /**
+     * Metodo para obtener un producto de la base de datos por su id y
+     * convertirlo a DTO
+     *
+     * @param id Id del producto a buscar
+     * @return Producto en formato DTO
+     */
     @Override
     public ProductoDTO obtenerProductoPorNombre(String nombre) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();

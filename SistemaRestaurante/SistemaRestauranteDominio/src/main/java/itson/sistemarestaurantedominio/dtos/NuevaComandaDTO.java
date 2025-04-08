@@ -9,19 +9,8 @@ import java.util.List;
  */
 public class NuevaComandaDTO {
 
-    /**
-     * Identificador de la mesa asociada a la comanda.
-     */
     private Long idMesa;
-
-    /**
-     * Identificador del usuario que realiza la comanda.
-     */
     private Long idUsuario;
-
-    /**
-     * Lista de detalles de la comanda, que incluye los productos y sus cantidades.
-     */
     private List<NuevoDetalleComandaDTO> detallesComanda;
 
     /**

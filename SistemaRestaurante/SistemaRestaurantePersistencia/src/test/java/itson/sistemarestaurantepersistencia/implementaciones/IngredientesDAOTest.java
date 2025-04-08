@@ -55,7 +55,7 @@ public class IngredientesDAOTest {
     }
 
     @Test
-    public void testObtenerProductosOk() {
+    public void testObtenerIngredientesOK() {
         final Integer CANTIDAD_PRODUCTO = 3;
         final Integer CANTIDAD_INGREDIENTES_ESPERADOS = 1;
         NuevoIngredienteDTO nuevoIngrediente = new NuevoIngredienteDTO(
@@ -67,7 +67,7 @@ public class IngredientesDAOTest {
     }
 
     @Test
-    public void testObtenerProductosFiltradoNombre() {
+    public void testObtenerIngredientesFiltradoNombre() {
         final Integer CANTIDAD_PRODUCTO = 3;
         final String FILTRO_BUSCADO = "Calabaza";
         final Integer CANTIDAD_INGREDIENTES_ESPERADOS = 1;
@@ -80,7 +80,7 @@ public class IngredientesDAOTest {
     }
 
     @Test
-    public void testObtenerProductosFiltradoUnidadMedida() {
+    public void testObtenerIngredientesFiltradoUnidadMedida() {
         final Integer CANTIDAD_PRODUCTO = 3;
         final String FILTRO_BUSCADO = "Pieza";
         final Integer CANTIDAD_INGREDIENTES_ESPERADOS = 1;

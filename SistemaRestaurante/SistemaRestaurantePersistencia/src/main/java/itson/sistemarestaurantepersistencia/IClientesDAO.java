@@ -6,6 +6,9 @@ import itson.sistemarestaurantedominio.Cliente;
 import itson.sistemarestaurantedominio.dtos.NuevoClienteDTO;
 import itson.sistemarestaurantedominio.dtos.ClienteDTO;
 
+/**
+ * Interfaz que define los métodos para la persistencia de los clientes en el sistema de restaurante.
+ */
 public interface IClientesDAO{
         
         /**

@@ -14,6 +14,10 @@ import itson.sistemarestaurantedominio.dtos.IngredienteProductoDTO;
 import itson.sistemarestaurantepersistencia.IIngredientesProductosDAO;
 import itson.sistemarestaurantedominio.IngredientesProducto;
 
+/**
+ * Clase que implementa la interfaz IIngredientesProductosDAO y proporciona
+ * implementaciones para los métodos de persistencia de los ingredientes de los productos en el
+ */
 public class IngredientesProductosDAO implements IIngredientesProductosDAO {
   /**
    * Metodo para obtener una lista con todos los ingredientes de un producto
@@ -30,11 +34,8 @@ public class IngredientesProductosDAO implements IIngredientesProductosDAO {
     CriteriaQuery<IngredienteProductoDTO> criteria = builder.createQuery(IngredienteProductoDTO.class);
     Root<IngredientesProducto> rootIngrediente = criteria.from(IngredientesProducto.class);
 
-    // Join Ingrediente -> IngredienteProducto
     Join<IngredientesProducto, Producto> joinProducto = rootIngrediente.join("producto");
 
-
-    // Build the query
     criteria.select(
         builder.construct(
             IngredienteProductoDTO.class,
