@@ -5,7 +5,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- *
+ * Clase que representa un Data Transfer Object (DTO) para un nuevo producto.
+ * Contiene los atributos necesarios para crear un nuevo producto en el sistema.
  * @author PC
  */
 public class NuevoProductoDTO {

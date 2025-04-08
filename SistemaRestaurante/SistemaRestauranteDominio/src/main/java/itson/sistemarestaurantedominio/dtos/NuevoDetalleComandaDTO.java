@@ -2,7 +2,11 @@ package itson.sistemarestaurantedominio.dtos;
 
 import java.math.BigDecimal;
 
-
+/**
+ * Clase que representa un Data Transfer Object (DTO) para un nuevo detalle de comanda.
+ * Contiene información sobre la cantidad, comentario, precio unitario, total por producto y el ID del producto.
+ * @author pc
+ */
 public class NuevoDetalleComandaDTO {
     
     private Integer cantidad;

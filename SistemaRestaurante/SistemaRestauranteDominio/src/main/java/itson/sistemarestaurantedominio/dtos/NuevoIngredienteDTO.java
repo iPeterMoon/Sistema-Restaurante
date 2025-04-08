@@ -3,7 +3,8 @@ package itson.sistemarestaurantedominio.dtos;
 import itson.sistemarestaurantedominio.enumeradores.UnidadMedida;
 
 /**
- *
+ * Clase que representa un Data Transfer Object (DTO) para un nuevo ingrediente.
+ * Contiene los atributos necesarios para crear un nuevo ingrediente en el sistema.
  * @author PC
  */
 public class NuevoIngredienteDTO {
@@ -26,14 +27,26 @@ public class NuevoIngredienteDTO {
         this.stock = stock;
     }
 
+    /**
+     * Metodo que obtiene el nombre de el ingrediente
+     * @return Nombre de el ingrediente
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     * Metodo que obtiene la unidad de medida de el ingrediente
+     * @return Unidad de medida de el ingrediente
+     */
     public UnidadMedida getUnidadMedida() {
         return unidadMedida;
     }
 
+    /**
+     * Metodo que obtiene el stock de el ingrediente
+     * @return Stock de el ingrediente
+     */
     public Integer getStock() {
         return stock;
     }
