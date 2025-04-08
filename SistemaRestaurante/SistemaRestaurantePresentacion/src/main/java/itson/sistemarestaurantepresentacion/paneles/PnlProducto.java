@@ -2,6 +2,7 @@ package itson.sistemarestaurantepresentacion.paneles;
 
 import java.awt.Font;
 
+
 import itson.sistemarestaurantedominio.dtos.ProductoDTO;
 import itson.sistemarestaurantepresentacion.control.ControlFlujo;
 import itson.sistemarestaurantepresentacion.modales.ModalProductos;
@@ -86,7 +87,6 @@ public class PnlProducto extends javax.swing.JPanel {
         btnVerIngredientes.setFont(new Font("Poppins", Font.PLAIN, 18));
         btnVerIngredientes.setForeground(new java.awt.Color(255, 255, 255));
         btnVerIngredientes.setText("Ver Ingredientes");
-        btnVerIngredientes.setBorder(null);
         btnVerIngredientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnVerIngredientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

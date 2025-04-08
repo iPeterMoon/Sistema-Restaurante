@@ -11,7 +11,10 @@ import itson.sistemarestaurantepresentacion.modales.ModalProductos;
 import itson.sistemarestaurantepresentacion.paneles.PnlDetalleComanda;
 
 import java.awt.Font;
+import java.util.LinkedList;
 import java.util.List;
+
+import javax.swing.Box;
 
 /**
  * Clase que representa el panel de registro de comandas en la
@@ -21,7 +24,7 @@ import java.util.List;
 public class PnlRegistrarComanda extends javax.swing.JPanel {
 
     private ClienteComandaDTO clienteComanda;
-    private List<PnlDetalleComanda> detallesComanda;
+    private List<PnlDetalleComanda> detallesComanda = new LinkedList<>();
 
     /**
      * Creates new form PnlRegistrarComanda
@@ -127,7 +130,7 @@ public class PnlRegistrarComanda extends javax.swing.JPanel {
         scrollPnlDetallesComanda.setBorder(null);
 
         pnlDetallesComanda.setBackground(new java.awt.Color(31, 31, 31));
-        pnlDetallesComanda.setLayout(new javax.swing.BoxLayout(pnlDetallesComanda, javax.swing.BoxLayout.LINE_AXIS));
+        pnlDetallesComanda.setLayout(new javax.swing.BoxLayout(pnlDetallesComanda, javax.swing.BoxLayout.Y_AXIS));
         scrollPnlDetallesComanda.setViewportView(pnlDetallesComanda);
 
         javax.swing.GroupLayout pnlComandaLayout = new javax.swing.GroupLayout(pnlComanda);
@@ -152,8 +155,8 @@ public class PnlRegistrarComanda extends javax.swing.JPanel {
                         .addComponent(txtCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(107, 107, 107))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlComandaLayout.createSequentialGroup()
-                .addGap(0, 46, Short.MAX_VALUE)
-                .addComponent(scrollPnlDetallesComanda, javax.swing.GroupLayout.PREFERRED_SIZE, 979, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 37, Short.MAX_VALUE)
+                .addComponent(scrollPnlDetallesComanda, javax.swing.GroupLayout.PREFERRED_SIZE, 1036, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39))
         );
         pnlComandaLayout.setVerticalGroup(
@@ -180,13 +183,14 @@ public class PnlRegistrarComanda extends javax.swing.JPanel {
             pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPrincipalLayout.createSequentialGroup()
                 .addGap(80, 80, 80)
-                .addGroup(pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(pnlComanda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(pnlPrincipalLayout.createSequentialGroup()
-                        .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 285, Short.MAX_VALUE)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(96, 96, 96))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPrincipalLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlComanda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(64, 64, 64))
         );
         pnlPrincipalLayout.setVerticalGroup(
             pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,11 +241,13 @@ public class PnlRegistrarComanda extends javax.swing.JPanel {
         }
         PnlDetalleComanda detalleComanda = new PnlDetalleComanda(producto);
         pnlDetallesComanda.add(detalleComanda);
+        pnlDetallesComanda.add(Box.createVerticalStrut(20));
         pnlDetallesComanda.revalidate();
         pnlDetallesComanda.repaint();
+        detallesComanda.add(detalleComanda);
         //TODO: Crear el DetallesComandaDTO y agregarlo a la lista de detalles de la comanda
     }//GEN-LAST:event_btnBuscarProductosActionPerformed
-    
+
     /**
      * Carga el nombre del cliente en el label correspondiente.
      * @param cliente El cliente a cargar.

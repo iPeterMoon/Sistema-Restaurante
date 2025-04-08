@@ -295,6 +295,7 @@ public class PnlBusquedaProducto extends javax.swing.JPanel {
      */
     public void setSelectionMode(boolean selectionMode) {
         this.isSelectionMode = selectionMode;
+        this.cargarTodosProductos();
     }
 
     /**

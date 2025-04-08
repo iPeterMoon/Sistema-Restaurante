@@ -5,8 +5,9 @@ import itson.sistemarestaurantepresentacion.control.ControlFlujo;
 import java.awt.Font;
 
 /**
- *
- * @author Peter
+ * Clase que representa el panel de comandas en la
+ * interfaz de usuario. Este panel permite ir a la seccion para agregar nuevas comandas.
+ * @author pc
  */
 public class PnlComandas extends javax.swing.JPanel {
 
