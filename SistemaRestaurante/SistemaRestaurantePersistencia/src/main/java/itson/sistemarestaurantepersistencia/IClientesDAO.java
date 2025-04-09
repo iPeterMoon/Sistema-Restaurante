@@ -4,6 +4,7 @@ import java.util.List;
 
 import itson.sistemarestaurantedominio.Cliente;
 import itson.sistemarestaurantedominio.dtos.NuevoClienteDTO;
+import itson.sistemarestaurantepersistencia.excepciones.PersistenciaException;
 import itson.sistemarestaurantedominio.dtos.ClienteDTO;
 
 /**
@@ -71,5 +72,12 @@ public interface IClientesDAO{
          * @return ClienteDTO representando el cliente
          */
         public abstract ClienteDTO obtenerClientePorId(Long idCliente);
+
+        /**
+         * Metodo para agregarle puntos a un cliente
+         * @param idCliente Id del cliente a agregarle puntos
+         * @param puntos Puntos a agregar
+         */
+        public abstract void agregarPuntos(Long idCliente, Integer puntos) throws PersistenciaException;
 
 }

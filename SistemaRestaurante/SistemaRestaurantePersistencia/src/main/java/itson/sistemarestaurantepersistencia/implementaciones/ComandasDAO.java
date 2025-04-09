@@ -6,9 +6,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Root;
 
 import itson.sistemarestaurantedominio.Cliente;
@@ -21,6 +22,7 @@ import itson.sistemarestaurantedominio.dtos.NuevaComandaDTO;
 import itson.sistemarestaurantedominio.dtos.NuevoDetalleComandaDTO;
 import itson.sistemarestaurantedominio.enumeradores.EstadoComanda;
 import itson.sistemarestaurantepersistencia.IComandasDAO;
+import itson.sistemarestaurantepersistencia.excepciones.PersistenciaException;
 
 public class ComandasDAO implements IComandasDAO {
 
@@ -78,18 +80,6 @@ public class ComandasDAO implements IComandasDAO {
 
         entityManager.getTransaction().commit();
         return comanda;
-    }
-
-    @Override
-    public void entregarComanda(ComandaDTO comandaDTO) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'entregarComanda'");
-    }
-
-    @Override
-    public void cancelarComanda(ComandaDTO comandaDTO) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'cancelarComanda'");
     }
 
     @Override
@@ -179,5 +169,29 @@ public class ComandasDAO implements IComandasDAO {
 
         // Construir el folio
         return "OB-" + fecha + "-" + numeroFormateado;
+    }
+
+    /**
+     * Metodo para cambiar el estado de una comanda
+     * @param idComanda Id de la comanda a cambiar
+     * @param nuevoEstado Nuevo estado de la comanda
+     */
+    @Override
+    public void cambiarEstadoComanda(Long idComanda, EstadoComanda nuevoEstado) throws PersistenciaException{
+       EntityManager entityManager = ManejadorConexiones.getEntityManager();
+       Comanda comanda = entityManager.find(Comanda.class, idComanda);
+       if(comanda == null){
+        throw new PersistenciaException("No se pudo encontrar la comanda en el sistema");
+       } 
+       entityManager.getTransaction().begin();
+
+       CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+       CriteriaUpdate<Comanda> criteria = builder.createCriteriaUpdate(Comanda.class);
+       Root<Comanda> root = criteria.from(Comanda.class);
+       criteria.set("estado", nuevoEstado);
+       criteria.where(builder.equal(root.get("id"), idComanda));
+       Query update = entityManager.createQuery(criteria);
+       update.executeUpdate();
+       entityManager.getTransaction().commit();
     }
 }

@@ -9,6 +9,7 @@ import itson.sistemarestaurantenegocio.excepciones.NegocioException;
 import itson.sistemarestaurantenegocio.interfaces.IClientesBO;
 import itson.sistemarestaurantenegocio.seguridad.Cifrado;
 import itson.sistemarestaurantepersistencia.IClientesDAO;
+import itson.sistemarestaurantepersistencia.excepciones.PersistenciaException;
 
 public class ClientesBO implements IClientesBO {
 
@@ -36,7 +37,7 @@ public class ClientesBO implements IClientesBO {
             throw new NegocioException("El telefono debe tener 10 digitos");
         }
         String correo = nuevoCliente.getCorreo();
-        if(correo == null || correo.isBlank()) {
+        if (correo == null || correo.isBlank()) {
             nuevoCliente.setCorreo(null);
         } else {
             validarCorreo(correo);
@@ -99,7 +100,7 @@ public class ClientesBO implements IClientesBO {
     @Override
     public List<ClienteDTO> buscarClientesPorTelefono(String telefono) throws NegocioException {
         String telefonoCifrado;
-        try{
+        try {
             telefonoCifrado = Cifrado.cifrar(telefono);
         } catch (Exception e) {
             throw new NegocioException("Error al buscar el telefono");
@@ -123,7 +124,7 @@ public class ClientesBO implements IClientesBO {
     @Override
     public List<ClienteDTO> buscarClientesPorNombreYTelefono(String nombre, String telefono) throws NegocioException {
         String telefonoCifrado;
-        try{
+        try {
             telefonoCifrado = Cifrado.cifrar(telefono);
         } catch (Exception e) {
             throw new NegocioException("Error al buscar el telefono");
@@ -147,7 +148,7 @@ public class ClientesBO implements IClientesBO {
     @Override
     public List<ClienteDTO> buscarClientesPorTelefonoYCorreo(String telefono, String correo) throws NegocioException {
         String telefonoCifrado;
-        try{
+        try {
             telefonoCifrado = Cifrado.cifrar(telefono);
         } catch (Exception e) {
             throw new NegocioException("Error al buscar el telefono");
@@ -160,9 +161,10 @@ public class ClientesBO implements IClientesBO {
     }
 
     @Override
-    public List<ClienteDTO> buscarClientesPorNombreTelefonoYCorreo(String nombre, String telefono, String correo) throws NegocioException {
+    public List<ClienteDTO> buscarClientesPorNombreTelefonoYCorreo(String nombre, String telefono, String correo)
+            throws NegocioException {
         String telefonoCifrado;
-        try{
+        try {
             telefonoCifrado = Cifrado.cifrar(telefono);
         } catch (Exception e) {
             throw new NegocioException("Error al buscar el telefono");
@@ -177,9 +179,27 @@ public class ClientesBO implements IClientesBO {
     @Override
     public ClienteDTO obtenerClientePorId(Long idCliente) throws NegocioException {
         ClienteDTO cliente = clientesDAO.obtenerClientePorId(idCliente);
-        if(cliente == null){
-            throw new NegocioException("No se encontró el cliente con id: "+idCliente);
+        if (cliente == null) {
+            throw new NegocioException("No se encontró el cliente con id: " + idCliente);
         }
         return cliente;
+    }
+
+    /**
+     * Metodo para agregarle puntos a un cliente
+     * 
+     * @param idCliente Id del cliente a agregarle puntos
+     * @param puntos    Puntos a agregar
+     */
+    @Override
+    public void agregarPuntos(Long idCliente, Integer puntos) throws NegocioException {
+        if(puntos < 0 ){
+            throw new NegocioException("No se pueden agregar puntos negativos");
+        }
+        try{
+            clientesDAO.agregarPuntos(idCliente, puntos);
+        } catch (PersistenciaException e){
+            throw new NegocioException(e.getMessage());
+        }
     }
 }

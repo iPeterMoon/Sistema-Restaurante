@@ -4,16 +4,19 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CompoundSelection;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Root;
 
 import itson.sistemarestaurantedominio.Cliente;
 import itson.sistemarestaurantedominio.dtos.ClienteDTO;
 import itson.sistemarestaurantedominio.dtos.NuevoClienteDTO;
 import itson.sistemarestaurantepersistencia.IClientesDAO;
+import itson.sistemarestaurantepersistencia.excepciones.PersistenciaException;
 
 /**
  * Clase que implementa la interfaz IClientesDAO para la persistencia de los clientes en el sistema de restaurante.
@@ -321,5 +324,34 @@ public class ClientesDAO implements IClientesDAO {
         }
 
         return clienteDTO;
+    }
+
+    /**
+         * Metodo para agregarle puntos a un cliente
+         * @param idCliente Id del cliente a agregarle puntos
+         * @param puntos Puntos a agregar
+         */
+    @Override
+    public void agregarPuntos(Long idCliente, Integer puntos) throws PersistenciaException {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        entityManager.getTransaction().begin();
+
+        Cliente cliente = entityManager.find(Cliente.class, idCliente);
+        if(cliente == null){
+            throw new PersistenciaException("No se pudo encontrar al cliente para sumarle puntos");
+        }
+        Integer puntosActuales = cliente.getPuntos();
+        Integer puntosNuevos = puntosActuales + puntos;
+
+
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaUpdate<Cliente> update = builder.createCriteriaUpdate(Cliente.class);
+        Root<Cliente> root = update.from(Cliente.class);
+        update.set("puntos", puntosNuevos);
+        update.where(builder.equal(root.get("id"), idCliente));
+        Query query = entityManager.createQuery(update);
+        query.executeUpdate();
+        
+        entityManager.getTransaction().commit();
     }
 }

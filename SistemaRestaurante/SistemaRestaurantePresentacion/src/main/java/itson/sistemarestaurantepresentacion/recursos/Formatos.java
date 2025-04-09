@@ -22,7 +22,7 @@ public class Formatos {
     public static String cargarHora(Calendar fecha){
         int hora = fecha.get(Calendar.HOUR_OF_DAY);
         int minutos = fecha.get(Calendar.MINUTE);
-        String strHora = hora + ":" + minutos;
+        String strHora = String.format("%02d:%02d", hora, minutos);
         
         return strHora;
     }

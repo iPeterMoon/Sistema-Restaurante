@@ -3,6 +3,8 @@ package itson.sistemarestaurantepersistencia.implementaciones;
 import itson.sistemarestaurantedominio.Cliente;
 import itson.sistemarestaurantedominio.dtos.ClienteDTO;
 import itson.sistemarestaurantedominio.dtos.NuevoClienteDTO;
+import itson.sistemarestaurantepersistencia.excepciones.PersistenciaException;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -272,5 +274,27 @@ public class ClientesDAOTest {
         assertEquals(cliente.getTelefono(), clientes.get(0).getTelefono());
         assertEquals(cliente.getCorreo(), clientes.get(0).getCorreo());
         assertEquals(cliente.getPuntos(), clientes.get(0).getPuntos()); 
+    }
+
+    @Test
+    public void testAgregarPuntos() throws PersistenciaException{
+        System.out.println("Agregar Puntos");
+        NuevoClienteDTO nuevoCliente = new NuevoClienteDTO(
+            "Jefferson",
+            "Gutierritos",
+            "Gonzalez",
+            "6441231231",
+            "jeff.gutierrez@gmail.com");
+        clienteGuardado = clientesDAO.registrarCliente(nuevoCliente);
+
+        final Integer PUNTOS_ACTUALES = 0;
+        final Integer PUNTOS_NUEVOS = 15;
+        assertNotNull(clienteGuardado);
+        assertEquals(PUNTOS_ACTUALES, clienteGuardado.getPuntos());
+        clientesDAO.agregarPuntos(clienteGuardado.getId(), 15);
+        ClienteDTO cliente = clientesDAO.obtenerClientePorId(clienteGuardado.getId());
+        assertNotNull(cliente);
+        assertEquals(PUNTOS_NUEVOS, cliente.getPuntos());
+        
     }
 }

@@ -5,6 +5,8 @@ import java.util.List;
 import itson.sistemarestaurantedominio.Comanda;
 import itson.sistemarestaurantedominio.dtos.ComandaDTO;
 import itson.sistemarestaurantedominio.dtos.NuevaComandaDTO;
+import itson.sistemarestaurantedominio.enumeradores.EstadoComanda;
+import itson.sistemarestaurantepersistencia.excepciones.PersistenciaException;
 
 /**
  * Interfaz que define los métodos para la persistencia de las comandas en el sistema de restaurante.
@@ -20,20 +22,6 @@ public interface IComandasDAO {
     public abstract Comanda guardarComanda(NuevaComandaDTO comandaDTO);
 
     /**
-     * Marca una comanda como entregada.
-     *
-     * @param comandaDTO Objeto que contiene los datos de la comanda a entregar.
-     */
-    public abstract void entregarComanda(ComandaDTO comandaDTO);
-
-    /**
-     * Cancela una comanda en el sistema.
-     *
-     * @param comandaDTO Objeto que contiene los datos de la comanda a cancelar.
-     */
-    public abstract void cancelarComanda(ComandaDTO comandaDTO);
-
-    /**
      * Obtiene una lista de todas las comandas registradas en el sistema.
      *
      * @return Lista de objetos ComandaDTO que representan las comandas.
@@ -47,4 +35,11 @@ public interface IComandasDAO {
      * @return Objeto ComandaDTO que representa la comanda encontrada.
      */
     public abstract ComandaDTO obtenerComandaPorId(Long idComanda);
+
+    /**
+     * Metodo para cambiar el estado de una comanda
+     * @param idComanda Id de la comanda a cambiar
+     * @param nuevoEstado Nuevo estado de la comanda
+     */
+    public abstract void cambiarEstadoComanda(Long idComanda, EstadoComanda nuevoEstado) throws PersistenciaException;
 }

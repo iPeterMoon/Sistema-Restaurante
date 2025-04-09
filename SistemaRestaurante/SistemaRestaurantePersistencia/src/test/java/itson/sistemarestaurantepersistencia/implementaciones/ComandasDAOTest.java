@@ -7,10 +7,14 @@ import itson.sistemarestaurantedominio.Ingrediente;
 import itson.sistemarestaurantedominio.IngredientesProducto;
 import itson.sistemarestaurantedominio.Mesa;
 import itson.sistemarestaurantedominio.Producto;
+import itson.sistemarestaurantedominio.dtos.ComandaDTO;
 import itson.sistemarestaurantedominio.dtos.NuevaComandaDTO;
 import itson.sistemarestaurantedominio.dtos.NuevoDetalleComandaDTO;
+import itson.sistemarestaurantedominio.enumeradores.EstadoComanda;
 import itson.sistemarestaurantedominio.enumeradores.TipoProducto;
 import itson.sistemarestaurantedominio.enumeradores.UnidadMedida;
+import itson.sistemarestaurantepersistencia.excepciones.PersistenciaException;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -264,5 +268,38 @@ public class ComandasDAOTest {
         assertNull(comandaGuardada.getCliente());
         assertEquals(1, comandaGuardada.getProductos().size());
         assertEquals(BigDecimal.valueOf(100.00), comandaGuardada.getTotalVenta());
+    }
+
+    @Test
+    public void testCambiarEstadoComanda() throws PersistenciaException{
+        
+        // Crear detalles de la comanda
+        List<NuevoDetalleComandaDTO> detallesComanda = new LinkedList<>();
+        NuevoDetalleComandaDTO detalleComanda = 
+        new NuevoDetalleComandaDTO(
+            2,
+            "Sin pepinos",
+            BigDecimal.valueOf(50.00),
+            BigDecimal.valueOf(100.00),
+            productoGuardado.getId()  
+        );
+        detallesComanda.add(detalleComanda);
+
+        // Crear la nueva comanda DTO
+        NuevaComandaDTO nuevaComandaDTO = new NuevaComandaDTO(mesaGuardada.getId(), clienteGuardado.getId(), detallesComanda);
+
+        // Guardar la comanda
+        ComandasDAO instance = new ComandasDAO();
+        comandaGuardada = instance.guardarComanda(nuevaComandaDTO);
+
+        // Verificar que la comanda se guardó correctamente
+        assertNotNull(comandaGuardada);
+        assertEquals(EstadoComanda.ABIERTA, comandaGuardada.getEstado());
+        
+        instance.cambiarEstadoComanda(comandaGuardada.getId(), EstadoComanda.ENTREGADA);
+        ComandaDTO comanda = instance.obtenerComandaPorId(comandaGuardada.getId());
+        assertNotNull(comanda);
+        assertEquals(EstadoComanda.ENTREGADA, comanda.getEstado());
+        
     }
 }

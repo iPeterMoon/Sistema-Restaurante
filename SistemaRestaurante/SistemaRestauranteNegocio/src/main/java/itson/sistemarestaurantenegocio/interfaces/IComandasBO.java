@@ -25,14 +25,14 @@ public interface IComandasBO {
      *
      * @param comandaDTO Objeto que contiene los datos de la comanda a entregar.
      */
-    public abstract void entregarComanda(ComandaDTO comandaDTO);
+    public abstract void entregarComanda(ComandaDTO comandaDTO) throws NegocioException;
 
     /**
      * Cancela una comanda en el sistema.
      *
      * @param comandaDTO Objeto que contiene los datos de la comanda a cancelar.
      */
-    public abstract void cancelarComanda(ComandaDTO comandaDTO);
+    public abstract void cancelarComanda(ComandaDTO comandaDTO) throws NegocioException;
 
     /**
      * Obtiene una lista de todas las comandas registradas en el sistema.
@@ -48,4 +48,5 @@ public interface IComandasBO {
      * @return Objeto ComandaDTO que representa la comanda encontrada.
      */
     public abstract ComandaDTO obtenerComandaPorId(Long idComanda);
+    
 }
