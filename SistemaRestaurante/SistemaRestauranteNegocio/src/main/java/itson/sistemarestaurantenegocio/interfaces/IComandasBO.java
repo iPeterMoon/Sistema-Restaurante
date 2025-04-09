@@ -1,8 +1,10 @@
 package itson.sistemarestaurantenegocio.interfaces;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import itson.sistemarestaurantedominio.dtos.ComandaDTO;
+import itson.sistemarestaurantedominio.dtos.DetallesComandaDTO;
 import itson.sistemarestaurantedominio.dtos.NuevaComandaDTO;
 import itson.sistemarestaurantenegocio.excepciones.NegocioException;
 
@@ -49,4 +51,19 @@ public interface IComandasBO {
      */
     public abstract ComandaDTO obtenerComandaPorId(Long idComanda);
     
+    /**
+     * Modifica una comanda
+     * @param comanda Comanda a modificar
+     * @param nuevosDetalles Los detalles modificados de la comanda
+     * @throws NegocioException 
+     */
+    public abstract void modificarComanda(ComandaDTO comanda, List<DetallesComandaDTO> nuevosDetalles) throws NegocioException;
+
+
+    /**
+     * Metodo para modificar el total de una comanda
+     * @param idComanda Id de la comanda a modificar
+     * @param nuevoTotal Nuevo Total de la comanda
+     */
+    public abstract void modificarTotal(Long idComanda, BigDecimal nuevoTotal);
 }

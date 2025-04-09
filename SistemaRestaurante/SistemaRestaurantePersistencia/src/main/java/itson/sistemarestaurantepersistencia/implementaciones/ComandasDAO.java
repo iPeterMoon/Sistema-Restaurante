@@ -194,4 +194,27 @@ public class ComandasDAO implements IComandasDAO {
        update.executeUpdate();
        entityManager.getTransaction().commit();
     }
+
+    /**
+     * Metodo para modificar el total de una comanda
+     * @param idComanda Id de la comanda a modificar
+     * @param nuevoTotal Nuevo Total de la comanda
+     */
+    @Override
+    public void modificarTotal(Long idComanda, BigDecimal nuevoTotal) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        entityManager.getTransaction().begin();
+
+        Comanda comanda = entityManager.find(Comanda.class, idComanda);
+        if(comanda != null){
+            CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+            CriteriaUpdate<Comanda> criteria = builder.createCriteriaUpdate(Comanda.class);
+            Root<Comanda> root = criteria.from(Comanda.class);
+            criteria.set("totalVenta", nuevoTotal);
+            criteria.where(builder.equal(root.get("id"), idComanda));
+            Query update = entityManager.createQuery(criteria);
+            update.executeUpdate();
+        }
+        entityManager.getTransaction().commit();
+    }
 }
