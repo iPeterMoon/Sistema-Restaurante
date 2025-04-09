@@ -13,6 +13,7 @@ import itson.sistemarestaurantepresentacion.pantallas.PnlEspecificacionesComanda
 import itson.sistemarestaurantepresentacion.pantallas.PnlIngredientesProducto;
 import itson.sistemarestaurantepresentacion.pantallas.PnlInicio;
 import itson.sistemarestaurantepresentacion.pantallas.PnlMesas;
+import itson.sistemarestaurantepresentacion.pantallas.PnlModificarComanda;
 import itson.sistemarestaurantepresentacion.pantallas.PnlRegistrarCliente;
 import itson.sistemarestaurantepresentacion.pantallas.PnlRegistrarComanda;
 
@@ -83,6 +84,16 @@ public class ControlFlujo {
     public static void mostrarPnlRegistroComanda() {
         PnlRegistrarComanda pnlRegistrarComanda = new PnlRegistrarComanda();
         mostrarPanel(pnlRegistrarComanda);
+    }
+
+    /**
+     * Metodo para mostrar el panel de modificacion de una comanda en 
+     * el frame principal.
+     * @param comanda
+     */
+    public static void mostrarPnlModificarComanda(ComandaDTO comanda){
+        PnlModificarComanda pnlModificarComanda = new PnlModificarComanda(comanda);
+        mostrarPanel(pnlModificarComanda);
     }
 
     /**

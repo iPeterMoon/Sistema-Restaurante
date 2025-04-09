@@ -101,4 +101,12 @@ public class ComandaDTO {
     public Long getIdCliente() {
         return idCliente;
     }
+
+    /***
+     * Metodo para cambiar el total de la comanda
+     * @param total Total de la comanda
+     */
+    public void setTotal(BigDecimal total){
+        this.total = total;
+    }
 }

@@ -1,15 +1,20 @@
 package itson.sistemarestaurantepresentacion.pantallas;
 
 import java.awt.Font;
+import java.math.BigDecimal;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.JOptionPane;
 
+import itson.sistemarestaurantedominio.DetallesComanda;
 import itson.sistemarestaurantedominio.dtos.ClienteDTO;
 import itson.sistemarestaurantedominio.dtos.ComandaDTO;
 import itson.sistemarestaurantedominio.dtos.DetallesComandaDTO;
 import itson.sistemarestaurantedominio.dtos.MesaDTO;
+import itson.sistemarestaurantedominio.dtos.NuevoDetalleComandaDTO;
+import itson.sistemarestaurantedominio.dtos.ProductoDTO;
 import itson.sistemarestaurantenegocio.excepciones.NegocioException;
 import itson.sistemarestaurantenegocio.factory.ObjetosNegocioFactory;
 import itson.sistemarestaurantenegocio.interfaces.IClientesBO;
@@ -17,25 +22,23 @@ import itson.sistemarestaurantenegocio.interfaces.IComandasBO;
 import itson.sistemarestaurantenegocio.interfaces.IDetallesComandaBO;
 import itson.sistemarestaurantenegocio.interfaces.IMesasBO;
 import itson.sistemarestaurantepresentacion.control.ControlFlujo;
+import itson.sistemarestaurantepresentacion.modales.ModalProductos;
 import itson.sistemarestaurantepresentacion.paneles.PnlDetalleComanda;
 import itson.sistemarestaurantepresentacion.recursos.Formatos;
-
 /**
- * Clase que representa el panel de especificaciones de una comanda.
- * Este panel muestra información detallada sobre la comanda, incluyendo el
- * folio, la mesa, la fecha y el cliente. También permite marcar la comanda
- * como entregada o cancelada.
- * 
- * @author Peter
+ *
+ * @author pc
  */
-public class PnlEspecificacionesComanda extends javax.swing.JPanel {
+public class PnlModificarComanda extends javax.swing.JPanel {
 
     private ComandaDTO comanda;
+    private List<DetallesComandaDTO> detallesComanda;
+    List<PnlDetalleComanda> panelesDetalles = new LinkedList<>();
 
     /**
-     * Creates new form PnlEspecificacionesComanda
+     * Creates new form PnlModificarComanda
      */
-    public PnlEspecificacionesComanda(ComandaDTO comanda) {
+    public PnlModificarComanda(ComandaDTO comanda) {
         this.comanda = comanda;
         initComponents();
         cargarDatosComanda();
@@ -59,7 +62,6 @@ public class PnlEspecificacionesComanda extends javax.swing.JPanel {
                 txtCliente.setText(
                         cliente.getNombre() + " " + cliente.getApellidoPaterno() + " " + cliente.getApellidoMaterno());
             }
-            txtTotal.setText("$" + String.valueOf(comanda.getTotal()));
             lblEstado.setText(String.valueOf(comanda.getEstado()).substring(0, 1)
                     .concat(String.valueOf(comanda.getEstado()).substring(1).toLowerCase()));
         } catch (NegocioException e) {
@@ -78,14 +80,8 @@ public class PnlEspecificacionesComanda extends javax.swing.JPanel {
     private void cargarDetallesComanda() {
         try {
             IDetallesComandaBO detallesComandaBO = ObjetosNegocioFactory.crearDetallesComandaBO();
-            List<DetallesComandaDTO> detallesComanda = detallesComandaBO.obtenerDetallesComanda(comanda.getIdComanda());
-            if (!detallesComanda.isEmpty()) {
-                for (DetallesComandaDTO detalle : detallesComanda) {
-                    PnlDetalleComanda pnlDetalleComanda = new PnlDetalleComanda(detalle);
-                    pnlDetallesComanda.add(pnlDetalleComanda);
-                    pnlDetallesComanda.add(Box.createVerticalStrut(20));
-                }
-            }
+            this.detallesComanda = detallesComandaBO.obtenerDetallesComanda(comanda.getIdComanda());
+            cargarPanelesDetalles(detallesComanda);
         } catch (NegocioException e) {
             JOptionPane.showMessageDialog(
                     null,
@@ -95,12 +91,38 @@ public class PnlEspecificacionesComanda extends javax.swing.JPanel {
         }
     }
 
+    private void cargarPanelesDetalles(List<DetallesComandaDTO> detalles){
+        if (!detalles.isEmpty()) {
+            for (DetallesComandaDTO detalle : detalles) {
+                PnlDetalleComanda pnlDetalleComanda = new PnlDetalleComanda(detalle, this);
+                pnlDetallesComanda.add(pnlDetalleComanda);
+                pnlDetallesComanda.add(Box.createVerticalStrut(20));
+                this.panelesDetalles.add(pnlDetalleComanda);
+            }
+        }
+    }
+
+    public void cargarPanelesDetalles(){
+        pnlDetallesComanda.removeAll();
+        if(!panelesDetalles.isEmpty()){
+            for(PnlDetalleComanda pnl : panelesDetalles){
+                pnlDetallesComanda.add(pnl);
+                pnlDetallesComanda.add(Box.createVerticalStrut(20));
+            }
+            pnlDetallesComanda.repaint();
+            pnlDetallesComanda.revalidate();
+        }
+    }
+
+    public List<PnlDetalleComanda> getPanelesDetalles(){
+        return this.panelesDetalles;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
      * regenerated by the Form Editor.
      */
-    // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -116,18 +138,15 @@ public class PnlEspecificacionesComanda extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         lblEstado = new javax.swing.JLabel();
         txtCliente = new javax.swing.JLabel();
-        lblTotal = new javax.swing.JLabel();
-        txtTotal = new javax.swing.JLabel();
-        btnEntregar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
-        btnVolver = new javax.swing.JButton();
+        btnBuscarProductos = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
+        btnVolver = new javax.swing.JButton();
 
         pnlPrincipal.setBackground(new java.awt.Color(37, 40, 54));
 
         lblTitulo.setFont(new Font("Poppins", Font.BOLD, 36));
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
-        lblTitulo.setText("Especificaciones de Comanda");
+        lblTitulo.setText("Modificar Comanda");
 
         pnlComanda.setBackground(new java.awt.Color(31, 31, 31));
         pnlComanda.setRoundBottomLeft(50);
@@ -185,14 +204,15 @@ public class PnlEspecificacionesComanda extends javax.swing.JPanel {
         txtCliente.setForeground(new java.awt.Color(255, 255, 255));
         txtCliente.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
-        lblTotal.setFont(new Font("Poppins", Font.BOLD, 18));
-        lblTotal.setForeground(new java.awt.Color(255, 255, 255));
-        lblTotal.setText("Total:");
-
-        txtTotal.setFont(new Font("Poppins", Font.BOLD, 18));
-        txtTotal.setForeground(new java.awt.Color(255, 255, 255));
-        txtTotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        txtTotal.setText("Total:");
+        btnBuscarProductos.setBackground(new java.awt.Color(217, 217, 217));
+        btnBuscarProductos.setFont(new Font("Poppins", Font.PLAIN, 18 ));
+        btnBuscarProductos.setForeground(new java.awt.Color(0, 0, 0));
+        btnBuscarProductos.setText("Buscar Productos");
+        btnBuscarProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarProductosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlComandaLayout = new javax.swing.GroupLayout(pnlComanda);
         pnlComanda.setLayout(pnlComandaLayout);
@@ -209,19 +229,18 @@ public class PnlEspecificacionesComanda extends javax.swing.JPanel {
                             .addGroup(pnlComandaLayout.createSequentialGroup()
                                 .addComponent(lblMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lblCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnlComandaLayout.createSequentialGroup()
                                 .addComponent(lblFolio, javax.swing.GroupLayout.PREFERRED_SIZE, 547, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnlComandaLayout.createSequentialGroup()
                                 .addComponent(lblFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(108, 108, 108)
+                                .addComponent(btnBuscarProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(47, 47, 47)))
                         .addGap(72, 72, 72))))
         );
         pnlComandaLayout.setVerticalGroup(
@@ -235,60 +254,39 @@ public class PnlEspecificacionesComanda extends javax.swing.JPanel {
                         .addGap(27, 27, 27)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(pnlComandaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlComandaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlComandaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlComandaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlComandaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                    .addComponent(btnBuscarProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(12, 12, 12)
                 .addComponent(scrollPnlDetallesComanda, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
-        btnEntregar.setBackground(new java.awt.Color(80, 205, 137));
-        btnEntregar.setFont(new Font("Poppins", Font.PLAIN, 18));
-        btnEntregar.setForeground(new java.awt.Color(255, 255, 255));
-        btnEntregar.setText("Marcar como Entregada");
-        btnEntregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnEntregar.addActionListener(new java.awt.event.ActionListener() {
+        btnModificar.setBackground(new java.awt.Color(80, 205, 137));
+        btnModificar.setFont(new Font("Poppins", Font.PLAIN, 18));
+        btnModificar.setForeground(new java.awt.Color(255, 255, 255));
+        btnModificar.setText("Modificar");
+        btnModificar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEntregarActionPerformed(evt);
-            }
-        });
-
-        btnCancelar.setBackground(new java.awt.Color(94, 94, 94));
-        btnCancelar.setFont(new Font("Poppins", Font.PLAIN, 18));
-        btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
-        btnCancelar.setText("Marcar como Cancelada");
-        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
+                btnModificarActionPerformed(evt);
             }
         });
 
         btnVolver.setBackground(new java.awt.Color(94, 94, 94));
         btnVolver.setFont(new Font("Poppins", Font.PLAIN, 18));
         btnVolver.setForeground(new java.awt.Color(255, 255, 255));
-        btnVolver.setText("Volver");
+        btnVolver.setText("Cancelar");
         btnVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVolverActionPerformed(evt);
-            }
-        });
-
-        btnModificar.setBackground(new java.awt.Color(80, 205, 137));
-        btnModificar.setFont(new Font("Poppins", Font.PLAIN, 18));
-        btnModificar.setForeground(new java.awt.Color(255, 255, 255));
-        btnModificar.setText("Modificar Comanda");
-        btnModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarActionPerformed(evt);
             }
         });
 
@@ -297,38 +295,33 @@ public class PnlEspecificacionesComanda extends javax.swing.JPanel {
         pnlPrincipalLayout.setHorizontalGroup(
             pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPrincipalLayout.createSequentialGroup()
-                .addGap(80, 80, 80)
-                .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPrincipalLayout.createSequentialGroup()
-                .addContainerGap(64, Short.MAX_VALUE)
-                .addGroup(pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pnlComanda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlPrincipalLayout.createSequentialGroup()
-                        .addComponent(btnEntregar, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(80, 80, 80)
+                        .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnVolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlPrincipalLayout.createSequentialGroup()
+                        .addContainerGap(64, Short.MAX_VALUE)
+                        .addComponent(pnlComanda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(64, 64, 64))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPrincipalLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(389, 389, 389))
         );
         pnlPrincipalLayout.setVerticalGroup(
             pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlPrincipalLayout.createSequentialGroup()
                 .addGap(58, 58, 58)
-                .addGroup(pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46)
                 .addComponent(pnlComanda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEntregar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -346,64 +339,106 @@ public class PnlEspecificacionesComanda extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        ControlFlujo.mostrarPnlModificarComanda(comanda);
-    }//GEN-LAST:event_btnModificarActionPerformed
-
-    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnVolverActionPerformed
-        ControlFlujo.mostrarComandas();
-    }// GEN-LAST:event_btnVolverActionPerformed
-
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCancelarActionPerformed
-        IComandasBO comandasBO = ObjetosNegocioFactory.crearComandasBO();
-        try {
-            int confirmacion = JOptionPane.showConfirmDialog(
-                    null,
-                    "¿Seguro que desea cancelar la comanda?",
-                    "Confirmar",
-                    JOptionPane.YES_NO_OPTION);
-            if (confirmacion == JOptionPane.YES_OPTION) {
-                comandasBO.cancelarComanda(this.comanda);
-                JOptionPane.showMessageDialog(
-                        null,
-                        "Comanda cancelada",
-                        "Cancelación",
-                        JOptionPane.INFORMATION_MESSAGE);
-                ControlFlujo.mostrarComandas();
-            }
-        } catch (NegocioException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }// GEN-LAST:event_btnCancelarActionPerformed
-
-    private void btnEntregarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnEntregarActionPerformed
         int confirmacion = JOptionPane.showConfirmDialog(
-                null, "¿Seguro que desea marcar la comanda como entregada?",
-                "Confirmar",
-                JOptionPane.YES_NO_OPTION);
-        if (confirmacion != JOptionPane.YES_OPTION) {
+            null, 
+            "¿Seguro que desea modificar la comanda?", 
+            "Confirmar", 
+            JOptionPane.YES_NO_OPTION
+        );
+        if(confirmacion != JOptionPane.YES_OPTION){
             return;
         }
-        try {
-            IComandasBO comandasBO = ObjetosNegocioFactory.crearComandasBO();
-            comandasBO.entregarComanda(comanda);
+        IComandasBO comandasBO = ObjetosNegocioFactory.crearComandasBO();
+        List<DetallesComandaDTO> nuevosDetalles = cargarRelaciones();
+        try{
+            comandasBO.modificarComanda(this.comanda, nuevosDetalles);
+            ControlFlujo.mostrarEspecificacionesComanda(comanda);
             JOptionPane.showMessageDialog(
-                    null,
-                    "Comanda entregada",
-                    "Info",
-                    JOptionPane.INFORMATION_MESSAGE);
-            ControlFlujo.mostrarComandas();
-        } catch (NegocioException e) {
+                null,
+                "Comanda modificada con éxito",
+                "Éxito",
+                JOptionPane.INFORMATION_MESSAGE
+            );
+        } catch(NegocioException e){
             JOptionPane.showMessageDialog(
-                    null,
-                    e.getMessage(),
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
+                null,
+                e.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+            );
         }
-    }// GEN-LAST:event_btnEntregarActionPerformed
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        int confirmacion = JOptionPane.showConfirmDialog(
+            null,
+            "¿Seguro que desea cancelar?",
+            "Confirmar",
+            JOptionPane.YES_NO_OPTION
+        );
+        if(confirmacion == JOptionPane.YES_OPTION){
+            ControlFlujo.mostrarEspecificacionesComanda(comanda);
+        }
+    }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void btnBuscarProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProductosActionPerformed
+        ModalProductos modalProductos = new ModalProductos(null, true);
+        ProductoDTO producto = modalProductos.obtenerProductoSeleccionado();
+        if (producto == null) {
+            return;
+        }
+        DetallesComandaDTO detalleComanda = 
+            new DetallesComandaDTO(
+                1,
+                "",
+                producto.getPrecio(),
+                producto.getPrecio(),
+                comanda.getIdComanda(),
+                producto.getId()
+            );
+        PnlDetalleComanda pnlDetalleComanda = new PnlDetalleComanda(detalleComanda, this);
+        panelesDetalles.add(pnlDetalleComanda);
+        cargarPanelesDetalles();
+        
+    }//GEN-LAST:event_btnBuscarProductosActionPerformed
+
+        private List<DetallesComandaDTO> cargarRelaciones() {
+        List<DetallesComandaDTO> detallesComanda = new LinkedList<>();
+        
+        for (PnlDetalleComanda detalle : this.panelesDetalles) {
+            ProductoDTO producto = detalle.getProducto();
+            if (producto != null) {
+                Long idProducto = producto.getId();
+                BigDecimal precioUnitario = producto.getPrecio();
+                try{
+                    Integer cantidad = Integer.parseInt(detalle.getSpinnerCantidad().getValue().toString());
+                    if (cantidad <= 0) {
+                        JOptionPane.showMessageDialog(this, "La cantidad debe ser mayor a cero.", "Error",
+                                JOptionPane.ERROR_MESSAGE);
+                        return null;
+                    }
+                    BigDecimal totalPorProducto = precioUnitario.multiply(new BigDecimal(cantidad));
+                    String comentarios = detalle.getTxtAreaComentarios().getText();
+                    
+                    if(comentarios.isBlank() || comentarios.isEmpty()){
+                        DetallesComandaDTO detalleComanda = new DetallesComandaDTO(cantidad,"", precioUnitario, totalPorProducto,this.comanda.getIdComanda(), idProducto);    
+                        detallesComanda.add(detalleComanda);
+                    } else{
+                        DetallesComandaDTO detalleComanda = new DetallesComandaDTO(cantidad,comentarios, precioUnitario, totalPorProducto,this.comanda.getIdComanda(), idProducto);    
+                        detallesComanda.add(detalleComanda);
+                    }
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "La cantidad debe ser un número válido.", "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    return null;
+                }
+            }
+        }
+        return detallesComanda;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnEntregar;
+    private javax.swing.JButton btnBuscarProductos;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnVolver;
     private javax.swing.JPanel jPanel1;
@@ -413,12 +448,10 @@ public class PnlEspecificacionesComanda extends javax.swing.JPanel {
     private javax.swing.JLabel lblFolio;
     private javax.swing.JLabel lblMesa;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JLabel lblTotal;
     private itson.sistemarestaurantepresentacion.recursos.RoundedPanel pnlComanda;
     private javax.swing.JPanel pnlDetallesComanda;
     private javax.swing.JPanel pnlPrincipal;
     private javax.swing.JScrollPane scrollPnlDetallesComanda;
     private javax.swing.JLabel txtCliente;
-    private javax.swing.JLabel txtTotal;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,5 +1,6 @@
 package itson.sistemarestaurantepersistencia;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import itson.sistemarestaurantedominio.Comanda;
@@ -42,4 +43,11 @@ public interface IComandasDAO {
      * @param nuevoEstado Nuevo estado de la comanda
      */
     public abstract void cambiarEstadoComanda(Long idComanda, EstadoComanda nuevoEstado) throws PersistenciaException;
+
+    /**
+     * Metodo para modificar el total de una comanda
+     * @param idComanda Id de la comanda a modificar
+     * @param nuevoTotal Nuevo Total de la comanda
+     */
+    public abstract void modificarTotal(Long idComanda, BigDecimal nuevoTotal);
 }

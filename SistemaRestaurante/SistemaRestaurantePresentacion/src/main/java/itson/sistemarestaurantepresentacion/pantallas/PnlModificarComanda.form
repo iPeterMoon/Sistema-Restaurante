@@ -40,25 +40,24 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
-                  <Component id="lblTitulo" max="32767" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnModificar" min="-2" pref="449" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="64" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="pnlComanda" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="btnEntregar" min="-2" pref="440" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
+                          <Component id="lblTitulo" max="32767" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="btnCancelar" min="-2" pref="440" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="btnVolver" max="32767" attributes="0"/>
+                          <Component id="btnVolver" min="-2" pref="382" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace pref="64" max="32767" attributes="0"/>
+                          <Component id="pnlComanda" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Component id="btnModificar" min="-2" pref="440" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="389" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -66,19 +65,15 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lblTitulo" min="-2" pref="54" max="-2" attributes="0"/>
-                      <Component id="btnModificar" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lblTitulo" alignment="3" min="-2" pref="54" max="-2" attributes="0"/>
+                      <Component id="btnVolver" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                   <Component id="pnlComanda" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnEntregar" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
-                      <Component id="btnCancelar" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
-                      <Component id="btnVolver" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="33" max="32767" attributes="0"/>
+                  <Component id="btnModificar" min="-2" pref="50" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -92,7 +87,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Especificaciones de Comanda"/>
+            <Property name="text" type="java.lang.String" value="Modificar Comanda"/>
           </Properties>
         </Component>
         <Container class="itson.sistemarestaurantepresentacion.recursos.RoundedPanel" name="pnlComanda">
@@ -112,18 +107,18 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <Component id="scrollPnlDetallesComanda" min="-2" pref="1020" max="-2" attributes="0"/>
                               <EmptySpace pref="46" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
                                       <Component id="lblMesa" min="-2" pref="272" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="lblTotal" min="-2" pref="82" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="txtTotal" min="-2" pref="258" max="-2" attributes="0"/>
+                                      <Component id="lblCliente" min="-2" pref="89" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="txtCliente" min="-2" pref="355" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="lblFolio" min="-2" pref="547" max="-2" attributes="0"/>
@@ -132,10 +127,9 @@
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="lblFecha" max="32767" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="lblCliente" min="-2" pref="89" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="txtCliente" min="-2" pref="355" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="108" max="-2" attributes="0"/>
+                                      <Component id="btnBuscarProductos" min="-2" pref="319" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
@@ -148,7 +142,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                               <Component id="lblFolio" min="-2" pref="40" max="-2" attributes="0"/>
                           </Group>
@@ -158,18 +152,19 @@
                           </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblMesa" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                          <Component id="lblTotal" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                          <Component id="txtTotal" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblMesa" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lblCliente" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                              <Component id="txtCliente" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblFecha" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                          <Component id="lblCliente" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                          <Component id="txtCliente" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="lblFecha" pref="40" max="32767" attributes="0"/>
+                          <Component id="btnBuscarProductos" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Component id="scrollPnlDetallesComanda" min="-2" pref="440" max="-2" attributes="0"/>
                       <EmptySpace pref="27" max="32767" attributes="0"/>
                   </Group>
@@ -296,32 +291,26 @@
                 <Property name="horizontalAlignment" type="int" value="4"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblTotal">
+            <Component class="javax.swing.JButton" name="btnBuscarProductos">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="d9" green="d9" red="d9" type="rgb"/>
+                </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="new Font(&quot;Poppins&quot;, Font.BOLD, 18)" type="code"/>
+                  <Connection code="new Font(&quot;Poppins&quot;, Font.PLAIN, 18 )" type="code"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                  <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Total:"/>
+                <Property name="text" type="java.lang.String" value="Buscar Productos"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="txtTotal">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="new Font(&quot;Poppins&quot;, Font.BOLD, 18)" type="code"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="horizontalAlignment" type="int" value="4"/>
-                <Property name="text" type="java.lang.String" value="Total:"/>
-              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarProductosActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="btnEntregar">
+        <Component class="javax.swing.JButton" name="btnModificar">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="89" green="cd" red="50" type="rgb"/>
@@ -332,33 +321,13 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Marcar como Entregada"/>
+            <Property name="text" type="java.lang.String" value="Modificar"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Hand Cursor"/>
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEntregarActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnCancelar">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="5e" green="5e" red="5e" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new Font(&quot;Poppins&quot;, Font.PLAIN, 18)" type="code"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Marcar como Cancelada"/>
-            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Hand Cursor"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnModificarActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnVolver">
@@ -372,30 +341,13 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Volver"/>
+            <Property name="text" type="java.lang.String" value="Cancelar"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Hand Cursor"/>
             </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVolverActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnModificar">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="89" green="cd" red="50" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new Font(&quot;Poppins&quot;, Font.PLAIN, 18)" type="code"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Modificar Comanda"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnModificarActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

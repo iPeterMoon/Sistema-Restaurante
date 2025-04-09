@@ -102,8 +102,28 @@ public class ComandasBO implements IComandasBO {
 
     @Override
     public ComandaDTO obtenerComandaPorId(Long idComanda) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'obtenerComandaPorId'");
+        return comandasDAO.obtenerComandaPorId(idComanda);
+    }
+
+    @Override
+    public void modificarComanda(ComandaDTO comanda, List<DetallesComandaDTO> nuevosDetalles) throws NegocioException {
+        IDetallesComandaBO detallesComandaBO = ObjetosNegocioFactory.crearDetallesComandaBO();
+        List<DetallesComandaDTO> antiguosDetalles = detallesComandaBO.obtenerDetallesComanda(comanda.getIdComanda());
+        for(DetallesComandaDTO detalle: antiguosDetalles){
+            detallesComandaBO.eliminarDetallesComanda(detalle.getId());
+        }   
+        BigDecimal total = new BigDecimal(0);
+        for(DetallesComandaDTO nuevoDetalle : nuevosDetalles){
+            total = total.add(nuevoDetalle.getTotalPorProducto());
+            detallesComandaBO.guardarDetallesComanda(nuevoDetalle);
+        }
+        comanda.setTotal(total);
+        modificarTotal(comanda.getIdComanda(), total);
+    }
+
+    @Override
+    public void modificarTotal(Long idComanda, BigDecimal nuevoTotal) {
+        comandasDAO.modificarTotal(idComanda, nuevoTotal);
     }
 
 }

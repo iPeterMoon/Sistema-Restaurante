@@ -2,6 +2,7 @@ package itson.sistemarestaurantenegocio.implementaciones;
 
 import java.util.List;
 
+import itson.sistemarestaurantedominio.DetallesComanda;
 import itson.sistemarestaurantedominio.dtos.DetallesComandaDTO;
 import itson.sistemarestaurantenegocio.excepciones.NegocioException;
 import itson.sistemarestaurantenegocio.interfaces.IDetallesComandaBO;
@@ -24,4 +25,26 @@ public class DetallesComandaBO implements IDetallesComandaBO {
         return detallesComanda;
     }
 
+    /**
+     * Metodo para guardar detalles de una comanda ya existente
+     * @param detalle Detalle de la comanda a guardar
+     * @return DetallesComanda guardada
+     */
+    @Override
+    public DetallesComanda guardarDetallesComanda(DetallesComandaDTO detalle) throws NegocioException {
+        DetallesComanda detalleGuardado = detallesComandaDAO.guardarDetallesComanda(detalle);
+        if(detalleGuardado == null){
+            throw new NegocioException("Error al guardar un detalle de la comanda");
+        }
+        return detalleGuardado;
+    }
+
+    /**
+     * Metodo para eliminar un detalle de una comanda
+     * @param idDetallesComanda Id del detalle a eliminar||
+     */
+    @Override
+    public void eliminarDetallesComanda(Long idDetallesComanda) {
+        detallesComandaDAO.eliminarDetallesComanda(idDetallesComanda);
+    } 
 }
