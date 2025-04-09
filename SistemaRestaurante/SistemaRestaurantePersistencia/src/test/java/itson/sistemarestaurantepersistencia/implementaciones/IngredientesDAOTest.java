@@ -3,6 +3,8 @@ package itson.sistemarestaurantepersistencia.implementaciones;
 import itson.sistemarestaurantedominio.Ingrediente;
 import itson.sistemarestaurantedominio.dtos.NuevoIngredienteDTO;
 import itson.sistemarestaurantedominio.enumeradores.UnidadMedida;
+import itson.sistemarestaurantepersistencia.excepciones.PersistenciaException;
+
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.AfterEach;
@@ -113,4 +115,53 @@ public class IngredientesDAOTest {
         assertFalse(ingredientesDAO.existeIngredienteYUnidad(ingredienteBuscado));
     }
 
+    @Test
+    public void testAgregarStock() {
+        final Integer CANTIDAD_PRODUCTO = 3;
+        NuevoIngredienteDTO nuevoIngrediente = new NuevoIngredienteDTO(
+                "Calabaza", UnidadMedida.PIEZAS, CANTIDAD_PRODUCTO);
+        ingredienteGuardado = ingredientesDAO.agregarIngrediente(nuevoIngrediente);
+        assertNotNull(ingredienteGuardado.getId());
+        assertEquals(CANTIDAD_PRODUCTO, ingredienteGuardado.getStock());
+        final Integer NuevoStock = 5;
+        ingredientesDAO.agregarStock(ingredienteGuardado.getId(), NuevoStock);
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        ingredienteGuardado = entityManager.find(Ingrediente.class, ingredienteGuardado.getId());
+        assertNotNull(ingredienteGuardado);
+        assertEquals(CANTIDAD_PRODUCTO + NuevoStock, ingredienteGuardado.getStock());
+    }
+
+    @Test
+    public void testQuitarStock() throws PersistenciaException {
+        final Integer CANTIDAD_PRODUCTO = 3;
+        NuevoIngredienteDTO nuevoIngrediente = new NuevoIngredienteDTO(
+                "Calabaza", UnidadMedida.PIEZAS, CANTIDAD_PRODUCTO);
+        ingredienteGuardado = ingredientesDAO.agregarIngrediente(nuevoIngrediente);
+        assertNotNull(ingredienteGuardado.getId());
+        assertEquals(CANTIDAD_PRODUCTO, ingredienteGuardado.getStock());
+        final Integer NuevoStock = 2;
+
+        ingredientesDAO.quitarStock(ingredienteGuardado.getId(), NuevoStock);
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        ingredienteGuardado = entityManager.find(Ingrediente.class, ingredienteGuardado.getId());
+        assertNotNull(ingredienteGuardado);
+        assertEquals(CANTIDAD_PRODUCTO - NuevoStock, ingredienteGuardado.getStock());
+
+    }
+
+    @Test
+    public void testQuitarStockNegativo() {
+        final Integer CANTIDAD_PRODUCTO = 3;
+        NuevoIngredienteDTO nuevoIngrediente = new NuevoIngredienteDTO(
+                "Calabaza", UnidadMedida.PIEZAS, CANTIDAD_PRODUCTO);
+        ingredienteGuardado = ingredientesDAO.agregarIngrediente(nuevoIngrediente);
+        assertNotNull(ingredienteGuardado.getId());
+        assertEquals(CANTIDAD_PRODUCTO, ingredienteGuardado.getStock());
+        final Integer NuevoStock = 5;
+        assertThrows(PersistenciaException.class, ()-> ingredientesDAO.quitarStock(ingredienteGuardado.getId(), NuevoStock));
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        ingredienteGuardado = entityManager.find(Ingrediente.class, ingredienteGuardado.getId());
+        assertNotNull(ingredienteGuardado);
+        assertEquals(CANTIDAD_PRODUCTO, ingredienteGuardado.getStock());
+    }
 }

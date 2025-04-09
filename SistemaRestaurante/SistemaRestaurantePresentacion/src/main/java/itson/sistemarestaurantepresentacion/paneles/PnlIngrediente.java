@@ -2,6 +2,7 @@ package itson.sistemarestaurantepresentacion.paneles;
 
 import itson.sistemarestaurantedominio.dtos.IngredienteDTO;
 import itson.sistemarestaurantepresentacion.modales.ModalIngredientes;
+import itson.sistemarestaurantepresentacion.modales.ModalModificarStock;
 
 import java.awt.Cursor;
 import java.awt.Font;
@@ -166,7 +167,12 @@ public class PnlIngrediente extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnModificarStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarStockActionPerformed
-        // TODO: Implementar el Modal de modificar Stock
+        ModalModificarStock modal = new ModalModificarStock(null, true);
+        modal.setIngrediente(ingrediente);
+        modal.setLocationRelativeTo(null);
+        modal.setResizable(false);
+        modal.setVisible(true);
+        parent.cargarTodosIngredientes();
     }//GEN-LAST:event_btnModificarStockActionPerformed
 
     private void roundedPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_roundedPanel1MouseClicked

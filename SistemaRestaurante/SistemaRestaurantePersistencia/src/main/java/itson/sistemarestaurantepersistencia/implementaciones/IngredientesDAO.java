@@ -4,17 +4,22 @@ import itson.sistemarestaurantedominio.Ingrediente;
 import itson.sistemarestaurantedominio.dtos.IngredienteDTO;
 import itson.sistemarestaurantedominio.dtos.NuevoIngredienteDTO;
 import itson.sistemarestaurantepersistencia.IIngredientesDAO;
+import itson.sistemarestaurantepersistencia.excepciones.PersistenciaException;
+
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 /**
  * Clase que implementa la interfaz IIngredientesDAO y proporciona
  * implementaciones para los métodos de persistencia de ingredientes en el
+ * 
  * @author PC
  */
 public class IngredientesDAO implements IIngredientesDAO {
@@ -211,18 +216,77 @@ public class IngredientesDAO implements IIngredientesDAO {
   @Override
   public IngredienteDTO obtenerIngredientePorId(Long idIngrediente) {
     EntityManager entityManager = ManejadorConexiones.getEntityManager();
-    entityManager.getTransaction().begin();
-    String jpql = """
-        SELECT new itson.sistemarestaurantedominio.dtos.IngredienteDTO(
-          i.id, i.nombre, i.unidadMedida, i.stock)
-        FROM Ingrediente i
-        WHERE i.id = :idIngrediente
-        """;
-    TypedQuery<IngredienteDTO> query = entityManager.createQuery(jpql, IngredienteDTO.class);
-    query.setParameter("idIngrediente", idIngrediente);
-    IngredienteDTO ingredienteDTO = query.getSingleResult();
-    entityManager.getTransaction().commit();
+    IngredienteDTO ingredienteDTO = null;
+    Ingrediente ingrediente = entityManager.find(Ingrediente.class, idIngrediente);
+    if(ingrediente != null){
+      ingredienteDTO = new IngredienteDTO(
+        ingrediente.getId(),
+        ingrediente.getNombre(),
+        ingrediente.getUnidadMedida(),
+        ingrediente.getStock()
+      );
+    }
     return ingredienteDTO;
+  }
+
+  /**
+   * Metodo para agregar al stock de un ingrediente
+   * 
+   * @param idIngrediente ID del ingrediente a modificar
+   * @param stock         Stock a agregarle al ingrediente
+   */
+  @Override
+  public void agregarStock(Long idIngrediente, Integer stock) {
+    EntityManager entityManager = ManejadorConexiones.getEntityManager();
+    entityManager.getTransaction().begin();
+
+    Ingrediente ingrediente = entityManager.find(Ingrediente.class, idIngrediente);
+    if (ingrediente != null) {
+      Integer stockGuardado = ingrediente.getStock();
+      Integer nuevoStock = stockGuardado + stock;
+
+      CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+      CriteriaUpdate<Ingrediente> criteriaUpdate = builder.createCriteriaUpdate(Ingrediente.class);
+      Root<Ingrediente> rootUpdate = criteriaUpdate.from(Ingrediente.class);
+      criteriaUpdate.set("stock", nuevoStock);
+      criteriaUpdate.where(builder.equal(rootUpdate.get("id"), idIngrediente));
+      Query update = entityManager.createQuery(criteriaUpdate);
+      update.executeUpdate();
+    }
+
+    entityManager.getTransaction().commit();
+  }
+
+  /**
+   * Metodo para quitar al stock de un ingrediente
+   * 
+   * @param idIngrediente ID del ingrediente.
+   * @param stock         Stock a quitar al ingrediente
+   */
+  @Override
+  public void quitarStock(Long idIngrediente, Integer stock) throws PersistenciaException {
+    EntityManager entityManager = ManejadorConexiones.getEntityManager();
+    entityManager.getTransaction().begin();
+
+    Ingrediente ingrediente = entityManager.find(Ingrediente.class, idIngrediente);
+    if (ingrediente == null) {
+      throw new PersistenciaException("No se pudo encontrar el ingrediente");
+    }
+    Integer stockGuardado = ingrediente.getStock();
+    Integer nuevoStock = stockGuardado - stock;
+
+    if (nuevoStock < 0) {
+      throw new PersistenciaException("El stock a eliminar no puede ser mayor al actual");
+    }
+    CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+    CriteriaUpdate<Ingrediente> criteriaUpdate = builder.createCriteriaUpdate(Ingrediente.class);
+    Root<Ingrediente> rootUpdate = criteriaUpdate.from(Ingrediente.class);
+    criteriaUpdate.set("stock", nuevoStock);
+    criteriaUpdate.where(builder.equal(rootUpdate.get("id"), idIngrediente));
+    Query update = entityManager.createQuery(criteriaUpdate);
+    update.executeUpdate();
+
+    entityManager.getTransaction().commit();
   }
 
 }

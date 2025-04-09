@@ -60,4 +60,21 @@ public interface IIngredientesBO {
      */
     public abstract IngredienteDTO obtenerIngredientePorId(Long idIngrediente) throws NegocioException;
 
+    /**
+     * Metodo para agregar stock de un ingrediente
+     * @param idIngrediente Id del ingrediente
+     * @param stock Stock a agregar
+     * @throws NegocioException Por validaciones
+     */
+    public abstract void agregarStock(Long idIngrediente, Integer stock) throws NegocioException;
+
+
+    /**
+     * Metodo para eliminar stock de un ingrediente
+     * @param idIngrediente Id del ingrediente
+     * @param stock Stock a eliminar
+     * @throws NegocioException Por validaciones
+     */
+    public abstract void eliminarStock(Long idIngrediente, Integer stock) throws NegocioException;
+
 }

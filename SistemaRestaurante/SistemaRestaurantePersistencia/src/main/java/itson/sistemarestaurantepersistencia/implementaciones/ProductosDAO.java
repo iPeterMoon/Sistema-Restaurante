@@ -158,11 +158,12 @@ public class ProductosDAO implements IProductosDAO {
     @Override
     public ProductoDTO obtenerProductoPorId(Long idProducto) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        String jpql = "SELECT new itson.sistemarestaurantedominio.dtos.ProductoDTO(p.id, p.nombre, p.precio, p.tipoProducto) FROM Producto p WHERE p.id = :idProducto";
-        TypedQuery<ProductoDTO> query = entityManager.createQuery(jpql, ProductoDTO.class);
-        query.setParameter("idProducto", idProducto);
-        ProductoDTO producto = query.getSingleResult();
-        return producto;
+        Producto producto = entityManager.find(Producto.class, idProducto);
+        if(producto!= null){
+            return new ProductoDTO(producto.getId(), producto.getNombre(), producto.getPrecio(), producto.getTipoProducto());
+        } else {
+            return null;
+        }
     }
 
     

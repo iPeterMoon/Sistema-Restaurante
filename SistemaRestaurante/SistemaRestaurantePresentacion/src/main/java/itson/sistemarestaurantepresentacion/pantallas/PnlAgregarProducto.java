@@ -462,8 +462,9 @@ public class PnlAgregarProducto extends javax.swing.JPanel {
                                 ingredientesDTO.add(ingredienteDTO);
                         }
                 } catch (NumberFormatException e) {
-                        JOptionPane.showMessageDialog(this, "El precio debe ser un número válido.", "Error",
+                        JOptionPane.showMessageDialog(this, "La cantidad debe ser un número válido.", "Error",
                                         JOptionPane.ERROR_MESSAGE);
+                                        return null;
                 }
 
                 return ingredientesDTO;

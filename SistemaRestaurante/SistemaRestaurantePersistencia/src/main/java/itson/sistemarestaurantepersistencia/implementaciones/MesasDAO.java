@@ -78,14 +78,13 @@ public class MesasDAO implements IMesasDAO{
     public MesaDTO obtenerMesaPorId(Long idMesa) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
         
-        String jpql = "SELECT new itson.sistemarestaurantedominio.dtos.MesaDTO(m.id, m.numeroMesa) FROM Mesa m WHERE m.id = :idMesa";
-        Query query = entityManager.createQuery(jpql, MesaDTO.class);
-        query.setParameter("idMesa", idMesa);
+        Mesa mesa = entityManager.find(Mesa.class, idMesa);
+        MesaDTO mesaDTO = null;
+        if(mesa != null){
+            mesaDTO = new MesaDTO(idMesa, mesa.getNumeroMesa());
+        }
         
-        MesaDTO mesa = (MesaDTO) query.getSingleResult();
-        
-        
-        return mesa;
+        return mesaDTO;
     }
 
     /**

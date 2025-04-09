@@ -6,6 +6,8 @@ import itson.sistemarestaurantedominio.dtos.NuevoIngredienteDTO;
 import itson.sistemarestaurantenegocio.excepciones.NegocioException;
 import itson.sistemarestaurantenegocio.interfaces.IIngredientesBO;
 import itson.sistemarestaurantepersistencia.IIngredientesDAO;
+import itson.sistemarestaurantepersistencia.excepciones.PersistenciaException;
+
 import java.util.List;
 
 /**
@@ -98,9 +100,41 @@ public class IngredientesBO implements IIngredientesBO {
     public IngredienteDTO obtenerIngredientePorId(Long idIngrediente) throws NegocioException {
         IngredienteDTO ingrediente = ingredientesDAO.obtenerIngredientePorId(idIngrediente);
         if (ingrediente == null) {
-            throw new NegocioException("No se encontro el ingrediente con id: " + idIngrediente);
+            throw new NegocioException("Error al encontrar el ingrediente");
         }
         return ingrediente;
+    }
+
+    /**
+     * Agrega stock a un ingrediente
+     * @param idIngrediente ID del ingrediente
+     * @param stock Stock a agregar
+     * @throws NegocioException por validaciones
+     */
+    @Override
+    public void agregarStock(Long idIngrediente, Integer stock) throws NegocioException {
+        if(stock<= 0){
+            throw new NegocioException("Asegurese de ingresar un numero positivo");
+        }
+        ingredientesDAO.agregarStock(idIngrediente, stock);
+    }
+
+    /**
+     * Elimina stock de un ingrediente
+     * @param idIngrediente ID del ingrediente
+     * @param stock Stock a eliminar
+     * @throws NegocioException por validaciones
+     */
+    @Override
+    public void eliminarStock(Long idIngrediente, Integer stock) throws NegocioException {
+        if(stock <= 0){
+            throw new NegocioException("Asegurese de ingresar un numero positivo");
+        }
+        try{
+            ingredientesDAO.quitarStock(idIngrediente, stock);
+        } catch(PersistenciaException e){
+            throw new NegocioException(e.getMessage());
+        }
     }
 
 

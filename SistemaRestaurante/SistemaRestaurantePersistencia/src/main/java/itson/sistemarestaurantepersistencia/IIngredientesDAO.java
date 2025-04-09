@@ -3,6 +3,8 @@ package itson.sistemarestaurantepersistencia;
 import itson.sistemarestaurantedominio.Ingrediente;
 import itson.sistemarestaurantedominio.dtos.IngredienteDTO;
 import itson.sistemarestaurantedominio.dtos.NuevoIngredienteDTO;
+import itson.sistemarestaurantepersistencia.excepciones.PersistenciaException;
+
 import java.util.List;
 
 /**
@@ -95,4 +97,18 @@ public interface IIngredientesDAO {
      * nombre y unidad de medida o no
      */
     public abstract boolean existeIngredienteYUnidad(NuevoIngredienteDTO nuevoIngrediente);
+
+    /**
+     * Metodo para agregar al stock de un ingrediente
+     * @param idIngrediente ID del ingrediente a modificar
+     * @param stock Stock a agregar
+     */
+    public abstract void agregarStock(Long idIngrediente, Integer stock);
+
+    /**
+     * Metodo para quitarle al stock de un ingrediente
+     * @param idIngrediente ID del ingrediente a modificar
+     * @param stock Stock a eliminar
+     */
+    public abstract void quitarStock(Long idIngrediente, Integer stock) throws PersistenciaException;
 }

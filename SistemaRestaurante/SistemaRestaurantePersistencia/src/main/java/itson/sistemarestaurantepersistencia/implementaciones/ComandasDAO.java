@@ -129,13 +129,8 @@ public class ComandasDAO implements IComandasDAO {
     @Override
     public ComandaDTO obtenerComandaPorId(Long idComanda) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        entityManager.getTransaction().begin();
-
-        String jpql = "SELECT c FROM Comanda c WHERE c.id = :idComanda";
-        TypedQuery<Comanda> query = entityManager.createQuery(jpql, Comanda.class);
-        query.setParameter("idComanda", idComanda);
-        Comanda comanda = query.getSingleResult();
-        entityManager.getTransaction().commit();
+        
+        Comanda comanda = entityManager.find(Comanda.class, idComanda);
         
         Long idCliente;
         if (comanda.getCliente() == null){

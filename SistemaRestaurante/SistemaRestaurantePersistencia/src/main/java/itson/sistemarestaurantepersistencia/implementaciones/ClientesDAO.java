@@ -304,12 +304,22 @@ public class ClientesDAO implements IClientesDAO {
     @Override
     public ClienteDTO obtenerClientePorId(Long idCliente) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<ClienteDTO> criteria = builder.createQuery(ClienteDTO.class);
-        Root<Cliente> root = criteria.from(Cliente.class);
-        criteria.select(getClienteDTOSelection(root, builder)).where(builder.equal(root.get("id"), idCliente));
-        TypedQuery<ClienteDTO> query = entityManager.createQuery(criteria);
-        ClienteDTO cliente = query.getSingleResult();
-        return cliente;
+       
+        Cliente cliente = entityManager.find(Cliente.class, idCliente);
+        ClienteDTO clienteDTO = null;
+        if(cliente != null){
+            clienteDTO = new ClienteDTO(
+                idCliente, 
+                cliente.getNombre(), 
+                cliente.getApellidoPaterno(), 
+                cliente.getApellidoMaterno(), 
+                cliente.getCorreo(),
+                cliente.getTelefono(), 
+                cliente.getPuntos(), 
+                cliente.getFechaRegistro()
+            );
+        }
+
+        return clienteDTO;
     }
 }
