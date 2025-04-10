@@ -23,6 +23,8 @@ import itson.sistemarestaurantedominio.dtos.NuevoDetalleComandaDTO;
 import itson.sistemarestaurantedominio.enumeradores.EstadoComanda;
 import itson.sistemarestaurantepersistencia.IComandasDAO;
 import itson.sistemarestaurantepersistencia.excepciones.PersistenciaException;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 
 public class ComandasDAO implements IComandasDAO {
 
@@ -38,9 +40,9 @@ public class ComandasDAO implements IComandasDAO {
         comanda.setEstado(EstadoComanda.ABIERTA);
         Mesa mesa = entityManager.find(Mesa.class, comandaDTO.getIdMesa());
         comanda.setMesa(mesa);
-        if(comandaDTO.getIdCliente() != null) {
+        if (comandaDTO.getIdCliente() != null) {
             Cliente cliente = entityManager.find(Cliente.class, comandaDTO.getIdCliente());
-            if(cliente == null) {
+            if (cliente == null) {
                 throw new IllegalArgumentException("El cliente con ID " + comandaDTO.getIdCliente() + " no existe.");
             }
             comanda.setCliente(cliente);
@@ -49,19 +51,19 @@ public class ComandasDAO implements IComandasDAO {
         }
         BigDecimal totalVenta = BigDecimal.ZERO;
         List<NuevoDetalleComandaDTO> detallesComanda = comandaDTO.getDetallesComanda();
-        if(detallesComanda != null && !detallesComanda.isEmpty()){
+        if (detallesComanda != null && !detallesComanda.isEmpty()) {
             List<DetallesComanda> productos = new LinkedList<>();
             for (NuevoDetalleComandaDTO detalle : detallesComanda) {
                 Producto producto = entityManager.find(Producto.class, detalle.getIdProducto());
-                if(producto == null) {
+                if (producto == null) {
                     throw new IllegalArgumentException("El producto con ID " + detalle.getIdProducto() + " no existe.");
                 } else {
                     DetallesComanda detalleComanda = new DetallesComanda();
                     detalleComanda.setCantidad(detalle.getCantidad());
                     String comentario = detalle.getComentario();
-                    if(comentario!= null){
+                    if (comentario != null) {
                         detalleComanda.setComentario(comentario);
-                    } 
+                    }
                     detalleComanda.setProducto(producto);
                     detalleComanda.setComanda(comanda);
                     detalleComanda.setPrecioUnitario(detalle.getPrecioUnitario());
@@ -84,66 +86,66 @@ public class ComandasDAO implements IComandasDAO {
 
     @Override
     public List<ComandaDTO> obtenerComandasAbiertas() {
-            EntityManager entityManager = ManejadorConexiones.getEntityManager();
-    entityManager.getTransaction().begin();
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        entityManager.getTransaction().begin();
 
-    String jpql = "SELECT c From Comanda c WHERE c.estado = :estado";
-    TypedQuery<Comanda> query = entityManager.createQuery(jpql, Comanda.class);
-    query.setParameter("estado", EstadoComanda.ABIERTA); 
-    List<Comanda> comandas = query.getResultList();
-    entityManager.getTransaction().commit();
+        String jpql = "SELECT c From Comanda c WHERE c.estado = :estado";
+        TypedQuery<Comanda> query = entityManager.createQuery(jpql, Comanda.class);
+        query.setParameter("estado", EstadoComanda.ABIERTA);
+        List<Comanda> comandas = query.getResultList();
+        entityManager.getTransaction().commit();
 
-    List<ComandaDTO> comandasDTO = new LinkedList<>();
-    for(Comanda comanda : comandas){
-        Long idCliente;
-        if (comanda.getCliente() == null){
-            idCliente = null;
-        } else {
-            idCliente = comanda.getCliente().getId();
+        List<ComandaDTO> comandasDTO = new LinkedList<>();
+        for (Comanda comanda : comandas) {
+            Long idCliente;
+            if (comanda.getCliente() == null) {
+                idCliente = null;
+            } else {
+                idCliente = comanda.getCliente().getId();
+            }
+            ComandaDTO comandaDTO = new ComandaDTO(
+                    comanda.getId(),
+                    comanda.getFolio(),
+                    comanda.getFechaHora(),
+                    comanda.getEstado(),
+                    comanda.getTotalVenta(),
+                    comanda.getMesa().getId(),
+                    idCliente
+            );
+            comandasDTO.add(comandaDTO);
         }
-        ComandaDTO comandaDTO = new ComandaDTO(
-            comanda.getId(),
-            comanda.getFolio(),
-            comanda.getFechaHora(),
-            comanda.getEstado(),
-            comanda.getTotalVenta(),
-            comanda.getMesa().getId(),
-            idCliente
-        );
-        comandasDTO.add(comandaDTO);
-    }
 
-    return comandasDTO;
+        return comandasDTO;
     }
 
     @Override
     public ComandaDTO obtenerComandaPorId(Long idComanda) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
-        
+
         Comanda comanda = entityManager.find(Comanda.class, idComanda);
-        
+
         Long idCliente;
-        if (comanda.getCliente() == null){
+        if (comanda.getCliente() == null) {
             idCliente = null;
         } else {
             idCliente = comanda.getCliente().getId();
         }
         ComandaDTO comandaDTO = new ComandaDTO(
-            comanda.getId(),
-            comanda.getFolio(),
-            comanda.getFechaHora(),
-            comanda.getEstado(),
-            comanda.getTotalVenta(),
-            comanda.getMesa().getId(),
-            idCliente
+                comanda.getId(),
+                comanda.getFolio(),
+                comanda.getFechaHora(),
+                comanda.getEstado(),
+                comanda.getTotalVenta(),
+                comanda.getMesa().getId(),
+                idCliente
         );
         return comandaDTO;
     }
 
     /**
-     * Genera un folio para la comanda en el formato 'OB-YYYYMMDD-NNN'.
-     * donde YYYYMMDD es la fecha actual y NNN es el número de la comanda del día.
-     * 
+     * Genera un folio para la comanda en el formato 'OB-YYYYMMDD-NNN'. donde
+     * YYYYMMDD es la fecha actual y NNN es el número de la comanda del día.
+     *
      * @param entityManager
      * @return
      */
@@ -173,30 +175,32 @@ public class ComandasDAO implements IComandasDAO {
 
     /**
      * Metodo para cambiar el estado de una comanda
+     *
      * @param idComanda Id de la comanda a cambiar
      * @param nuevoEstado Nuevo estado de la comanda
      */
     @Override
-    public void cambiarEstadoComanda(Long idComanda, EstadoComanda nuevoEstado) throws PersistenciaException{
-       EntityManager entityManager = ManejadorConexiones.getEntityManager();
-       Comanda comanda = entityManager.find(Comanda.class, idComanda);
-       if(comanda == null){
-        throw new PersistenciaException("No se pudo encontrar la comanda en el sistema");
-       } 
-       entityManager.getTransaction().begin();
+    public void cambiarEstadoComanda(Long idComanda, EstadoComanda nuevoEstado) throws PersistenciaException {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        Comanda comanda = entityManager.find(Comanda.class, idComanda);
+        if (comanda == null) {
+            throw new PersistenciaException("No se pudo encontrar la comanda en el sistema");
+        }
+        entityManager.getTransaction().begin();
 
-       CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-       CriteriaUpdate<Comanda> criteria = builder.createCriteriaUpdate(Comanda.class);
-       Root<Comanda> root = criteria.from(Comanda.class);
-       criteria.set("estado", nuevoEstado);
-       criteria.where(builder.equal(root.get("id"), idComanda));
-       Query update = entityManager.createQuery(criteria);
-       update.executeUpdate();
-       entityManager.getTransaction().commit();
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaUpdate<Comanda> criteria = builder.createCriteriaUpdate(Comanda.class);
+        Root<Comanda> root = criteria.from(Comanda.class);
+        criteria.set("estado", nuevoEstado);
+        criteria.where(builder.equal(root.get("id"), idComanda));
+        Query update = entityManager.createQuery(criteria);
+        update.executeUpdate();
+        entityManager.getTransaction().commit();
     }
 
     /**
      * Metodo para modificar el total de una comanda
+     *
      * @param idComanda Id de la comanda a modificar
      * @param nuevoTotal Nuevo Total de la comanda
      */
@@ -206,7 +210,7 @@ public class ComandasDAO implements IComandasDAO {
         entityManager.getTransaction().begin();
 
         Comanda comanda = entityManager.find(Comanda.class, idComanda);
-        if(comanda != null){
+        if (comanda != null) {
             CriteriaBuilder builder = entityManager.getCriteriaBuilder();
             CriteriaUpdate<Comanda> criteria = builder.createCriteriaUpdate(Comanda.class);
             Root<Comanda> root = criteria.from(Comanda.class);
@@ -216,5 +220,49 @@ public class ComandasDAO implements IComandasDAO {
             update.executeUpdate();
         }
         entityManager.getTransaction().commit();
+    }
+
+    /**
+     * Metodo para obtener comandas dentro de un rango de fechas
+     *
+     * @param fechaInicial Fecha de inicio del rango
+     * @param fechaFinal Fecha de fin del rango
+     * @return Lista con todas las comandas realizadas dentro del periodo
+     */
+    @Override
+    public List<Comanda> obtenerComandasPorPeriodo(Calendar fechaInicial, Calendar fechaFinal) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Comanda> criteria = builder.createQuery(Comanda.class);
+        Root<Comanda> root = criteria.from(Comanda.class);
+
+        Predicate rangoFechas = builder.between(root.get("fechaHora"), fechaInicial, fechaFinal);
+        criteria.select(root).where(rangoFechas);
+
+        List<Comanda> comandas = entityManager.createQuery(criteria).getResultList();
+
+        return comandas;
+    }
+
+    /**
+     * Metodo para calcular el total de ventas en un rango de fechas
+     *
+     * @param fechaInicial Fecha de inicio del rango
+     * @param fechaFinal Fecha de fin del rango
+     * @return Total de venta realizada en el periodo
+     */
+    @Override
+    public BigDecimal calcularTotalVentasPorPeriodo(Calendar fechaInicial, Calendar fechaFinal) {
+        EntityManager entityManager = ManejadorConexiones.getEntityManager();
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<BigDecimal> criteria = builder.createQuery(BigDecimal.class);
+        Root<Comanda> root = criteria.from(Comanda.class);
+
+        criteria.select(builder.coalesce(builder.sum(root.get("totalVenta")), BigDecimal.ZERO));
+        criteria.where(builder.between(root.get("fechaHora"), fechaInicial, fechaFinal));
+
+        BigDecimal totalVenta = entityManager.createQuery(criteria).getSingleResult();
+
+        return totalVenta;
     }
 }

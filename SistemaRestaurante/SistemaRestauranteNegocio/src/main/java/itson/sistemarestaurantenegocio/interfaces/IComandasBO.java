@@ -1,5 +1,6 @@
 package itson.sistemarestaurantenegocio.interfaces;
 
+import itson.sistemarestaurantedominio.Comanda;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -7,14 +8,15 @@ import itson.sistemarestaurantedominio.dtos.ComandaDTO;
 import itson.sistemarestaurantedominio.dtos.DetallesComandaDTO;
 import itson.sistemarestaurantedominio.dtos.NuevaComandaDTO;
 import itson.sistemarestaurantenegocio.excepciones.NegocioException;
+import java.util.Calendar;
 
 /**
  * Interfaz que define los métodos para la lógica de negocio de las comandas.
- * Esta interfaz puede ser implementada por diferentes clases que manejen la lógica
+ * Esta interfaz puede ser implementada por diferentes clases que manejen la
+ * lógica
  */
 public interface IComandasBO {
 
-    
     /**
      * Guarda una nueva comanda en el sistema.
      *
@@ -50,20 +52,39 @@ public interface IComandasBO {
      * @return Objeto ComandaDTO que representa la comanda encontrada.
      */
     public abstract ComandaDTO obtenerComandaPorId(Long idComanda);
-    
+
     /**
      * Modifica una comanda
+     *
      * @param comanda Comanda a modificar
      * @param nuevosDetalles Los detalles modificados de la comanda
-     * @throws NegocioException 
+     * @throws NegocioException
      */
     public abstract void modificarComanda(ComandaDTO comanda, List<DetallesComandaDTO> nuevosDetalles) throws NegocioException;
 
-
     /**
      * Metodo para modificar el total de una comanda
+     *
      * @param idComanda Id de la comanda a modificar
      * @param nuevoTotal Nuevo Total de la comanda
      */
     public abstract void modificarTotal(Long idComanda, BigDecimal nuevoTotal);
+
+    /**
+     * Metodo para obtener comandas dentro de un rango de fechas
+     *
+     * @param fechaInicial Fecha de inicio del rango
+     * @param fechaFinal Fecha de fin del rango
+     * @return Lista con todas las comandas realizadas dentro del periodo
+     */
+    public abstract List<Comanda> obtenerComandasPorPeriodo(Calendar fechaInicial, Calendar fechaFinal) throws NegocioException;
+
+    /**
+     * Metodo para calcular el total de ventas en un rango de fechas
+     *
+     * @param fechaInicial Fecha de inicio del rango
+     * @param fechaFinal Fecha de fin del rango
+     * @return Total de venta realizada en el periodo
+     */
+    public abstract BigDecimal calcularTotalVentasPorPeriodo(Calendar fechaInicial, Calendar fechaFinal) throws NegocioException;
 }

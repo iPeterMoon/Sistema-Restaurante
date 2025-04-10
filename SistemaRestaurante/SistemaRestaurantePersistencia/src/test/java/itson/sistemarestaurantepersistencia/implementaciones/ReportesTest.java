@@ -16,11 +16,12 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
+import itson.sistemarestaurantedominio.Comanda;
 import itson.sistemarestaurantedominio.Ingrediente;
 import itson.sistemarestaurantedominio.dtos.ClienteFrecuenteDTO;
-import itson.sistemarestaurantepersistencia.excepciones.PersistenciaException;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -258,6 +259,97 @@ public class ReportesTest {
                     table.addCell(fechaUltimaComanda);
                 }
                 document.add(table);
+                document.close();
+                JOptionPane.showMessageDialog(null,
+                        "PDF guardado correctamente en:\n" + ruta, "INFO",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null,
+                        "Error al generar el PDF:\n" + e.getMessage(), "ERROR",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+    }
+
+    @Test
+    public void testGenerarReporteComandasPorPeriodo() {
+        // Abrir JFileChooser para seleccionar la ruta
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Guardar reporte como PDF");
+        int seleccion = fileChooser.showSaveDialog(null);
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            File archivo = fileChooser.getSelectedFile();
+            String ruta = archivo.getAbsolutePath();
+            // Asegurar que tenga la extension .pdf
+            if (!ruta.toLowerCase().endsWith(".pdf")) {
+                ruta += ".pdf";
+            }
+
+            // Crea el documento
+            try {
+                Document document = new Document();
+                PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(ruta));
+                // Numero de paginas
+                writer.setPageEvent(new NumeradorPaginas());
+                document.open();
+
+                Calendar ahora = Calendar.getInstance();
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                String fechaHoraActual = sdf.format(ahora.getTime());
+                document.add(new Paragraph("Reporte de Clientes Frecuentes\n\n"));
+                document.add(new Paragraph("Generado en: " + fechaHoraActual + "\n\n"));
+
+                // Crear tabla con 5 columnas
+                PdfPTable table = new PdfPTable(5);
+                table.addCell("Fecha y hora");
+                table.addCell("Mesa");
+                table.addCell("Total de venta");
+                table.addCell("Estado");
+                table.addCell("Cliente");
+
+                // Obtener los datos reales con el periodo
+                ComandasDAO comandasDAO = new ComandasDAO();
+
+                Calendar fechaInicio = Calendar.getInstance();
+                fechaInicio.set(2024, Calendar.JANUARY, 1, 0, 0, 0);
+                fechaInicio.set(Calendar.MILLISECOND, 0);
+
+                Calendar fechaFin = Calendar.getInstance();
+                fechaFin.set(2025, Calendar.DECEMBER, 31, 23, 59, 59);
+                fechaFin.set(Calendar.MILLISECOND, 999);
+
+                List<Comanda> comandas = comandasDAO.obtenerComandasPorPeriodo(fechaInicio, fechaFin);
+                // Agregar datos de la lista a la tabla
+                SimpleDateFormat sdfFecha = new SimpleDateFormat("dd/MM/yyyy");
+                for (Comanda comanda : comandas) {
+                    String fechaUltimaComanda = comanda.getFechaHora() != null
+                            ? sdfFecha.format(comanda.getFechaHora().getTime()) : "N/A";
+                    table.addCell(fechaUltimaComanda);
+
+                    table.addCell(String.valueOf(comanda.getMesa().getNumeroMesa()));
+                    table.addCell("$" + String.valueOf(comanda.getTotalVenta()));
+                    table.addCell(String.valueOf(comanda.getEstado()));
+
+                    String nombre = comanda.getCliente() != null
+                            ? comanda.getCliente().getNombre() + " "
+                            + comanda.getCliente().getApellidoPaterno() + " "
+                            + comanda.getCliente().getApellidoMaterno() : "N/A";
+                    table.addCell(String.valueOf(nombre));
+
+                }
+                document.add(table);
+
+                String fechaInicioFormato = sdfFecha.format(fechaInicio.getTime());
+                String fechaFinFormato = sdfFecha.format(fechaFin.getTime());
+
+                BigDecimal totalVentaPeriodo = comandasDAO.calcularTotalVentasPorPeriodo(fechaInicio, fechaFin);
+
+                document.add(new Paragraph("Total de venta del periodo "
+                        + fechaInicioFormato + " a " + fechaFinFormato + ": $" + totalVentaPeriodo));
+
                 document.close();
                 JOptionPane.showMessageDialog(null,
                         "PDF guardado correctamente en:\n" + ruta, "INFO",
