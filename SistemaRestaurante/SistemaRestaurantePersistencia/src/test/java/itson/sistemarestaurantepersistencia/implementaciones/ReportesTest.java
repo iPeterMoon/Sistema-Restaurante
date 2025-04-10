@@ -6,14 +6,23 @@ package itson.sistemarestaurantepersistencia.implementaciones;
 
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.ColumnText;
+import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
 import itson.sistemarestaurantedominio.Ingrediente;
+import itson.sistemarestaurantedominio.dtos.ClienteFrecuenteDTO;
+import itson.sistemarestaurantepersistencia.excepciones.PersistenciaException;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -26,6 +35,21 @@ import org.junit.jupiter.api.*;
 public class ReportesTest {
 
     public ReportesTest() {
+    }
+
+    static class NumeradorPaginas extends PdfPageEventHelper {
+
+        Font fuente = new Font(Font.FontFamily.HELVETICA, 10, Font.ITALIC);
+
+        @Override
+        public void onEndPage(PdfWriter writer, Document document) {
+            PdfContentByte canvas = writer.getDirectContent();
+            Phrase pie = new Phrase("Página " + writer.getPageNumber(), fuente);
+            ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER,
+                    pie,
+                    (document.right() - document.left()) / 2 + document.leftMargin(),
+                    document.bottom() - 10, 0);
+        }
     }
 
     @Test
@@ -130,10 +154,19 @@ public class ReportesTest {
             // Crea el documentoPDF
             try {
                 Document document = new Document();
-                PdfWriter.getInstance(document, new FileOutputStream(ruta));
+                PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(ruta));
+
+                // Numera las paginas
+                writer.setPageEvent(new NumeradorPaginas());
+
                 document.open();
 
-                document.add(new Paragraph("Reporte de Personas\n\n"));
+                Calendar ahora = Calendar.getInstance();
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                String fechaHoraActual = sdf.format(ahora.getTime());
+
+                document.add(new Paragraph("Reporte de Ingredientes\n\n"));
+                document.add(new Paragraph("Generado en: " + fechaHoraActual + "\n\n"));
 
                 // Crear tabla con 2 columnas
                 PdfPTable table = new PdfPTable(4);
@@ -174,13 +207,70 @@ public class ReportesTest {
     }
 
     @Test
-    public void testGenerarReporte() {
-        generarReporte();
-    }
+//    @Disabled
+    public void testGenerarReporteClientesFrecuentesConJFileChooser() {
+        // Abrir JFileChooser para seleccionar la ruta
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Guardar reporte como PDF");
+        int seleccion = fileChooser.showSaveDialog(null);
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            File archivo = fileChooser.getSelectedFile();
+            String ruta = archivo.getAbsolutePath();
+            // Asegurar que tenga la extension .pdf
+            if (!ruta.toLowerCase().endsWith(".pdf")) {
+                ruta += ".pdf";
+            }
 
-    @Test
-    public void testGenerarReporteConTabla() {
-        generarReporteConTabla();
+            // Crea el documento
+            try {
+                Document document = new Document();
+                PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(ruta));
+                // Numero de paginas
+                writer.setPageEvent(new NumeradorPaginas());
+                document.open();
+
+                Calendar ahora = Calendar.getInstance();
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                String fechaHoraActual = sdf.format(ahora.getTime());
+                document.add(new Paragraph("Reporte de Clientes Frecuentes\n\n"));
+                document.add(new Paragraph("Generado en: " + fechaHoraActual + "\n\n"));
+
+                // Crear tabla con 6 columnas
+                PdfPTable table = new PdfPTable(5);
+                table.addCell("Nombre Completo");
+                table.addCell("Número de Visitas");
+                table.addCell("Total Gastado");
+                table.addCell("Puntos de Fidelidad");
+                table.addCell("Última Comanda");
+                // Obtener los datos reales
+                ClientesDAO clientesDAO = new ClientesDAO();
+                List<ClienteFrecuenteDTO> clientes = clientesDAO.obtenerClientesFrecuentesReporte();
+                // Agregar datos de la lista a la tabla
+                SimpleDateFormat sdfFecha = new SimpleDateFormat("dd/MM/yyyy");
+                for (ClienteFrecuenteDTO cliente : clientes) {
+                    table.addCell(cliente.getNombreCompleto());
+                    table.addCell(String.valueOf(cliente.getNumeroVisitas()));
+                    table.addCell("$" + String.valueOf(cliente.getTotalGastado()));
+                    table.addCell(String.valueOf(cliente.getPuntosFidelidad()));
+
+                    String fechaUltimaComanda = cliente.getFechaUltimaComanda() != null
+                            ? sdfFecha.format(cliente.getFechaUltimaComanda().getTime()) : "N/A";
+                    table.addCell(fechaUltimaComanda);
+                }
+                document.add(table);
+                document.close();
+                JOptionPane.showMessageDialog(null,
+                        "PDF guardado correctamente en:\n" + ruta, "INFO",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null,
+                        "Error al generar el PDF:\n" + e.getMessage(), "ERROR",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
     }
 
 }
