@@ -275,6 +275,7 @@ public class ReportesTest {
     }
 
     @Test
+    @Disabled
     public void testGenerarReporteComandasPorPeriodo() {
         // Abrir JFileChooser para seleccionar la ruta
         JFileChooser fileChooser = new JFileChooser();

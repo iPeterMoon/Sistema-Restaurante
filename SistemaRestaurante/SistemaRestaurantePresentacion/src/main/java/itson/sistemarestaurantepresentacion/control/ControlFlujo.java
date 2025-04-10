@@ -17,6 +17,7 @@ import itson.sistemarestaurantepresentacion.pantallas.PnlMesas;
 import itson.sistemarestaurantepresentacion.pantallas.PnlModificarComanda;
 import itson.sistemarestaurantepresentacion.pantallas.PnlRegistrarCliente;
 import itson.sistemarestaurantepresentacion.pantallas.PnlRegistrarComanda;
+import itson.sistemarestaurantepresentacion.pantallas.PnlReporteComandas;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -25,6 +26,7 @@ import javax.swing.JPanel;
  * Clase ControlFlujo que maneja el flujo de la aplicación. Permite mostrar
  * diferentes paneles en el frame principal y gestionar la navegación entre
  * ellos.
+ *
  * @author PC
  */
 public class ControlFlujo {
@@ -71,9 +73,10 @@ public class ControlFlujo {
 
     /**
      * Metodo para mostrar el panel con las especificaciones de una comanda
+     *
      * @param comanda Comanda a mostrar.
      */
-    public static void mostrarEspecificacionesComanda(ComandaDTO comanda){
+    public static void mostrarEspecificacionesComanda(ComandaDTO comanda) {
         PnlEspecificacionesComanda pnlEspecificacionesComanda = new PnlEspecificacionesComanda(comanda);
         mostrarPanel(pnlEspecificacionesComanda);
     }
@@ -88,11 +91,12 @@ public class ControlFlujo {
     }
 
     /**
-     * Metodo para mostrar el panel de modificacion de una comanda en 
-     * el frame principal.
+     * Metodo para mostrar el panel de modificacion de una comanda en el frame
+     * principal.
+     *
      * @param comanda
      */
-    public static void mostrarPnlModificarComanda(ComandaDTO comanda){
+    public static void mostrarPnlModificarComanda(ComandaDTO comanda) {
         PnlModificarComanda pnlModificarComanda = new PnlModificarComanda(comanda);
         mostrarPanel(pnlModificarComanda);
     }
@@ -111,7 +115,7 @@ public class ControlFlujo {
      * Se crea una instancia del panel de agregar productos y se llama al metodo
      * mostrarPanel.
      */
-    public static void mostrarPnlAgregarProducto(){
+    public static void mostrarPnlAgregarProducto() {
         PnlAgregarProducto pnlAgregarProducto = new PnlAgregarProducto();
         mostrarPanel(pnlAgregarProducto);
     }
@@ -123,7 +127,7 @@ public class ControlFlujo {
      *
      * @param producto ProductoDTO que contiene la informacion del producto
      */
-    public static void mostrarPnlIngredientesProducto(ProductoDTO producto){
+    public static void mostrarPnlIngredientesProducto(ProductoDTO producto) {
         PnlIngredientesProducto pnlIngredientesProducto = new PnlIngredientesProducto(producto);
         mostrarPanel(pnlIngredientesProducto);
     }
@@ -176,13 +180,25 @@ public class ControlFlujo {
         PnlRegistrarCliente pnlRegistrarCliente = new PnlRegistrarCliente();
         mostrarPanel(pnlRegistrarCliente);
     }
-    
+
     /**
-     * Metodo para mostrar el panel de menu de reportes
+     * Metodo para mostrar el panel de menu de reportes en el frame principal.
+     * Se crea una instancia del panel del menu de reportes y se llama al metodo
+     * mostrarPanel.
      */
     public static void mostrarPnlMenuReportes() {
         PnlMenuReportes pnlMenuReportes = new PnlMenuReportes();
         mostrarPanel(pnlMenuReportes);
+    }
+
+    /**
+     * Metodo para mostrar el panel de mostrar reporte comandas en el frame
+     * principal. Se crea una instancia del panel de reporte comandas y se llama
+     * al metodo mostrarPanel.
+     */
+    public static void mostrarPnlReporteComandas() {
+        PnlReporteComandas pnlReporteComandas = new PnlReporteComandas();
+        mostrarPanel(pnlReporteComandas);
     }
 
     /**

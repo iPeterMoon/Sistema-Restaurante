@@ -4,6 +4,7 @@
  */
 package itson.sistemarestaurantepresentacion.pantallas;
 
+import itson.sistemarestaurantepresentacion.control.ControlFlujo;
 import java.awt.Font;
 
 /**
@@ -33,13 +34,26 @@ public class PnlMenuReportes extends javax.swing.JPanel {
         btnReporteComandas = new javax.swing.JLabel();
         lblTitulo3 = new javax.swing.JLabel();
 
+        setMaximumSize(new java.awt.Dimension(1240, 930));
+        setPreferredSize(new java.awt.Dimension(1240, 930));
+
         jPanel4.setBackground(new java.awt.Color(37, 40, 54));
 
         btnReporteCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnGenerarReporteClientes.png"))); // NOI18N
         btnReporteCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnReporteCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnReporteClienteMouseClicked(evt);
+            }
+        });
 
         btnReporteComandas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnGenerarReporteComandas.png"))); // NOI18N
         btnReporteComandas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnReporteComandas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnReporteComandasMouseClicked(evt);
+            }
+        });
 
         lblTitulo3.setFont(new Font("Poppins", Font.BOLD, 36));
         lblTitulo3.setForeground(new java.awt.Color(255, 255, 255));
@@ -50,29 +64,27 @@ public class PnlMenuReportes extends javax.swing.JPanel {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addComponent(lblTitulo3, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(147, 147, 147)
-                .addComponent(btnReporteComandas, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(152, 152, 152)
-                .addComponent(btnReporteCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(192, 192, 192))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addComponent(lblTitulo3, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(79, 79, 79)
+                        .addComponent(btnReporteComandas, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(152, 152, 152)
+                        .addComponent(btnReporteCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addComponent(lblTitulo3, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 301, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnReporteCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(lblTitulo3, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 255, Short.MAX_VALUE)
-                        .addComponent(btnReporteComandas, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(221, 221, 221))
+                    .addComponent(btnReporteCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnReporteComandas, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(222, 222, 222))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -86,6 +98,14 @@ public class PnlMenuReportes extends javax.swing.JPanel {
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnReporteComandasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteComandasMouseClicked
+        ControlFlujo.mostrarPnlReporteComandas();
+    }//GEN-LAST:event_btnReporteComandasMouseClicked
+
+    private void btnReporteClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteClienteMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnReporteClienteMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
