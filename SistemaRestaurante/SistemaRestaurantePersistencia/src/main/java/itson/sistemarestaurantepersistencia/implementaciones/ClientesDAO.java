@@ -403,4 +403,128 @@ public class ClientesDAO implements IClientesDAO {
         em.close();
         return resultado;
     }
+
+    /**
+     * Metodo que permite obtener los clientes frecuentes y su informacion de
+     * base a un filtro de busqueda
+     *
+     * @param filtroVisitasMinimas Filtro de visitas minimas
+     * @return Lista con todos los clientes frecuentes y su informacion de
+     * manera filtrada por un campo
+     */
+    @Override
+    public List<ClienteFrecuenteDTO> obtenerClientesFrecuentesReporte(Integer filtroVisitasMinimas) {
+        EntityManager em = ManejadorConexiones.getEntityManager();
+
+        String jpql = """
+        SELECT new itson.sistemarestaurantedominio.dtos.ClienteFrecuenteDTO(
+                        CONCAT(
+                            COALESCE(c.nombre, ''),
+                            ' ',
+                            COALESCE(c.apellidoPaterno, ''),
+                            ' ',
+                            COALESCE(c.apellidoMaterno, '')
+                        ),
+                        COUNT(cm),
+                        SUM(cm.totalVenta),
+                        c.puntos,
+                        MAX(cm.fechaHora)
+                    )
+        FROM Cliente c
+        JOIN c.comandas cm
+        GROUP BY c
+        HAVING COUNT(cm) >= :filtroVisitasMinimas
+        """;
+
+        TypedQuery<ClienteFrecuenteDTO> query = em.createQuery(jpql, ClienteFrecuenteDTO.class);
+        query.setParameter("filtroVisitasMinimas", filtroVisitasMinimas);
+        List<ClienteFrecuenteDTO> resultado = query.getResultList();
+        em.close();
+        return resultado;
+    }
+
+    /**
+     * Metodo que permite obtener los clientes frecuentes y su informacion de
+     * base a un filtro de busqueda
+     *
+     * @param filtroNombre Filtro de nombre
+     * @return Lista con todos los clientes frecuentes y su informacion de
+     * manera filtrada por un campo
+     */
+    @Override
+    public List<ClienteFrecuenteDTO> obtenerClientesFrecuentesReporte(String filtroNombre) {
+        EntityManager em = ManejadorConexiones.getEntityManager();
+
+        String jpql = """
+        SELECT new itson.sistemarestaurantedominio.dtos.ClienteFrecuenteDTO(
+                        CONCAT(
+                            COALESCE(c.nombre, ''), 
+                            ' ', 
+                            COALESCE(c.apellidoPaterno, ''), 
+                            ' ', 
+                            COALESCE(c.apellidoMaterno, '')
+                        ),
+                        COUNT(cm),
+                        SUM(cm.totalVenta),
+                        c.puntos,
+                        MAX(cm.fechaHora)
+                    )
+        FROM Cliente c
+        JOIN c.comandas cm
+        WHERE CONCAT(c.nombre, ' ', c.apellidoPaterno, ' ', c.apellidoMaterno) LIKE :filtroNombre
+        GROUP BY c
+        HAVING COUNT(cm) >= 0
+        """;
+
+        TypedQuery<ClienteFrecuenteDTO> query = em.createQuery(jpql, ClienteFrecuenteDTO.class);
+        query.setParameter("filtroNombre", "%" + filtroNombre + "%");
+
+        List<ClienteFrecuenteDTO> resultado = query.getResultList();
+        em.close();
+        return resultado;
+    }
+
+    /**
+     * Metodo que permite obtener los clientes frecuentes y su informacion en
+     * base a dos filtros de busqueda.
+     *
+     * @param filtroNombre Filtro del nombre del cliente
+     * @param filtroVisitasMinimas Flitro de las visitas minimas de los clientes
+     * @return Lista con todos los clientes frecuentes y su informacion de
+     * manera filtrada por dos campos
+     */
+    @Override
+    public List<ClienteFrecuenteDTO> obtenerClientesFrecuentesReporte(String filtroNombre, Integer filtroVisitasMinimas) {
+        EntityManager em = ManejadorConexiones.getEntityManager();
+
+        String jpql = """
+        SELECT new itson.sistemarestaurantedominio.dtos.ClienteFrecuenteDTO(
+                        CONCAT(
+                            COALESCE(c.nombre, ''), 
+                            ' ', 
+                            COALESCE(c.apellidoPaterno, ''), 
+                            ' ', 
+                            COALESCE(c.apellidoMaterno, '')
+                        ),
+                        COUNT(cm),
+                        SUM(cm.totalVenta),
+                        c.puntos,
+                        MAX(cm.fechaHora)
+                    )
+        FROM Cliente c
+        JOIN c.comandas cm
+        WHERE 1 = 1
+        AND (CONCAT(c.nombre, ' ', c.apellidoPaterno, ' ', c.apellidoMaterno) LIKE :filtroNombre)
+        GROUP BY c
+        HAVING COUNT(cm) >= :filtroVisitasMinimas
+        """;
+
+        TypedQuery<ClienteFrecuenteDTO> query = em.createQuery(jpql, ClienteFrecuenteDTO.class);
+        query.setParameter("filtroNombre", "%" + filtroNombre + "%");
+        query.setParameter("filtroVisitasMinimas", filtroVisitasMinimas);
+
+        List<ClienteFrecuenteDTO> resultado = query.getResultList();
+        em.close();
+        return resultado;
+    }
 }

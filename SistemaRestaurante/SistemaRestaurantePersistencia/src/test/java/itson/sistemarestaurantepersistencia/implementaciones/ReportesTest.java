@@ -207,7 +207,7 @@ public class ReportesTest {
     }
 
     @Test
-//    @Disabled
+    @Disabled
     public void testGenerarReporteClientesFrecuentesConJFileChooser() {
         // Abrir JFileChooser para seleccionar la ruta
         JFileChooser fileChooser = new JFileChooser();

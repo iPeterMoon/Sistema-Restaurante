@@ -100,4 +100,35 @@ public interface IClientesDAO {
      */
     public abstract List<ClienteFrecuenteDTO> obtenerClientesFrecuentesReporte();
 
+    /**
+     * Metodo que permite obtener los clientes frecuentes y su informacion de
+     * base a un filtro de busqueda
+     *
+     * @param filtroVisitasMinimas Filtro de visitas minimas
+     * @return Lista con todos los clientes frecuentes y su informacion de
+     * manera filtrada por un campo
+     */
+    public List<ClienteFrecuenteDTO> obtenerClientesFrecuentesReporte(Integer filtroVisitasMinimas);
+
+    /**
+     * Metodo que permite obtener los clientes frecuentes y su informacion de
+     * base a un filtro de busqueda
+     *
+     * @param filtroNombre Filtro de nombre
+     * @return Lista con todos los clientes frecuentes y su informacion de
+     * manera filtrada por un campo
+     */
+    public List<ClienteFrecuenteDTO> obtenerClientesFrecuentesReporte(String filtroNombre);
+
+    /**
+     * Metodo que permite obtener los clientes frecuentes y su informacion en
+     * base a dos filtros de busqueda.
+     *
+     * @param filtroNombre Filtro del nombre del cliente
+     * @param filtroVisitasMinimas Flitro de las visitas minimas de los clientes
+     * @return Lista con todos los clientes frecuentes y su informacion de
+     * manera filtrada por dos campos
+     */
+    public abstract List<ClienteFrecuenteDTO> obtenerClientesFrecuentesReporte(String filtroNombre, Integer filtroVisitasMinimas);
+
 }
