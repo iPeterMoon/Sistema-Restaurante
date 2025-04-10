@@ -108,7 +108,7 @@ public interface IClientesDAO {
      * @return Lista con todos los clientes frecuentes y su informacion de
      * manera filtrada por un campo
      */
-    public List<ClienteFrecuenteDTO> obtenerClientesFrecuentesReporte(Integer filtroVisitasMinimas);
+    public abstract List<ClienteFrecuenteDTO> obtenerClientesFrecuentesReporte(Integer filtroVisitasMinimas);
 
     /**
      * Metodo que permite obtener los clientes frecuentes y su informacion de
@@ -118,7 +118,7 @@ public interface IClientesDAO {
      * @return Lista con todos los clientes frecuentes y su informacion de
      * manera filtrada por un campo
      */
-    public List<ClienteFrecuenteDTO> obtenerClientesFrecuentesReporte(String filtroNombre);
+    public abstract List<ClienteFrecuenteDTO> obtenerClientesFrecuentesReporte(String filtroNombre);
 
     /**
      * Metodo que permite obtener los clientes frecuentes y su informacion en

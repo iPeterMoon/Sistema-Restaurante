@@ -4,6 +4,7 @@ import java.util.List;
 
 import itson.sistemarestaurantedominio.Cliente;
 import itson.sistemarestaurantedominio.dtos.ClienteDTO;
+import itson.sistemarestaurantedominio.dtos.ClienteFrecuenteDTO;
 import itson.sistemarestaurantedominio.dtos.NuevoClienteDTO;
 import itson.sistemarestaurantenegocio.excepciones.NegocioException;
 import itson.sistemarestaurantenegocio.interfaces.IClientesBO;
@@ -21,11 +22,11 @@ public class ClientesBO implements IClientesBO {
 
     /**
      * Metodo para registrar un cliente en la base de datos
-     * 
+     *
      * @param nuevoCliente cliente a registrar
      * @return Cliente el cliente registrado
-     * @throws NegocioException Si el cliente no se puede registrar
-     *                          debido a un error en la base de datos o de formato
+     * @throws NegocioException Si el cliente no se puede registrar debido a un
+     * error en la base de datos o de formato
      */
     @Override
     public Cliente registrarCliente(NuevoClienteDTO nuevoCliente) throws NegocioException {
@@ -54,7 +55,7 @@ public class ClientesBO implements IClientesBO {
 
     /**
      * Metodo para obtener los clientes registrados en la bd
-     * 
+     *
      * @return lista de clientes registrados
      * @throws NegocioException Si no se pueden obtener los clientes
      */
@@ -93,7 +94,7 @@ public class ClientesBO implements IClientesBO {
 
     /**
      * Metodo para buscar clientes por telefono
-     * 
+     *
      * @return lista de clientes encontrados
      * @throws NegocioException Si no se pueden obtener los clientes
      */
@@ -187,19 +188,118 @@ public class ClientesBO implements IClientesBO {
 
     /**
      * Metodo para agregarle puntos a un cliente
-     * 
+     *
      * @param idCliente Id del cliente a agregarle puntos
-     * @param puntos    Puntos a agregar
+     * @param puntos Puntos a agregar
      */
     @Override
     public void agregarPuntos(Long idCliente, Integer puntos) throws NegocioException {
-        if(puntos < 0 ){
+        if (puntos < 0) {
             throw new NegocioException("No se pueden agregar puntos negativos");
         }
-        try{
+        try {
             clientesDAO.agregarPuntos(idCliente, puntos);
-        } catch (PersistenciaException e){
+        } catch (PersistenciaException e) {
             throw new NegocioException(e.getMessage());
         }
+    }
+
+    /**
+     * Metodo para obtener los clientes frecuentes para el reporte.
+     *
+     * @return Lista con todos los clientes frecuentes
+     * @throws NegocioException Si no se puede obtener clientes frecuentes de la
+     * base de datos
+     */
+    @Override
+    public List<ClienteFrecuenteDTO> obtenerClienteFreguenteReporte() throws NegocioException {
+        List<ClienteFrecuenteDTO> clienteFrecuente;
+        try {
+            clienteFrecuente = clientesDAO.obtenerClientesFrecuentesReporte();
+        } catch (Exception e) {
+            throw new NegocioException("No hay ningun cliente frecuente.");
+        }
+
+        return clienteFrecuente;
+    }
+
+    /**
+     * Metodo para obtener los clientes frecuentes para el reporte en base a un
+     * filtro de vistas minimas
+     *
+     * @param filtroVisitasMinimas Filtro de vistas minimas
+     * @return Lista con todos los clientes frecuentes de la base de datos
+     * @throws NegocioException Si no se puede obtener clientes frecuentes de la
+     * base de datos
+     */
+    @Override
+    public List<ClienteFrecuenteDTO> obtenerClientesFrecuentesReporte(Integer filtroVisitasMinimas) throws NegocioException {
+        List<ClienteFrecuenteDTO> clientesFrecuentes;
+
+        if (filtroVisitasMinimas == null || filtroVisitasMinimas <= 0) {
+            throw new NegocioException("El filtro de nombre tiene que tener al menos un numero positivo mayor a 0.");
+        }
+        try {
+            clientesFrecuentes = clientesDAO.obtenerClientesFrecuentesReporte(filtroVisitasMinimas);
+        } catch (Exception e) {
+            throw new NegocioException("No hay ningun cliente frecuente que coincida con el filtro.");
+        }
+        return clientesFrecuentes;
+    }
+
+    /**
+     * Metodo para obtener los clientes frecuentes para el reporte en base a un
+     * filtro de nombre
+     *
+     * @param filtroNombre Filtro de nombres
+     * @return Lista con todos los clientes frecuentes de la base de datos en
+     * base a su filtro de nombre
+     * @throws NegocioException Si no se puede obtener clientes frecuentes de la
+     * base de datos
+     */
+    @Override
+    public List<ClienteFrecuenteDTO> obtenerClientesFrecuentesReporte(String filtroNombre) throws NegocioException {
+        List<ClienteFrecuenteDTO> clientesFrecuentes;
+
+        if (filtroNombre == null || !filtroNombre.matches("[a-zA-Z\\s]+")) {
+            throw new NegocioException("El filtro de nombre solo debe contener letras y espacios.");
+        }
+
+        try {
+            clientesFrecuentes = clientesDAO.obtenerClientesFrecuentesReporte(filtroNombre);
+        } catch (Exception e) {
+            throw new NegocioException("No hay ningun cliente frecuente que coincida con el filtro.");
+        }
+        return clientesFrecuentes;
+    }
+
+    /**
+     * Metodo para obtener los clientes frecuentes de la base de datos en base a
+     * dos filtros
+     *
+     * @param filtroNombre Filtro de nombre
+     * @param filtroVisitasMinimas Filtro de visitas minimas
+     * @return Lista de todos los clientes frecuentes que coincidan con ambos
+     * filtros
+     * @throws NegocioException Si no se puede obtener clientes frecuentes de la
+     * base de datos
+     */
+    @Override
+    public List<ClienteFrecuenteDTO> obtenerClientesFrecuentesReporte(String filtroNombre, Integer filtroVisitasMinimas) throws NegocioException {
+        if (filtroNombre == null || !filtroNombre.matches("[a-zA-Z\\s]+")) {
+            throw new NegocioException("El filtro de nombre solo debe contener letras y espacios.");
+        }
+        if (filtroVisitasMinimas == null || filtroVisitasMinimas <= 0) {
+            throw new NegocioException("El filtro de nombre tiene que tener al menos un numero positivo mayor a 0.");
+        }
+
+        List<ClienteFrecuenteDTO> clientesFrecuentes;
+        try {
+            clientesFrecuentes = clientesDAO.obtenerClientesFrecuentesReporte(filtroNombre, filtroVisitasMinimas);
+        } catch (Exception e) {
+            throw new NegocioException("No hay ningun cliente frecuente que coincida con los filtros.");
+        }
+
+        return clientesFrecuentes;
     }
 }

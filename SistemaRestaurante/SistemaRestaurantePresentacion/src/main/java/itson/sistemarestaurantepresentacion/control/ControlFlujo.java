@@ -12,6 +12,7 @@ import itson.sistemarestaurantepresentacion.pantallas.PnlComandas;
 import itson.sistemarestaurantepresentacion.pantallas.PnlEspecificacionesComanda;
 import itson.sistemarestaurantepresentacion.pantallas.PnlIngredientesProducto;
 import itson.sistemarestaurantepresentacion.pantallas.PnlInicio;
+import itson.sistemarestaurantepresentacion.pantallas.PnlMenuReportes;
 import itson.sistemarestaurantepresentacion.pantallas.PnlMesas;
 import itson.sistemarestaurantepresentacion.pantallas.PnlModificarComanda;
 import itson.sistemarestaurantepresentacion.pantallas.PnlRegistrarCliente;
@@ -174,6 +175,14 @@ public class ControlFlujo {
     public static void mostrarPnlRegistrarCliente() {
         PnlRegistrarCliente pnlRegistrarCliente = new PnlRegistrarCliente();
         mostrarPanel(pnlRegistrarCliente);
+    }
+    
+    /**
+     * Metodo para mostrar el panel de menu de reportes
+     */
+    public static void mostrarPnlMenuReportes() {
+        PnlMenuReportes pnlMenuReportes = new PnlMenuReportes();
+        mostrarPanel(pnlMenuReportes);
     }
 
     /**

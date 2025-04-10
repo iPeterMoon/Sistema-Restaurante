@@ -10,8 +10,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- * Clase que representa la ventana principal del sistema de restaurante.
- * Esta ventana contiene un panel de navegación y un panel principal donde se muestran diferentes secciones del sistema.
+ * Clase que representa la ventana principal del sistema de restaurante. Esta
+ * ventana contiene un panel de navegación y un panel principal donde se
+ * muestran diferentes secciones del sistema.
+ *
  * @author pc
  */
 public class FramePrincipal extends javax.swing.JFrame {
@@ -743,7 +745,7 @@ public class FramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_lblReportesMouseExited
 
     private void btnReportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportesMouseClicked
-
+        mostrarSeccionReportes();
     }//GEN-LAST:event_btnReportesMouseClicked
 
     private void btnMesasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMesasMouseClicked
@@ -931,6 +933,16 @@ public class FramePrincipal extends javax.swing.JFrame {
         pintarPanelSeleccion(pnlComandas);
         currentSection = SECCION_COMANDAS;
         ControlFlujo.mostrarComandas();
+    }
+
+    /**
+     * Metodo para mostrar la seccion de los reportes
+     */
+    private void mostrarSeccionReportes() {
+        descolorearTodosLosPaneles();
+        pintarPanelSeleccion(pnlReportes);
+        currentSection = SECCION_REPORTES;
+        ControlFlujo.mostrarPnlMenuReportes();
     }
 
 
