@@ -104,7 +104,7 @@ public class PnlMenuReportes extends javax.swing.JPanel {
     }//GEN-LAST:event_btnReporteComandasMouseClicked
 
     private void btnReporteClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteClienteMouseClicked
-        // TODO add your handling code here:
+        ControlFlujo.mostrarPnlReporteClientes();
     }//GEN-LAST:event_btnReporteClienteMouseClicked
 
 

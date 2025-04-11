@@ -17,6 +17,7 @@ import itson.sistemarestaurantepresentacion.pantallas.PnlMesas;
 import itson.sistemarestaurantepresentacion.pantallas.PnlModificarComanda;
 import itson.sistemarestaurantepresentacion.pantallas.PnlRegistrarCliente;
 import itson.sistemarestaurantepresentacion.pantallas.PnlRegistrarComanda;
+import itson.sistemarestaurantepresentacion.pantallas.PnlReporteClientes;
 import itson.sistemarestaurantepresentacion.pantallas.PnlReporteComandas;
 
 import javax.swing.JFrame;
@@ -199,6 +200,16 @@ public class ControlFlujo {
     public static void mostrarPnlReporteComandas() {
         PnlReporteComandas pnlReporteComandas = new PnlReporteComandas();
         mostrarPanel(pnlReporteComandas);
+    }
+
+    /**
+     * Metodo para mostrar el panel de mostrar reporte clientes en el frame
+     * principal. Se crea una instancia del panel de reporte clientes y se llama
+     * al metodo mostrarPanel.
+     */
+    public static void mostrarPnlReporteClientes() {
+        PnlReporteClientes pnlReporteClientes = new PnlReporteClientes();
+        mostrarPanel(pnlReporteClientes);
     }
 
     /**

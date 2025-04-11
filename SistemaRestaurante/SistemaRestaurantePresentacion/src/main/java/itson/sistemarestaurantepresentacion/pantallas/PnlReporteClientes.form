@@ -50,18 +50,17 @@
                       <Component id="btnGenerarReporte" min="-2" pref="420" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="lblTitulo3" alignment="0" max="32767" attributes="0"/>
-                              <Component id="dpFechaInicial" alignment="0" pref="262" max="32767" attributes="0"/>
+                              <Component id="txtNombre" alignment="0" max="32767" attributes="0"/>
+                              <Component id="lblTitulo3" alignment="0" pref="262" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="dpFechaFinal" pref="262" max="32767" attributes="0"/>
-                              <Component id="lblTitulo6" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="txtMinNumVisitas" max="32767" attributes="0"/>
+                              <Component id="lblTitulo6" min="-2" pref="262" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="lblTitulo5" alignment="0" min="-2" pref="747" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="425" max="32767" attributes="0"/>
+                  <EmptySpace pref="575" max="32767" attributes="0"/>
               </Group>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
@@ -75,21 +74,19 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
-                  <Component id="lblTitulo5" min="-2" pref="54" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="193" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblTitulo3" alignment="3" min="-2" pref="54" max="-2" attributes="0"/>
                       <Component id="lblTitulo6" alignment="3" min="-2" pref="54" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="dpFechaInicial" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
-                      <Component id="dpFechaFinal" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                      <Component id="txtNombre" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="txtMinNumVisitas" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
                   <Component id="btnGenerarReporte" min="-2" pref="50" max="-2" attributes="0"/>
-                  <EmptySpace pref="497" max="32767" attributes="0"/>
+                  <EmptySpace pref="496" max="32767" attributes="0"/>
               </Group>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
@@ -104,50 +101,35 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="lblTitulo3">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Buscar por nombre"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="new Font(&quot;Poppins&quot;, Font.BOLD, 20)" type="code"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Fecha Inicio"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblTitulo4">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Reporte de Clientes Frecuentes"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="new Font(&quot;Poppins&quot;, Font.BOLD, 36)" type="code"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Reporte de Comandas"/>
-          </Properties>
-        </Component>
-        <Component class="com.github.lgooddatepicker.components.DatePicker" name="dpFechaInicial">
-        </Component>
-        <Component class="com.github.lgooddatepicker.components.DatePicker" name="dpFechaFinal">
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblTitulo5">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new Font(&quot;Poppins&quot;, Font.BOLD, 24)" type="code"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Ingrese el rango de fechas para realizar el reporte"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblTitulo6">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Minimo numero de visitas"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="new Font(&quot;Poppins&quot;, Font.BOLD, 20)" type="code"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Fecha Fin"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnGenerarReporte">
@@ -169,6 +151,32 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGenerarReporteActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtNombre">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new Font(&quot;Poppins&quot;, Font.PLAIN, 18)" type="code"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="0" type="rgb"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtMinNumVisitas">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new Font(&quot;Poppins&quot;, Font.PLAIN, 18)" type="code"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="0" type="rgb"/>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
