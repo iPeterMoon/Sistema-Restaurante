@@ -302,4 +302,41 @@ public class ComandasDAOTest {
         assertEquals(EstadoComanda.ENTREGADA, comanda.getEstado());
         
     }
+
+    @Test
+    public void testModificarTotal(){
+        
+        // Crear detalles de la comanda
+        List<NuevoDetalleComandaDTO> detallesComanda = new LinkedList<>();
+        NuevoDetalleComandaDTO detalleComanda = 
+        new NuevoDetalleComandaDTO(
+            2,
+            "Sin pepinos",
+            BigDecimal.valueOf(50.00),
+            BigDecimal.valueOf(100.00),
+            productoGuardado.getId()  
+        );
+        detallesComanda.add(detalleComanda);
+
+        // Crear la nueva comanda DTO
+        NuevaComandaDTO nuevaComandaDTO = new NuevaComandaDTO(mesaGuardada.getId(), clienteGuardado.getId(), detallesComanda);
+
+        final BigDecimal TOTAL_ESPERADO = new BigDecimal(100);
+        // Guardar la comanda
+        ComandasDAO instance = new ComandasDAO();
+        comandaGuardada = instance.guardarComanda(nuevaComandaDTO);
+
+        // Verificar que la comanda se guardó correctamente
+        assertNotNull(comandaGuardada);
+        
+        assertEquals(TOTAL_ESPERADO.compareTo(comandaGuardada.getTotalVenta()), 0);
+        
+        final BigDecimal NUEVO_TOTAL = new BigDecimal(150);
+        instance.modificarTotal(comandaGuardada.getId(), NUEVO_TOTAL);
+
+        ComandaDTO comanda = instance.obtenerComandaPorId(comandaGuardada.getId());
+        assertNotNull(comanda);
+        assertEquals(NUEVO_TOTAL.compareTo(comanda.getTotal()), 0);
+        
+    }
 }
