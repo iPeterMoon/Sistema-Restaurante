@@ -52,6 +52,7 @@ public class ControlFlujo {
         framePrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         framePrincipal.setLocationRelativeTo(null);
         framePrincipal.setResizable(false);
+        framePrincipal.mostrarSeccionInicio();
     }
 
     /**
@@ -224,6 +225,14 @@ public class ControlFlujo {
         framePrincipal.getPnlPrincipal().add(panel);
         framePrincipal.getPnlPrincipal().repaint();
         framePrincipal.getPnlPrincipal().revalidate();
+    }
+
+    public static void mostrarOpcionesMesero(){
+        framePrincipal.mostrarOpcionesMesero();
+    }
+
+    public static void mostrarOpcionesAdmin(){
+        framePrincipal.mostrarOpcionesAdmin();
     }
 
 }

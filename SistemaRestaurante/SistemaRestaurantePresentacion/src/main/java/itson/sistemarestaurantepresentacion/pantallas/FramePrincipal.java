@@ -878,11 +878,18 @@ public class FramePrincipal extends javax.swing.JFrame {
     /**
      * Metodo para mostrar la seccion del inicio
      */
-    private void mostrarSeccionInicio() {
+    public void mostrarSeccionInicio() {
         descolorearTodosLosPaneles();
         pintarPanelSeleccion(pnlInicio);
         currentSection = SECCION_INICIO;
         ControlFlujo.mostrarInicio();
+        this.pnlInicio.setVisible(true);
+        this.pnlComandas.setVisible(false);
+        this.pnlMenu.setVisible(false);
+        this.pnlIngredientes.setVisible(false);
+        this.pnlClientes.setVisible(false);
+        this.pnlMesas.setVisible(false);
+        this.pnlReportes.setVisible(false);
     }
 
     /**
@@ -933,6 +940,32 @@ public class FramePrincipal extends javax.swing.JFrame {
         pintarPanelSeleccion(pnlComandas);
         currentSection = SECCION_COMANDAS;
         ControlFlujo.mostrarComandas();
+    }
+
+    /**
+     * Metodo para mostrar las opciones de mesero
+     */
+    public void mostrarOpcionesMesero(){
+        this.pnlInicio.setVisible(true);
+        this.pnlComandas.setVisible(true);
+        this.pnlMenu.setVisible(false);
+        this.pnlIngredientes.setVisible(false);
+        this.pnlClientes.setVisible(false);
+        this.pnlMesas.setVisible(false);
+        this.pnlReportes.setVisible(false);
+    }
+
+    /**
+     * Metodo para mostrar las opciones de administrador
+     */
+    public void mostrarOpcionesAdmin(){
+        this.pnlInicio.setVisible(true);
+        this.pnlComandas.setVisible(true);
+        this.pnlMenu.setVisible(true);
+        this.pnlIngredientes.setVisible(true);
+        this.pnlClientes.setVisible(true);
+        this.pnlMesas.setVisible(true);
+        this.pnlReportes.setVisible(true);
     }
 
     /**

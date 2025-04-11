@@ -12,10 +12,18 @@ import itson.sistemarestaurantenegocio.seguridad.Cifrado;
 import itson.sistemarestaurantepersistencia.IClientesDAO;
 import itson.sistemarestaurantepersistencia.excepciones.PersistenciaException;
 
+/**
+ * Implementación de la lógica de negocio para la gestión de clientes.
+ */
 public class ClientesBO implements IClientesBO {
 
     private IClientesDAO clientesDAO;
 
+    /**
+     * Constructor que inicializa el objeto ClientesBO con un DAO de clientes.
+     *
+     * @param clientesDAO DAO para la persistencia de clientes.
+     */
     public ClientesBO(IClientesDAO clientesDAO) {
         this.clientesDAO = clientesDAO;
     }
@@ -69,12 +77,24 @@ public class ClientesBO implements IClientesBO {
         return clientes;
     }
 
+    /**
+     * Valida que un texto no sea nulo ni vacío.
+     *
+     * @param texto Texto a validar.
+     * @throws NegocioException Si el texto es nulo o vacío.
+     */
     private void validarNoNulo(String texto) throws NegocioException {
         if (texto == null || texto.isEmpty()) {
             throw new NegocioException("Asegurese de llenar todos los campos obligatorios");
         }
     }
 
+    /**
+     * Valida el formato de un correo electrónico.
+     *
+     * @param correo Correo a validar.
+     * @throws NegocioException Si el correo no tiene un formato válido.
+     */
     private void validarCorreo(String correo) throws NegocioException {
         // Expresión regular para validar el formato del correo electrónico
         String regexEmail = "^[^@]+@[^@]+\\.[a-zA-Z]{2,}$";
@@ -83,6 +103,13 @@ public class ClientesBO implements IClientesBO {
         }
     }
 
+    /**
+     * Busca clientes por nombre.
+     *
+     * @param nombre Nombre del cliente a buscar.
+     * @return Lista de clientes encontrados.
+     * @throws NegocioException Si no se encuentran clientes con ese nombre.
+     */
     @Override
     public List<ClienteDTO> buscarClientesPorNombre(String nombre) throws NegocioException {
         List<ClienteDTO> clientes = clientesDAO.buscarClientesPorNombre(nombre);
@@ -113,6 +140,13 @@ public class ClientesBO implements IClientesBO {
         return clientes;
     }
 
+     /**
+     * Busca clientes por correo.
+     *
+     * @param correo Correo del cliente a buscar.
+     * @return Lista de clientes encontrados.
+     * @throws NegocioException Si no se encuentran clientes con ese correo.
+     */
     @Override
     public List<ClienteDTO> buscarClientesPorCorreo(String correo) throws NegocioException {
         List<ClienteDTO> clientes = clientesDAO.buscarClientesPorCorreo(correo);
@@ -122,6 +156,14 @@ public class ClientesBO implements IClientesBO {
         return clientes;
     }
 
+     /**
+     * Busca clientes por correo.
+     *
+     * @param nombre Nombre del cliente a buscar
+     * @param telefono telefono del cliente a buscar.
+     * @return Lista de clientes encontrados.
+     * @throws NegocioException Si no se encuentran clientes con ese correo.
+     */
     @Override
     public List<ClienteDTO> buscarClientesPorNombreYTelefono(String nombre, String telefono) throws NegocioException {
         String telefonoCifrado;
@@ -137,6 +179,14 @@ public class ClientesBO implements IClientesBO {
         return clientes;
     }
 
+     /**
+     * Busca clientes por correo.
+     *
+     * @param nombre Nombre del cliente a buscar
+     * @param correo Correo del cliente a buscar.
+     * @return Lista de clientes encontrados.
+     * @throws NegocioException Si no se encuentran clientes con ese correo.
+     */
     @Override
     public List<ClienteDTO> buscarClientesPorNombreYCorreo(String nombre, String correo) throws NegocioException {
         List<ClienteDTO> clientes = clientesDAO.buscarClientesPorNombreYCorreo(nombre, correo);
@@ -146,6 +196,14 @@ public class ClientesBO implements IClientesBO {
         return clientes;
     }
 
+     /**
+     * Busca clientes por correo.
+     *
+     * @param telefono telefono del cliente a buscar
+     * @param correo Correo del cliente a buscar.
+     * @return Lista de clientes encontrados.
+     * @throws NegocioException Si no se encuentran clientes con ese correo.
+     */
     @Override
     public List<ClienteDTO> buscarClientesPorTelefonoYCorreo(String telefono, String correo) throws NegocioException {
         String telefonoCifrado;
@@ -161,6 +219,15 @@ public class ClientesBO implements IClientesBO {
         return clientes;
     }
 
+     /**
+     * Busca clientes por correo.
+     *
+     * @param nombre Nombre del cliente a buscar
+     * @param telefono Telefono del cliente a buscar
+     * @param correo Correo del cliente a buscar.
+     * @return Lista de clientes encontrados.
+     * @throws NegocioException Si no se encuentran clientes con ese correo.
+     */
     @Override
     public List<ClienteDTO> buscarClientesPorNombreTelefonoYCorreo(String nombre, String telefono, String correo)
             throws NegocioException {
