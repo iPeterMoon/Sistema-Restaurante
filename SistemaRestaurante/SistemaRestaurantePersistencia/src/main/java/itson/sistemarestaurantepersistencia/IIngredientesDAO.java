@@ -111,4 +111,5 @@ public interface IIngredientesDAO {
      * @param stock Stock a eliminar
      */
     public abstract void quitarStock(Long idIngrediente, Integer stock) throws PersistenciaException;
+
 }
