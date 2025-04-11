@@ -177,11 +177,17 @@ public class ClientesBO implements IClientesBO {
         return clientes;
     }
 
+    /**
+     * Metodo para obtener un cliente por su id
+     * @param idCliente Id del cliente a buscar
+     * @return ClienteDTO representando al cliente
+     * @throws NegocioException si no se encontró al cliente
+     */
     @Override
     public ClienteDTO obtenerClientePorId(Long idCliente) throws NegocioException {
         ClienteDTO cliente = clientesDAO.obtenerClientePorId(idCliente);
         if (cliente == null) {
-            throw new NegocioException("No se encontró el cliente con id: " + idCliente);
+            throw new NegocioException("No se encontró el cliente");
         }
         return cliente;
     }
