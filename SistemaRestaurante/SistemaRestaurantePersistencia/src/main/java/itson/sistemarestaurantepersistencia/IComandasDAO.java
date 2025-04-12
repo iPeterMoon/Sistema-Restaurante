@@ -44,6 +44,8 @@ public interface IComandasDAO {
      *
      * @param idComanda Id de la comanda a cambiar
      * @param nuevoEstado Nuevo estado de la comanda
+     * @throws PersistenciaException Si ocurre una excepcion al cambiar el
+     * estado de la comanda en la base de datos
      */
     public abstract void cambiarEstadoComanda(Long idComanda, EstadoComanda nuevoEstado) throws PersistenciaException;
 

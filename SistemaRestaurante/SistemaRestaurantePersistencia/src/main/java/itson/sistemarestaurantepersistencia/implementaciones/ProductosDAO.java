@@ -19,8 +19,9 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 /**
- * Clase que implementa la interfaz IProductosDAO y proporciona
- * implementaciones para los métodos de persistencia de productos en el
+ * Clase que implementa la interfaz IProductosDAO y proporciona implementaciones
+ * para los métodos de persistencia de productos en el
+ *
  * @author PC
  */
 public class ProductosDAO implements IProductosDAO {
@@ -36,7 +37,7 @@ public class ProductosDAO implements IProductosDAO {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
 
         entityManager.getTransaction().begin();
-        
+
         String nombre = nuevoProducto.getNombre();
         BigDecimal precio = nuevoProducto.getPrecio();
         TipoProducto tipoProducto = nuevoProducto.getTipoProducto();
@@ -46,7 +47,7 @@ public class ProductosDAO implements IProductosDAO {
         producto.setTipoProducto(tipoProducto);
         List<IngredienteProductoDTO> ingredientes = nuevoProducto.getIngredientes();
         // Verifica si la lista de ingredientes no es nula y no está vacía antes de agregar los ingredientes
-        if(ingredientes != null && !ingredientes.isEmpty()){
+        if (ingredientes != null && !ingredientes.isEmpty()) {
             List<IngredientesProducto> ingredientesGuardados = new LinkedList<>();
             for (IngredienteProductoDTO ingrediente : ingredientes) {
                 Ingrediente ingredienteGuardado = entityManager.find(Ingrediente.class, ingrediente.getIdIngrediente());
@@ -67,11 +68,10 @@ public class ProductosDAO implements IProductosDAO {
             throw new IllegalArgumentException("La lista de ingredientes no puede ser nula o vacía.");
         }
         entityManager.persist(producto);
-        
+
         entityManager.getTransaction().commit();
         return producto;
     }
-
 
     /**
      * Metodo para obtener una lista con todos los productos de la base de datos
@@ -116,16 +116,16 @@ public class ProductosDAO implements IProductosDAO {
         CriteriaQuery<ProductoDTO> criteria = builder.createQuery(ProductoDTO.class);
         Root<Producto> entidadProducto = criteria.from(Producto.class);
         criteria.select(
-            builder.construct(
-                ProductoDTO.class,
-                entidadProducto.get("id"),
-                entidadProducto.get("nombre"),
-                entidadProducto.get("precio"), 
-                entidadProducto.get("tipoProducto")
-            )
+                builder.construct(
+                        ProductoDTO.class,
+                        entidadProducto.get("id"),
+                        entidadProducto.get("nombre"),
+                        entidadProducto.get("precio"),
+                        entidadProducto.get("tipoProducto")
+                )
         ).where(builder.and(
-            builder.like(entidadProducto.get("nombre"), "%" + filtroBusqueda + "%"),
-            builder.like(entidadProducto.get("tipoProducto"), "%"+tipoProducto+"%")
+                builder.like(entidadProducto.get("nombre"), "%" + filtroBusqueda + "%"),
+                builder.like(entidadProducto.get("tipoProducto"), "%" + tipoProducto + "%")
         ));
         TypedQuery<ProductoDTO> query = entityManager.createQuery(criteria);
         List<ProductoDTO> productosDTO = query.getResultList();
@@ -149,9 +149,10 @@ public class ProductosDAO implements IProductosDAO {
         return productosDTO.isEmpty() ? null : productosDTO.get(0);
     }
 
-
     /**
-     * Metodo para obtener un producto de la base de datos por su id y convertirlo a DTO
+     * Metodo para obtener un producto de la base de datos por su id y
+     * convertirlo a DTO
+     *
      * @param idProducto ID del producto a buscar
      * @return Producto en formato DTO
      */
@@ -159,13 +160,11 @@ public class ProductosDAO implements IProductosDAO {
     public ProductoDTO obtenerProductoPorId(Long idProducto) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
         Producto producto = entityManager.find(Producto.class, idProducto);
-        if(producto!= null){
+        if (producto != null) {
             return new ProductoDTO(producto.getId(), producto.getNombre(), producto.getPrecio(), producto.getTipoProducto());
         } else {
             return null;
         }
     }
-
-    
 
 }

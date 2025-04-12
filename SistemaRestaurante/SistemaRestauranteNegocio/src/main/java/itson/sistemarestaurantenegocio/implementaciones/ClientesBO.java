@@ -120,10 +120,12 @@ public class ClientesBO implements IClientesBO {
     }
 
     /**
-     * Metodo para buscar clientes por telefono
+     * Metodo para obtener clientes filtrados por el numero de telefono
      *
-     * @return lista de clientes encontrados
-     * @throws NegocioException Si no se pueden obtener los clientes
+     * @param telefono Numero de telefono a buscar
+     * @return Lista con los clientes que concidan con el numero de telefono
+     * @throws NegocioException Si ocurre una excepcion de Negocio al obtener un
+     * cliente por numero de telefono
      */
     @Override
     public List<ClienteDTO> buscarClientesPorTelefono(String telefono) throws NegocioException {
@@ -140,7 +142,7 @@ public class ClientesBO implements IClientesBO {
         return clientes;
     }
 
-     /**
+    /**
      * Busca clientes por correo.
      *
      * @param correo Correo del cliente a buscar.
@@ -156,7 +158,7 @@ public class ClientesBO implements IClientesBO {
         return clientes;
     }
 
-     /**
+    /**
      * Busca clientes por correo.
      *
      * @param nombre Nombre del cliente a buscar
@@ -179,7 +181,7 @@ public class ClientesBO implements IClientesBO {
         return clientes;
     }
 
-     /**
+    /**
      * Busca clientes por correo.
      *
      * @param nombre Nombre del cliente a buscar
@@ -196,7 +198,7 @@ public class ClientesBO implements IClientesBO {
         return clientes;
     }
 
-     /**
+    /**
      * Busca clientes por correo.
      *
      * @param telefono telefono del cliente a buscar
@@ -219,7 +221,7 @@ public class ClientesBO implements IClientesBO {
         return clientes;
     }
 
-     /**
+    /**
      * Busca clientes por correo.
      *
      * @param nombre Nombre del cliente a buscar
@@ -246,6 +248,7 @@ public class ClientesBO implements IClientesBO {
 
     /**
      * Metodo para obtener un cliente por su id
+     *
      * @param idCliente Id del cliente a buscar
      * @return ClienteDTO representando al cliente
      * @throws NegocioException si no se encontró al cliente
@@ -264,6 +267,8 @@ public class ClientesBO implements IClientesBO {
      *
      * @param idCliente Id del cliente a agregarle puntos
      * @param puntos Puntos a agregar
+     * @throws NegocioException Si ocurre alguna excepcion al agregar puntos a
+     * un cliente
      */
     @Override
     public void agregarPuntos(Long idCliente, Integer puntos) throws NegocioException {

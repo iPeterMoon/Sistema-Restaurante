@@ -10,15 +10,20 @@ import java.awt.Font;
 
 /**
  * Panel que lleva la información de un cliente
+ *
  * @author pc
  */
 public class PnlCliente extends javax.swing.JPanel {
-        
+
     private PnlBusquedaCliente parent;
     private ClienteDTO cliente;
 
     /**
-     * Creates new form panelCliente
+     * Constructor que inicializa los atributos de la clase al valor de sus
+     * parametros
+     *
+     * @param parent Clase padre de la que proviene
+     * @param cliente Objeto cliente
      */
     public PnlCliente(PnlBusquedaCliente parent, ClienteDTO cliente) {
         this.parent = parent;
@@ -28,8 +33,8 @@ public class PnlCliente extends javax.swing.JPanel {
     }
 
     /**
-     * Carga los datos del cliente en los campos correspondientes.
-     * Se encarga de descifrar el telefono del cliente y mostrarlo en el campo
+     * Carga los datos del cliente en los campos correspondientes. Se encarga de
+     * descifrar el telefono del cliente y mostrarlo en el campo
      */
     private void cargarDatos() {
         String nombreCompleto = cliente.getNombre() + " " + cliente.getApellidoPaterno() + " "
@@ -234,7 +239,7 @@ public class PnlCliente extends javax.swing.JPanel {
     /**
      * Cierra el modal de la ventana padre, si existe.
      */
-    private void cerrarModalParent(){
+    private void cerrarModalParent() {
         ModalClientes modal = parent.getModalClientes();
         if (modal != null) {
             modal.dispose();
@@ -242,10 +247,10 @@ public class PnlCliente extends javax.swing.JPanel {
     }
 
     /**
-     * Setea el cliente del padre si este esta en modo seleccion.
-     * Si no, no hace nada.
+     * Setea el cliente del padre si este esta en modo seleccion. Si no, no hace
+     * nada.
      */
-    private void setCliente(){
+    private void setCliente() {
         if (parent.isSelectionMode()) {
             parent.setClienteSeleccionado(cliente);
         }

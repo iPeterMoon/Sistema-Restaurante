@@ -19,11 +19,10 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 /**
- * PnlBusquedaProducto.java
- * Clase que representa el panel de busqueda de productos
- * Contiene los componentes necesarios para buscar productos
- * y mostrarlos en un panel
- * 
+ * PnlBusquedaProducto.java Clase que representa el panel de busqueda de
+ * productos Contiene los componentes necesarios para buscar productos y
+ * mostrarlos en un panel
+ *
  * @author pc
  */
 public class PnlBusquedaProducto extends javax.swing.JPanel {
@@ -45,8 +44,8 @@ public class PnlBusquedaProducto extends javax.swing.JPanel {
     }
 
     /**
-     * Metodo para cargar las categorias en el comboBox
-     * Se obtienen las categorias de la enumeracion TipoProducto
+     * Metodo para cargar las categorias en el comboBox Se obtienen las
+     * categorias de la enumeracion TipoProducto
      */
     private void cargarCategorias() {
         TipoProducto[] categorias = TipoProducto.values();
@@ -230,7 +229,7 @@ public class PnlBusquedaProducto extends javax.swing.JPanel {
 
     /**
      * Metodo para extraer info de los elementos gráficos y buscar productos
-    */
+     */
     private void buscarProductos() {
         List<ProductoDTO> productosEncontrados = null;
         try {
@@ -261,7 +260,7 @@ public class PnlBusquedaProducto extends javax.swing.JPanel {
 
     /**
      * Metodo para mostrar un mensaje de no encontrados en el panel principal
-    */
+     */
     private void mostrarMensajeProductosNoEncontrados() {
         pnlProductos.removeAll();
         JLabel mensaje = new JLabel("No se encontraron productos");
@@ -311,7 +310,7 @@ public class PnlBusquedaProducto extends javax.swing.JPanel {
 
     /**
      * Metodo para obtener el modal de productos
-     * 
+     *
      * @return modal de productos
      */
     public ModalProductos getModal() {
@@ -320,7 +319,7 @@ public class PnlBusquedaProducto extends javax.swing.JPanel {
 
     /**
      * Metodo para establecer el modal de productos
-     * 
+     *
      * @param modal modal de productos
      */
     public void setModal(ModalProductos modal) {

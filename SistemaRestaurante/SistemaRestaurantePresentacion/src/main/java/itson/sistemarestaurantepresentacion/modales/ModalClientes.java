@@ -4,14 +4,19 @@ import itson.sistemarestaurantedominio.dtos.ClienteComandaDTO;
 import itson.sistemarestaurantedominio.dtos.ClienteDTO;
 
 /**
- * Clase para representar una ventana modal de clientes, 
- * reutiliza el panel de busqueda de clientes
+ * Clase para representar una ventana modal de clientes, reutiliza el panel de
+ * busqueda de clientes
+ *
  * @author pc
  */
 public class ModalClientes extends javax.swing.JDialog {
 
     /**
-     * Creates new form ModalClientes
+     * Constructor que inicializa los atributos de la clase al valor de sus
+     * parametros
+     *
+     * @param parent Clase padre que utiliza el modal
+     * @param modal Modal
      */
     public ModalClientes(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -46,12 +51,17 @@ public class ModalClientes extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public ClienteComandaDTO obtenerClienteComanda(){
+    /**
+     * Metodo para obtener la comanda del cliente
+     *
+     * @return Comanda del cliente
+     */
+    public ClienteComandaDTO obtenerClienteComanda() {
         this.setLocationRelativeTo(null);
         this.setVisible(true);
-        
+
         ClienteDTO cliente = pnlBusquedaCliente1.getClienteSeleccionado();
-        if(cliente != null){
+        if (cliente != null) {
             Long id = cliente.getId();
             String nombre = cliente.getNombre();
             String apellidoPaterno = cliente.getApellidoPaterno();
@@ -63,13 +73,13 @@ public class ModalClientes extends javax.swing.JDialog {
     }
 
     /**
-     * Cierra la ventana modal.
-     * Se utiliza para cerrar la ventana modal después de seleccionar un cliente.
+     * Cierra la ventana modal. Se utiliza para cerrar la ventana modal después
+     * de seleccionar un cliente.
      */
-    public void cerrarModal(){
+    public void cerrarModal() {
         this.dispose();
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private itson.sistemarestaurantepresentacion.paneles.PnlBusquedaCliente pnlBusquedaCliente1;
     // End of variables declaration//GEN-END:variables

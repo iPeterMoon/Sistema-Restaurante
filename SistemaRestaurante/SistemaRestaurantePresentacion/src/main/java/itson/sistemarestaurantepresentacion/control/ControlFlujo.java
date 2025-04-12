@@ -227,11 +227,21 @@ public class ControlFlujo {
         framePrincipal.getPnlPrincipal().revalidate();
     }
 
-    public static void mostrarOpcionesMesero(){
+    /**
+     * Metodo para mostrar las opciones del mesero en el frame principal. Se
+     * crea una instancia del panel de mostrar opciones mesero y se llama al
+     * metodo mostrarPanel.
+     */
+    public static void mostrarOpcionesMesero() {
         framePrincipal.mostrarOpcionesMesero();
     }
 
-    public static void mostrarOpcionesAdmin(){
+    /**
+     * Metodo para mostrar las opciones de administrador en el frame principal.
+     * Se crea una instancia del panel de mostrar opciones admin y se llama al
+     * metodo mostrar panel.
+     */
+    public static void mostrarOpcionesAdmin() {
         framePrincipal.mostrarOpcionesAdmin();
     }
 

@@ -28,6 +28,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
+ * Clase que se encarga de llevar el control de los reportes
  *
  * @author PC
  */
@@ -35,6 +36,9 @@ public class ControlReportes {
 
     IComandasBO factoryComanda = ObjetosNegocioFactory.crearComandasBO();
 
+    /**
+     * Consturctor por omision
+     */
     public ControlReportes() {
     }
 

@@ -5,17 +5,20 @@ import java.awt.Font;
 import javax.swing.JTextField;
 
 /**
- * Clase que representa un panel de ingrediente perteneciente a un producto en la interfaz de usuario.
- * Este panel muestra la información de un ingrediente como su nombre, 
- * unidad de medida y cantidad necesaria para el producto.
+ * Clase que representa un panel de ingrediente perteneciente a un producto en
+ * la interfaz de usuario. Este panel muestra la información de un ingrediente
+ * como su nombre, unidad de medida y cantidad necesaria para el producto.
+ *
  * @author pc
  */
 public class PnlIngredienteProducto extends javax.swing.JPanel {
 
-    
     private IngredienteDTO ingrediente;
+
     /**
-     * Creates new form PnlIngredienteProducto
+     * Constructor que inicializa el panel
+     *
+     * @param ingrediente Ingrediente
      */
     public PnlIngredienteProducto(IngredienteDTO ingrediente) {
         this.ingrediente = ingrediente;
@@ -26,13 +29,13 @@ public class PnlIngredienteProducto extends javax.swing.JPanel {
     /**
      * Metodo que llena la informacion del ingrediente
      */
-    private void cargarIngrediente(){
+    private void cargarIngrediente() {
         String nombreProducto = ingrediente.getNombre();
         this.jLabel1.setText(nombreProducto);
-        this.jLabel2.setText(ingrediente.getUnidadMedida().toString().substring(0,1).toUpperCase() + ingrediente.getUnidadMedida().toString().substring(1));
+        this.jLabel2.setText(ingrediente.getUnidadMedida().toString().substring(0, 1).toUpperCase() + ingrediente.getUnidadMedida().toString().substring(1));
         this.txtCantidad.setText("1");
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -116,6 +119,7 @@ public class PnlIngredienteProducto extends javax.swing.JPanel {
 
     /**
      * Metodo que obtiene el ingrediente
+     *
      * @return IngredienteDTO
      */
     public IngredienteDTO getIngrediente() {
@@ -124,6 +128,7 @@ public class PnlIngredienteProducto extends javax.swing.JPanel {
 
     /**
      * Metodo que establece el ingrediente
+     *
      * @param ingrediente IngredienteDTO
      */
     public void setIngrediente(IngredienteDTO ingrediente) {
@@ -132,6 +137,7 @@ public class PnlIngredienteProducto extends javax.swing.JPanel {
 
     /**
      * Metodo que obtiene el campo de texto de cantidad
+     *
      * @return JTextField
      */
     public JTextField getTxtCantidad() {
@@ -140,12 +146,13 @@ public class PnlIngredienteProducto extends javax.swing.JPanel {
 
     /**
      * Metodo que establece el campo de texto de cantidad
+     *
      * @param txtCantidad JTextField
      */
     public void setTxtCantidad(JTextField txtCantidad) {
         this.txtCantidad = txtCantidad;
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

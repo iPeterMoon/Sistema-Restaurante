@@ -28,6 +28,12 @@ import javax.persistence.criteria.Predicate;
 
 public class ComandasDAO implements IComandasDAO {
 
+    /**
+     * Guarda una nueva comanda en el sistema.
+     *
+     * @param comandaDTO Objeto que contiene los datos de la nueva comanda.
+     * @return La entidad Comanda que fue guardada.
+     */
     @Override
     public Comanda guardarComanda(NuevaComandaDTO comandaDTO) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
@@ -84,6 +90,11 @@ public class ComandasDAO implements IComandasDAO {
         return comanda;
     }
 
+    /**
+     * Obtiene una lista de todas las comandas registradas en el sistema.
+     *
+     * @return Lista de objetos ComandaDTO que representan las comandas.
+     */
     @Override
     public List<ComandaDTO> obtenerComandasAbiertas() {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
@@ -118,6 +129,12 @@ public class ComandasDAO implements IComandasDAO {
         return comandasDTO;
     }
 
+    /**
+     * Obtiene una comanda específica por su identificador único.
+     *
+     * @param idComanda Identificador único de la comanda.
+     * @return Objeto ComandaDTO que representa la comanda encontrada.
+     */
     @Override
     public ComandaDTO obtenerComandaPorId(Long idComanda) {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
@@ -178,6 +195,8 @@ public class ComandasDAO implements IComandasDAO {
      *
      * @param idComanda Id de la comanda a cambiar
      * @param nuevoEstado Nuevo estado de la comanda
+     * @throws PersistenciaException Si ocurre una excepcion al cambiar el
+     * estado de la comanda en la base de datos
      */
     @Override
     public void cambiarEstadoComanda(Long idComanda, EstadoComanda nuevoEstado) throws PersistenciaException {

@@ -1,15 +1,24 @@
 package itson.sistemarestaurantepersistencia.excepciones;
 
 /**
- * Clase que representa una excepción de todo lo que tenga que ver con persistencia
+ * Clase que representa una excepción de todo lo que tenga que ver con
+ * persistencia
  */
-public class PersistenciaException extends Exception{
+public class PersistenciaException extends Exception {
 
-    public PersistenciaException(){
+    /**
+     * Constructor por omision
+     */
+    public PersistenciaException() {
         super();
     }
 
-    public PersistenciaException(String message){
+    /**
+     * Consturctor que inicializa el atributo de la clase padre
+     *
+     * @param message Mensaje a mostrar
+     */
+    public PersistenciaException(String message) {
         super(message);
     }
 }

@@ -20,11 +20,11 @@ import javax.swing.event.DocumentListener;
 
 /**
  * Clase que representa el panel de busqueda de ingredientes. Este panel
- * contiene un campo de texto para buscar ingredientes por nombre y un
- * comboBox para filtrar por unidad de medida. Ademas, contiene un panel que muestra
- * los ingredientes encontrados.
- * Este panel es reutilizable y puede ser utilizado en diferentes modales o
- * ventanas de la aplicacion.
+ * contiene un campo de texto para buscar ingredientes por nombre y un comboBox
+ * para filtrar por unidad de medida. Ademas, contiene un panel que muestra los
+ * ingredientes encontrados. Este panel es reutilizable y puede ser utilizado en
+ * diferentes modales o ventanas de la aplicacion.
+ *
  * @author PC
  */
 public class PnlBusquedaIngrediente extends javax.swing.JPanel {
@@ -34,7 +34,7 @@ public class PnlBusquedaIngrediente extends javax.swing.JPanel {
     private ModalIngredientes modal;
 
     /**
-     * Creates new form PnlBusquedaIngrediente
+     * Constructor que inicializa el panel
      */
     public PnlBusquedaIngrediente() {
         initComponents();
@@ -94,7 +94,10 @@ public class PnlBusquedaIngrediente extends javax.swing.JPanel {
         pnlIngredientes.revalidate();
     }
 
-    private void cargarEventos(){
+    /**
+     * Metodo que carga los eventos
+     */
+    private void cargarEventos() {
         DocumentListener buscarListener = new DocumentListener() {
 
             @Override
@@ -114,7 +117,7 @@ public class PnlBusquedaIngrediente extends javax.swing.JPanel {
         };
 
         campoTextoBuscar.getDocument().addDocumentListener(buscarListener);
-        comboBoxUnidadMedida.addActionListener(e-> buscarIngredientes());
+        comboBoxUnidadMedida.addActionListener(e -> buscarIngredientes());
     }
 
     /**
@@ -122,7 +125,7 @@ public class PnlBusquedaIngrediente extends javax.swing.JPanel {
      *
      * @param filtroBusqueda Texto escrito en el campo de busqueda
      * @return Lista con todos los ingredientes filtrados obtenidos de la base
-     *         de datos
+     * de datos
      */
     private List<IngredienteDTO> buscarIngredientesConFiltro(String filtroBusqueda) {
         IIngredientesBO ingredientesBO = ObjetosNegocioFactory.crearIngredientesBO();
@@ -140,7 +143,7 @@ public class PnlBusquedaIngrediente extends javax.swing.JPanel {
      * @param filtroNombre Texto escrito en el campo de busqueda
      * @param filtroUnidad Opcion seleccionada del comboBox
      * @return Lista con todos los ingredientes filtrados obtenidos de la base
-     *         de datos
+     * de datos
      */
     private List<IngredienteDTO> buscarIngredientesConFiltro(String filtroNombre, String filtroUnidad) {
         IIngredientesBO ingredientesBO = ObjetosNegocioFactory.crearIngredientesBO();
@@ -238,7 +241,10 @@ public class PnlBusquedaIngrediente extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buscarIngredientes(){
+    /**
+     * Metodo que se encarga de buscar los ingredientes
+     */
+    private void buscarIngredientes() {
         String selectedUnidad = (String) comboBoxUnidadMedida.getSelectedItem();
         String filtroCampoTexto = campoTextoBuscar.getText();
 
@@ -247,7 +253,7 @@ public class PnlBusquedaIngrediente extends javax.swing.JPanel {
         if ((!campoTextoBuscar.getText().isEmpty()
                 && !campoTextoBuscar.getText().equals("Buscar"))
                 && selectedUnidad.equals("Seleccionar Unidad de medida")) {
-                    ingredientesEncontrados = buscarIngredientesConFiltro(filtroCampoTexto);
+            ingredientesEncontrados = buscarIngredientesConFiltro(filtroCampoTexto);
         }
 
         // Con valor en el comboBox pero no en el campo de texto
@@ -261,10 +267,10 @@ public class PnlBusquedaIngrediente extends javax.swing.JPanel {
         if ((!campoTextoBuscar.getText().isEmpty()
                 || !campoTextoBuscar.getText().equals("Buscar"))
                 && !selectedUnidad.equals("Seleccionar Unidad de medida")) {
-                    ingredientesEncontrados = buscarIngredientesConFiltro(filtroCampoTexto, selectedUnidad);
+            ingredientesEncontrados = buscarIngredientesConFiltro(filtroCampoTexto, selectedUnidad);
         }
 
-        if(ingredientesEncontrados != null && !ingredientesEncontrados.isEmpty()){
+        if (ingredientesEncontrados != null && !ingredientesEncontrados.isEmpty()) {
             cargarPanelesIngredientes(ingredientesEncontrados);
         } else {
             mostrarMensajeIngredientesNoEncontrados();
@@ -277,8 +283,10 @@ public class PnlBusquedaIngrediente extends javax.swing.JPanel {
             cargarTodosIngredientes();
         }
     }
-        /**
-     * Método para mostrar un mensaje en el panel cuando no se encuentran clientes.
+
+    /**
+     * Método para mostrar un mensaje en el panel cuando no se encuentran
+     * clientes.
      */
     private void mostrarMensajeIngredientesNoEncontrados() {
         pnlIngredientes.removeAll();
@@ -298,6 +306,8 @@ public class PnlBusquedaIngrediente extends javax.swing.JPanel {
 
     /**
      * Metodo para establecer el modo de seleccion
+     *
+     * @param selectionMode Modo de seleccion a establecer
      */
     public void setSelectionMode(boolean selectionMode) {
         this.selectionMode = selectionMode;
@@ -306,7 +316,7 @@ public class PnlBusquedaIngrediente extends javax.swing.JPanel {
 
     /**
      * Metodo para obtener el modo de seleccion
-     * 
+     *
      * @return true si el modo de seleccion esta activo, false en caso contrario
      */
     public boolean isSelectionMode() {
@@ -315,7 +325,7 @@ public class PnlBusquedaIngrediente extends javax.swing.JPanel {
 
     /**
      * Metodo para obtener el ingrediente seleccionado
-     * 
+     *
      * @return IngredienteDTO
      */
     public IngredienteDTO getIngredienteSeleccionado() {
@@ -324,7 +334,7 @@ public class PnlBusquedaIngrediente extends javax.swing.JPanel {
 
     /**
      * Metodo para establecer el ingrediente seleccionado
-     * 
+     *
      * @param ingredienteSeleccionado IngredienteDTO
      */
     public void setIngredienteSeleccionado(IngredienteDTO ingredienteSeleccionado) {
@@ -333,7 +343,7 @@ public class PnlBusquedaIngrediente extends javax.swing.JPanel {
 
     /**
      * Metodo para establecer el modal de ingredientes
-     * 
+     *
      * @param modal ModalIngredientes
      */
     public void setModal(ModalIngredientes modal) {
@@ -342,7 +352,7 @@ public class PnlBusquedaIngrediente extends javax.swing.JPanel {
 
     /**
      * Metodo para obtener el modal de ingredientes
-     * 
+     *
      * @return ModalIngredientes
      */
     public ModalIngredientes getModal() {

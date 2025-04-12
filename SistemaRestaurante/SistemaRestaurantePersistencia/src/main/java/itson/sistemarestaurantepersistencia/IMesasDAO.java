@@ -7,12 +7,14 @@ import itson.sistemarestaurantedominio.dtos.NuevaMesaDTO;
 import itson.sistemarestaurantedominio.dtos.MesaDTO;
 
 /**
- * Interfaz que define los métodos para la persistencia de las mesas en el sistema de restaurante.
- * Esta interfaz proporciona métodos para registrar nuevas mesas, obtener el número total de mesas y
+ * Interfaz que define los métodos para la persistencia de las mesas en el
+ * sistema de restaurante. Esta interfaz proporciona métodos para registrar
+ * nuevas mesas, obtener el número total de mesas y
+ *
  * @author Pc
  */
 public interface IMesasDAO {
-    
+
     /**
      * Método para registrar una nueva mesa en el sistema.
      *
@@ -20,7 +22,7 @@ public interface IMesasDAO {
      * @return La entidad Mesa que fue registrada.
      */
     public abstract Mesa registrarMesa(NuevaMesaDTO nuevaMesaDTO);
-    
+
     /**
      * Método para obtener el numero de mesas registradas en el sistema.
      *
@@ -29,7 +31,8 @@ public interface IMesasDAO {
     public abstract Long obtenerNumMesas();
 
     /**
-     * Método para obtener una lista de todas las mesas registradas en el sistema.
+     * Método para obtener una lista de todas las mesas registradas en el
+     * sistema.
      *
      * @return Lista de objetos MesaDTO que representan las mesas.
      */
@@ -45,6 +48,7 @@ public interface IMesasDAO {
 
     /**
      * Método para obtener una mesa por su número.
+     *
      * @param numeroMesa Número de la mesa a buscar.
      * @return Mesa que representa la mesa con el número especificado.
      */

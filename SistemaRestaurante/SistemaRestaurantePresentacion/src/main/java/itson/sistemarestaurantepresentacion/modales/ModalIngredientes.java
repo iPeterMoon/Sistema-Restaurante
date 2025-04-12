@@ -3,14 +3,19 @@ package itson.sistemarestaurantepresentacion.modales;
 import itson.sistemarestaurantedominio.dtos.IngredienteDTO;
 
 /**
- * Clase para representar una ventana modal de ingredientes,
- * reutiliza el panel de busqueda de ingredientes
+ * Clase para representar una ventana modal de ingredientes, reutiliza el panel
+ * de busqueda de ingredientes
+ *
  * @author pc
  */
 public class ModalIngredientes extends javax.swing.JDialog {
 
     /**
-     * Creates new form ModalIngredientes
+     * Constructor que inicializa los atributos de la clase al valor de sus
+     * parametros
+     *
+     * @param parent Clase padre que utiliza el modal
+     * @param modal Modal
      */
     public ModalIngredientes(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -44,17 +49,17 @@ public class ModalIngredientes extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
 
     /**
      * Método para obtener el ingrediente seleccionado en el modal
+     *
      * @return IngredienteDTO objeto que representa el ingrediente seleccionado
      */
     public IngredienteDTO obtenerIngrediente() {
         this.setLocationRelativeTo(null);
         this.setVisible(true);
         IngredienteDTO ingrediente = this.pnlBusquedaIngrediente.getIngredienteSeleccionado();
-        if(ingrediente != null){
+        if (ingrediente != null) {
             return ingrediente;
         }
         return null;
@@ -63,7 +68,7 @@ public class ModalIngredientes extends javax.swing.JDialog {
     /**
      * Método para cerrar el modal
      */
-    public void cerrarModal(){
+    public void cerrarModal() {
         this.dispose();
     }
 

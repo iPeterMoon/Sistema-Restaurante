@@ -16,14 +16,14 @@ import itson.sistemarestaurantedominio.dtos.DetallesComandaDTO;
 import itson.sistemarestaurantepersistencia.IDetallesComandaDAO;
 
 /**
- * Clase que implementa la interfaz de IDetallesComandaDAO,
- * contiene un metodo para obtener los detalles de la comanda
+ * Clase que implementa la interfaz de IDetallesComandaDAO, contiene un metodo
+ * para obtener los detalles de la comanda
  */
 public class DetallesComandaDAO implements IDetallesComandaDAO {
 
     /**
      * Metodo para obtener una lista de detalles de una comanda específica
-     * 
+     *
      * @param idComanda Id de la comanda a obtener
      * @return Lista con los detalles de la comanda
      */
@@ -61,7 +61,7 @@ public class DetallesComandaDAO implements IDetallesComandaDAO {
 
     /**
      * Metodo para guardar detalles de una comanda ya existente
-     * 
+     *
      * @param detalle Detalle de la comanda a guardar
      * @return DetallesComanda guardada
      */
@@ -87,7 +87,7 @@ public class DetallesComandaDAO implements IDetallesComandaDAO {
 
     /**
      * Metodo para eliminar un detalle de una comanda
-     * 
+     *
      * @param idDetallesComanda Id del detalle a eliminar||
      */
     @Override
@@ -95,7 +95,7 @@ public class DetallesComandaDAO implements IDetallesComandaDAO {
         EntityManager entityManager = ManejadorConexiones.getEntityManager();
         entityManager.getTransaction().begin();
         DetallesComanda detalle = entityManager.find(DetallesComanda.class, idDetallesComanda);
-        if(detalle != null){
+        if (detalle != null) {
             entityManager.remove(detalle);
         }
         entityManager.getTransaction().commit();

@@ -11,6 +11,7 @@ import itson.sistemarestaurantepersistencia.excepciones.PersistenciaException;
 import java.util.List;
 
 /**
+ * Clase con las normativas del negocio para la entidad de Ingredientes
  *
  * @author PC
  */
@@ -18,6 +19,13 @@ public class IngredientesBO implements IIngredientesBO {
 
     private IIngredientesDAO ingredientesDAO;
 
+    /**
+     * Constructor que inicializa los atributos de la clase al valor de sus
+     * parametros
+     *
+     * @param ingredientesDAO Instancia de la clase DAO para acceder a sus
+     * metodos
+     */
     public IngredientesBO(IIngredientesDAO ingredientesDAO) {
         this.ingredientesDAO = ingredientesDAO;
     }
@@ -42,6 +50,13 @@ public class IngredientesBO implements IIngredientesBO {
         }
     }
 
+    /**
+     * Metodo que ontiene los ingredientes de la base de datos
+     *
+     * @return Lista con todos los ingredientes de la base de datos
+     * @throws NegocioException Si ocurre alguna excepcion de negocio al obtener
+     * los ingredientes
+     */
     @Override
     public List<IngredienteDTO> obtenerIngredientes() throws NegocioException {
         List<IngredienteDTO> ingredientes = ingredientesDAO.obtenerIngredientesDTO();
@@ -51,6 +66,16 @@ public class IngredientesBO implements IIngredientesBO {
         return ingredientes;
     }
 
+    /**
+     * Metodo que obtiene los ingredientes en base a un filtro de busqueda en la
+     * base de datos
+     *
+     * @param filtroBusqueda Filtro de busqueda a realizar
+     * @return Lista de todos los ingredientes obtenidos al filtrar la base de
+     * datos
+     * @throws NegocioException Si ocurre algina excepcion de negocio al obtener
+     * los ingredientes
+     */
     @Override
     public List<IngredienteDTO> obtenerIngredientes(String filtroBusqueda) throws NegocioException {
         List<IngredienteDTO> ingredientes = ingredientesDAO.obtenerIngredientesDTO(filtroBusqueda);
@@ -107,13 +132,14 @@ public class IngredientesBO implements IIngredientesBO {
 
     /**
      * Agrega stock a un ingrediente
+     *
      * @param idIngrediente ID del ingrediente
      * @param stock Stock a agregar
      * @throws NegocioException por validaciones
      */
     @Override
     public void agregarStock(Long idIngrediente, Integer stock) throws NegocioException {
-        if(stock<= 0){
+        if (stock <= 0) {
             throw new NegocioException("Asegurese de ingresar un numero positivo");
         }
         ingredientesDAO.agregarStock(idIngrediente, stock);
@@ -121,21 +147,21 @@ public class IngredientesBO implements IIngredientesBO {
 
     /**
      * Elimina stock de un ingrediente
+     *
      * @param idIngrediente ID del ingrediente
      * @param stock Stock a eliminar
      * @throws NegocioException por validaciones
      */
     @Override
     public void eliminarStock(Long idIngrediente, Integer stock) throws NegocioException {
-        if(stock <= 0){
+        if (stock <= 0) {
             throw new NegocioException("Asegurese de ingresar un numero positivo");
         }
-        try{
+        try {
             ingredientesDAO.quitarStock(idIngrediente, stock);
-        } catch(PersistenciaException e){
+        } catch (PersistenciaException e) {
             throw new NegocioException(e.getMessage());
         }
     }
-
 
 }

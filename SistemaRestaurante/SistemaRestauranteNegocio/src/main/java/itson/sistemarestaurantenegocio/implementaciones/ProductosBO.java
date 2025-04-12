@@ -12,6 +12,12 @@ public class ProductosBO implements IProductosBO {
 
     private IProductosDAO productosDAO;
 
+    /**
+     * Constructor que inicializa los atributos de la clase al valor de sus
+     * parametros
+     *
+     * @param productosDAO Instancia de la clase DAO para utilizar sus metodos
+     */
     public ProductosBO(IProductosDAO productosDAO) {
         this.productosDAO = productosDAO;
     }
@@ -24,13 +30,13 @@ public class ProductosBO implements IProductosBO {
      * error en la base de datos o de formato
      */
     @Override
-    public void agregarProducto(NuevoProductoDTO nuevoProducto) throws NegocioException, IllegalArgumentException{
+    public void agregarProducto(NuevoProductoDTO nuevoProducto) throws NegocioException, IllegalArgumentException {
         try {
             ProductoDTO productoGuardado = productosDAO.obtenerProductoPorNombre(nuevoProducto.getNombre());
             if (productoGuardado != null) {
                 throw new NegocioException("Ya existe un producto con el nombre: " + nuevoProducto.getNombre());
             }
-            if(nuevoProducto.getPrecio().intValue() <= 0){
+            if (nuevoProducto.getPrecio().intValue() <= 0) {
                 throw new NegocioException("El precio no puede ser menor o igual a 0");
             }
             productosDAO.agregarProducto(nuevoProducto);
@@ -74,6 +80,7 @@ public class ProductosBO implements IProductosBO {
 
     /**
      * Metodo para obtener los productos por nombre y categoría
+     *
      * @param nombre Nombre a buscar
      * @param categoria Categoría a filtrar
      * @return Lista de Productos coincidentes
@@ -90,6 +97,7 @@ public class ProductosBO implements IProductosBO {
 
     /**
      * Obtiene un producto por su id
+     *
      * @param idProducto Id del producto a buscar
      * @return ProductoDTO representando el producto
      * @throws NegocioException Si no se encuentra el producto
@@ -97,7 +105,7 @@ public class ProductosBO implements IProductosBO {
     @Override
     public ProductoDTO obtenerProductoPorId(Long idProducto) throws NegocioException {
         ProductoDTO producto = productosDAO.obtenerProductoPorId(idProducto);
-        if(producto == null){
+        if (producto == null) {
             throw new NegocioException("No se entoncró el producto");
         }
         return producto;

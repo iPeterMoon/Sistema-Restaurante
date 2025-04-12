@@ -38,6 +38,13 @@ public class ComandasBO implements IComandasBO {
         this.comandasDAO = comandasDAO;
     }
 
+    /**
+     * Metodo que se encarga de guardar una nueva comanda en la base de datos
+     *
+     * @param comandaDTO Objeto que contiene los datos de la comanda
+     * @throws NegocioException Si ocurre alguna excepcion de negocio al guardar
+     * la comanda
+     */
     @Override
     public void guardarComanda(NuevaComandaDTO comandaDTO) throws NegocioException {
         if (comandaDTO == null) {
@@ -56,6 +63,13 @@ public class ComandasBO implements IComandasBO {
 
     }
 
+    /**
+     * Metodo que se encarga de entregar una comanda en la base de datos
+     *
+     * @param comandaDTO Objeto que tiene los datos de la comanda
+     * @throws NegocioException Si ocurre alguna excepcion de negocio al
+     * entregar la comanda
+     */
     @Override
     public void entregarComanda(ComandaDTO comandaDTO) throws NegocioException {
         try {
@@ -85,6 +99,13 @@ public class ComandasBO implements IComandasBO {
 
     }
 
+    /**
+     * Metodo que se encarga de cancelar una comanda en la base de datos
+     *
+     * @param comandaDTO Objeto que tiene los datos de la comanda
+     * @throws NegocioException Si ocurre alguan excepcion de negocio al
+     * cancelar una comanda
+     */
     @Override
     public void cancelarComanda(ComandaDTO comandaDTO) throws NegocioException {
         try {
@@ -94,6 +115,13 @@ public class ComandasBO implements IComandasBO {
         }
     }
 
+    /**
+     * Metodo que se encarga de obtener las comandas de la base de datos
+     *
+     * @return Lista de comandas obtenidas en la base de datos
+     * @throws NegocioException Si ocurre una exccepcion de negocio al obtener
+     * las comandas
+     */
     @Override
     public List<ComandaDTO> obtenerComandas() throws NegocioException {
         List<ComandaDTO> comandas = comandasDAO.obtenerComandasAbiertas();
@@ -103,11 +131,24 @@ public class ComandasBO implements IComandasBO {
         return comandas;
     }
 
+    /**
+     * Obtiene una comanda específica por su identificador único.
+     *
+     * @param idComanda Identificador único de la comanda.
+     * @return Objeto ComandaDTO que representa la comanda encontrada.
+     */
     @Override
     public ComandaDTO obtenerComandaPorId(Long idComanda) {
         return comandasDAO.obtenerComandaPorId(idComanda);
     }
 
+    /**
+     * Modifica una comanda
+     *
+     * @param comanda Comanda a modificar
+     * @param nuevosDetalles Los detalles modificados de la comanda
+     * @throws NegocioException
+     */
     @Override
     public void modificarComanda(ComandaDTO comanda, List<DetallesComandaDTO> nuevosDetalles) throws NegocioException {
         IDetallesComandaBO detallesComandaBO = ObjetosNegocioFactory.crearDetallesComandaBO();
@@ -141,6 +182,8 @@ public class ComandasBO implements IComandasBO {
      * @param fechaInicial Fecha de inicio del rango
      * @param fechaFinal Fecha de fin del rango
      * @return Lista con todas las comandas realizadas dentro del periodo
+     * @throws NegocioException si ocurre alguna excepcion al obtener las
+     * comandas por periodo
      */
     @Override
     public List<Comanda> obtenerComandasPorPeriodo(Calendar fechaInicial, Calendar fechaFinal) throws NegocioException {
@@ -163,6 +206,8 @@ public class ComandasBO implements IComandasBO {
      * @param fechaInicial Fecha de inicio del rango
      * @param fechaFinal Fecha de fin del rango
      * @return Total de venta realizada en el periodo
+     * @throws NegocioException si ocurre alguna excepcion al calcular el tortal
+     * de ventas por periodo
      */
     @Override
     public BigDecimal calcularTotalVentasPorPeriodo(Calendar fechaInicial, Calendar fechaFinal) throws NegocioException {

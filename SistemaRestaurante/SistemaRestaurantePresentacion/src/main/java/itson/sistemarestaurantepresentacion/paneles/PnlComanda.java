@@ -16,7 +16,7 @@ import itson.sistemarestaurantepresentacion.recursos.Formatos;
  * Cla se que representa el panel de una comanda en la interfaz gráfica.
  * Contiene información sobre la mesa, estado, folio, fecha y hora de la
  * comanda.
- * 
+ *
  * @author pc
  */
 public class PnlComanda extends javax.swing.JPanel {
@@ -24,7 +24,9 @@ public class PnlComanda extends javax.swing.JPanel {
     private ComandaDTO comanda;
 
     /**
-     * Creates new form PnlComanda
+     * Constructor que inicializa el panel
+     *
+     * @param comanda Objeto comanda
      */
     public PnlComanda(ComandaDTO comanda) {
         this.comanda = comanda;
@@ -34,23 +36,24 @@ public class PnlComanda extends javax.swing.JPanel {
 
     /**
      * Método para establecer los datos de la comanda en el panel.
+     *
      * @param comanda La comanda a mostrar.
      */
-    private void cargarComanda(){
-        try{
+    private void cargarComanda() {
+        try {
             lblFolio.setText("Folio: " + comanda.getFolio());
-        IMesasBO mesasBO = ObjetosNegocioFactory.crearMesasBO(); 
-        MesaDTO mesa = mesasBO.obtenerMesaPorId(comanda.getIdMesa());
-        lblMesa.setText("Mesa " + mesa.getNumeroMesa());
-        lblFecha.setText(Formatos.cargarFecha(comanda.getFechaHora()));
-        lblHora.setText(Formatos.cargarHora(comanda.getFechaHora()));
-        lblEstado.setText(comanda.getEstado().toString().substring(0, 1).toUpperCase()
-                + comanda.getEstado().toString().substring(1).toLowerCase());
-        } catch (NegocioException e){
+            IMesasBO mesasBO = ObjetosNegocioFactory.crearMesasBO();
+            MesaDTO mesa = mesasBO.obtenerMesaPorId(comanda.getIdMesa());
+            lblMesa.setText("Mesa " + mesa.getNumeroMesa());
+            lblFecha.setText(Formatos.cargarFecha(comanda.getFechaHora()));
+            lblHora.setText(Formatos.cargarHora(comanda.getFechaHora()));
+            lblEstado.setText(comanda.getEstado().toString().substring(0, 1).toUpperCase()
+                    + comanda.getEstado().toString().substring(1).toLowerCase());
+        } catch (NegocioException e) {
             JOptionPane.showMessageDialog(this, "Error al cargar la comanda: " + e.getMessage(), "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
-        
+
     }
 
     /**

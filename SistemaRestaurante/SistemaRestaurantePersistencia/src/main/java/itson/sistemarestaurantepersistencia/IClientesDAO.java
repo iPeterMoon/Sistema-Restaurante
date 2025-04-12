@@ -15,9 +15,10 @@ import itson.sistemarestaurantedominio.dtos.ClienteFrecuenteDTO;
 public interface IClientesDAO {
 
     /**
-     * Metodo para registrar un cliente en la base de datos
+     * Metodo para registrar un nuevo cliente en la base de datos
      *
-     * @param nuevoCliente cliente a registrar
+     * @param nuevoCliente Cliente a agregar en la base de datos
+     * @return Cliente agregado en la base de datos
      */
     public Cliente registrarCliente(NuevoClienteDTO nuevoCliente);
 
@@ -29,51 +30,78 @@ public interface IClientesDAO {
     public List<ClienteDTO> obtenerClientesFrecuentes();
 
     /**
-     * Metodo para buscar clientes por nombre
+     * Metodo que se encarga de buscar los clientes por su nombre en la base de
+     * datos
      *
-     * @return lista de clientes encontrados
+     * @param nombre Nombre de los clientes a buscar en la base de datos
+     * @return Lista con los clientes que coincidan con el nombre en la base de
+     * datos
      */
     public List<ClienteDTO> buscarClientesPorNombre(String nombre);
 
     /**
-     * Metodo para buscar clientes por telefono
+     * Metodo que se encarga de buscar los clietnes por su numero de telefono en
+     * la base de datos
      *
-     * @return lista de clientes encontrados
+     * @param telefono Numero de telefono de los clientes a buscar en la base de
+     * datos
+     * @return Lista con los clientes que coincidadn con el numero de telefono
+     * en la base de datos
      */
     public List<ClienteDTO> buscarClientesPorTelefono(String telefono);
 
     /**
-     * Metodo para buscar clientes por correo
+     * Metodo que se encarga de buscar los clientes por su correo en la base de
+     * datos
      *
-     * @return lista de clientes encontrados
+     * @param correo Correo de los clientes a buscar en la base de datos
+     * @return Lista con los clientes que coinciden con el correo en la base de
+     * datos
      */
     public List<ClienteDTO> buscarClientesPorCorreo(String correo);
 
     /**
-     * Metodo para buscar clientes por nombre y telefono
+     * Metodo que se encarga de buscar los clietnes por su nombre y por su
+     * telefono en la base de datos
      *
-     * @return lista de clientes encontrados
+     * @param nombre Nomrbe del cliente
+     * @param telefono Numero de telefono del cliente
+     * @return Lista con todos los clietnes que coincidan con ambos campos en la
+     * base de datos
      */
     public List<ClienteDTO> buscarClientesPorNombreYTelefono(String nombre, String telefono);
 
     /**
-     * Metodo para buscar clientes por telefono y correo
+     * Metodo que se encarga de buscar los lientes por su nombre y su correo en
+     * la base de datos
      *
-     * @return lista de clientes encontrados
+     * @param nombre Nombre del cliente
+     * @param correo Correo del cliente
+     * @return Lista con todos los clientes que coincidan con ambso campos en la
+     * base de datos
      */
     public List<ClienteDTO> buscarClientesPorNombreYCorreo(String nombre, String correo);
 
     /**
-     * Metodo para buscar clientes por telefono y correo
+     * Metodo que se encarga de buscar los cliente por su telefono y su correo
+     * en la base de datos
      *
-     * @return lista de clientes encontrados
+     * @param telefono Numero de telefono del cliente
+     * @param correo Correo del cliente
+     * @return Lista con todos los clientes que coincidan con ambos campos en la
+     * base de datos
      */
     public List<ClienteDTO> buscarClientesPorTelefonoYCorreo(String telefono, String correo);
 
     /**
-     * Metodo para buscar clientes por nombre, telefono y correo
+     * Metodo que se encarga de obtener los clientes por su nombre, telefono y
+     * correo en la base de datos
      *
-     * @return lista de clientes encontrados
+     * @param nombre Nombre del cliente
+     * @param telefono Numero de telefono del cliente
+     * @param correo Correo del cliente
+     * @return Lista con todos los clientes que coincidan con los tres campos de
+     * la base de datos
      */
     public List<ClienteDTO> buscarClientesPorNombreTelefonoYCorreo(String nombre, String telefono, String correo);
 
@@ -90,6 +118,8 @@ public interface IClientesDAO {
      *
      * @param idCliente Id del cliente a agregarle puntos
      * @param puntos Puntos a agregar
+     * @throws PersistenciaException Si ocurre un error al agregar los puntos
+     * del cliente en la base de datos
      */
     public abstract void agregarPuntos(Long idCliente, Integer puntos) throws PersistenciaException;
 

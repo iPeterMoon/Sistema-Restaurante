@@ -31,15 +31,17 @@ import itson.sistemarestaurantepersistencia.implementaciones.IngredientesProduct
 
 /**
  * Clase que crea los objetos de negocio de la aplicacion
+ *
  * @author pc
  */
 public class ObjetosNegocioFactory {
 
     /**
      * Metodo para crear un objeto de negocio de mesas
+     *
      * @return Objeto de negocio de mesas
      */
-    public static IMesasBO crearMesasBO(){
+    public static IMesasBO crearMesasBO() {
         IMesasDAO mesasDAO = new MesasDAO();
         IMesasBO mesasBO = new MesasBO(mesasDAO);
         return mesasBO;
@@ -47,6 +49,7 @@ public class ObjetosNegocioFactory {
 
     /**
      * Metodo para crear un objeto de negocio de clientes
+     *
      * @return Objeto de negocio de clientes
      */
     public static IClientesBO crearClientesBO() {
@@ -54,22 +57,24 @@ public class ObjetosNegocioFactory {
         IClientesBO clientesBO = new ClientesBO(clientesDAO);
         return clientesBO;
     }
-    
+
     /**
      * Metodo para crear un objeto de negocio de productos
+     *
      * @return Objeto de negocio de productos
      */
-    public static IProductosBO crearProductosBO(){
+    public static IProductosBO crearProductosBO() {
         IProductosDAO productosDAO = new ProductosDAO();
         IProductosBO productosBO = new ProductosBO(productosDAO);
         return productosBO;
     }
-    
+
     /**
      * Metodo para crear un objeto de negocio de ingredientes
+     *
      * @return Objeto de negocio de ingredientes
      */
-    public static IIngredientesBO crearIngredientesBO(){
+    public static IIngredientesBO crearIngredientesBO() {
         IIngredientesDAO ingredientesDAO = new IngredientesDAO();
         IIngredientesBO ingredientesBO = new IngredientesBO(ingredientesDAO);
         return ingredientesBO;
@@ -77,9 +82,10 @@ public class ObjetosNegocioFactory {
 
     /**
      * Metodo para crear un objeto de negocio de ingredientes productos
+     *
      * @return Objeto de negocio de ingredientes productos
      */
-    public static IIngredientesProductoBO crearIngredientesProductoBO(){
+    public static IIngredientesProductoBO crearIngredientesProductoBO() {
         IIngredientesProductosDAO ingredientesDAO = new IngredientesProductosDAO();
         IIngredientesProductoBO ingredientesProductoBO = new IngredientesProductoBO(ingredientesDAO);
         return ingredientesProductoBO;
@@ -87,15 +93,22 @@ public class ObjetosNegocioFactory {
 
     /**
      * Metodo para crear un objeto de negocio de comandas
+     *
      * @return Objeto de negocio de comandas
      */
-    public static IComandasBO crearComandasBO(){
+    public static IComandasBO crearComandasBO() {
         IComandasDAO comandasDAO = new ComandasDAO();
         IComandasBO comandasBO = new ComandasBO(comandasDAO);
         return comandasBO;
     }
 
-    public static IDetallesComandaBO crearDetallesComandaBO(){
+    /**
+     * Metodo para crear un objeto de negocio de la relacion entre productos y
+     * comandas
+     *
+     * @return Objeto de negocio de la relacion entre productos y comandas
+     */
+    public static IDetallesComandaBO crearDetallesComandaBO() {
         IDetallesComandaDAO detallesComandaDAO = new DetallesComandaDAO();
         IDetallesComandaBO detallesComandaBO = new DetallesComandaBO(detallesComandaDAO);
         return detallesComandaBO;

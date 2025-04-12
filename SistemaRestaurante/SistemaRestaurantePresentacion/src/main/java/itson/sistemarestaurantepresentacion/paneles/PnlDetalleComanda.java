@@ -17,12 +17,11 @@ import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 
 /**
- * Clase que representa el panel de detalle de una comanda.
- * Este panel muestra los detalles de un producto en una comanda, incluyendo
- * su nombre, precio unitario, cantidad y comentarios adicionales.
- * Permite al usuario seleccionar la cantidad del producto y muestra el importe
- * total.
- * 
+ * Clase que representa el panel de detalle de una comanda. Este panel muestra
+ * los detalles de un producto en una comanda, incluyendo su nombre, precio
+ * unitario, cantidad y comentarios adicionales. Permite al usuario seleccionar
+ * la cantidad del producto y muestra el importe total.
+ *
  * @author pc
  */
 public class PnlDetalleComanda extends javax.swing.JPanel {
@@ -32,7 +31,9 @@ public class PnlDetalleComanda extends javax.swing.JPanel {
     private DetallesComandaDTO detallesComanda;
 
     /**
-     * Creates new form PnlDetalleComanda
+     * Constructor que inicializa el panel
+     *
+     * @param producto Objeto producto
      */
     public PnlDetalleComanda(ProductoDTO producto) {
         this.producto = producto;
@@ -43,7 +44,7 @@ public class PnlDetalleComanda extends javax.swing.JPanel {
 
     /**
      * Constructor para cuando se muestran las especificaciones de la comanda.
-     * 
+     *
      * @param detallesComanda
      */
     public PnlDetalleComanda(DetallesComandaDTO detallesComanda) {
@@ -55,8 +56,8 @@ public class PnlDetalleComanda extends javax.swing.JPanel {
     }
 
     /**
-     * Constructor para cuando se muestran las especificaciones
-     * de la comanda, pero en un panel de modificar
+     * Constructor para cuando se muestran las especificaciones de la comanda,
+     * pero en un panel de modificar
      */
     public PnlDetalleComanda(DetallesComandaDTO detalles, PnlModificarComanda parent) {
         this.detallesComanda = detalles;
@@ -69,9 +70,8 @@ public class PnlDetalleComanda extends javax.swing.JPanel {
     }
 
     /**
-     * Método para cargar los detalles del producto en el panel.
-     * Se establece el nombre del producto, precio unitario y se inicializa
-     * el importe total.
+     * Método para cargar los detalles del producto en el panel. Se establece el
+     * nombre del producto, precio unitario y se inicializa el importe total.
      */
     private void cargarDetallesProducto() {
         String nombreProducto = producto.getNombre();
@@ -90,9 +90,9 @@ public class PnlDetalleComanda extends javax.swing.JPanel {
             this.producto = producto;
             spinnerCantidad.setValue(detallesComanda.getCantidad());
             txtAreaComentarios.setText(detallesComanda.getComentario());
-            if(!isEditable){
+            if (!isEditable) {
                 spinnerCantidad.setEditor(new JSpinner.DefaultEditor(spinnerCantidad));
-                spinnerCantidad.setForeground(new Color(0,0,0));
+                spinnerCantidad.setForeground(new Color(0, 0, 0));
                 txtAreaComentarios.setEditable(false);
             }
         } catch (NegocioException e) {
@@ -251,13 +251,13 @@ public class PnlDetalleComanda extends javax.swing.JPanel {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         List<PnlDetalleComanda> panelesDetalles = parent.getPanelesDetalles();
-        if(panelesDetalles.size() <= 1){
+        if (panelesDetalles.size() <= 1) {
             JOptionPane.showMessageDialog(
-                null, 
-                "No se puede quedar sin productos en la comanda", 
-                "Error", 
-                JOptionPane.ERROR_MESSAGE
-                );
+                    null,
+                    "No se puede quedar sin productos en la comanda",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
         } else {
             panelesDetalles.remove(this);
             parent.cargarPanelesDetalles();
@@ -267,11 +267,11 @@ public class PnlDetalleComanda extends javax.swing.JPanel {
     /**
      * Método que se ejecuta cuando cambia el valor del spinner de cantidad.
      * Actualiza el importe total en función de la cantidad seleccionada.
-     * 
+     *
      * @param evt el evento de cambio de estado del spinner
      */
     private void spinnerCantidadStateChanged(javax.swing.event.ChangeEvent evt) {// GEN-FIRST:event_spinnerCantidadStateChanged
-        
+
         // Obtener la cantidad seleccionada
         int cantidad = (int) spinnerCantidad.getValue();
 
@@ -285,7 +285,7 @@ public class PnlDetalleComanda extends javax.swing.JPanel {
 
     /**
      * Método para obtener el spinner de cantidad.
-     * 
+     *
      * @return el spinner de cantidad
      */
     public JSpinner getSpinnerCantidad() {
@@ -294,7 +294,7 @@ public class PnlDetalleComanda extends javax.swing.JPanel {
 
     /**
      * Método para obtener el JTextArea de comentarios.
-     * 
+     *
      * @return el JTextArea de comentarios
      */
     public JTextArea getTxtAreaComentarios() {
@@ -303,7 +303,7 @@ public class PnlDetalleComanda extends javax.swing.JPanel {
 
     /**
      * Método para obtener el importe total.
-     * 
+     *
      * @return el importe total como BigDecimal
      */
     public ProductoDTO getProducto() {

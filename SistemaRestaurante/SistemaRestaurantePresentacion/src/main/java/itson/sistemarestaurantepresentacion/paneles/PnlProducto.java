@@ -2,7 +2,6 @@ package itson.sistemarestaurantepresentacion.paneles;
 
 import java.awt.Font;
 
-
 import itson.sistemarestaurantedominio.dtos.ProductoDTO;
 import itson.sistemarestaurantepresentacion.control.ControlFlujo;
 import itson.sistemarestaurantepresentacion.modales.ModalProductos;
@@ -21,7 +20,10 @@ public class PnlProducto extends javax.swing.JPanel {
     private PnlBusquedaProducto parent;
 
     /**
-     * Creates new form PnlProducto
+     * Constructor que inicializa el panel
+     *
+     * @param parent Clase padre
+     * @param producto Objeto producto
      */
     public PnlProducto(PnlBusquedaProducto parent, ProductoDTO producto) {
         this.parent = parent;

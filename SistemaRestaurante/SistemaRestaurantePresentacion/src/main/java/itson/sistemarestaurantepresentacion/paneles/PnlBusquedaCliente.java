@@ -15,13 +15,12 @@ import itson.sistemarestaurantenegocio.interfaces.IClientesBO;
 import itson.sistemarestaurantepresentacion.modales.ModalClientes;
 
 /**
- * Clase que representa el panel de busqueda de clientes. Este panel
- * contiene un campo de texto para buscar clientes por nombre, un
- * campo de texto para buscar por correo y otro para buscar por telefono,
- * contiene un panel que muestra los clientes encontrados.
- * Este panel es reutilizable y puede ser utilizado en diferentes modales o
- * ventanas de la aplicacion.
- * 
+ * Clase que representa el panel de busqueda de clientes. Este panel contiene un
+ * campo de texto para buscar clientes por nombre, un campo de texto para buscar
+ * por correo y otro para buscar por telefono, contiene un panel que muestra los
+ * clientes encontrados. Este panel es reutilizable y puede ser utilizado en
+ * diferentes modales o ventanas de la aplicacion.
+ *
  * @author pc
  */
 public class PnlBusquedaCliente extends javax.swing.JPanel {
@@ -31,7 +30,7 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
     private ModalClientes modalClientes;
 
     /**
-     * Creates new form PnlBusquedaCliente
+     * Consturctor que crea el nuevo panel
      */
     public PnlBusquedaCliente() {
         initComponents();
@@ -241,7 +240,8 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
     }
 
     /**
-     * Método para mostrar un mensaje en el panel cuando no se encuentran clientes.
+     * Método para mostrar un mensaje en el panel cuando no se encuentran
+     * clientes.
      */
     private void mostrarMensajeNoClientesEncontrados() {
         pnlClientes.removeAll();
@@ -313,7 +313,7 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
     /**
      * Método para buscar clientes por nombre y teléfono.
      *
-     * @param nombre   el nombre a buscar.
+     * @param nombre el nombre a buscar.
      * @param telefono el número de teléfono a buscar.
      * @return lista de clientes encontrados.
      */
@@ -357,7 +357,7 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
      * Método para buscar clientes por teléfono y correo.
      *
      * @param telefono el número de teléfono a buscar.
-     * @param correo   el correo a buscar.
+     * @param correo el correo a buscar.
      * @return lista de clientes encontrados.
      */
     private List<ClienteDTO> buscarClientesPorTelefonoYCorreo(String telefono, String correo) {
@@ -377,9 +377,9 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
     /**
      * Método para buscar clientes por nombre, teléfono y correo.
      *
-     * @param nombre   el nombre a buscar.
+     * @param nombre el nombre a buscar.
      * @param telefono el número de teléfono a buscar.
-     * @param correo   el correo a buscar.
+     * @param correo el correo a buscar.
      * @return lista de clientes encontrados.
      */
     private List<ClienteDTO> buscarClientesPorNombreTelefonoYCorreo(String nombre, String telefono, String correo) {
@@ -431,7 +431,7 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
 
     /**
      * Metodo para saber si el panel está en modo seleccion
-     * 
+     *
      * @return true si está en modo de selección, false en caso contrario
      */
     public boolean isSelectionMode() {
@@ -442,7 +442,7 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
      * Método para establecer el modo de selección del panel.
      *
      * @param selectionMode true para habilitar el modo de selección, false para
-     *                      deshabilitarlo.
+     * deshabilitarlo.
      */
     public void setSelectionMode(boolean selectionMode) {
         this.selectionMode = selectionMode;
@@ -460,7 +460,7 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
 
     /**
      * Método para establecer el cliente seleccionado.
-     * 
+     *
      * @param clienteSeleccionado el cliente seleccionado.
      */
     public void setClienteSeleccionado(ClienteDTO clienteSeleccionado) {
@@ -478,7 +478,7 @@ public class PnlBusquedaCliente extends javax.swing.JPanel {
 
     /**
      * Método para obtener el modal de clientes.
-     * 
+     *
      * @return el modal de clientes.
      */
     public ModalClientes getModalClientes() {

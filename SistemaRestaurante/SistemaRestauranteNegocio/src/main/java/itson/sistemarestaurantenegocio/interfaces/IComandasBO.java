@@ -18,30 +18,38 @@ import java.util.Calendar;
 public interface IComandasBO {
 
     /**
-     * Guarda una nueva comanda en el sistema.
+     * Metodo que se encarga de guardar una nueva comanda en la base de datos
      *
-     * @param comandaDTO Objeto que contiene los datos de la nueva comanda.
+     * @param comandaDTO Objeto que contiene los datos de la comanda
+     * @throws NegocioException Si ocurre alguna excepcion de negocio al guardar
+     * la comanda
      */
     public abstract void guardarComanda(NuevaComandaDTO comandaDTO) throws NegocioException;
 
     /**
-     * Marca una comanda como entregada.
+     * Metodo que se encarga de entregar una comanda en la base de datos
      *
-     * @param comandaDTO Objeto que contiene los datos de la comanda a entregar.
+     * @param comandaDTO Objeto que tiene los datos de la comanda
+     * @throws NegocioException Si ocurre alguna excepcion de negocio al
+     * entregar la comanda
      */
     public abstract void entregarComanda(ComandaDTO comandaDTO) throws NegocioException;
 
-    /**
-     * Cancela una comanda en el sistema.
+     /**
+     * Metodo que se encarga de cancelar una comanda en la base de datos
      *
-     * @param comandaDTO Objeto que contiene los datos de la comanda a cancelar.
+     * @param comandaDTO Objeto que tiene los datos de la comanda
+     * @throws NegocioException Si ocurre alguan excepcion de negocio al
+     * cancelar una comanda
      */
     public abstract void cancelarComanda(ComandaDTO comandaDTO) throws NegocioException;
 
     /**
-     * Obtiene una lista de todas las comandas registradas en el sistema.
+     * Metodo que se encarga de obtener las comandas de la base de datos
      *
-     * @return Lista de objetos ComandaDTO que representan las comandas.
+     * @return Lista de comandas obtenidas en la base de datos
+     * @throws NegocioException Si ocurre una exccepcion de negocio al obtener
+     * las comandas
      */
     public abstract List<ComandaDTO> obtenerComandas() throws NegocioException;
 
@@ -76,6 +84,7 @@ public interface IComandasBO {
      * @param fechaInicial Fecha de inicio del rango
      * @param fechaFinal Fecha de fin del rango
      * @return Lista con todas las comandas realizadas dentro del periodo
+     * @throws NegocioException si ocurre alguna excepcion al obtener las comandas por periodo
      */
     public abstract List<Comanda> obtenerComandasPorPeriodo(Calendar fechaInicial, Calendar fechaFinal) throws NegocioException;
 
@@ -85,6 +94,8 @@ public interface IComandasBO {
      * @param fechaInicial Fecha de inicio del rango
      * @param fechaFinal Fecha de fin del rango
      * @return Total de venta realizada en el periodo
+     * @throws NegocioException si ocurre alguna excepcion al calcular el tortal
+     * de ventas por periodo
      */
     public abstract BigDecimal calcularTotalVentasPorPeriodo(Calendar fechaInicial, Calendar fechaFinal) throws NegocioException;
 }

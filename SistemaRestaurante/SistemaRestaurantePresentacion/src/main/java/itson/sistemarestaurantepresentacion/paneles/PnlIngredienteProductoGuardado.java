@@ -11,8 +11,10 @@ import itson.sistemarestaurantenegocio.factory.ObjetosNegocioFactory;
 import itson.sistemarestaurantenegocio.interfaces.IIngredientesBO;
 
 /**
- * Clase que representa un panel de ingrediente perteneciente a un producto en la interfaz de usuario.
- * Este panel muestra la información de un ingrediente como su nombre,
+ * Clase que representa un panel de ingrediente perteneciente a un producto en
+ * la interfaz de usuario. Este panel muestra la información de un ingrediente
+ * como su nombre,
+ *
  * @author pc
  */
 public class PnlIngredienteProductoGuardado extends javax.swing.JPanel {
@@ -20,7 +22,10 @@ public class PnlIngredienteProductoGuardado extends javax.swing.JPanel {
     private IngredienteProductoDTO ingredienteProducto;
 
     /**
-     * Creates new form PnlIngredienteProductoGuardado
+     * Constructor que inicializa el panel
+     *
+     * @param ingredienteProducto Objeto de la relacion entre el ingrediente y
+     * el producto
      */
     public PnlIngredienteProductoGuardado(IngredienteProductoDTO ingredienteProducto) {
         this.ingredienteProducto = ingredienteProducto;
@@ -29,8 +34,8 @@ public class PnlIngredienteProductoGuardado extends javax.swing.JPanel {
     }
 
     /**
-     * Metodo que llena la informacion del ingrediente
-     * Se obtiene el ingrediente de la base de datos y se muestra en el panel.
+     * Metodo que llena la informacion del ingrediente Se obtiene el ingrediente
+     * de la base de datos y se muestra en el panel.
      */
     private void cargarIngrediente() {
         IIngredientesBO ingredientesBO = ObjetosNegocioFactory.crearIngredientesBO();
@@ -39,7 +44,7 @@ public class PnlIngredienteProductoGuardado extends javax.swing.JPanel {
             this.lblIngrediente.setText("Ingrediente: " + ingrediente.getNombre());
             this.lblUnidadMedida.setText(
                     "Unidad de medida: " + ingrediente.getUnidadMedida().toString().substring(0, 1).toUpperCase()
-                            + ingrediente.getUnidadMedida().toString().substring(1));
+                    + ingrediente.getUnidadMedida().toString().substring(1));
             this.lblCantidad.setText("Cantidad: " + ingredienteProducto.getCantidad().toString());
         } catch (NegocioException e) {
             JOptionPane.showMessageDialog(

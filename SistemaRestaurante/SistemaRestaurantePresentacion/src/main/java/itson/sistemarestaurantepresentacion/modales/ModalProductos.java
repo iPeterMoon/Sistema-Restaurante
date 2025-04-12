@@ -3,14 +3,19 @@ package itson.sistemarestaurantepresentacion.modales;
 import itson.sistemarestaurantedominio.dtos.ProductoDTO;
 
 /**
- * Clase para representar una ventana modal de productos,
- * reutiliza el panel de busqueda de productos
+ * Clase para representar una ventana modal de productos, reutiliza el panel de
+ * busqueda de productos
+ *
  * @author pc
  */
 public class ModalProductos extends javax.swing.JDialog {
 
     /**
-     * Creates new form ModalProductos
+     * Constructor que inicializa los atributos de la clase al valor de sus
+     * parametros
+     *
+     * @param parent Clase padre que utiliza el modal
+     * @param modal Modal
      */
     public ModalProductos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -46,26 +51,27 @@ public class ModalProductos extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * Obtiene el producto seleccionado en el modal.
-     * Esta función muestra el modal y espera a que el usuario seleccione un producto.
+     * Obtiene el producto seleccionado en el modal. Esta función muestra el
+     * modal y espera a que el usuario seleccione un producto.
+     *
      * @return El producto seleccionado o null si no se seleccionó ninguno.
      */
-    public ProductoDTO obtenerProductoSeleccionado(){
+    public ProductoDTO obtenerProductoSeleccionado() {
         this.setLocationRelativeTo(null);
         this.setVisible(true);
-        
+
         ProductoDTO producto = pnlBusquedaProducto.getProductoSeleccionado();
-        if(producto != null){
+        if (producto != null) {
             return producto;
         }
         return null;
     }
 
     /**
-     * Cierra el modal.
-     * Esta función se utiliza para cerrar el modal cuando ya no es necesario.
+     * Cierra el modal. Esta función se utiliza para cerrar el modal cuando ya
+     * no es necesario.
      */
-    public void cerrarModal(){
+    public void cerrarModal() {
         this.dispose();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

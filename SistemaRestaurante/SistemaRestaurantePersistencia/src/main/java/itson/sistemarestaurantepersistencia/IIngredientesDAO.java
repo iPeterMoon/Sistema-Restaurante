@@ -8,8 +8,9 @@ import itson.sistemarestaurantepersistencia.excepciones.PersistenciaException;
 import java.util.List;
 
 /**
- * Interfaz que define los métodos para la persistencia de los ingredientes
- * en el sistema de restaurante.
+ * Interfaz que define los métodos para la persistencia de los ingredientes en
+ * el sistema de restaurante.
+ *
  * @author PC
  */
 public interface IIngredientesDAO {
@@ -100,6 +101,7 @@ public interface IIngredientesDAO {
 
     /**
      * Metodo para agregar al stock de un ingrediente
+     *
      * @param idIngrediente ID del ingrediente a modificar
      * @param stock Stock a agregar
      */
@@ -107,8 +109,11 @@ public interface IIngredientesDAO {
 
     /**
      * Metodo para quitarle al stock de un ingrediente
+     *
      * @param idIngrediente ID del ingrediente a modificar
      * @param stock Stock a eliminar
+     * @throws PersistenciaException Si ocurre una excepcion al quitar el stock
+     * de un ingrediente en la base de datos
      */
     public abstract void quitarStock(Long idIngrediente, Integer stock) throws PersistenciaException;
 

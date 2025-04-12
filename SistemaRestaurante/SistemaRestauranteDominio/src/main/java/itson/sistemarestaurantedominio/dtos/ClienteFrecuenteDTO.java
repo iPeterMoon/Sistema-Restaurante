@@ -10,6 +10,10 @@ import java.util.Calendar;
 
 /**
  *
+ * Clase que representa un cliente frecuente en el sistema de restaurante. Esta
+ * clase es un DTO (Data Transfer Object) que se utiliza para transferir datos
+ * del cliente frecuente entre las capas de la aplicación.
+ *
  * @author PC
  */
 public class ClienteFrecuenteDTO {
@@ -21,9 +25,24 @@ public class ClienteFrecuenteDTO {
     private Integer puntosFidelidad;
     private Calendar fechaUltimaComanda;
 
+    /**
+     * Constructor por omision
+     */
     public ClienteFrecuenteDTO() {
     }
 
+    /**
+     * Constructor que inicializa los atirbutos de la clase al valor de sus
+     * parametros
+     *
+     * @param nombreCompleto Nombre completo del cliente
+     * @param numeroVisitas Numero de visitas que ha realizado el cliente al
+     * restaurabte
+     * @param totalGastado Total que ha gastado el cliente en el restaurante
+     * @param puntosFidelidad Puntos de fidelidad del cliente
+     * @param fechaUltimaComanda Fecha de la ultima comanda realizada por el
+     * cliente
+     */
     public ClienteFrecuenteDTO(String nombreCompleto, Long numeroVisitas, BigDecimal totalGastado, Integer puntosFidelidad, Calendar fechaUltimaComanda) {
         this.nombreCompleto = nombreCompleto;
         this.numeroVisitas = numeroVisitas;

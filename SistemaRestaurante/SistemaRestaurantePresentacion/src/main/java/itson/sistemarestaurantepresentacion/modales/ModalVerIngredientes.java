@@ -4,13 +4,17 @@ import itson.sistemarestaurantedominio.dtos.ProductoDTO;
 
 /**
  * Clase que representa un modal para ver los ingredientes de un producto
+ *
  * @author pc
  */
 public class ModalVerIngredientes extends javax.swing.JDialog {
 
-    
     /**
-     * Creates new form ModalVerIngredientes
+     * Constructor que inicializa los atributos de la clase al valor de sus
+     * parametros
+     *
+     * @param parent Clase padre que utiliza el modal
+     * @param modal Modal
      */
     public ModalVerIngredientes(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -44,10 +48,15 @@ public class ModalVerIngredientes extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void setProducto(ProductoDTO producto){
+    /**
+     * Metodo que establece el producto
+     *
+     * @param producto Producto a establecer
+     */
+    public void setProducto(ProductoDTO producto) {
         this.pnlIngredientesProducto.setProducto(producto);
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private itson.sistemarestaurantepresentacion.pantallas.PnlIngredientesProducto pnlIngredientesProducto;
     // End of variables declaration//GEN-END:variables

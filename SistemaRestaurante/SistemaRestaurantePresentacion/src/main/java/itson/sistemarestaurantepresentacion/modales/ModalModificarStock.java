@@ -18,25 +18,37 @@ public class ModalModificarStock extends javax.swing.JDialog {
     private IngredienteDTO ingrediente;
 
     /**
-     * Creates new form ModalModificarStock
+     * Constructor que inicializa los atributos de la clase al valor de sus
+     * parametros
+     *
+     * @param parent Clase padre que utiliza el modal
+     * @param modal Modal
      */
     public ModalModificarStock(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
 
-    public void setIngrediente(IngredienteDTO ingrediente){
+    /**
+     * Metodo que establece el ingrediente
+     *
+     * @param ingrediente Ingrediente a establecer
+     */
+    public void setIngrediente(IngredienteDTO ingrediente) {
         this.ingrediente = ingrediente;
         cargarIngrediente();
     }
 
-    private void cargarIngrediente(){
-        txtIngrediente.setText("Ingrediente: "+ ingrediente.getNombre());
+    /**
+     * Metodo para gargar el ingrediente
+     */
+    private void cargarIngrediente() {
+        txtIngrediente.setText("Ingrediente: " + ingrediente.getNombre());
         txtStock.setText(String.valueOf(ingrediente.getStock()));
         txtUnidad.setText(
-            String.valueOf(ingrediente.getUnidadMedida()).substring(0,1)
-            .concat(String.valueOf(ingrediente.getUnidadMedida()).substring(1).toLowerCase()));
-        
+                String.valueOf(ingrediente.getUnidadMedida()).substring(0, 1)
+                        .concat(String.valueOf(ingrediente.getUnidadMedida()).substring(1).toLowerCase()));
+
     }
 
     /**
@@ -197,53 +209,53 @@ public class ModalModificarStock extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
-        try{
+        try {
             Integer menosStock = Integer.parseInt(
-                JOptionPane.showInputDialog("Ingrese la cantidad de Stock que desea eliminar")
+                    JOptionPane.showInputDialog("Ingrese la cantidad de Stock que desea eliminar")
             );
             IIngredientesBO ingredientesBO = ObjetosNegocioFactory.crearIngredientesBO();
             ingredientesBO.eliminarStock(ingrediente.getId(), menosStock);
             IngredienteDTO ingredienteConNuevoStock = ingredientesBO.obtenerIngredientePorId(ingrediente.getId());
             setIngrediente(ingredienteConNuevoStock);
-        } catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(
-                null,
-                "Por favor ingrese un número válido",
-                "Error",
-                JOptionPane.ERROR_MESSAGE
+                    null,
+                    "Por favor ingrese un número válido",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
             );
-        } catch(NegocioException e){
+        } catch (NegocioException e) {
             JOptionPane.showMessageDialog(
-                null,
-                e.getMessage(),
-                "Error",
-                JOptionPane.ERROR_MESSAGE
+                    null,
+                    e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
             );
         };
     }//GEN-LAST:event_btnQuitarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        try{
+        try {
             Integer masStock = Integer.parseInt(
-                JOptionPane.showInputDialog("Ingrese la cantidad de Stock que desea agregar")
+                    JOptionPane.showInputDialog("Ingrese la cantidad de Stock que desea agregar")
             );
             IIngredientesBO ingredientesBO = ObjetosNegocioFactory.crearIngredientesBO();
             ingredientesBO.agregarStock(ingrediente.getId(), masStock);
             IngredienteDTO ingredienteConNuevoStock = ingredientesBO.obtenerIngredientePorId(ingrediente.getId());
             setIngrediente(ingredienteConNuevoStock);
-        } catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(
-                null,
-                "Por favor ingrese un número válido",
-                "Error",
-                JOptionPane.ERROR_MESSAGE
+                    null,
+                    "Por favor ingrese un número válido",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
             );
-        } catch(NegocioException e){
+        } catch (NegocioException e) {
             JOptionPane.showMessageDialog(
-                null,
-                e.getMessage(),
-                "Error",
-                JOptionPane.ERROR_MESSAGE
+                    null,
+                    e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
             );
         };
     }//GEN-LAST:event_btnAgregarActionPerformed
